@@ -1,0 +1,9 @@
+venv/*
+.vscode/*
+*.pyc
+__pycache__/
+instance/
+.webassets-cache
+profile_default/
+ipython_config.py
+*.ipynb
