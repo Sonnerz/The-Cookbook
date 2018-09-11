@@ -7,3 +7,4 @@ instance/
 profile_default/
 ipython_config.py
 *.ipynb
+cookbook_workspace.code-workspace
