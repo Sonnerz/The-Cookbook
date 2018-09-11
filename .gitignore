@@ -8,4 +8,4 @@ profile_default/
 ipython_config.py
 *.ipynb
 cookbook_workspace.code-workspace
-connection_details.py
+config.py

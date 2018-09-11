@@ -1,8 +1,8 @@
 body {
   @include sans-serif-font;
-  background: url(/static/img/riddler-wallpaper.jpg) no-repeat fixed;
-  background-size: cover;
-  background-position: 0px 0px;
+  // background: url(/static/img/riddler-wallpaper.jpg) no-repeat fixed;
+  // background-size: cover;
+  // background-position: 0px 0px;
 }
 
 h1,
@@ -15,18 +15,17 @@ p,
 a,
 #container-content {
   @include sans-serif-font;
-
+  color: #000;
 }
+
 i {
   margin-right:5px;
 }
 
 #container-nav {
-  background-color: $darkgreen;
-  height: 80px;
+  border-bottom: 1px solid $paynesgrey;
 
   #nav-logo {
-    height: 80px;
     position: relative;
   }
 
@@ -44,9 +43,6 @@ i {
   @media (min-width: 768px) {
     nav {
       line-height: 80px;
-    }
-    #nav-logo {
-      height: 80px;
     }
     #nav-logo img {
       width: 100%;

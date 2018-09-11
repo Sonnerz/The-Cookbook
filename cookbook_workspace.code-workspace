@@ -5,6 +5,17 @@
 		}
 	],
 	"settings": {
-		"python.pythonPath": "${workspaceFolder}\\venv\\Scripts\\python.exe"
+		"python.pythonPath": "${workspaceFolder}\\venv\\Scripts\\python.exe",
+		"liveSassCompile.settings.formats": [
+			{
+				"format": "expanded",
+				"extensionName": ".css",
+				"savePath": "/static/css/"
+			}
+		],
+		"liveSassCompile.settings.excludeList": [
+			"**/node_modules/**",
+			".vscode/**"
+		]
 	}
 }

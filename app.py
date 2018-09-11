@@ -1,5 +1,5 @@
 import os
-from connection_details import get_uri, get_dbs_name
+from config import get_uri, get_dbs_name
 from flask import Flask, render_template, redirect, request, url_for
 from flask_pymongo import PyMongo
 

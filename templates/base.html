@@ -21,17 +21,17 @@
     <!-- Navigation -->
     <div class="container-fluid" id="container-nav">
         <div class="row">
-            {% if request.path == "/index" %}
+            {% if request.path == "/" %}
             <div class="col-6">
                 <div id="nav-logo">
-                    <p>no logo</p>>
+                    <a href="/" title="CookBook"><img src="{{ url_for('static', filename='img/logo-navbar.png')}}" alt="CookBook" title="CookBook"></a>
                 </div>
             </div>
             <div class="col-6">
                 <nav>
                     <div class="row">
                         <div class="col-12 col-md-6 col-md-3">
-                                <p>session info</p>
+                            <p>session info</p>
                         </div>
                         <div class="col-12 col-md-6 col-md-3">
                             <button type="button" class="btn btn-nav" onclick="location.href='/end';">Login</button>
@@ -42,7 +42,7 @@
             {%  else  %}
             <div class="col-6">
                 <div id="nav-logo">
-                    <a href="/" title="Riddle Me This home"><img src="{{ url_for('static', filename='img/logo-navbar.png')}}" alt="Riddle Me This" title="Riddle Me This"></a>
+                    <a href="/" title="CookBook"><img src="{{ url_for('static', filename='img/logo-navbar.png')}}" alt="CookBook" title="CookBook"></a>
                 </div>
             </div>    
             <div class="col-6">
@@ -87,7 +87,7 @@
     </div>
     {% endif %}
     <!-- Bootstrap JS -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.slim.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
     <script type="text/javascript">
