@@ -12,9 +12,9 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
-@app.route('/get_test')  # connection to DB. Function with decorator. Includes route to function. remember the routing is a string that when attached to a URL will redirect to a particular  function in a flask application. 
+@app.route('/get_test')
 def get_tasks():
-    return render_template("test.html", test=mongo.db.test_collection.find())
+    return render_template("index.html", test=mongo.db.test_collection.find())
 
   
 if __name__ == '__main__':

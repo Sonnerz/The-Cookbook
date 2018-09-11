@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}" type="text/css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}" type="text/css" />
+    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico')}}" type="image/gif" sizes="16x16">
+
+    <title>The CookBook</title>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <div class="container-fluid" id="container-nav">
+        <div class="row">
+            {% if request.path == "/index" %}
+            <div class="col-6">
+                <div id="nav-logo">
+                    <p>no logo</p>>
+                </div>
+            </div>
+            <div class="col-6">
+                <nav>
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-md-3">
+                                <p>session info</p>
+                        </div>
+                        <div class="col-12 col-md-6 col-md-3">
+                            <button type="button" class="btn btn-nav" onclick="location.href='/end';">Login</button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            {%  else  %}
+            <div class="col-6">
+                <div id="nav-logo">
+                    <a href="/" title="Riddle Me This home"><img src="{{ url_for('static', filename='img/logo-navbar.png')}}" alt="Riddle Me This" title="Riddle Me This"></a>
+                </div>
+            </div>    
+            <div class="col-6">
+                <nav>
+                    <div class="row">
+                        <div class="col-12 col-md-6 col-md-3">
+                             <p>session info</p>
+                        </div>
+                        <div class="col-12 col-md-6 col-md-3">
+                            <button type="button" class="btn btn-nav" onclick="location.href='/play';">Logout</button>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <!-- Content -->
+    <div class="container" id="container-content">
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <!-- Content Left -->
+                {% block content_left %}{% endblock %}
+            </div>
+
+            <div class="col-12 col-md-6">
+                <!-- Content Right -->
+                {% block content_right %}{% endblock %}
+            </div>
+
+        </div>
+    </div>
+    <!-- Debug panel for monitoring var values -->
+    {% if debug %}
+    <div class="container" style="margin-top:100px;"><button onclick="viewPanel()">Hide/Show Debug Panel (only available in Debug Mode)</button></div>
+    <div class="container" style="display:block" id="panel-debug">
+        <div class="row">
+            <div class="col">
+                {% block content_debug %}{% endblock %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <!-- Bootstrap JS -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.3.1.slim.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <script type="text/javascript">
+        // show/hide the Debug Panel
+        function viewPanel() {
+            var panel = document.getElementById("panel-debug");
+            if (panel.style.display === "none") {
+                panel.style.display = "block";
+            }
+            else {
+                panel.style.display = "none";
+            }
+        }
+    </script>
+</body>
+
+</html>

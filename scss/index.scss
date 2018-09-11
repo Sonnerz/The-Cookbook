@@ -1,0 +1,116 @@
+#container-content {
+    .logo-container {
+        padding-top: 30px;
+        text-align: center;
+    }
+    .logo-container img {
+        max-width: 100%;
+    }
+
+
+
+    #username-form-container {
+        padding: 20px 20px;
+
+        #form-bkg {
+            padding-top: 50px;
+            @include text-background();
+            form {
+                text-align: right;
+            }
+            input {
+                margin: 0 auto;
+            }
+        }
+        #messages-container {
+            color: #b32c16;
+            background-color: #f5f5f5;
+            margin: 0 auto;
+            width: 80%;
+        }
+        .form-control:focus {
+            color: $darkgreen;
+            background-color: $white;
+            border-color: $darkgreen;
+            outline: 0;
+            box-shadow: 0 0 0 0.2rem rgba(5, 32, 3, .25);
+        }
+
+        .button-submit-margin {
+            margin-top: 10px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        .link-howto-margin,
+        .input-info {
+            padding-bottom: 5px;
+            text-align: center;
+            // padding-right: 1.6rem;
+        }
+        .input-info {
+            font-size: .7rem;
+        }
+        @media (min-width: 768px) {
+            .link-howto-margin,
+            .input-info {
+                padding-bottom: 5px;
+                text-align: right;
+                padding-right: 1.8rem;
+            }
+            .button-submit-margin {
+                padding-right: 1.8rem;
+                text-align: right;
+            }
+        }
+        @media (min-width: 992px) {
+            .link-howto-margin,
+            .input-info {
+                padding-bottom: 5px;
+                text-align: right;
+                padding-right: 2.8rem;
+            }
+            .button-submit-margin {
+                padding-right: 2.3rem;
+                text-align: right;
+            }
+        }        
+
+        /* StackOverflow solution to vertically and horizontally center the Modal */
+        .vertical-align-modal {
+            display: table;
+            height: 100%;
+            width: 100%;
+            pointer-events: none;
+        }
+        .vertical-align-center {
+            display: table-cell;
+            vertical-align: middle;
+            pointer-events: none;
+        }
+        .modal-content {
+            width: inherit;
+            max-width: inherit;
+            height: inherit;
+            margin: 0 auto;
+            pointer-events: all;
+        }
+        #form-wrapper {
+            width: 80%;
+            background-color: #ff0000;
+        }
+    }
+
+    @media (min-width: 768px) {
+        #username-form-container {
+            padding: 100px 0px;
+            width: 80%;
+        }
+        #form-bkg {
+            width: 100%;
+        }
+        .button-howto-margin {
+            margin-top: 90px;
+        }
+    }
+
+}

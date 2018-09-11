@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css?family=Margarine');
+// Mixins
+@mixin transition-all() {
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  transition: all 0.2s;
+}
+@mixin background-cover() {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+@mixin sans-serif-font() {
+  font-family: 'Margarine', cursive;
+}
+ 
+@mixin text-background() {
+  background-color: rgba(245, 245, 245, 0.7);
+  border: 1px solid transparent;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;    
+} 

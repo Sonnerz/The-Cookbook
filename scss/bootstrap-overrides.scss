@@ -1,0 +1,43 @@
+.btn {
+    white-space: normal;
+}
+
+.alert-warning {
+    color: $white;
+    background-color: $darkred;
+    border-color: $white;
+    font-family: Arial, sans serif;
+    font-size: 0.8em;
+}
+
+#riddle-answer-area .form-control{
+    height: 90px;
+    text-align: center;
+    font-size: 1.4rem;
+    
+    @media (min-width: 768px) {
+        height: 150px;
+    }
+}
+
+button.close {
+    background-color: transparent;
+    color: $black;
+    font-weight: 900;
+}
+
+.close:not(:disabled):not(.disabled):focus, .close:not(:disabled):not(.disabled):hover {
+    color: $white;
+}
+
+.btn:disabled {
+    color: #ccc;
+}
+.form-control {
+    border: 2px solid $darkgreen;
+    width: 80%;
+}
+.form-control:focus {
+    border-color: $darkred;
+}
+   
