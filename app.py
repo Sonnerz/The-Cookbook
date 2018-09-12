@@ -1,7 +1,7 @@
 import os
-import sys 
+import sys
 from config import get_uri, get_dbs_name
-from flask import Flask, render_template, request, flash, redirect, url_for, session,current_app
+from flask import Flask, render_template, request, flash, redirect, url_for, session, current_app
 from flask_pymongo import PyMongo
 
 app = Flask(__name__)
