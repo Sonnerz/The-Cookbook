@@ -1,5 +1,4 @@
 import os
-from config import get_uri, get_dbs_name
 from flask import Flask, render_template, request, flash, redirect, url_for, session
 from flask_pymongo import PyMongo
 
@@ -29,4 +28,4 @@ def get_tasks():
 
 
 if __name__ == '__main__':
-    app.run(host=os.environ.get('IP'), port=int(os.environ.get('PORT')), debug=true)
+    app.run(host=os.environ.get('IP'), port=int(os.environ.get('PORT')), debug=False)
