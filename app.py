@@ -1,16 +1,19 @@
 import os
-# from config import get_uri, get_dbs_name
+from config import get_uri, get_dbs_name
 from flask import Flask, render_template, request, flash, redirect, url_for, session
 from flask_pymongo import PyMongo
 
-MONGO_URI = os.getenv("MONGODB_URI")
 DBS_NAME = os.getenv("DBS_NAME")
-
+MONGO_URI = os.getenv("MONGODB_URI")
 
 app = Flask(__name__)
 
-app.config["MONGO_URI"] = MONGO_URI
-app.config["DBS_NAME"] = DBS_NAME
+if app.debug:
+    app.config["DBS_NAME"] = "cookbook"
+    app.config["MONGO_URI"] = "mongodb://admin:c00k800k32-@ds251332.mlab.com:51332/cookbook"
+else:
+    app.config["DBS_NAME"] = DBS_NAME
+    app.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo(app)
 
 
@@ -26,4 +29,4 @@ def get_tasks():
 
 
 if __name__ == '__main__':
-    app.run(host=os.environ.get('IP'), port=int(os.environ.get('PORT')), debug=True)
+    app.run(host=os.environ.get('IP'), port=int(os.environ.get('PORT')), debug=true)
