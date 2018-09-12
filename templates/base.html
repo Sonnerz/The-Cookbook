@@ -5,80 +5,47 @@
     <!-- Required meta tags -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>The CookBook</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}" type="text/css" />
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+        crossorigin="anonymous">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}" type="text/css" />
-    <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico')}}" type="image/ico" sizes="16x16">
-
-    <title>The CookBook</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/agency.css')}}" type="text/css" />
+    <link rel="icon" href="{{ url_for('static', filename='img/global/favicon.ico')}}" type="image/ico" sizes="16x16">
 </head>
 
-<body>
+<body id="page-top">
     <!-- Navigation -->
-    <div class="container-fluid" id="container-nav">
-        <div class="row">
-            {% if request.path == "/" %}
-            <div class="col-6">
-                <div id="nav-logo">
-                    <a href="/" title="CookBook"><img src="{{ url_for('static', filename='img/logo-navbar.png')}}" alt="CookBook" title="CookBook"></a>
-                </div>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <img src="{{ url_for('static', filename='img/global/logo-navbar.png')}}" alt="Cookbook" title="Cookbook" />
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse text-center" id="navbarResponsive">
+                <!-- Button trigger signup modal -->
+                <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#loginModal">
+                    Logins >>
+                </button>
             </div>
-            <div class="col-6">
-                <nav>
-                    <div class="row">
-                        <div class="col-12 col-md-6 col-md-3">
-                            <p>session info</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-md-3">
-                            <button type="button" class="btn btn-nav" onclick="location.href='/end';">Login</button>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            {%  else  %}
-            <div class="col-6">
-                <div id="nav-logo">
-                    <a href="/" title="CookBook"><img src="{{ url_for('static', filename='img/logo-navbar.png')}}" alt="CookBook" title="CookBook"></a>
-                </div>
-            </div>    
-            <div class="col-6">
-                <nav>
-                    <div class="row">
-                        <div class="col-12 col-md-6 col-md-3">
-                             <p>session info</p>
-                        </div>
-                        <div class="col-12 col-md-6 col-md-3">
-                            <button type="button" class="btn btn-nav" onclick="location.href='/play';">Logout</button>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            {% endif %}
         </div>
-    </div>
-    <!-- Content -->
-    <div class="container" id="container-content">
-        <div class="row">
-            <div class="col-12 col-md-6">
-                <!-- Content Left -->
-                {% block content_left %}{% endblock %}
-            </div>
+    </nav>
 
-            <div class="col-12 col-md-6">
-                <!-- Content Right -->
-                {% block content_right %}{% endblock %}
-            </div>
+    {% block template_content %}{% endblock%}
 
-        </div>
-    </div>
     <!-- Debug panel for monitoring var values -->
     {% if debug %}
-    <div class="container" style="margin-top:100px;"><button onclick="viewPanel()">Hide/Show Debug Panel (only available in Debug Mode)</button></div>
-    <div class="container" style="display:block" id="panel-debug">
+    <div class="container-fluid"><button onclick="viewPanel()">Hide/Show Debug Panel (only
+            available in Debug Mode)</button></div>
+    <div class="container-fluid" style="display:block; background-color:pink" id="panel-debug">
         <div class="row">
             <div class="col">
                 {% block content_debug %}{% endblock %}
@@ -90,6 +57,19 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+    <!-- Plugin JavaScript -->
+    <script src="{{ url_for('static', filename='js/jquery.validate.js')}}"></script>
+    <script src="{{ url_for('static', filename='js/validation_script.js')}}"></script>
+    <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+    <!-- Custom scripts for this template -->
+    <script src="{{ url_for('static', filename='js/agency.min.js')}}"></script>
+    <script>
+        addEventListener('load', prettyPrint, false);
+        $(document).ready(function () {
+            $('pre').addClass('prettyprint linenums');
+        });
+    </script>
+
     <script type="text/javascript">
         // show/hide the Debug Panel
         function viewPanel() {

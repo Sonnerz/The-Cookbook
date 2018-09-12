@@ -1,84 +1,138 @@
 {% extends 'base.html' %}
 
-<!-- Content Left Column - Logo -->
-{% block content_left %}
-<div class="logo-container">
-    <img src="{{ url_for('static', filename='img/logo.png')}}" alt="Cookbook" tooltip="Cookbook"/>
-</div>
-{% endblock %}
+{% block template_content %}
+<header class="masthead">
+  <div class="container">
+    <div class="intro-text">
+      <div class="intro-lead-in">Welcome To Our Studio!</div>
+      <div class="intro-heading text-uppercase">It's Nice To Meet You</div>
+      <div id="signup-button-container">
+        <!-- Button trigger signup modal -->
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signupModal">
+          Get Started
+        </button>
+      </div>
+    </div>
+  </div>
+</header>
 
-<!-- Content Right Column - Player name form -->
-{% block content_right %}
-<div id="username-form-container">
-    <div id="form-bkg">
-        <form method="POST" name="addUsernameForm" id="addUsernameForm">
+
+<!-- Modal for Login-->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" id="loginModal">
+  <div class="vertical-align-modal">
+    <div class="modal-dialog vertical-align-center" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Sign in</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="/login_user" name="loginForm" id="loginForm">
             <div class="control-group">
-                <div class="form-group floating-label-form-group controls">
-                    <input type="text" class="form-control" placeholder="Enter a player name..." name="addUsername" id="addUsername" required data-validation-required-message="Please enter your player name." pattern="[A-Za-z0-9]{1,50}">
-                    <div class="input-info">Letters and numbers only accepted</div>
-                    <!-- Button trigger modal -->
-                    <div class="link-howto-margin">
-                        <p><a href="#helpModal" data-toggle="modal" data-target="#helpModal"><i class="fa fa-info-circle" aria-hidden="true"></i>How to Play</a></p>
-                    </div>
+              <div class="form-group floating-label-form-group controls">
+                <input type="text" class="form-control" placeholder="Enter a user name..." name="loginUsername" id="loginUsername"
+                  required data-validation-required-message="Please enter your user name." pattern="[A-Za-z0-9]{1,50}">
+                <div class="invalid-feedback">
+                  Please enter your username.
                 </div>
-
+              </div>
             </div>
-            <div id="messages-container">
-                <div class="alert-container">
-                    <div class="alert alert-warning">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button> 
-                    </div>
+            <div class="control-group">
+              <div class="form-group floating-label-form-group controls">
+                <input type="password" class="form-control" placeholder="Enter a password.." name="loginPassword" id="loginPassword"
+                  required data-validation-required-message="Please enter your password." pattern="[A-Za-z0-9]{1,8}">
+                <div class="invalid-feedback">
+                  Please enter your password.
                 </div>
+              </div>
             </div>
             <div class="form-group button-submit-margin">
-                <button type="submit" class="btn btn-riddle-index" id="sendAnswerButton">
-                        Start/Resume a game
-                </button>
+              <button type="submit" class="btn btn-primary btn-block" id="loginButton">
+                Login
+              </button>
             </div>
-        </form>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
-    <!-- Modal for Help -->
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="helpModal" aria-hidden="true" id="helpModal">
-        <div class="vertical-align-modal">
-            <div class="modal-dialog vertical-align-center" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Riddle Me This Help</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        You must answer 10 Riddles. <br> You will only have one attempt to answer all 10 riddles but two attempts at each riddle.<br> When you complete all 10 questions, your score will be displayed on the leader-board.
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-riddle" data-dismiss="modal">Close</button>
-                    </div>
+  </div>
+</div>
+
+<!-- Modal for Sign up -->
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true" id="signupModal">
+  <div class="vertical-align-modal">
+    <div class="modal-dialog vertical-align-center" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Create an account</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="/signup_user" name="signupForm" id="signupForm">
+            <div class="control-group">
+              <div class="form-group floating-label-form-group controls">
+                <input type="text" class="form-control" placeholder="Enter a user name..." name="signupUsername" id="signupUsername">                                                                                                 
+              </div>
+            </div>
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="text" class="form-control" placeholder="Enter your first name..." name="firstName" id="firstName">                                                                                                 
                 </div>
             </div>
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="text" class="form-control" placeholder="Enter your last name..." name="lastName" id="lastName">                                                                                                 
+                </div>
+            </div>                           
+            <div class="control-group">
+              <div class="form-group floating-label-form-group controls">
+                <input type="password" class="form-control" placeholder="Enter password..." name="signupPassword" id="signupPassword"
+                  required data-validation-required-message="Please enter your password." >
+              </div>
+            </div>
+            <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="password" class="form-control" placeholder="Confirm password..." name="confirmPassword" id="confirmPassword"
+                    required data-validation-required-message="Please enter your password.">
+                </div>
+              </div>            
+            <div class="form-group button-submit-margin">
+              <button type="submit" class="btn btn-riddle-index" id="signupButton">
+                Create an account
+              </button>
+            </div>
+          </form>
         </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-riddle" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
-{% for t in testone %}
-{{t.test_description}}
-{% endfor %}
-
 {% endblock %}
 
 <!-- Debug area. Hidden if debug set to False -->
 {% block content_debug %}
 
 <div>
-    <h5>Connection Test</h5>
-    {% for t in test %}
-    {{t.test_description}}
-    {% endfor %}
-    <br>
-    <h5>Usernames</h5>
-    <p></p>
-    <br>
-    <h5>Session</h5>
-    <p>{{ session }}</p>
+  <h5>Connection Test</h5>
+  {% for t in test %}
+  {{t.test_description}}
+  {% endfor %}
+  <br>
+  <h5>Usernames</h5>
+  <p></p>
+  <br>
+  <h5>Session</h5>
+  <p>{{ session }}</p>
 </div>
 
 {% endblock %}
