@@ -1,14 +1,16 @@
 import os
-import sys
-from config import get_uri, get_dbs_name
-from flask import Flask, render_template, request, flash, redirect, url_for, session, current_app
+# from config import get_uri, get_dbs_name
+from flask import Flask, render_template, request, flash, redirect, url_for, session
 from flask_pymongo import PyMongo
+
+MONGO_URI = os.getenv("MONGODB_URI")
+DBS_NAME = os.getenv("DBS_NAME")
+
 
 app = Flask(__name__)
 
-app.config["MONGO_DBNAME"] = get_dbs_name()
-app.config["MONGO_URI"] = get_uri()
-
+app.config["MONGO_URI"] = MONGO_URI
+app.config["DBS_NAME"] = DBS_NAME
 mongo = PyMongo(app)
 
 
