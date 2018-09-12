@@ -61,24 +61,22 @@
         </div>
     </div>
 </div>
+
 {% endblock %}
 
 <!-- Debug area. Hidden if debug set to False -->
 {% block content_debug %}
 
 <div>
-    <h5>Test Connection</h5>
-    <p>{% for t in test %}
-        {{t.test_name}}<br>
-        {{t.test_description}}
-        {% endfor %}
-    </p>
+    <h5>Connection Test</h5>
+    {% for t in test %}
+    {{t.test_description}}
+    {% endfor %}
     <br>
-    <h5>Leaderboard</h5>
-    <p></p> 
-    <br>
-    <h5>Usernames</h5>    
-    <p></p>   
+    <h5>Usernames</h5>
+    {% for item in usernames %}
+    <p>{{ item }}</p>
+    {% endfor %}
     <br>
     <h5>Session</h5>
     <p>{{ session }}</p>

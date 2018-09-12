@@ -1,16 +1,20 @@
 astroid==2.0.4
 backcall==0.1.0
 bleach==2.1.4
+click==6.7
 colorama==0.3.9
 decorator==4.3.0
 defusedxml==0.5.0
 entrypoints==0.2.3
+Flask==1.0.2
+Flask-PyMongo==2.1.0
 html5lib==1.0.1
 ipykernel==4.9.0
 ipython==6.5.0
 ipython-genutils==0.2.0
 ipywidgets==7.4.1
 isort==4.3.4
+itsdangerous==0.24
 jedi==0.12.1
 Jinja2==2.10
 jsonschema==2.6.0
@@ -32,6 +36,7 @@ prometheus-client==0.3.1
 prompt-toolkit==1.0.15
 Pygments==2.2.0
 pylint==2.1.1
+pymongo==3.7.1
 python-dateutil==2.7.3
 pywinpty==0.5.4
 pyzmq==17.1.2
@@ -45,5 +50,7 @@ tornado==5.1
 traitlets==4.3.2
 wcwidth==0.1.7
 webencodings==0.5.1
+Werkzeug==0.14.1
+wget==3.2
 widgetsnbextension==3.4.1
 wrapt==1.10.11
