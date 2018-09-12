@@ -24,7 +24,7 @@ def debug_on_off():
 @app.route('/')
 @app.route('/get_test')
 def get_tasks():
-    return render_template("index.html", test=mongo.db.test_collection.find())
+    return render_template("index.html", test=mongo.db.test_collection.find(), testone=mongo.db.test_collection.find())
 
 
 if __name__ == '__main__':
