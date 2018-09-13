@@ -6,6 +6,7 @@ DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
 
 app = Flask(__name__)
+app.secret_key = 'The cat is on the roof'
 
 if app.debug:
     app.config["DBS_NAME"] = "cookbook"
@@ -22,14 +23,14 @@ def debug_on_off():
 
 
 def get_record(username):
+    row={}
     try:
-        row = user_recipe.find_one({'username': username.lower()})
-    except:
-        print("error acccessing DB")
-        flash("no access")
+        row = mongo.db.user_recipe.find_one({'username': username.lower()})
+    except Exception as e:
+        print("error accessing DB %s"%str(e))
+    
     if row:
-        print("usernane taken")
-        flash("that {}, is taken".format(username))
+        print("username taken")
     return row
 
 
@@ -41,21 +42,23 @@ def get_test():
 
 @app.route('/login_user')
 def login_user():
-    return render_template("index.html", test=mongo.db.test_collection.find())
+    return redirect(url_for('get_test'))
 
 
 @app.route('/signup_user', methods=['POST'])
 def signup_user():
-    if not check_user = get_record(request.form.get('signupUsername')):
-        users = mongo.db.user_recipe
-        new_user = {'username': request.form.get('signupUsername'),
-                    'password': request.form.get('signupPassword'),
-                    'firstname': request.form.get('firstName'),
-                    'lastname': request.form.get('lastName')}
+    check_user = get_record(request.form.get('signupUsername'))
+    if not check_user:
+        users=mongo.db.user_recipe
+        new_user={
+                'username': request.form.get('signupUsername'),
+                'password': request.form.get('signupPassword'),
+                'firstname': request.form.get('firstName'),
+                'lastname': request.form.get('lastName')}
         users.insert_one(new_user)
     else:
-        message = "Already there"
-    return redirect(url_for('get_test'), message)
+        flash("The username: {}, is already taken. Please choose another name".format(request.form["signupUsername"]))
+    return redirect(url_for('get_test'))
 
 
 if __name__ == '__main__':

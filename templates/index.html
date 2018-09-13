@@ -102,11 +102,20 @@
                   <input type="password" class="form-control" placeholder="Confirm password..." name="confirmPassword" id="confirmPassword"
                     required data-validation-required-message="Please enter your password.">
                 </div>
-              </div>            
+            </div>            
             <div class="form-group button-submit-margin">
               <button type="submit" class="btn btn-riddle-index" id="signupButton">
                 Create an account
               </button>
+            </div>
+            <div>
+              {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                  {% for message in messages %}
+                  <p>{{ message }}</p>
+                  {% endfor %}
+              {% endif %}
+              {% endwith %}
             </div>
           </form>
         </div>
