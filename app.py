@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, flash, redirect, url_for, session
+from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify, json
 from flask_pymongo import PyMongo
 
 DBS_NAME = os.getenv("DBS_NAME")
@@ -35,14 +35,8 @@ def get_record(username):
 
 
 @app.route('/')
-@app.route('/get_test')
-def get_test():
-    return render_template("index.html", test=mongo.db.test_collection.find())
-
-
-@app.route('/login_user')
-def login_user():
-    return redirect(url_for('get_test'))
+def index():
+    return render_template("index.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
 
 
 @app.route('/signup_user', methods=['POST'])
@@ -54,12 +48,23 @@ def signup_user():
                 'username': request.form.get('signupUsername'),
                 'password': request.form.get('signupPassword'),
                 'firstname': request.form.get('firstName'),
-                'lastname': request.form.get('lastName')}
-        users.insert_one(new_user)
-    else:
-        flash("The username: {}, is already taken. Please choose another name".format(request.form["signupUsername"]))
-    return redirect(url_for('get_test'))
+                'lastname': request.form.get('lastName')}   
+        if new_user:
+            users.insert_one(new_user)
+            return json.dumps({'html':'<span>All fields good !!</span>'})
+        else:
+            return json.dumps({'html':'<span>Enter the required fields</span>'})
+    return redirect(url_for('index'))
+
+
+@app.route('/login_user')
+def login_user():
+    return redirect(url_for('index'))
 
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(os.environ.get('PORT')), debug=True)
+
+#@login_required
+#@app.route('/recipe')
+#def recipe():

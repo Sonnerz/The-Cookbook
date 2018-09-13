@@ -75,47 +75,38 @@
           </button>
         </div>
         <div class="modal-body">
-          <form method="POST" action="/signup_user" name="signupForm" id="signupForm">
+          <form action="/signup_user" name="signupForm" id="signupForm" autocomplete="off" method="POST">
             <div class="control-group">
               <div class="form-group floating-label-form-group controls">
-                <input type="text" class="form-control" placeholder="Enter a user name..." name="signupUsername" id="signupUsername">                                                                                                 
+                <input type="text" class="form-control" placeholder="Enter a user name..." name="signupUsername" id="signupUsername">
               </div>
             </div>
             <div class="control-group">
-                <div class="form-group floating-label-form-group controls">
-                  <input type="text" class="form-control" placeholder="Enter your first name..." name="firstName" id="firstName">                                                                                                 
-                </div>
+              <div class="form-group floating-label-form-group controls">
+                <input type="text" class="form-control" placeholder="Enter your first name..." name="firstName" id="firstName">
+              </div>
             </div>
             <div class="control-group">
-                <div class="form-group floating-label-form-group controls">
-                  <input type="text" class="form-control" placeholder="Enter your last name..." name="lastName" id="lastName">                                                                                                 
-                </div>
-            </div>                           
+              <div class="form-group floating-label-form-group controls">
+                <input type="text" class="form-control" placeholder="Enter your last name..." name="lastName" id="lastName">
+              </div>
+            </div>
             <div class="control-group">
               <div class="form-group floating-label-form-group controls">
                 <input type="password" class="form-control" placeholder="Enter password..." name="signupPassword" id="signupPassword"
-                  required data-validation-required-message="Please enter your password." >
+                  required data-validation-required-message="Please enter your password.">
               </div>
             </div>
             <div class="control-group">
-                <div class="form-group floating-label-form-group controls">
-                  <input type="password" class="form-control" placeholder="Confirm password..." name="confirmPassword" id="confirmPassword"
-                    required data-validation-required-message="Please enter your password.">
-                </div>
-            </div>            
+              <div class="form-group floating-label-form-group controls">
+                <input type="password" class="form-control" placeholder="Confirm password..." name="confirmPassword" id="confirmPassword"
+                  required data-validation-required-message="Please enter your password.">
+              </div>
+            </div>
             <div class="form-group button-submit-margin">
               <button type="submit" class="btn btn-riddle-index" id="signupButton">
                 Create an account
               </button>
-            </div>
-            <div>
-              {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                  {% for message in messages %}
-                  <p>{{ message }}</p>
-                  {% endfor %}
-              {% endif %}
-              {% endwith %}
             </div>
           </form>
         </div>
@@ -131,17 +122,41 @@
 <!-- Debug area. Hidden if debug set to False -->
 {% block content_debug %}
 
-<div>
-  <h5>Connection Test</h5>
-  {% for t in test %}
-  {{t.test_description}}
-  {% endfor %}
-  <br>
-  <h5>Usernames</h5>
-  <p></p>
-  <br>
-  <h5>Session</h5>
-  <p>{{ session }}</p>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <h5>Connection Test</h5>
+      {% for t in test %}
+      {{t.test_description}}
+      {% endfor %}
+      <br>
+      <h5>Session</h5>
+      <p>{{ session }}</p>
+    </div>
+    <div class="col-md-6">
+      <h5>Usernames</h5>
+      {% for u in users %}
+      <p>{{u.username}}</p>
+      {% endfor %}
+    </div>
+  </div>
 </div>
-
 {% endblock %}
+<script>
+  $(function () {
+    $('#signupButton').click(function () {
+      $.ajax({
+        url: '/signup_user',
+        data: $('#signupForm').serialize(),
+        type: 'POST',
+        success: function (response) {
+          console.log(response);
+        },
+        error: function (error) {
+          console.log(error);
+        }
+      });
+    });
+  });
+
+</script>
