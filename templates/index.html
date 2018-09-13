@@ -49,6 +49,9 @@
                 </div>
               </div>
             </div>
+            <div class="form-group button-submit-margin" id="loginMessages">
+                {{ loginmessage}}
+              </div>
             <div class="form-group button-submit-margin">
               <button type="submit" class="btn btn-primary btn-block" id="loginButton">
                 Login
@@ -76,7 +79,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <form action="/signup_user" name="signupForm" id="signupForm" autocomplete="off" method="POST">
+            <form method="POST" action="/signup_user" name="signupForm" id="signupForm">
             <div class="control-group">
               <div class="form-group floating-label-form-group controls">
                 <input type="text" class="form-control" placeholder="Enter a user name..." name="signupUsername" id="signupUsername">
@@ -130,6 +133,8 @@
 </ul>
 {% endif %}
 {% endwith %}
+
+
 {% endblock %}
 
 <!-- Debug area. Hidden if debug set to False -->
@@ -154,24 +159,4 @@
   </div>
 </div>
 {% endblock %}
-<script>
-    $(function () {
-      $('#signupButton').click(function() {
-        $.ajax({
-          url: '/signup_user',
-          data: $('#signupForm').serialize(),
-          type: 'POST',
-          success: function (response) {
-            console.log(response);
-            $('#signupModal').modal('show');
-            $("#signupMessages").html(response);
-          },
-          error: function (error) {
-            console.log(error);
-            $('#signupModal').modal('show');
-            $("#signupMessages").html(response);
-          }
-        });
-      });
-    });
-  </script>
+

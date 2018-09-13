@@ -1,4 +1,5 @@
 import os
+import pdb
 from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify, json
 from flask_pymongo import PyMongo
 
@@ -32,7 +33,7 @@ def get_record(username):
     if row:
         print("username taken")
     return row
-
+# doc = coll.find_one({'first':first.lower(), 'last':last.lower()})
 
 @app.route('/')
 def index():
@@ -41,25 +42,30 @@ def index():
 
 @app.route('/signup_user', methods=['POST'])
 def signup_user():
-    check_user = get_record(request.form.get('signupUsername'))
+    check_user = get_record(request.form.get('signupUsername'), "password")
     if not check_user:
         users=mongo.db.user_recipe
         new_user={
                 'username': request.form.get('signupUsername'),
                 'password': request.form.get('signupPassword'),
                 'firstname': request.form.get('firstName'),
-                'lastname': request.form.get('lastName')}   
+                'lastname': request.form.get('lastName')} 
+        #pdb.set_trace()          
         if new_user:
             users.insert_one(new_user)
             message = "Success"
-        else:
-            message = "Failure"
-    return redirect(url_for('index', message=message))        
+            return message
+    else:
+        message = "Failure name take"
+        return message
+    return
     
 
 @app.route('/login_user')
 def login_user():
-    return redirect(url_for('index'))
+    check_user = get_record(request.form.get('signupUsername'))
+
+    return
 
 
 if __name__ == '__main__':
