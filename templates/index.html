@@ -4,13 +4,14 @@
 <header class="masthead">
   <div class="container">
     <div class="intro-text">
-      <div class="intro-lead-in">Welcome To Our Studio!</div>
-      <div class="intro-heading text-uppercase">It's Nice To Meet You</div>
+      <div class="intro-lead-in">Welcome To The Cookbook!</div>
+      <div class="intro-heading text-uppercase">yada yadda yadda</div>
       <div id="signup-button-container">
         <!-- Button trigger signup modal -->
+        <a href="#" onclick="$('#signupModal').modal({'backdrop': 'static'});">
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signupModal">
           Get Started
-        </button>
+        </button></a>
       </div>
     </div>
   </div>
@@ -108,6 +109,9 @@
                 Create an account
               </button>
             </div>
+            <div class="form-group button-submit-margin" id="signupMessages">
+              {{message}}
+            </div>
           </form>
         </div>
         <div class="modal-footer">
@@ -117,6 +121,15 @@
     </div>
   </div>
 </div>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul>
+  {% for message in messages %}
+  <li>{{ message }}</li>
+  {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
 {% endblock %}
 
 <!-- Debug area. Hidden if debug set to False -->
@@ -127,9 +140,8 @@
     <div class="col-md-6">
       <h5>Connection Test</h5>
       {% for t in test %}
-      {{t.test_description}}
+      <p>{{t.test_description}}</p>
       {% endfor %}
-      <br>
       <h5>Session</h5>
       <p>{{ session }}</p>
     </div>
@@ -143,20 +155,23 @@
 </div>
 {% endblock %}
 <script>
-  $(function () {
-    $('#signupButton').click(function () {
-      $.ajax({
-        url: '/signup_user',
-        data: $('#signupForm').serialize(),
-        type: 'POST',
-        success: function (response) {
-          console.log(response);
-        },
-        error: function (error) {
-          console.log(error);
-        }
+    $(function () {
+      $('#signupButton').click(function() {
+        $.ajax({
+          url: '/signup_user',
+          data: $('#signupForm').serialize(),
+          type: 'POST',
+          success: function (response) {
+            console.log(response);
+            $('#signupModal').modal('show');
+            $("#signupMessages").html(response);
+          },
+          error: function (error) {
+            console.log(error);
+            $('#signupModal').modal('show');
+            $("#signupMessages").html(response);
+          }
+        });
       });
     });
-  });
-
-</script>
+  </script>

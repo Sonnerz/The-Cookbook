@@ -51,11 +51,11 @@ def signup_user():
                 'lastname': request.form.get('lastName')}   
         if new_user:
             users.insert_one(new_user)
-            return json.dumps({'html':'<span>All fields good !!</span>'})
+            message = "Success"
         else:
-            return json.dumps({'html':'<span>Enter the required fields</span>'})
-    return redirect(url_for('index'))
-
+            message = "Failure"
+    return redirect(url_for('index', message=message))        
+    
 
 @app.route('/login_user')
 def login_user():

@@ -4,10 +4,6 @@ body {
   font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-p {
-  line-height: 1.75;
-}
-
 a {
   color: #fed136;
 }
@@ -180,7 +176,7 @@ img::-moz-selection {
 
 header.masthead {
   text-align: center;
-  color: white;
+  color: #546a7b;
 }
 
 header.masthead .intro-text {

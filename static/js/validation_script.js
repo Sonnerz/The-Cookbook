@@ -5,7 +5,7 @@ $(document).ready(function(){
 	    rules: {	  
 			signupUsername: {
 				minlength: 1,
-				maxlength: 10,
+				maxlength: 50,
 	      required: true
 	    },
 		  

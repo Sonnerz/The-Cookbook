@@ -4,10 +4,6 @@ body {
   @include body-font;
 }
 
-p {
-  line-height: 1.75;
-}
-
 a {
   color: $primary;
   &:hover {
