@@ -31,13 +31,23 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse text-center" id="navbarResponsive">
-                <!-- Button trigger signup modal -->
+                {% if session['isLoggedin'] == True %}
+                <!-- Button trigger logout -->
+                <form method="POST" action="/logout" name="logoutForm" id="logoutForm" class="ml-auto">
+                    <a class="btn btn-primary" href="/logout" role="button">Logout >></a>
+                </form>
+                {% else %}
+                <!-- Button trigger login modal -->
                 <button type="button" class="btn btn-primary ml-auto" data-toggle="modal" data-target="#loginModal">
-                    Logins >>
+                    Login >>
                 </button>
+                {% endif %}
             </div>
         </div>
     </nav>
+
+
+
 
     {% block template_content %}{% endblock%}
 
@@ -71,20 +81,6 @@
             $('pre').addClass('prettyprint linenums');
         });
     </script> -->
-
-    <script type="text/javascript">
-        // show/hide the Debug Panel
-        function viewPanel() {
-            var panel = document.getElementById("panel-debug");
-            if (panel.style.display === "none") {
-                panel.style.display = "block";
-            }
-            else {
-                panel.style.display = "none";
-            }
-        }
-    </script>
-
 </body>
 
 </html>

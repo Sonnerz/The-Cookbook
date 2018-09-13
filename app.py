@@ -31,18 +31,34 @@ def get_record(username):
         print("error accessing DB %s"%str(e))
     
     if row:
-        print("username taken")
+        print("row exists")
     return row
 # doc = coll.find_one({'first':first.lower(), 'last':last.lower()})
 
 @app.route('/')
 def index():
+    #session.pop('username', None)
+    session.pop('_flashes', None)
+    return render_template("index.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
+
+#@login_required
+@app.route('/profile')
+def profile():
+    return render_template("profile.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
+
+@app.route('/logout', methods=['GET','POST'])
+def logout():
+    if request.method == 'GET':
+        print(session)
+        session.pop('username', None)
+        session['isLoggedin'] = False
+        session.pop('_flashes', None)
     return render_template("index.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
 
 
 @app.route('/signup_user', methods=['POST'])
 def signup_user():
-    check_user = get_record(request.form.get('signupUsername'), "password")
+    check_user = get_record(request.form.get('signupUsername'))
     if not check_user:
         users=mongo.db.user_recipe
         new_user={
@@ -61,11 +77,25 @@ def signup_user():
     return
     
 
-@app.route('/login_user')
+@app.route('/login_user', methods=['POST'])
 def login_user():
-    check_user = get_record(request.form.get('signupUsername'))
+    pw = request.form.get('loginPassword')
+    user = get_record(request.form.get('loginUsername'))
+    if user and user["password"] == pw:
+        # message = "Welcome back " + user['username']
+        # add username to flask session
+        session['username'] = user['username']
+        session['isLoggedin'] = True
+        message = "welcome" + user['username']
+        return redirect(url_for('profile'))
+    elif user and user["password"] != pw:
+        message = "password wrong"
+        return message
+    elif not user:
+        message = "no user by that name"
+        return message        
+    return        
 
-    return
 
 
 if __name__ == '__main__':
