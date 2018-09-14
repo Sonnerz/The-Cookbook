@@ -1,5 +1,6 @@
 import os
 import pdb
+from functools import wraps
 from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify, json
 from flask_pymongo import PyMongo
 
@@ -22,6 +23,15 @@ mongo = PyMongo(app)
 def debug_on_off():
     return dict(debug=app.debug)
 
+def login_required(f):
+    @wraps(f)
+    def wrap(*args, **kwargs):
+        if session.get('isLoggedin') == True:    
+            return f(*args, **kwargs)
+        else:
+            flash("you need to be logged in first")
+            return redirect(url_for('index'))
+    return wrap    
 
 def get_record(username):
     row={}
@@ -33,7 +43,7 @@ def get_record(username):
     if row:
         print("row exists")
     return row
-# doc = coll.find_one({'first':first.lower(), 'last':last.lower()})
+
 
 @app.route('/')
 def index():
@@ -41,8 +51,9 @@ def index():
     session.pop('_flashes', None)
     return render_template("index.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
 
-#@login_required
+
 @app.route('/profile')
+@login_required
 def profile():
     return render_template("profile.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
 

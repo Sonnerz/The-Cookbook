@@ -10,38 +10,19 @@
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <h1>PROFILE PAGE</h1>
-                            <h2>HELLO!!!{{ session['username'] }}</h2>
-                            <h3 class="section-heading text-uppercase">Services</h3>
+                            <h2>Hello {{ session['username'] }}</h2>
                             <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                         </div>
                     </div>
-                    <div class="row text-center">
+                    <div class="row">
                         <div class="col-md-4">
-                            <span class="fa-stack fa-4x">
-                                <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                                <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
-                            </span>
-                            <h4 class="service-heading">E-Commerce</h4>
+                            <h4 class="service-heading">User details</h4>
                             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima
                                 maxime quam architecto
                                 quo inventore harum ex magni, dicta impedit.</p>
                         </div>
-                        <div class="col-md-4">
-                            <span class="fa-stack fa-4x">
-                                <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                                <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
-                            </span>
-                            <h4 class="service-heading">Responsive Design</h4>
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima
-                                maxime quam architecto
-                                quo inventore harum ex magni, dicta impedit.</p>
-                        </div>
-                        <div class="col-md-4">
-                            <span class="fa-stack fa-4x">
-                                <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                                <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
-                            </span>
-                            <h4 class="service-heading">Web Security</h4>
+                        <div class="col-md-8">
+                            <h4 class="service-heading">My recipes</h4>
                             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima
                                 maxime quam architecto
                                 quo inventore harum ex magni, dicta impedit.</p>
@@ -52,6 +33,17 @@
         </div>
     </div>
 </div>
+<div class="flash_messages">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
 {% endblock %}
 
 
