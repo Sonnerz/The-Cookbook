@@ -67,10 +67,11 @@
 </div>
 <script>
     //Add username to localstorage
-      localStorage.setItem("username", {{current_user._id}});
-      var localStorage_current_user_id = localStorage.getItem('username');
-      console.log(localStorage_current_user_id);
-    </script>
+    var sc = JSON.stringify({{current_user._id}})
+    localStorage.setItem("username", );
+    var localStorage_current_user_id = localStorage.getItem('username');
+    console.log(localStorage_current_user_id);
+</script>
 <div class="flash_messages">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
