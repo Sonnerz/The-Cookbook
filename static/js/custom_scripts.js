@@ -33,8 +33,7 @@
         type: 'POST',
         success: function (response) {
           console.log(response);
-          $('#loginModal').modal('show');
-          $("#loginMessages").html(response);
+          window.location.href = "/profile";
         },
         error: function (error) {
           console.log(error);

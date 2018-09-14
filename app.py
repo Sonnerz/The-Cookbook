@@ -86,8 +86,8 @@ def login_user():
         # add username to flask session
         session['username'] = user['username']
         session['isLoggedin'] = True
-        message = "welcome" + user['username']
-        return redirect(url_for('profile'))
+        message = "Welcome back " + user['username']
+        return message        
     elif user and user["password"] != pw:
         message = "password wrong"
         return message
