@@ -4,8 +4,8 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <!-- Services -->
-            <section id="services">
+            <!-- User Content -->
+            <section id="user_content">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 text-center">
@@ -14,41 +14,75 @@
                             <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
                         </div>
                     </div>
+                    <!-- User Details -->
                     <div class="row">
-                        <!-- <div class="col-md-4">
+                        <div class="col-md-12">
                             <h4 class="service-heading">User details</h4>
-                            <p class="text-muted">username: {{ current_user['username'] }}</p>
-                            <p class="text-muted">First name: {{ current_user['firstname'] }}</p>
-                            <p class="text-muted">last name: {{ current_user['lastname'] }}</p>
-                        </div> -->
+                            <p class="text-muted">username: {{ current_user.username }}</p>
+                            <p class="text-muted">First name: {{ current_user.firstname }}</p>
+                            <p class="text-muted">last name: {{ current_user.lastname }}</p>
+                            <p class="text-muted">id: {{ current_user._id }}</p>
+                        </div>
+                    </div>
+                    <!-- User Recipes -->
+                    <div class="row">
                         <div class="col-md-12">
                             <h4 class="service-heading">My recipes</h4>
                             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima
-                                maxime quam architecto
-                                quo inventore harum ex magni, dicta impedit.</p>
-                                {% for r in current_user.recipes %}
-                                <div>{{r.name}}</div>
-                                {% endfor %}
-                                                        
-     
+                                maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">Name</div>
+                        <div class="col-2">Description</div>
+                        <div class="col-2 text-center">Views</div>
+                        <div class="col-2 text-center">Votes</div>
+                        <div class="col-4 text-center" style="background-color:rgb(199, 200, 101)">Manage Recipes</div>
+                    </div>
+                    <div class="row">
+                        {% for r in current_user.recipes %}
+                        <div class="col-2">{{ r.name }}</div>
+                        <div class="col-2">{{ r.description|truncate(100, False, '...', 0) }}</div>
+                        <div class="col-2 text-center">{{ r.views }}</div>
+                        <div class="col-2 text-center">{{ r.votes }}</div>
+                        <div class="col-4 text-center" style="background-color:darkgray">
+                            <div class="row">
+                                <div class="col-4">
+                                    <a href="/edit_recipe" type="button" id="edit_recipe">Edit</a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="/add_recipe" type="button" id="add_recipe">Add</a>
+                                </div>
+                                <div class="col-4">
+                                    <a href="/delete_recipe" type="button" id="delete_recipe">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
             </section>
         </div>
     </div>
 </div>
+<script>
+    //Add username to localstorage
+      localStorage.setItem("username", {{current_user._id}});
+      var localStorage_current_user_id = localStorage.getItem('username');
+      console.log(localStorage_current_user_id);
+    </script>
 <div class="flash_messages">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul>
-          {% for message in messages %}
-          <li>{{ message }}</li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-    </div>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+
 {% endblock %}
 
 
@@ -56,28 +90,25 @@
 {% block content_debug %}
 
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-md-6">
-      <h5>Connection Test</h5>
-      {% for t in test %}
-      <p>{{t.test_description}}</p>
-      {% endfor %}
-      <h5>Session</h5>
-      <p>{{ session }}</p>
-      <p>session['username']</p>
-      <p>session['isLoggedin']</p>
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Connection Test</h5>
+            {% for t in test %}
+            <p>{{t.test_description}}</p>
+            {% endfor %}
+            <h5>Session</h5>
+            <p>{{ session }}</p>
+            <p>session['username']</p>
+            <p>session['isLoggedin']</p>
+        </div>
+        <div class="col-md-6">
+            <h5>Current User</h5>
+            <p>username: {{ current_user.username }}</p>
+            <p>firstname: {{ current_user.firstname }}</p>
+            <p>lastname: {{ current_user.lastname }}</p>
+            <p>country: {{ current_user.country }}</p>
+            <p>User Recipes: {{ current_user.recipes[0]['name'] }}</p>
+        </div>
     </div>
-    <div class="col-md-6">
-      <h5>Current User</h5>
-      <p>username: {{ current_user.username }}</p>
-      <p>firstname: {{ current_user.firstname }}</p>
-      <p>lastname: {{ current_user.lastname }}</p>
-      <p>country: {{ current_user.country }}</p>
-      <!-- <h5>Current User Details</h5> -->
-      <!-- {% for k, v in current_user.items() %}
-      <p>{{ k }}  :  {{ v }}</p>
-   {% endfor %} -->
-    </div>
-  </div>
 </div>
 {% endblock %}

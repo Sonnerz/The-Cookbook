@@ -3,6 +3,7 @@ import pdb
 from functools import wraps
 from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify, json
 from flask_pymongo import PyMongo
+from bson.objectid import ObjectId
 
 DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
@@ -51,13 +52,13 @@ def get_record(username):
 def index():
     #session.pop('username', None)
     session.pop('_flashes', None)
-    return render_template("index.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
+    return render_template("index.html", test=mongo.db.test_collection.find())
 
 # PROFILE
 @app.route('/profile')
 @login_required
 def profile():
-    current_user = get_record(session['username'])
+    current_user = dict(get_record(session['username']))
     return render_template("profile.html", test=mongo.db.test_collection.find(), current_user=current_user)
 
 # LOGOUT
@@ -98,9 +99,9 @@ def login_user():
     pw = request.form.get('loginPassword')
     user = get_record(request.form.get('loginUsername'))
     if user and user["password"] == pw:
-        # message = "Welcome back " + user['username']
         # add username to flask session
         session['username'] = user['username']
+        # set seession isLoggedin to True: session is true
         session['isLoggedin'] = True
         message = "Welcome back " + user['username']
         return message        

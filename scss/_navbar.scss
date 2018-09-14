@@ -1,14 +1,14 @@
 // Styling for the navbar
 #mainNav {
   background-color: $white;
+  border-bottom: 1px solid $paynesgrey;
   .navbar-toggler {
     font-size: 12px;
     right: 0;
     padding: 13px;
     text-transform: uppercase;
     color: $gray-700;
-    border: 1px solid $palesilver;
-    background-color: transparent;
+    background-color: $white;
     @include heading-font;
   }
   .navbar-brand {
@@ -48,7 +48,8 @@
     -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
     transition: padding-top 0.3s, padding-bottom 0.3s;
     border: none;
-    background-color: transparent;
+    background-color: $white;
+    border-bottom: 1px solid $paynesgrey;
     .navbar-brand {
       font-size: 1.75em;
       -webkit-transition: all 0.3s;
