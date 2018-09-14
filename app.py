@@ -18,11 +18,12 @@ else:
     app.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo(app)
 
-
+# DEBUGGING
 @app.context_processor
 def debug_on_off():
     return dict(debug=app.debug)
 
+# LOGIN REQUIRED WRAP
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -33,6 +34,7 @@ def login_required(f):
             return redirect(url_for('index'))
     return wrap    
 
+# GET RECORD FROM USER_RECIPE COLLECTION
 def get_record(username):
     row={}
     try:
@@ -44,19 +46,21 @@ def get_record(username):
         print("row exists")
     return row
 
-
+# INDEX
 @app.route('/')
 def index():
     #session.pop('username', None)
     session.pop('_flashes', None)
     return render_template("index.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
 
-
+# PROFILE
 @app.route('/profile')
 @login_required
 def profile():
-    return render_template("profile.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
+    current_user = get_record(session['username'])
+    return render_template("profile.html", test=mongo.db.test_collection.find(), current_user=current_user)
 
+# LOGOUT
 @app.route('/logout', methods=['GET','POST'])
 def logout():
     if request.method == 'GET':
@@ -67,6 +71,7 @@ def logout():
     return render_template("index.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
 
 
+# SIGN UP NEW USER / REGISTER / CREATE RECORD IN COLLECTION USER_RECIPE
 @app.route('/signup_user', methods=['POST'])
 def signup_user():
     check_user = get_record(request.form.get('signupUsername'))
@@ -87,7 +92,7 @@ def signup_user():
         return message
     return
     
-
+# LOGIN IN USER WHO IS REGISTERED
 @app.route('/login_user', methods=['POST'])
 def login_user():
     pw = request.form.get('loginPassword')
@@ -111,7 +116,3 @@ def login_user():
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(os.environ.get('PORT')), debug=True)
-
-#@login_required
-#@app.route('/recipe')
-#def recipe():

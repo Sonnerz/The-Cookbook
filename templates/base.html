@@ -53,8 +53,11 @@
 
     <!-- Debug panel for monitoring var values -->
     {% if debug %}
-    <div class="container-fluid"><button onclick="viewPanel()">Hide/Show Debug Panel (only
-            available in Debug Mode)</button></div>
+    <div class="container-fluid">
+        <button onclick="viewPanel()" style="border-color:pink">
+            Hide/Show Debug Panel (only available in Debug Mode)
+        </button>
+    </div>
     <div class="container-fluid" style="display:block; background-color:pink" id="panel-debug">
         <div class="row">
             <div class="col">
