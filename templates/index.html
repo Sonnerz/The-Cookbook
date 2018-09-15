@@ -42,7 +42,8 @@
             <div class="control-group">
               <div class="form-group floating-label-form-group controls">
                 <input type="text" class="form-control" placeholder="Enter a user name..." name="loginUsername" id="loginUsername"
-                  required data-validation-required-message="Please enter your user name." pattern="[A-Za-z0-9]{1,50}">
+                  required data-validation-required-message="Please enter your user name." pattern="[A-Za-z0-9]{1,50}"
+                  value="zed">
                 <div class="invalid-feedback">
                   Please enter your username.
                 </div>
@@ -51,19 +52,20 @@
             <div class="control-group">
               <div class="form-group floating-label-form-group controls">
                 <input type="password" class="form-control" placeholder="Enter a password.." name="loginPassword" id="loginPassword"
-                  required data-validation-required-message="Please enter your password." pattern="[A-Za-z0-9]{1,8}">
+                  required data-validation-required-message="Please enter your password." pattern="[A-Za-z0-9]{1,8}"
+                  value="123">
                 <div class="invalid-feedback">
                   Please enter your password.
                 </div>
               </div>
             </div>
-            <div class="form-group button-submit-margin" id="loginMessages">
-              {{ loginmessage}}
-            </div>
             <div class="form-group button-submit-margin">
               <button type="submit" class="btn btn-primary btn-block" id="loginButton">
                 Login
               </button>
+            </div>
+            <div class="form-group button-submit-margin" id="loginMessages">
+              {{ loginmessage}}
             </div>
           </form>
         </div>

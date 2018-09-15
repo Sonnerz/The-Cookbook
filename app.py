@@ -19,10 +19,13 @@ else:
     app.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo(app)
 
+
+
 # DEBUGGING
 @app.context_processor
 def debug_on_off():
     return dict(debug=app.debug)
+
 
 # LOGIN REQUIRED WRAP
 def login_required(f):
@@ -86,7 +89,7 @@ def signup_user():
         #pdb.set_trace()          
         if new_user:
             users.insert_one(new_user)
-            message = "Success"
+            message = "Success, Log in now."
             return message
     else:
         message = "Failure name take"
@@ -101,10 +104,14 @@ def login_user():
     if user and user["password"] == pw:
         # add username to flask session
         session['username'] = user['username']
-        # set seession isLoggedin to True: session is true
+        # set session isLoggedin to True: session is true
         session['isLoggedin'] = True
-        message = "Welcome back " + user['username']
-        return message        
+        #message to user 
+        message = "Welcome back " + user['username'] + " you will be redirected to your profile page."
+        id = str(user['_id'])
+        response = {"username": user['username'], "_id": id, "message": message}
+        # return jsonify(user), 200, {'content-type': 'application/json'}
+        return jsonify(response)
     elif user and user["password"] != pw:
         message = "password wrong"
         return message
@@ -112,7 +119,6 @@ def login_user():
         message = "no user by that name"
         return message        
     return        
-
 
 
 if __name__ == '__main__':
