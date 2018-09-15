@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
 {% block template_content %}
+
+{% with messages = get_flashed_messages(with_categories=true) %} {% if messages %}
+{% for category, message in messages %}
+<div class="alert-container-index">
+  <div class="alert {{ category }}">
+    <button type="button" class="close" data-dismiss="alert">&times;</button> {{ message|capitalize }}
+  </div> {% endfor %} {% endif %} {% endwith %}
+</div>
 <header class="masthead">
   <div class="container">
     <div class="intro-text">
@@ -9,24 +17,14 @@
       <div id="signup-button-container">
         <!-- Button trigger signup modal -->
         <a href="#" onclick="$('#signupModal').modal({'backdrop': 'static'});">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signupModal">
-          Get Started
-        </button></a>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signupModal">
+            Get Started
+          </button></a>
       </div>
     </div>
   </div>
 </header>
-<div class="flash_messages">
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-      {% for message in messages %}
-      <li>{{ message }}</li>
-      {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-</div>
+
 
 <!-- Modal for Login-->
 <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" id="loginModal">
@@ -60,8 +58,8 @@
               </div>
             </div>
             <div class="form-group button-submit-margin" id="loginMessages">
-                {{ loginmessage}}
-              </div>
+              {{ loginmessage}}
+            </div>
             <div class="form-group button-submit-margin">
               <button type="submit" class="btn btn-primary btn-block" id="loginButton">
                 Login
@@ -89,7 +87,7 @@
           </button>
         </div>
         <div class="modal-body">
-            <form method="POST" action="/signup_user" name="signupForm" id="signupForm">
+          <form method="POST" action="/signup_user" name="signupForm" id="signupForm">
             <div class="control-group">
               <div class="form-group floating-label-form-group controls">
                 <input type="text" class="form-control" placeholder="Enter a user name..." name="signupUsername" id="signupUsername">
@@ -156,9 +154,10 @@
     </div>
     <div class="col-md-6">
       <h5>Usernames</h5>
-
+      {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+      {{message}}
+      {% endfor %} {% endif %} {% endwith %}
     </div>
   </div>
 </div>
 {% endblock %}
-

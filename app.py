@@ -31,8 +31,8 @@ def login_required(f):
         if session.get('isLoggedin') == True:    
             return f(*args, **kwargs)
         else:
-            flash("you need to be logged in first")
-            return redirect(url_for('index'))
+            flash("you need to be logged in first", 'info') #success error info
+            return render_template("index.html")
     return wrap    
 
 # GET RECORD FROM USER_RECIPE COLLECTION
@@ -117,3 +117,6 @@ def login_user():
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(os.environ.get('PORT')), debug=True)
+
+
+    # import pdb; pdb.set_trace()
