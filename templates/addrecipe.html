@@ -2,11 +2,21 @@
 
 {% block template_content %}
 <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <section id="user_name">
+                    <span>&#123;&#123; Hello {{ current_user.username }} &#125;&#125;</span>
+                </section>
+            </div>
+        </div>
+    </div>
+<div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <!-- User Content -->
             <section id="user_content">
                 <div class="container">
+
                     <div class="row">
                         <div class="col-lg-12 text-center">
                             <h1>Add Recipe</h1>

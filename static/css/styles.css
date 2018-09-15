@@ -27,7 +27,7 @@ h6 {
 }
 
 section {
-  padding: 100px 0;
+  padding: 80px 0;
 }
 
 section h2.section-heading {
@@ -47,7 +47,7 @@ section h3.section-subheading {
 
 @media (min-width: 768px) {
   section {
-    padding: 150px 0;
+    padding: 100px 0;
   }
 }
 
@@ -167,6 +167,7 @@ img::-moz-selection {
   margin-bottom: 0;
   text-decoration: none;
   line-height: 2.5rem;
+  text-align: center;
 }
 
 #mainNav ul li {
@@ -378,9 +379,23 @@ label.error {
   }
 }
 
-.service-heading {
-  margin: 15px 0;
-  text-transform: none;
+#user_name {
+  padding: 0;
+  padding-top: 80px;
+  text-align: right;
+  padding-right: 5rem;
+}
+
+@media (min-width: 768px) {
+  #user_name {
+    padding-top: 130px;
+  }
+}
+
+@media (min-width: 576px) {
+  #user_name {
+    padding-top: 130px;
+  }
 }
 
 #portfolio .portfolio-item {
