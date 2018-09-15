@@ -1,12 +1,13 @@
-.alert.succes {
+.alert.success {
     background-color: green;
+    color:$white;
   }
   
-  .alert.error {
+.alert.error {
     background-color: red;
   }
 
-  .alert.info{
+.alert.info{
     background-color: rgb(113, 90, 219);
     color:$white;
   }

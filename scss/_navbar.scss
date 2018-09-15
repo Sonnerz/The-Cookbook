@@ -1,87 +1,113 @@
 // Styling for the navbar
 #mainNav {
-  background-color: $white;
-  border-bottom: 1px solid $paynesgrey;
-  .navbar-toggler {
-    font-size: 12px;
-    right: 0;
-    padding: 13px;
-    text-transform: uppercase;
-    color: $gray-700;
-    background-color: $white;
-    @include heading-font;
-  }
-  .navbar-brand {
-    color: $primary;
-    @include script-font;
-    &.active,
-    &:active,
-    &:focus,
-    &:hover {
-      color: darken($primary, 10%);
-    }
-    img {
-      width: 226px;
-      height: auto;
-    }
-  }
-  .navbar-nav {
-    .nav-item {
-      .nav-link {
-        font-size: 90%;
-        font-weight: 400;
-        padding: 0.75em 0;
-        letter-spacing: 1px;
-        color: white;
-        @include heading-font;
-        &.active,
-        &:hover {
-          color: $primary;
-        }
-      }
-    }
-  }
-}
-@media(min-width:992px) {
-  #mainNav {
-    -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
-    -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
-    transition: padding-top 0.3s, padding-bottom 0.3s;
-    border: none;
     background-color: $white;
     border-bottom: 1px solid $paynesgrey;
+    .navbar-toggler {
+        font-size: 12px;
+        right: 0;
+        padding: 13px;
+        text-transform: uppercase;
+        color: $gray-700;
+        background-color: $white;
+        @include heading-font;
+    }
     .navbar-brand {
-      font-size: 1.75em;
-      -webkit-transition: all 0.3s;
-      -moz-transition: all 0.3s;
-      transition: all 0.3s;
+        color: $primary;
+        @include script-font;
+        &.active,
+        &:active,
+        &:focus,
+        &:hover {
+            color: darken($primary, 10%);
+        }
+        img {
+            width: 226px;
+            height: auto;
+        }
     }
     .navbar-nav {
-      .nav-item {
-        .nav-link {
-          padding: 1.1em 1em !important;
+        .nav-item {
+            .nav-link {
+                font-size: 90%;
+                font-weight: 400;
+                padding: 0.75em 0;
+                letter-spacing: 1px;
+                color: white;
+                @include heading-font;
+                &.active,
+                &:hover {
+                    color: $primary;
+                }
+            }
         }
-      }
     }
-    &.navbar-shrink {
-      padding-top: 0;
-      padding-bottom: 0;
-      background-color: $white;
-      .navbar-brand {
-        font-size: 1.25em;
-        padding: 12px 0;
-      }
+    ul {
+        display: flex;
+        text-align: left;
+        list-style: none;
+        text-transform: uppercase;
+        padding-left: 0;
+        margin-top: 0;
+        margin-bottom: 0;
+        text-decoration: none;
+        line-height: 2.5rem;
+        li {
+            margin-right: 25px;
+            padding-bottom: 0;
+            a {
+                color: #000;
+            }
+            .nav-logout {
+              color: #fff;
+            }
+            .active-link{
+              color:#ff0000;
+              text-decoration: underline;
+            }
+        }
     }
-  }
+}
+
+@media(min-width:992px) {
+    #mainNav {
+        -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
+        -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
+        transition: padding-top 0.3s, padding-bottom 0.3s;
+        border: none;
+        background-color: $white;
+        border-bottom: 1px solid $paynesgrey;
+        .navbar-brand {
+            font-size: 1.75em;
+            -webkit-transition: all 0.3s;
+            -moz-transition: all 0.3s;
+            transition: all 0.3s;
+        }
+        .navbar-nav {
+            .nav-item {
+                .nav-link {
+                    padding: 1.1em 1em !important;
+                }
+            }
+        }
+        &.navbar-shrink {
+            padding-top: 0;
+            padding-bottom: 0;
+            background-color: $white;
+            .navbar-brand {
+                font-size: 1.25em;
+                padding: 12px 0;
+            }
+        }
+    }
 }
 
 @media(min-width: 576px) {
-  #mainNav {
-    .navbar-brand {
-      img {
-        width: 100%;
-        height: auto;
-      }
+    #mainNav {
+        .navbar-brand {
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
     }
-  }
 }

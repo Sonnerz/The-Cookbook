@@ -34,13 +34,12 @@ $(function () {
       success: function (response) {
         console.log(response);
         $("#loginMessages").html(response.message);
-        //Add username to localstorage        
+        //Add username and id to localstorage        
         localStorage.setItem("username", response.username);
         localStorage.setItem("user_id", response._id);
         // Delay before redirect to read message
-        var delay = 1500;
+        var delay = 1200;
         setTimeout(function () { window.location.href = "/profile"; }, delay);
-        // window.location.href = "/profile";
       },
       error: function (error) {
         console.log(error);
@@ -62,11 +61,15 @@ function viewPanel() {
   }
 }
 
+// add class to navbar link depending on the page displayed
+$(document).ready(function(){
+  var current_path = $(location).attr('pathname');
+  //console.log(current_path)
+  if (current_path == "/profile") {
+    $("#profile-nav-link").addClass("active-link");
+  }
+  else if (current_path == "/add_recipe") {
+    $("#add-nav-link").addClass("active-link");
+  }
+});
 
-//   <script>
-//     //Add username to localstorage
-//     var sc = JSON.stringify({{current_user._id}})
-//     localStorage.setItem("username", );
-//     var localStorage_current_user_id = localStorage.getItem('username');
-//     console.log(localStorage_current_user_id);
-// </script>

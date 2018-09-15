@@ -99,8 +99,9 @@ img::-moz-selection {
   background: transparent;
 }
 
-.alert.succes {
+.alert.success {
   background-color: green;
+  color: #fff;
 }
 
 .alert.error {
@@ -152,6 +153,38 @@ img::-moz-selection {
 
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
   color: #fed136;
+}
+
+#mainNav ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-align: left;
+  list-style: none;
+  text-transform: uppercase;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  text-decoration: none;
+  line-height: 2.5rem;
+}
+
+#mainNav ul li {
+  margin-right: 25px;
+  padding-bottom: 0;
+}
+
+#mainNav ul li a {
+  color: #000;
+}
+
+#mainNav ul li .nav-logout {
+  color: #fff;
+}
+
+#mainNav ul li .active-link {
+  color: #ff0000;
+  text-decoration: underline;
 }
 
 @media (min-width: 992px) {

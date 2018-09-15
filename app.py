@@ -34,7 +34,7 @@ def login_required(f):
         if session.get('isLoggedin') == True:    
             return f(*args, **kwargs)
         else:
-            flash("you need to be logged in first", 'info') #success error info
+            flash("You need to be logged in, to view this page", 'info') #success error info
             return render_template("index.html")
     return wrap    
 
@@ -64,6 +64,14 @@ def profile():
     current_user = dict(get_record(session['username']))
     return render_template("profile.html", test=mongo.db.test_collection.find(), current_user=current_user)
 
+
+# ADD RECIPE
+@app.route('/add_recipe')
+@login_required
+def add_recipe():
+    current_user = dict(get_record(session['username']))
+    return render_template("addrecipe.html", test=mongo.db.test_collection.find(), current_user=current_user)    
+
 # LOGOUT
 @app.route('/logout', methods=['GET','POST'])
 def logout():
@@ -72,6 +80,7 @@ def logout():
         session.pop('username', None)
         session['isLoggedin'] = False
         session.pop('_flashes', None)
+        flash("You are logged out", 'success') #success error info
     return render_template("index.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
 
 
@@ -110,7 +119,6 @@ def login_user():
         message = "Welcome back " + user['username'] + " you will be redirected to your profile page."
         id = str(user['_id'])
         response = {"username": user['username'], "_id": id, "message": message}
-        # return jsonify(user), 200, {'content-type': 'application/json'}
         return jsonify(response)
     elif user and user["password"] != pw:
         message = "password wrong"
