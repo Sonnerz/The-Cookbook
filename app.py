@@ -50,6 +50,11 @@ def get_record(username):
         print("row exists")
     return row
 
+# GET CATEGORIES
+def get_categories():
+    categories=mongo.db.categories.find()
+    return categories
+
 # INDEX
 @app.route('/')
 def index():
@@ -70,7 +75,8 @@ def profile():
 @login_required
 def add_recipe():
     current_user = dict(get_record(session['username']))
-    return render_template("addrecipe.html", test=mongo.db.test_collection.find(), current_user=current_user)    
+    categories = get_categories()
+    return render_template("addrecipe.html", test=mongo.db.test_collection.find(), current_user=current_user, categories=categories )    
 
 # LOGOUT
 @app.route('/logout', methods=['GET','POST'])

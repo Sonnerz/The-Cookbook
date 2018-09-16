@@ -27,7 +27,7 @@ h6 {
 }
 
 section {
-  padding: 80px 0;
+  padding: 30px 0;
 }
 
 section h2.section-heading {
@@ -47,7 +47,7 @@ section h3.section-subheading {
 
 @media (min-width: 768px) {
   section {
-    padding: 100px 0;
+    padding: 30px 0;
   }
 }
 
@@ -97,6 +97,10 @@ img::selection {
 
 img::-moz-selection {
   background: transparent;
+}
+
+#panel-debug p {
+  margin: 0;
 }
 
 .alert.success {

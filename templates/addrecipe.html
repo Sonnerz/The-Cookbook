@@ -1,75 +1,142 @@
 {% extends 'base.html' %}
 
 {% block template_content %}
-<div class="container-fluid">
-        <div class="row">
-            <div class="col-12">
-                <section id="user_name">
-                    <span>&#123;&#123; Hello {{ current_user.username }} &#125;&#125;</span>
-                </section>
-            </div>
-        </div>
-    </div>
+<!-- USER NAME-->
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
-            <!-- User Content -->
+            <section id="user_name">
+                <span>&#123;&#123; Hello {{ current_user.username }}, welcome back &#125;&#125;</span>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- PAGE CONTENT-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <!-- PAGE HEADER -->
             <section id="user_content">
                 <div class="container">
-
                     <div class="row">
-                        <div class="col-lg-12 text-center">
+                        <div class="col-lg-12">
                             <h1>Add Recipe</h1>
-                            <h2>Hello {{ current_user.username }}</h2>
-                            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                            <h3 class="section-subheading text-muted">Add a new recipe complete teh form.</h3>
                         </div>
                     </div>
-                    <!-- User Details -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 class="service-heading">User details</h4>
-                            <p class="text-muted">username: {{ current_user.username }}</p>
-                            <p class="text-muted">First name: {{ current_user.firstname }}</p>
-                            <p class="text-muted">last name: {{ current_user.lastname }}</p>
-                            <p class="text-muted">id: {{ current_user._id }}</p>
-                        </div>
-                    </div>
-                    <!-- User Recipes -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 class="service-heading">My recipes</h4>
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima
-                                maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2">Name</div>
-                        <div class="col-2">Description</div>
-                        <div class="col-2 text-center">Views</div>
-                        <div class="col-2 text-center">Votes</div>
-                        <div class="col-4 text-center" style="background-color:rgb(199, 200, 101)">Manage Recipes</div>
-                    </div>
-                    <div class="row">
-                        {% for r in current_user.recipes %}
-                        <div class="col-2">{{ r.name }}</div>
-                        <div class="col-2">{{ r.description|truncate(100, False, '...', 0) }}</div>
-                        <div class="col-2 text-center">{{ r.views }}</div>
-                        <div class="col-2 text-center">{{ r.votes }}</div>
-                        <div class="col-4 text-center" style="background-color:darkgray">
-                            <div class="row">
-                                <div class="col-4">
-                                    <a href="/edit_recipe" type="button" id="edit_recipe">Edit</a>
+                    <!-- ADD RECIPES FORM-->
+                    <form>
+                        <div class="row" style="background-color:blueviolet">
+
+                            <div class="col-6" style="background-color:burlywood">
+                                <div class="form-group">
+                                    <label for="inputName">Name</label>
+                                    <input type="input" class="form-control" id="name" name="name" placeholder="Name of recipe">
                                 </div>
-                                <div class="col-4">
-                                    <a href="/add_recipe" type="button" id="add_recipe">Add</a>
+                                <div class="form-group">
+                                    <label for="inputDescription">Description</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3"
+                                        placeholder="Description"></textarea>
                                 </div>
-                                <div class="col-4">
-                                    <a href="/delete_recipe" type="button" id="delete_recipe">Delete</a>
+                                <div class="form-group">
+                                        <label for="inputMain">Main Ingredient</label>
+                                        <input type="input" class="form-control" id="main" name="main" placeholder="Main Ingredient">
+                                    </div>                                
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="selectCategory">Category</label>
+                                        <select class="category-select">
+                                            <option selected>Open this select menu</option>
+                                            {% for category in categories%}
+                                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label for="selectCuisine">Cuisine</label>
+                                        <select class="cuisine-select">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">
+                                        <label for="selectDifficulty">Difficulty</label>
+                                        <select class="difficulty-select">
+                                            <option selected>Open this select menu</option>
+                                            <option value="1">One</option>
+                                            <option value="2">Two</option>
+                                            <option value="3">Three</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="inputPrep">prep time</label>
+                                            <input type="input" class="form-control" id="prep" name="prep" placeholder="prep time">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="inputCook">cook time</label>
+                                            <input type="input" class="form-control" id="cook" name="cook" placeholder="cook time">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="inputServes">Serves</label>
+                                            <input type="input" class="form-control" id="serves" name="serves" placeholder="serves">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="form-group">
+                                            <label for="inputCalories">calories</label>
+                                            <input type="input" class="form-control" id="calories" name="calories" placeholder="calories">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail4">image</label>
+                                    <input type="textarea" class="form-control" id="calories" name="calories"
+                                        placeholder="calories">
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
+                                    <label class="form-check-label" for="inlineCheckbox1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
+                                    <label class="form-check-label" for="inlineCheckbox2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3"
+                                        disabled>
+                                    <label class="form-check-label" for="inlineCheckbox3">3 (disabled)</label>
                                 </div>
                             </div>
-                        </div>
-                        {% endfor %}
-                    </div>
+                            <div class="col-6" style="background-color:aqua">
+
+
+                                <div class="form-group">
+                                    <label for="inputEmail4">ingredients</label>
+                                    <input type="textarea" class="form-control" id="ingredients" name="ingredients"
+                                        placeholder="ingredients">
+                                </div>
+                                <div class="form-group">
+                                    <label for="inputEmail4">method</label>
+                                    <input type="textarea" class="form-control" id="method" name="method" placeholder="method">
+                                </div>
+
+                            </div>
+                            <button type="submit" class="btn btn-primary" action="/add_recipe" id="addRecipeButton">Add Recipe</button>
+                    </form>
                 </div>
             </section>
         </div>
@@ -94,7 +161,7 @@
 <!-- Debug area. Hidden if debug set to False -->
 {% block content_debug %}
 
-<div class="container-fluid">
+<div class="container-fluid" id>
     <div class="row">
         <div class="col-md-6">
             <h5>Connection Test</h5>
@@ -112,6 +179,7 @@
             <p>firstname: {{ current_user.firstname }}</p>
             <p>lastname: {{ current_user.lastname }}</p>
             <p>country: {{ current_user.country }}</p>
+            <p>id: {{ current_user._id }}</p>
             <p>User Recipes: {{ current_user.recipes[0]['name'] }}</p>
         </div>
     </div>
