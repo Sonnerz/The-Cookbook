@@ -72,55 +72,51 @@ $(document).ready(function () {
     $("#add-nav-link").addClass("active-link");
   }
 
-  // add ingredients to add recipe form
-  // var max_fields = 6; 
-  // var x = 1; 
-  // $("#add_ingredient").on("click", function (e) {
-  //     e.preventDefault();
-  //     if (x < max_fields) { 
-  //         x++; 
-  //         $('#ingredients_input_list').append("<div>" +
-  //         "<input type='text' class='form-control' id='ingredients" + x + "'name='ingredients'" + x + ">" +
-  //         "<a href='' class='remove_ingredient_input' id='woo'>" +
-  //         "<i class='fa fa-minus-circle' aria-hidden='true'></i>" +
-  //         "</a>" + 
-  //         x + 
-  //         "</div>");
-  //     }
-  // });        
-  // $('#add_recipe_form').on('click', '.remove_ingredient_input', function () { 
-  //     $(this).parent().remove();
-  //     x--;
-  // })
+  // add extra ingredient or instruction inputs to add recipe form
 
+  $('#add_ingredient').click(function () {
+    addExtraInputs("i");
+  })
 
-  var next = 1;
-  $("#add_ingredient").click(function (e) {
-    e.preventDefault();
-    var max_fields = 6;
-    var addto = "#ingredient" + next;
-    var addRemove = "#ingredient" + (next);
-    next = next + 1;
-    // if (next < max_fields) {
-      var newIn = '<input class="input form-control" id="ingredient' + next + '" name="ingredient' + next + '" type="text" placeholder="ingredient ' + next + '">';
-      var newInput = $(newIn);
-      var removeBtn = '<a href="#" id="remove' + (next - 1) + '" class="remove-me"><i class="fa fa-minus-circle" aria-hidden="true"></i></a>';
-      var removeButton = $(removeBtn);
-      $(addto).after(newInput);
-      $(addRemove).after(removeButton);
-      $("#ingredient" + next).attr('data-source', $(addto).attr('data-source'));
-      $("#count").val(next);
-    // }
-    
+  $('#add_method').click(function () {
+    addExtraInputs("m");
+  })
 
-    $('.remove-me').click(function (e) {
-      e.preventDefault();
-      var fieldNum = this.id.charAt(this.id.length - 1);
-      var fieldID = "#ingredient" + fieldNum;
-      $(this).remove();
-      $(fieldID).remove();
+  function addExtraInputs(inputs) {
+    if (inputs == "i") {
+      var ingred = '<div class="added-ingred">' +
+        '<input type="text" class="input form-control" placeholder="ingredient">' +
+        '<a href="#"><i class="fa fa-minus-circle delete" aria-hidden="true"></i></a></div>';
+      $("#ingredients_input_list").append(ingred);
+    }
+    else {
+      var method = '<div class="added-method">' +
+        '<textarea class="input form-control" placeholder="intructions"></textarea>' +
+        '<a href="#"><i class="fa fa-minus-circle delete" aria-hidden="true"></i></a></div>';
+      $("#method_input_list").append(method);
+    }
+  }
+
+  $(function () {
+    $('#ingredients_input_list').on('click', '.delete', function () {
+      var rem = $(this).closest('div.added-ingred');
+      $(rem).remove();
     });
   });
+
+  $(function () {
+    $('#method_input_list').on('click', '.delete', function () {
+      var rem = $(this).closest('div.added-method');
+      $(rem).remove();
+    });
+  });
+
+  $('.submit-btn').click(function () {
+    $('.ingredients-list  > input').each(function () {
+      // console.log($(this).text());
+      console.log($(this).val());
+    });
+  })
 
 });
 

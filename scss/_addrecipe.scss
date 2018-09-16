@@ -13,15 +13,23 @@
 }
 
 #add_recipe_form {
+    .added-ingred, #ingredients_input_list>input {
+        margin-top: 0.3rem;
+    }
     #ingredients_input_list>label {
         display: block;
     }
     #ingredients_input_list .form-control {
         display: inline;
-        width: 70%;
+        width: 90%;
     }
-    .remove-me {
+    .delete {
         margin-left: 3px;
+    }
+    #method_input_list textarea  {
+        width:90%;
+        display: inline;
+        resize: none;
     }
 }
 

@@ -123,20 +123,32 @@
                             <div class="col-md-6" style="background-color:aqua">
                                 <div class="form-group">
                                     <div id="ingredients_input_list">
-                                        <label for="inputIngredients">Ingredients (up to 12 ingredients)</label>
-                                        <input type="text" class="input form-control" id="ingredient1" name="ingredient1"
-                                            placeholder="ingredient 1" data-items="8" />
+                                        <label for="inputIngredients">Ingredients</label>
+                                        <input type="text" class="input form-control" id="ingredient" name="ingredient"
+                                            placeholder="ingredient" />
+                                            <input type="text" class="input form-control" id="ingredient" name="ingredient"
+                                            placeholder="ingredient" />
+                                            <input type="text" class="input form-control" id="ingredient" name="ingredient"
+                                            placeholder="ingredient" />
+                                            <input type="text" class="input form-control" id="ingredient" name="ingredient"
+                                            placeholder="ingredient" />
+                                            <input type="text" class="input form-control" id="ingredient" name="ingredient"
+                                            placeholder="ingredient" />                                                                                                                                                                                                                          
                                         <a href="#" id="add_ingredient"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="inputEmail4">method</label>
-                                    <input type="textarea" class="form-control" id="method" name="method" placeholder="method">
+                                    <div id="method_input_list">
+                                        <label for="inputMethod">Instructions</label>
+                                        <textarea class="input form-control" id="method" name="method"
+                                            placeholder="method" rows="2"></textarea>
+                                        <a href="#" id="add_method"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
+                                    </div>
                                 </div>
                             </div>
-                            <button type="submit" class="btn btn-primary" action="/add_recipe" id="addRecipeButton">Add
-                                Recipe</button>
+                            <div class="col-12 text-center"><button type="submit" class="btn btn-primary" action="/add_recipe" id="addRecipeButton">Add Recipe</button></div>
+                            
                     </form>
                 </div>
             </section>
