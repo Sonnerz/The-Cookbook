@@ -55,6 +55,16 @@ def get_categories():
     categories=mongo.db.categories.find()
     return categories
 
+# GET CUISINE
+def get_cuisine():
+    cuisine=mongo.db.cuisine.find()
+    return cuisine
+
+# GET ALLERGENS
+def get_allergens():
+    allergens=mongo.db.allergens.find()
+    return allergens  
+
 # INDEX
 @app.route('/')
 def index():
@@ -76,7 +86,10 @@ def profile():
 def add_recipe():
     current_user = dict(get_record(session['username']))
     categories = get_categories()
-    return render_template("addrecipe.html", test=mongo.db.test_collection.find(), current_user=current_user, categories=categories )    
+    cuisine = get_cuisine()
+    allergens = get_allergens()
+    return render_template("addrecipe.html", test=mongo.db.test_collection.find(), current_user=current_user, 
+                            categories=categories, cuisine=cuisine, allergens=allergens )    
 
 # LOGOUT
 @app.route('/logout', methods=['GET','POST'])
