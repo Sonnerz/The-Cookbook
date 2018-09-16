@@ -79,6 +79,17 @@ def profile():
     current_user = dict(get_record(session['username']))
     return render_template("profile.html", test=mongo.db.test_collection.find(), current_user=current_user)
 
+# LOGOUT
+@app.route('/logout', methods=['GET','POST'])
+def logout():
+    if request.method == 'GET':
+        print(session)
+        session.pop('username', None)
+        session['isLoggedin'] = False
+        session.pop('_flashes', None)
+        flash("You are logged out", 'success') #success error info
+    return render_template("index.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
+
 
 # ADD RECIPE
 @app.route('/add_recipe')
@@ -91,16 +102,15 @@ def add_recipe():
     return render_template("addrecipe.html", test=mongo.db.test_collection.find(), current_user=current_user, 
                             categories=categories, cuisine=cuisine, allergens=allergens )    
 
-# LOGOUT
-@app.route('/logout', methods=['GET','POST'])
-def logout():
-    if request.method == 'GET':
-        print(session)
-        session.pop('username', None)
-        session['isLoggedin'] = False
-        session.pop('_flashes', None)
-        flash("You are logged out", 'success') #success error info
-    return render_template("index.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
+# INSERT RECIPE IN DATABASE
+@app.route('/insert_recipe', methods=['GET', 'POST'])
+@login_required
+def insert_recipe():
+    # recipes = mongo.db.user_recipe
+    # recipes.insert_one(request.form.to_dict()) #convert to dict so that mongo understands the data. Validation needed in HTML and app.py
+    new_recipe={}
+    return user_id
+
 
 
 # SIGN UP NEW USER / REGISTER / CREATE RECORD IN COLLECTION USER_RECIPE

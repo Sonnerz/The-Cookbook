@@ -50,6 +50,34 @@ $(function () {
 });
 
 
+//AJAX send the new recipe data from form to server
+
+$(function () {
+  $('#add_recipe_form').submit(function (event) {
+    event.preventDefault();
+    var user_id = localStorage.getItem("user_id");
+    $.ajax({
+      url: '/insert_recipe',
+      dataType: 'json',
+      contentType: 'application/json;charset=UTF-8',
+      data: $('#add_recipe_form').serialize(), user_id,
+      type: 'POST',
+      success: function (response) {
+        console.log(response);
+        $("#newRecipeMessages").html(response);
+        // Delay before redirect to read message
+        // var delay = 1200;
+        // setTimeout(function () { window.location.href = "/profile"; }, delay);
+      },
+      error: function (error) {
+        console.log(error);
+        $("#newRecipeMessages").html(response);
+      }
+    });
+  });
+});
+
+
 // show/hide the Debug Panel
 function viewPanel() {
   var panel = document.getElementById("panel-debug");
@@ -72,8 +100,15 @@ $(document).ready(function () {
     $("#add-nav-link").addClass("active-link");
   }
 
-  // add extra ingredient or instruction inputs to add recipe form
+  //get localstorage user_id and set hidden field in add recipe form
+  var user_id = localStorage.getItem("user_id");
+  console.log(user_id);
+  document.getElementById("form_user_id").value = user_id;
 
+
+
+
+  // add extra ingredient or instruction inputs to add recipe form
   $('#add_ingredient').click(function () {
     addExtraInputs("i");
   })

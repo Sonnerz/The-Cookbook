@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-12">
             <section id="user_name">
-                <span>&#123;&#123; Hello {{ current_user.username }}, welcome back &#125;&#125;</span>
+                <span>&#123;&#123; Hello {{ session['username'] }}, welcome back &#125;&#125;</span>
             </section>
         </div>
     </div>
@@ -25,9 +25,8 @@
                         </div>
                     </div>
                     <!-- ADD RECIPES FORM-->
-                    <form id="add_recipe_form" name="add_recipe_form" action="/add_recipe" method="POST">
+                    <form id="add_recipe_form" name="add_recipe_form" action="{{ url_for('insert_recipe') }}" method="POST">
                         <div class="row" style="background-color:blueviolet">
-
                             <div class="col-md-6" style="background-color:burlywood">
                                 <div class="form-group">
                                     <label for="inputName">Name</label>
@@ -126,14 +125,14 @@
                                         <label for="inputIngredients">Ingredients</label>
                                         <input type="text" class="input form-control" id="ingredient" name="ingredient"
                                             placeholder="ingredient" />
-                                            <input type="text" class="input form-control" id="ingredient" name="ingredient"
+                                        <input type="text" class="input form-control" id="ingredient" name="ingredient"
                                             placeholder="ingredient" />
-                                            <input type="text" class="input form-control" id="ingredient" name="ingredient"
+                                        <input type="text" class="input form-control" id="ingredient" name="ingredient"
                                             placeholder="ingredient" />
-                                            <input type="text" class="input form-control" id="ingredient" name="ingredient"
+                                        <input type="text" class="input form-control" id="ingredient" name="ingredient"
                                             placeholder="ingredient" />
-                                            <input type="text" class="input form-control" id="ingredient" name="ingredient"
-                                            placeholder="ingredient" />                                                                                                                                                                                                                          
+                                        <input type="text" class="input form-control" id="ingredient" name="ingredient"
+                                            placeholder="ingredient" />
                                         <a href="#" id="add_ingredient"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
@@ -141,23 +140,27 @@
                                 <div class="form-group">
                                     <div id="method_input_list">
                                         <label for="inputMethod">Instructions</label>
-                                        <textarea class="input form-control" id="method" name="method"
-                                            placeholder="method" rows="2"></textarea>
+                                        <textarea class="input form-control" id="method" name="method" placeholder="method"
+                                            rows="2"></textarea>
                                         <a href="#" id="add_method"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-12 text-center"><button type="submit" class="btn btn-primary" action="/add_recipe" id="addRecipeButton">Add Recipe</button></div>
-                            
+                            <div>
+                                <input type="text" id="form_user_id" name="form_user_id" />
+                            </div>
+                            <div class="form-group button-submit-margin" id="newRecipeMessages">
+                                {{message}}
+                            </div>
+                            <div class="col-12 text-center"><button type="submit" class="btn btn-primary" action="/add_recipe"
+                                    id="addRecipeButton">Add Recipe</button></div>
+
                     </form>
                 </div>
             </section>
         </div>
     </div>
 </div>
-
-
-
 
 <div class="flash_messages">
     {% with messages = get_flashed_messages() %}
