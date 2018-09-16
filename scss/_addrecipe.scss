@@ -11,3 +11,17 @@
         padding-top: 130px;
     }
 }
+
+#add_recipe_form {
+    #ingredients_input_list>label {
+        display: block;
+    }
+    #ingredients_input_list .form-control {
+        display: inline;
+        width: 70%;
+    }
+    .remove-me {
+        margin-left: 3px;
+    }
+}
+

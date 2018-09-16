@@ -402,6 +402,19 @@ label.error {
   }
 }
 
+#add_recipe_form #ingredients_input_list > label {
+  display: block;
+}
+
+#add_recipe_form #ingredients_input_list .form-control {
+  display: inline;
+  width: 70%;
+}
+
+#add_recipe_form .remove-me {
+  margin-left: 3px;
+}
+
 #portfolio .portfolio-item {
   right: 0;
   margin: 0 0 15px;
