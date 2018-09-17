@@ -56,14 +56,15 @@ $(function () {
   $('#add_recipe_form').submit(function (event) {
     event.preventDefault();
     var user_id = localStorage.getItem("user_id");
+    var form_data = $('#add_recipe_form').serialize()
+    console.log("FORM ID", user_id)
+    console.log("FORM DATA", form_data)
     $.ajax({
       url: '/insert_recipe',
-      dataType: 'json',
-      contentType: 'application/json;charset=UTF-8',
-      data: $('#add_recipe_form').serialize(), user_id,
+      data: $('#add_recipe_form').serialize(),
       type: 'POST',
       success: function (response) {
-        console.log(response);
+        console.log("RESPONSE FROM SERVER", response);
         $("#newRecipeMessages").html(response);
         // Delay before redirect to read message
         // var delay = 1200;
@@ -98,12 +99,12 @@ $(document).ready(function () {
   }
   else if (current_path == "/add_recipe") {
     $("#add-nav-link").addClass("active-link");
-  }
 
   //get localstorage user_id and set hidden field in add recipe form
   var user_id = localStorage.getItem("user_id");
-  console.log(user_id);
+  //console.log(user_id);
   document.getElementById("form_user_id").value = user_id;
+  }
 
 
 

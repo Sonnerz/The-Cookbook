@@ -48,7 +48,7 @@
                         <div class="col-4 text-center" style="background-color:rgb(199, 200, 101)">Manage Recipes <a href="/add_recipe" type="button" id="add_recipe">Add</a></div>
                     </div>
                     <div class="row">
-                        {% for r in current_user.recipes %}
+                        {% for r in recipes %}
                         <div class="col-2">{{ r.name }}</div>
                         <div class="col-2">{{ r.description|truncate(100, False, '...', 0) }}</div>
                         <div class="col-2 text-center">{{ r.views }}</div>
@@ -107,7 +107,7 @@
             <p>firstname: {{ current_user.firstname }}</p>
             <p>lastname: {{ current_user.lastname }}</p>
             <p>country: {{ current_user.country }}</p>
-            <p>User Recipes: {{ current_user.recipes[0]['name'] }}</p>
+            <p>_id: {{current_user._id}}</p>
         </div>
     </div>
 </div>

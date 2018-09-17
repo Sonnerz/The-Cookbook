@@ -88,6 +88,19 @@
             $('pre').addClass('prettyprint linenums');
         });
     </script> -->
+    {% block javascript_addrecipe %}
+    <script type="text/javascript">
+        $(function () {
+            var ingredients = $("input[name='ingredient\\[\\]']")
+                .map(function () { return $(this).val(); }).get();
+    
+            console.log("WOOOOO", ingredients);
+        });
+    </script>
+    {% endblock %}
 </body>
 
 </html>
+
+<script>
+    

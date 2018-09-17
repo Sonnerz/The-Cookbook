@@ -4,6 +4,7 @@ from functools import wraps
 from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify, json
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
+from werkzeug.exceptions import abort, BadRequestKeyError
 
 DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
@@ -18,7 +19,6 @@ else:
     app.config["DBS_NAME"] = DBS_NAME
     app.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo(app)
-
 
 
 # DEBUGGING
@@ -38,17 +38,30 @@ def login_required(f):
             return render_template("index.html")
     return wrap    
 
-# GET RECORD FROM USER_RECIPE COLLECTION
+# GET RECORD FROM USERS COLLECTION
 def get_record(username):
     row={}
     try:
-        row = mongo.db.user_recipe.find_one({'username': username.lower()})
+        row = mongo.db.users.find_one({'username': username.lower()})
     except Exception as e:
         print("error accessing DB %s"%str(e))
     
     if row:
-        print("row exists")
+        print("one row with username does exist")
     return row
+
+# GET RECIPES FROM RECIPE COLLECTION FOR CURRENT USER
+def get_recipes(current_user_id):
+    rows={}
+    try:
+        rows = mongo.db.recipes.find({"author" : current_user_id}) 
+        #rows = mongo.db.recipes.find_one({"name" : "Chicken chasseur"})
+    except Exception as e:
+        print("error accessing DB %s"%str(e))
+    
+    if rows:
+        print("recipes by author do exist")
+    return rows
 
 # GET CATEGORIES
 def get_categories():
@@ -77,7 +90,12 @@ def index():
 @login_required
 def profile():
     current_user = dict(get_record(session['username']))
-    return render_template("profile.html", test=mongo.db.test_collection.find(), current_user=current_user)
+    current_user_str = str(current_user['_id'])
+    user_recipes = get_recipes(current_user_str)
+    print(user_recipes)
+    return render_template("profile.html", test=mongo.db.test_collection.find(), current_user=current_user, 
+                            recipes=user_recipes)
+
 
 # LOGOUT
 @app.route('/logout', methods=['GET','POST'])
@@ -106,10 +124,26 @@ def add_recipe():
 @app.route('/insert_recipe', methods=['GET', 'POST'])
 @login_required
 def insert_recipe():
-    # recipes = mongo.db.user_recipe
-    # recipes.insert_one(request.form.to_dict()) #convert to dict so that mongo understands the data. Validation needed in HTML and app.py
-    new_recipe={}
-    return user_id
+    current_user = get_record(request.form.get('form_user_id'))
+    print(current_user)
+    # recipes=mongo.db.user_recipe
+    # recipes.update({'_id': request.form.get('form_user_id')},
+    # {        
+    #     'name': request.form.get('name'),
+    #     'description': request.form.get('description'),
+    #     'main': request.form.get('main'),
+    #     'category': request.form.get('category'),
+    #     'cuisine': request.form.get('cuisine'),
+    #     'diff': request.form.get('diff'),
+    #     'prep': request.form.get('prep'),
+    #     'cook': request.form.get('cook'),
+    #     'serves': request.form.get('serves'),
+    #     'calories': request.form.get('calories'),
+    #     'allergen': request.form.get('allergen'),
+    #     'form_user_id': request.form.get('form_user_id')
+    #     })
+    message = "updated to db"        
+    return message
 
 
 
@@ -118,7 +152,7 @@ def insert_recipe():
 def signup_user():
     check_user = get_record(request.form.get('signupUsername'))
     if not check_user:
-        users=mongo.db.user_recipe
+        users=mongo.db.users
         new_user={
                 'username': request.form.get('signupUsername'),
                 'password': request.form.get('signupPassword'),
@@ -156,6 +190,8 @@ def login_user():
         message = "no user by that name"
         return message        
     return        
+
+
 
 
 if __name__ == '__main__':
