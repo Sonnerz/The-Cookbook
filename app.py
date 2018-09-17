@@ -124,23 +124,27 @@ def add_recipe():
 @app.route('/insert_recipe', methods=['GET', 'POST'])
 @login_required
 def insert_recipe():
-    current_user = session['userid']
+    current_user_id = session['userid']
     recipes = mongo.db.recipes
     new_recipe = {
-        'author': current_user,       
+        'author': current_user_id,       
         'name': request.form.get('name'),
         'description': request.form.get('description'),
-    #     'main': request.form.get('main'),
-    #     'category': request.form.get('category'),
-    #     'cuisine': request.form.get('cuisine'),
-    #     'diff': request.form.get('diff'),
-    #     'prep': request.form.get('prep'),
-    #     'cook': request.form.get('cook'),
-    #     'serves': request.form.get('serves'),
-    #     'calories': request.form.get('calories'),
-    #     'allergen': request.form.get('allergen'),
-    #     'form_user_id': request.form.get('form_user_id')
-    #     })}
+        'main ingredient': request.form.get('main'),
+        'category': request.form.get('category'),
+        'cuisine': request.form.get('cuisine'),
+        'difficulty': request.form.get('diff'),
+        'prep time': request.form.get('prep'),
+        'cook time': request.form.get('cook'),
+        'serves': request.form.get('serves'),
+        'calories': request.form.get('calories'),
+        "allergens": request.form.getlist('allergen'),
+        "ingredients": request.form.getlist('ingredient'),
+        "instructions": request.form.getlist('instruction'),
+        "image": request.form.get('image_url'),
+        "views": 0,
+        "votes": 0
+    }
     recipes.insert_one(new_recipe)
     message = "updated to db" 
     return message

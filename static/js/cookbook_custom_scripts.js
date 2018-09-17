@@ -28,7 +28,7 @@ $(function () {
   });
 });
 
-
+//--------------------------------------------------------------------------------------------------------------//
 //AJAX send the login data to the back end
 
 $(function () {
@@ -56,7 +56,7 @@ $(function () {
   });
 });
 
-
+//--------------------------------------------------------------------------------------------------------------//
 //AJAX send the new recipe data from form to server
 
 $(function () {
@@ -82,6 +82,7 @@ $(function () {
 });
 
 
+//--------------------------------------------------------------------------------------------------------------//
 // show/hide the Debug Panel
 function viewPanel() {
   var panel = document.getElementById("panel-debug");
@@ -93,10 +94,11 @@ function viewPanel() {
   }
 }
 
+
+//--------------------------------------------------------------------------------------------------------------//
 // add class to navbar link depending on the page displayed
 $(document).ready(function () {
   var current_path = $(location).attr('pathname');
-  //console.log(current_path)
   if (current_path == "/profile") {
     $("#profile-nav-link").addClass("active-link");
   }
@@ -118,22 +120,22 @@ $(document).ready(function () {
     addExtraInputs("i");
   })
 
-  $('#add_method').click(function () {
+  $('#add_instruction').click(function () {
     addExtraInputs("m");
   })
 
   function addExtraInputs(inputs) {
     if (inputs == "i") {
       var ingred = '<div class="added-ingred">' +
-        '<input type="text" class="input form-control" placeholder="ingredient">' +
+        '<input type="text" class="input form-control" placeholder="ingredient" name="ingredient">' +
         '<a href="#"><i class="fa fa-minus-circle delete" aria-hidden="true"></i></a></div>';
       $("#ingredients_input_list").append(ingred);
     }
     else {
-      var method = '<div class="added-method">' +
-        '<textarea class="input form-control" placeholder="intructions"></textarea>' +
+      var method = '<div class="added-instruction">' +
+        '<textarea class="input form-control" placeholder="instruction" name="instruction"></textarea>' +
         '<a href="#"><i class="fa fa-minus-circle delete" aria-hidden="true"></i></a></div>';
-      $("#method_input_list").append(method);
+      $("#instruction_input_list").append(method);
     }
   }
 
@@ -145,17 +147,11 @@ $(document).ready(function () {
   });
 
   $(function () {
-    $('#method_input_list').on('click', '.delete', function () {
-      var rem = $(this).closest('div.added-method');
+    $('#instruction_input_list').on('click', '.delete', function () {
+      var rem = $(this).closest('div.added-instruction');
       $(rem).remove();
     });
   });
-
-  $('.submit-btn').click(function () {
-    $('.ingredients-list  > input').each(function () {
-      console.log($(this).val());
-    });
-  })
 
 });
 

@@ -410,7 +410,7 @@ label.error {
   display: block;
 }
 
-#add_recipe_form #ingredients_input_list .form-control {
+#add_recipe_form #ingredients_input_list .form-control, #add_recipe_form #instruction_input_list .form-control {
   display: inline;
   width: 90%;
 }
@@ -419,9 +419,7 @@ label.error {
   margin-left: 3px;
 }
 
-#add_recipe_form #method_input_list textarea {
-  width: 90%;
-  display: inline;
+#add_recipe_form #instruction_input_list textarea {
   resize: none;
 }
 
