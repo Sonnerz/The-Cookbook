@@ -91,7 +91,7 @@ def index():
 def profile():
     current_user = dict(get_record(session['username']))
     current_user_str = str(current_user['_id'])
-    user_recipes = get_recipes(current_user_str)
+    user_recipes = get_recipes(session['userid'])
     print(user_recipes)
     return render_template("profile.html", test=mongo.db.test_collection.find(), current_user=current_user, 
                             recipes=user_recipes)
@@ -124,13 +124,12 @@ def add_recipe():
 @app.route('/insert_recipe', methods=['GET', 'POST'])
 @login_required
 def insert_recipe():
-    current_user = get_record(request.form.get('form_user_id'))
-    print(current_user)
-    # recipes=mongo.db.user_recipe
-    # recipes.update({'_id': request.form.get('form_user_id')},
-    # {        
-    #     'name': request.form.get('name'),
-    #     'description': request.form.get('description'),
+    current_user = session['userid']
+    recipes = mongo.db.recipes
+    new_recipe = {
+        'author': current_user,       
+        'name': request.form.get('name'),
+        'description': request.form.get('description'),
     #     'main': request.form.get('main'),
     #     'category': request.form.get('category'),
     #     'cuisine': request.form.get('cuisine'),
@@ -141,10 +140,10 @@ def insert_recipe():
     #     'calories': request.form.get('calories'),
     #     'allergen': request.form.get('allergen'),
     #     'form_user_id': request.form.get('form_user_id')
-    #     })
-    message = "updated to db"        
+    #     })}
+    recipes.insert_one(new_recipe)
+    message = "updated to db" 
     return message
-
 
 
 # SIGN UP NEW USER / REGISTER / CREATE RECORD IN COLLECTION USER_RECIPE
@@ -161,10 +160,10 @@ def signup_user():
         #pdb.set_trace()          
         if new_user:
             users.insert_one(new_user)
-            message = "Success, Log in now."
+            message = "success"
             return message
     else:
-        message = "Failure name take"
+        message = "fail"
         return message
     return
     
@@ -176,6 +175,7 @@ def login_user():
     if user and user["password"] == pw:
         # add username to flask session
         session['username'] = user['username']
+        session['userid'] = str(user['_id']) #ObjectId to str
         # set session isLoggedin to True: session is true
         session['isLoggedin'] = True
         #message to user 

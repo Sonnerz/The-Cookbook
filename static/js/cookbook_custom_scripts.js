@@ -9,9 +9,16 @@ $(function () {
       type: 'POST',
       success: function (response) {
         console.log(response);
-        $("#signupMessages").html(response);
-        var delay = 1000;
-        setTimeout(function () { window.location.href = "/"; }, delay);
+        if (response == "success") {
+          var message = "Success. Log in now."
+          $("#signupMessages").html(message);
+          var delay = 1000;
+          setTimeout(function () { window.location.href = "/"; }, delay);
+        }
+        else if (response == "fail") {
+          var message = "Failure name take"
+          $("#signupMessages").html(message);
+        }
       },
       error: function (error) {
         console.log(error);
@@ -55,10 +62,6 @@ $(function () {
 $(function () {
   $('#add_recipe_form').submit(function (event) {
     event.preventDefault();
-    var user_id = localStorage.getItem("user_id");
-    var form_data = $('#add_recipe_form').serialize()
-    console.log("FORM ID", user_id)
-    console.log("FORM DATA", form_data)
     $.ajax({
       url: '/insert_recipe',
       data: $('#add_recipe_form').serialize(),
@@ -99,13 +102,14 @@ $(document).ready(function () {
   }
   else if (current_path == "/add_recipe") {
     $("#add-nav-link").addClass("active-link");
-
-  //get localstorage user_id and set hidden field in add recipe form
-  var user_id = localStorage.getItem("user_id");
-  //console.log(user_id);
-  document.getElementById("form_user_id").value = user_id;
   }
 
+
+  //get localstorage user_id and set hidden field in add recipe form
+  // var user_id = localStorage.getItem("user_id");
+  // console.log(user_id);
+  // document.getElementById("form_user_id").value = user_id;
+  // document.getElementById("test").innerHTML = user_id;
 
 
 
@@ -149,10 +153,20 @@ $(document).ready(function () {
 
   $('.submit-btn').click(function () {
     $('.ingredients-list  > input').each(function () {
-      // console.log($(this).text());
       console.log($(this).val());
     });
   })
 
 });
+
+
+// <script type="text/javascript">
+//     $(function () {
+//         var ingredients = $("input[name='ingredient\\[\\]']")
+//             .map(function () { return $(this).val(); }).get();
+
+//         console.log("WOOOOO", ingredients);
+//     });
+// </script>
+
 
