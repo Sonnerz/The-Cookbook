@@ -118,10 +118,12 @@ $(document).ready(function () {
   // add extra ingredient or instruction inputs to add recipe form
   $('#add_ingredient').click(function () {
     addExtraInputs("i");
+    return false; //return false;  stops page jumping to top
   })
 
   $('#add_instruction').click(function () {
     addExtraInputs("m");
+    return false; //return false;  stops page jumping to top
   })
 
   function addExtraInputs(inputs) {
@@ -143,6 +145,7 @@ $(document).ready(function () {
     $('#ingredients_input_list').on('click', '.delete', function () {
       var rem = $(this).closest('div.added-ingred');
       $(rem).remove();
+      return false; //return false;  stops page jumping to top
     });
   });
 
@@ -150,6 +153,7 @@ $(document).ready(function () {
     $('#instruction_input_list').on('click', '.delete', function () {
       var rem = $(this).closest('div.added-instruction');
       $(rem).remove();
+      return false; //return false;  stops page jumping to top
     });
   });
 

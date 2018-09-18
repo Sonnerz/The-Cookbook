@@ -20,62 +20,79 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1>Add Recipe</h1>
+                            <h1>Edit Recipe</h1>
                             <h3 class="section-subheading text-muted">Add a new recipe complete teh form.</h3>
                         </div>
                     </div>
+
+
                     <!-- ADD RECIPES FORM-->
                     <form id="add_recipe_form" name="add_recipe_form" action="{{ url_for('insert_recipe') }}" method="POST">
                         <div class="row" style="background-color:blueviolet">
                             <div class="col-md-6" style="background-color:burlywood">
                                 <div class="form-group">
-                                    <label for="inputName">Name</label>
-                                    <input value="Something cheesy" type="input" class="form-control" id="name" name="name"
+                                    <label for="inputName">Edit Name</label>
+                                    <input value="{{ recipe.name }}" type="input" class="form-control" id="name" name="name"
                                         placeholder="Name of recipe">
                                 </div>
                                 <div class="form-group">
-                                        <label for="inputName">Add an Image</label>
-                                        <input type="input" class="form-control" id="image_url" name="image_url" placeholder="Paste a link to your image">
+                                    <label for="inputName">Edit Image</label>
+                                    <input value="{{ recipe.image_url }}" type="input" class="form-control" id="image_url"
+                                        name="image_url" placeholder="Paste a link to your image">
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputDescription">Description</label>
+                                    <label for="inputDescription">Edit Description</label>
                                     <textarea placeholder="Description" class="form-control" id="description" name="description"
-                                        rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque metus id condimentum imperdiet. Donec eleifend risus metus, eu aliquam lacus gravida porttitor. Cras ultricies augue a tortor imperdiet vehicula. Donec laoreet dolor ac egestas porttitor.</textarea>
+                                        rows="3"> {{ recipe.description }}" </textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="inputMain">Main Ingredient</label>
-                                    <input value="Cheese" type="input" class="form-control" id="main_ingredient" name="main_ingredient"
-                                        placeholder="Main Ingredient">
+                                    <label for="inputMain">Edit Main Ingredient</label>
+                                    <input value="{{ recipe.main_ingredient }}" type="input" class="form-control" id="main_ingredient"
+                                        name="main_ingredient" placeholder="Main Ingredient">
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="selectCategory">Category</label>
+                                        <label for="selectCategory">Edit Category</label>
                                         <select class="custom-select" id="category" name="category">
-                                            <option>Select a Category</option>
-                                            {% for category in categories%}
-                                            <!-- <option value="{{ category.category_name }}">{{ category.category_name }}</option> -->
-                                            <option selected="vegan">{{ category.category_name }}</option>
+                                            <option value="" disabled selected>Select a Category</option>
+                                            {% for category in categories %}
+                                            {% if category.category_name == recipe.category %}
+                                            <option value="{{ category.category_name }}" selected>{{
+                                                category.category_name }}</option>
+                                            {% else %}
+                                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                                            {% endif %}
                                             {% endfor %}
                                         </select>
+
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label for="selectCuisine">Cuisine</label>
                                         <select class="custom-select" id="cuisine" name="cuisine">
-                                            <option>Select a Cuisine</option>
-                                            {% for cuis in cuisine%}
-                                            <!-- <option value="{{ cuis.cuisine_name }}">{{ cuis.cuisine_name }}</option> -->
-                                            <option selected="thai">{{ cuis.cuisine_name }}</option>
+                                            <option value="" disabled selected>Select a Cuisine</option>
+                                            {% for cuis in cuisine %}
+                                            {% if cuis.cuisine_name == recipe.cuisine %}
+                                            <option value="{{ cuis.cuisine_name }}" selected>{{ cuis.cuisine_name }}</option>
+                                            {% else %}
+                                            <option value="{{ cuis.cuisine_name }}">{{ cuis.cuisine_name }}</option>
+                                            {% endif %}
                                             {% endfor %}
                                         </select>
+
                                     </div>
                                 </div>
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="selectDifficulty">Difficulty</label>
-                                        <select class="custom-select" id="difficulty" name="difficulty">
-                                            <option selected>Select a Difficulty level</option>
+                                        <select class="custom-select" id="diff" name="diff">
+                                            <option disabled selected>Select a Difficulty level</option>
                                             {% for diff in difficulty %}
-                                            <option value="easy">{{ diff.difficulty_name }}</option>
+                                            {% if diff.difficulty_name == recipe.difficulty %}
+                                            <option value="{{ diff.difficulty_name }}" selected>{{ diff.difficulty_name
+                                                }}</option>
+                                            {% else %}
+                                            <option value="{{ diff.difficulty_name }}">{{ diff.difficulty_name }}</option>
+                                            {% endif %}
                                             {% endfor %}
                                         </select>
                                     </div>
@@ -84,15 +101,15 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="inputPrep">prep time</label>
-                                            <input value="20 minutes" type="input" class="form-control" id="prep_time" name="prep_time"
-                                                placeholder="prep time">
+                                            <input value="{{ recipe.prep_time }}" type="input" class="form-control" id="prep_time"
+                                                name="prep_time" placeholder="prep time">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="inputCook">cook time</label>
-                                            <input value="1 hour" type="input" class="form-control" id="cook_time" name="cook_time"
-                                                placeholder="cook time">
+                                            <input value="{{ recipe.cook_time }}" type="input" class="form-control" id="cook_time"
+                                                name="cook_time" placeholder="cook time">
                                         </div>
                                     </div>
                                 </div>
@@ -100,58 +117,69 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="inputServes">Serves</label>
-                                            <input value="4" type="input" class="form-control" id="serves" name="serves"
-                                                placeholder="serves">
+                                            <input value="{{ recipe.serves }}" type="input" class="form-control" id="serves"
+                                                name="serves" placeholder="serves">
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="inputCalories">calories</label>
-                                            <input value="350kcal" type="input" class="form-control" id="calories" name="calories"
-                                                placeholder="calories">
+                                            <input value="{{ recipe.calories }}" type="input" class="form-control" id="calories"
+                                                name="calories" placeholder="calories">
                                         </div>
                                     </div>
                                 </div>
                                 <div><label for="inputAllergens">Allergens</label></div>
-                                {% for allergen in allergens %}
+                                {% for allergen in allergens_list %}
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="allergen{i}" name="allergen" value="{{ allergen.allergen_name }}">
-                                    <label class="form-check-label" for="inline{{ allergen.allergen_name }}">{{allergen.allergen_name}}</label>
+                                        <label class="form-check-label" for="inline{{ allergen }}">{{ allergen }}</label>
+                                        <input class="form-check-input" type="checkbox" id="allergen" name="allergen" value="{{ allergen }}">
                                 </div>
-                                {% endfor %}
+                                {% for r in recipe.allergens %}
+                                {% if r == allergen %}
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label" for="inline{{ allergen }}">{{ allergen }}</label>
+                                    <input checked class="form-check-input" type="checkbox" id="allergen" name="allergen"
+                                        value="{{ allergen }}">
+                                </div>
+                                {% else %}
+
+                                {% endif %}
+                                {% endfor %}{% endfor %}
+
                             </div>
                             <div class="col-md-6" style="background-color:aqua">
                                 <div class="form-group">
                                     <div id="ingredients_input_list">
                                         <label for="inputIngredients">Ingredients</label>
-                                        <input value="eggs" type="text" class="input form-control" id="ingredient1"
-                                            name="ingredient" placeholder="ingredient" />
-                                        <input value="milk" type="text" class="input form-control" id="ingredient2"
-                                            name="ingredient" placeholder="ingredient" />
-                                        <input value="flour" type="text" class="input form-control" id="ingredient3"
-                                            name="ingredient" placeholder="ingredient" />
-                                        <input value="tea" type="text" class="input form-control" id="ingredient4" name="ingredient"
-                                            placeholder="ingredient" />
-                                        <input value="coffee" type="text" class="input form-control" id="ingredient5"
-                                            name="ingredient" placeholder="ingredient" />
+                                        {% for ingredient in recipe.ingredients %}
+                                        <textarea class="input form-control" id="ingredient" name="ingredient"
+                                            placeholder="ingredient">{{ ingredient }}</textarea>
+                                        {% endfor %}
                                         <a href="#" id="add_ingredient"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div id="instruction_input_list">
                                         <label for="inputInstruction">Instructions</label>
-                                        <input value="Nam viverra lacus ac egestas facilisis. Phasellus accumsan urna ligula, a ullamcorper sapien pellentesque vel."
-                                            class="input form-control" id="instruction" name="instruction" placeholder="instructions"/>
+                                        {% for instruct in recipe.instructions  %}
+                                        <textarea class="input form-control" id="instruction" name="instruction"
+                                            placeholder="instructions">{{ instruct }}</textarea>                                     
+                                        {% endfor %}
                                         <a href="#" id="add_instruction"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
+
+                                <div>{{ recipe.allergens }} </div>
+                                <div>{{ allergens_list }}</div>
+
                             </div>
 
                             <div class="form-group button-submit-margin" id="newRecipeMessages">
                                 {{message}}
                             </div>
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary" id="addRecipeButton">Add Recipe</button></div>
+                                <button type="submit" class="btn btn-primary" id="addRecipeButton">Update Recipe</button></div>
                     </form>
                 </div>
             </section>

@@ -55,8 +55,8 @@
                             <div class="col-2 text-center">{{ r.votes }}</div>
                             <div class="col-4 text-center" style="background-color:darkgray">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <a href="/edit_recipe" type="button" id="edit_recipe">Edit</a>
+                                    <div class="col-6"><span>id: {{r._id}}</span>
+                                        <a href="{{ url_for('edit_recipe', recipe_id=r._id) }}" type="button" id="edit_recipe">Edit</a>
                                     </div>
                                     <div class="col-6">
                                         <a href="/delete_recipe" type="button" id="delete_recipe">Delete</a>
