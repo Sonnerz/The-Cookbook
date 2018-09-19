@@ -21,15 +21,16 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <h1>Edit Recipe</h1>
-                            <h3 class="section-subheading text-muted">Add a new recipe complete teh form.</h3>
+                            <h3 class="section-subheading text-muted">Edit a new recipe complete the form.</h3>
                         </div>
                     </div>
 
-
-                    <!-- ADD RECIPES FORM-->
-                    <form id="add_recipe_form" name="add_recipe_form" action="{{ url_for('insert_recipe') }}" method="POST">
+                                                                                            
+                    <!-- EDIT RECIPES FORM-->
+                    <form id="update_recipe_form" name="update_recipe_form" action="{{ url_for('update_recipe', recipe_id=recipe._id) | safe }}" method="POST">
                         <div class="row" style="background-color:blueviolet">
                             <div class="col-md-6" style="background-color:burlywood">
+                                <div><input value="{{ recipe._id }}" type="input" id="recipe_id" name="recipe_id" hidden></div>
                                 <div class="form-group">
                                     <label for="inputName">Edit Name</label>
                                     <input value="{{ recipe.name }}" type="input" class="form-control" id="name" name="name"
@@ -84,7 +85,7 @@
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="selectDifficulty">Difficulty</label>
-                                        <select class="custom-select" id="diff" name="diff">
+                                        <select class="custom-select" id="difficulty" name="difficulty">
                                             <option disabled selected>Select a Difficulty level</option>
                                             {% for diff in difficulty %}
                                             {% if diff.difficulty_name == recipe.difficulty %}
@@ -130,22 +131,14 @@
                                     </div>
                                 </div>
                                 <div><label for="inputAllergens">Allergens</label></div>
+
                                 {% for allergen in allergens_list %}
                                 <div class="form-check form-check-inline">
-                                        <label class="form-check-label" for="inline{{ allergen }}">{{ allergen }}</label>
-                                        <input class="form-check-input" type="checkbox" id="allergen" name="allergen" value="{{ allergen }}">
-                                </div>
-                                {% for r in recipe.allergens %}
-                                {% if r == allergen %}
-                                <div class="form-check form-check-inline">
                                     <label class="form-check-label" for="inline{{ allergen }}">{{ allergen }}</label>
-                                    <input checked class="form-check-input" type="checkbox" id="allergen" name="allergen"
-                                        value="{{ allergen }}">
+                                    <input class="form-check-input" type="checkbox" id="allergen" name="allergen" value="{{ allergen }}"
+                                        {% if allergen in recipe['allergens'] %} checked {% endif %}>
                                 </div>
-                                {% else %}
-
-                                {% endif %}
-                                {% endfor %}{% endfor %}
+                                {% endfor %}
 
                             </div>
                             <div class="col-md-6" style="background-color:aqua">
@@ -162,24 +155,19 @@
                                 <div class="form-group">
                                     <div id="instruction_input_list">
                                         <label for="inputInstruction">Instructions</label>
-                                        {% for instruct in recipe.instructions  %}
+                                        {% for instruct in recipe.instructions %}
                                         <textarea class="input form-control" id="instruction" name="instruction"
-                                            placeholder="instructions">{{ instruct }}</textarea>                                     
+                                            placeholder="instructions">{{ instruct }}</textarea>
                                         {% endfor %}
                                         <a href="#" id="add_instruction"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
-
-                                <div>{{ recipe.allergens }} </div>
-                                <div>{{ allergens_list }}</div>
-
                             </div>
-
-                            <div class="form-group button-submit-margin" id="newRecipeMessages">
+                            <div class="form-group button-submit-margin" id="editRecipeMessages">
                                 {{message}}
                             </div>
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary" id="addRecipeButton">Update Recipe</button></div>
+                                <button action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" type="submit" class="btn btn-primary" id="addRecipeButton">Update Recipe</button></div>
                     </form>
                 </div>
             </section>

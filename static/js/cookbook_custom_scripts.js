@@ -81,6 +81,32 @@ $(function () {
   });
 });
 
+//--------------------------------------------------------------------------------------------------------------//
+//AJAX update a recipe send data from form to server
+
+$(function () {
+  $('#update_recipe_form').submit(function (event) {
+    event.preventDefault();
+    var recipe_id = document.getElementById("recipe_id").value
+    $.ajax({
+      url: '/update_recipe/'+recipe_id,
+      data: $('#update_recipe_form').serialize(),
+      type: 'POST',
+      success: function (response) {
+        console.log("RESPONSE FROM SERVER", response);
+        $("#editRecipeMessages").html(response);
+        // Delay before redirect to read message
+        // var delay = 1200;
+        // setTimeout(function () { window.location.href = "/profile"; }, delay);
+      },
+      error: function (error) {
+        console.log(error);
+        $("#editRecipeMessages").html(response);
+      }
+    });
+  });
+});
+
 
 //--------------------------------------------------------------------------------------------------------------//
 // show/hide the Debug Panel

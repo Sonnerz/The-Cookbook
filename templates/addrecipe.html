@@ -24,6 +24,8 @@
                             <h3 class="section-subheading text-muted">Add a new recipe complete teh form.</h3>
                         </div>
                     </div>
+                    
+                    
                     <!-- ADD RECIPES FORM-->
                     <form id="add_recipe_form" name="add_recipe_form" action="{{ url_for('insert_recipe') }}" method="POST">
                         <div class="row" style="background-color:blueviolet">
@@ -115,7 +117,7 @@
                                 <div><label for="inputAllergens">Allergens</label></div>
                                 {% for allergen in allergens %}
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="allergen{i}" name="allergen" value="{{ allergen.allergen_name }}">
+                                    <input class="form-check-input" type="checkbox" id="allergen" name="allergen" value="{{ allergen.allergen_name }}">
                                     <label class="form-check-label" for="inline{{ allergen.allergen_name }}">{{allergen.allergen_name}}</label>
                                 </div>
                                 {% endfor %}

@@ -162,6 +162,7 @@ def insert_recipe():
 # EDIT RECIPE
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
+    print(recipe_id)
     #debug stuff
     current_user = dict(get_record(session['username']))
     ##
@@ -173,6 +174,35 @@ def edit_recipe(recipe_id):
     difficulty = get_difficulty()
     return render_template("editrecipe.html", test=mongo.db.test_collection.find(), current_user=current_user, 
                             categories=categories, cuisine=cuisine, allergens_list=allergens_list, recipe=the_recipe, difficulty=difficulty )
+
+
+# UPDATE RECIPE
+@app.route('/update_recipe/<recipe_id>', methods=['POST'])
+def update_recipe(recipe_id):
+    print("recipe_id::>      ",recipe_id)
+    current_user_id = session['userid']
+    user_recipes = mongo.db.recipes
+    user_recipes.update({'_id': ObjectId(recipe_id)},
+    {
+        'author': current_user_id,
+        'name': request.form.get('name'),
+        'description': request.form.get('description'),
+        'main_ingredient': request.form.get('main_ingredient'),
+        'category': request.form.get('category'),
+        'cuisine': request.form.get('cuisine'),
+        'difficulty': request.form.get('difficulty'),
+        'prep_time': request.form.get('prep_time'),
+        'cook_time': request.form.get('cook_time'),
+        'serves': request.form.get('serves'),
+        'calories': request.form.get('calories'),
+        "allergens": request.form.getlist('allergen'),
+        "ingredients": request.form.getlist('ingredient'),
+        "instructions": request.form.getlist('instruction'),
+        "image_url": request.form.get('image_url')
+    })
+    message = "edited and updated to db" 
+    print(message)
+    return message
 
 
 # SIGN UP NEW USER / REGISTER / CREATE RECORD IN COLLECTION USER_RECIPE
