@@ -21,6 +21,7 @@ else:
 mongo = PyMongo(app)
 
 
+
 # DEBUGGING
 @app.context_processor
 def debug_on_off():
@@ -91,13 +92,12 @@ def index():
     return render_template("index.html", test=mongo.db.test_collection.find())
 
 # PAGE :: PROFILE PAGE
-@app.route('/profile')
+@app.route('/profile/')
 @login_required
 def profile():
     current_user = dict(get_record(session['username']))
     current_user_str = str(current_user['_id'])
     user_recipes = get_recipes(session['userid'])
-    print(type(user_recipes))
     return render_template("profile.html", test=mongo.db.test_collection.find(), current_user=current_user, 
                             recipes=user_recipes)
 
@@ -181,8 +181,9 @@ def edit_recipe(recipe_id):
 @app.route('/update_recipe/<recipe_id>', methods=['POST'])
 def update_recipe(recipe_id):
     current_user_id = session['userid']
-    user_recipes = mongo.db.recipes
-    user_recipes.update({'_id': ObjectId(recipe_id)},
+    recipes = mongo.db.recipes
+    recipes.update_one({'_id': ObjectId(recipe_id)},
+    {'$set':
     {
         'author': current_user_id,
         'name': request.form.get('name'),
@@ -201,10 +202,15 @@ def update_recipe(recipe_id):
         "image_url": request.form.get('image_url'),
         "views": request.form.get('views'),
         "votes": request.form.get('votes')
-    })
+    }
+    },
+    {"$pull": { "ingredients": {"$type": 10}}}
+    )
     flash("recipe upated")
     message = "success update"
     return message
+
+    
 
 
 # FUNCTION :: DELETE RECIPE TRIGGERED BY DELETE BUTTON ON PROFILE PAGE
@@ -214,6 +220,7 @@ def delete_recipe():
     mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
     message = "deleted"
     return message    
+
 
 # PAGE :: VIEW RECIPE DETAILS PAGE
 @app.route('/view_recipe/<recipe_id>')
@@ -230,10 +237,6 @@ def view_recipe(recipe_id):
     difficulty = get_difficulty()
     return render_template("viewrecipe.html", test=mongo.db.test_collection.find(), current_user=current_user, 
                             categories=categories, cuisine=cuisine, allergens_list=allergens_list, recipe=the_recipe, difficulty=difficulty )
-
-
-
-
 
 
 # FUNCTION :: SIGN UP NEW USER / REGISTER / CREATE RECORD IN USERS COLLECTION
