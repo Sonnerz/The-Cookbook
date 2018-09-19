@@ -24,8 +24,8 @@
                             <h3 class="section-subheading text-muted">Add a new recipe complete teh form.</h3>
                         </div>
                     </div>
-                    
-                    
+
+
                     <!-- ADD RECIPES FORM-->
                     <form id="add_recipe_form" name="add_recipe_form" action="{{ url_for('insert_recipe') }}" method="POST">
                         <div class="row" style="background-color:blueviolet">
@@ -36,8 +36,9 @@
                                         placeholder="Name of recipe">
                                 </div>
                                 <div class="form-group">
-                                        <label for="inputName">Add an Image</label>
-                                        <input type="input" class="form-control" id="image_url" name="image_url" placeholder="Paste a link to your image">
+                                    <label for="inputName">Add an Image</label>
+                                    <input type="input" class="form-control" id="image_url" name="image_url"
+                                        placeholder="Paste a link to your image">
                                 </div>
                                 <div class="form-group">
                                     <label for="inputDescription">Description</label>
@@ -86,8 +87,8 @@
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="inputPrep">prep time</label>
-                                            <input value="20 minutes" type="input" class="form-control" id="prep_time" name="prep_time"
-                                                placeholder="prep time">
+                                            <input value="20 minutes" type="input" class="form-control" id="prep_time"
+                                                name="prep_time" placeholder="prep time">
                                         </div>
                                     </div>
                                     <div class="col">
@@ -143,7 +144,7 @@
                                     <div id="instruction_input_list">
                                         <label for="inputInstruction">Instructions</label>
                                         <input value="Nam viverra lacus ac egestas facilisis. Phasellus accumsan urna ligula, a ullamcorper sapien pellentesque vel."
-                                            class="input form-control" id="instruction" name="instruction" placeholder="instructions"/>
+                                            class="input form-control" id="instruction" name="instruction" placeholder="instructions" />
                                         <a href="#" id="add_instruction"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
@@ -181,26 +182,11 @@
 <!-- Debug area. Hidden if debug set to False -->
 {% block content_debug %}
 
-<div class="container-fluid" id>
-    <div class="row">
-        <div class="col-md-6">
-            <h5>Connection Test</h5>
-            {% for t in test %}
-            <p>{{t.test_description}}</p>
-            {% endfor %}
-            <h5>Session</h5>
-            <p>{{ session }}</p>
-            <p>session['username']</p>
-            <p>session['isLoggedin']</p>
-        </div>
-        <div class="col-md-6">
-            <h5>Current User</h5>
-            <p>username: {{ current_user.username }}</p>
-            <p>firstname: {{ current_user.firstname }}</p>
-            <p>lastname: {{ current_user.lastname }}</p>
-            <p>country: {{ current_user.country }}</p>
-            <p>id: {{ current_user._id }}</p>
-        </div>
-    </div>
-</div>
+<h5>Current User</h5>
+<p>username: {{ current_user.username }}</p>
+<p>firstname: {{ current_user.firstname }}</p>
+<p>lastname: {{ current_user.lastname }}</p>
+<p>country: {{ current_user.country }}</p>
+<p>id: {{ current_user._id }}</p>
+
 {% endblock %}

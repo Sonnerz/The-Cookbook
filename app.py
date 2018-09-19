@@ -27,7 +27,7 @@ def debug_on_off():
     return dict(debug=app.debug)
 
 
-# LOGIN REQUIRED WRAP
+# FUNCTION :: LOGIN REQUIRED WRAP
 def login_required(f):
     @wraps(f)
     def wrap(*args, **kwargs):
@@ -38,7 +38,7 @@ def login_required(f):
             return render_template("index.html")
     return wrap    
 
-# GET RECORD FROM USERS COLLECTION
+# FUNCTION :: GET RECORD FROM USERS COLLECTION BY USERNAME
 def get_record(username):
     row={}
     try:
@@ -50,7 +50,7 @@ def get_record(username):
         print("one row with username does exist")
     return row
 
-# GET RECIPES FROM RECIPE COLLECTION FOR CURRENT USER
+# FUNCTION :: GET RECIPES FROM RECIPE COLLECTION FOR CURRENT USER
 def get_recipes(current_user_id):
     rows={}
     try:
@@ -63,34 +63,34 @@ def get_recipes(current_user_id):
         print("recipes by author do exist")
     return rows
 
-# GET CATEGORIES
+# FUNCTION :: GET CATEGORIES
 def get_categories():
     categories=mongo.db.categories.find()
     return categories
 
-# GET CUISINE
+# FUNCTION :: GET CUISINE
 def get_cuisine():
     cuisine=mongo.db.cuisine.find()
     return cuisine
 
-# GET ALLERGENS
+# FUNCTION :: GET ALLERGENS
 def get_allergens():
     allergens=mongo.db.allergens.find()
     return allergens
 
-# GET DIFFICULTY OPTIONS
+# FUNCTION :: GET DIFFICULTY OPTIONS
 def get_difficulty():
     difficulty=mongo.db.difficulty.find()
     return difficulty      
 
-# INDEX
+# PAGE :: INDEX - HOME PAGE
 @app.route('/')
 def index():
     #session.pop('username', None)
     session.pop('_flashes', None)
     return render_template("index.html", test=mongo.db.test_collection.find())
 
-# PROFILE
+# PAGE :: PROFILE PAGE
 @app.route('/profile')
 @login_required
 def profile():
@@ -102,7 +102,7 @@ def profile():
                             recipes=user_recipes)
 
 
-# LOGOUT
+# FUNCTION :: LOGOUT FUNCTION TRIGGERED BY LOGOUT BUTTON
 @app.route('/logout', methods=['GET','POST'])
 def logout():
     if request.method == 'GET':
@@ -114,7 +114,7 @@ def logout():
     return render_template("index.html", test=mongo.db.test_collection.find(), users=mongo.db.user_recipe.find())
 
 
-# ADD RECIPE FORM
+# PAGE :: ADD RECIPE FORM
 @app.route('/add_recipe')
 @login_required
 def add_recipe():
@@ -129,7 +129,8 @@ def add_recipe():
     return render_template("addrecipe.html", test=mongo.db.test_collection.find(), current_user=current_user, 
                             categories=categories, cuisine=cuisine, allergens=allergens, difficulty=difficulty )    
 
-# INSERT RECIPE IN DATABASE
+
+# FUNCTION :: INSERT RECIPE IN RECIPES COLLECTION IN DATABASE
 @app.route('/insert_recipe', methods=['GET', 'POST'])
 @login_required
 def insert_recipe():
@@ -159,7 +160,7 @@ def insert_recipe():
     return message
 
 
-# EDIT RECIPE
+# PAGE :: EDIT RECIPE FORM
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
     print(recipe_id)
@@ -176,10 +177,9 @@ def edit_recipe(recipe_id):
                             categories=categories, cuisine=cuisine, allergens_list=allergens_list, recipe=the_recipe, difficulty=difficulty )
 
 
-# UPDATE RECIPE
+# FUNCTION :: UPDATE RECIPE WRITE BACK TO RECIPES COLLECION IN DATABASE
 @app.route('/update_recipe/<recipe_id>', methods=['POST'])
 def update_recipe(recipe_id):
-    print("recipe_id::>      ",recipe_id)
     current_user_id = session['userid']
     user_recipes = mongo.db.recipes
     user_recipes.update({'_id': ObjectId(recipe_id)},
@@ -198,14 +198,25 @@ def update_recipe(recipe_id):
         "allergens": request.form.getlist('allergen'),
         "ingredients": request.form.getlist('ingredient'),
         "instructions": request.form.getlist('instruction'),
-        "image_url": request.form.get('image_url')
+        "image_url": request.form.get('image_url'),
+        "views": request.form.get('views'),
+        "votes": request.form.get('votes')
     })
-    message = "edited and updated to db" 
-    print(message)
+    flash("recipe upated")
+    message = "success update"
     return message
 
 
-# SIGN UP NEW USER / REGISTER / CREATE RECORD IN COLLECTION USER_RECIPE
+# FUNCTION :: DELETE RECIPE TRIGGERED BY DELETE BUTTON ON PROFILE PAGE
+@app.route('/delete_recipe', methods=['POST'])
+def delete_recipe():
+    recipe_id = request.form.get('recipe_id')
+    mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
+    message = "deleted"
+    return message    
+
+
+# FUNCTION :: SIGN UP NEW USER / REGISTER / CREATE RECORD IN USERS COLLECTION
 @app.route('/signup_user', methods=['POST'])
 def signup_user():
     check_user = get_record(request.form.get('signupUsername'))
@@ -226,7 +237,7 @@ def signup_user():
         return message
     return
     
-# LOGIN IN USER WHO IS REGISTERED
+# FUNCTION :: LOGIN IN USER WHO IS REGISTERED TRIGGERED BY LOGIN BUTTON
 @app.route('/login_user', methods=['POST'])
 def login_user():
     pw = request.form.get('loginPassword')
@@ -249,9 +260,6 @@ def login_user():
         message = "no user by that name"
         return message        
     return        
-
-
-
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), port=int(os.environ.get('PORT')), debug=True)

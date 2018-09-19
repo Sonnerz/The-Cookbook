@@ -37,7 +37,7 @@
                         <div class="col-md-12">
                             <h4 class="service-heading">My recipes</h4>
                             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima
-                                maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>                       
+                                maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
                         </div>
                     </div>
                     <div class="row">
@@ -45,29 +45,34 @@
                         <div class="col-2">Description</div>
                         <div class="col-2 text-center">Views</div>
                         <div class="col-2 text-center">Votes</div>
-                        <div class="col-4 text-center" style="background-color:rgb(199, 200, 101)">Manage Recipes <a href="/add_recipe" type="button" id="add_recipe">Add</a></div>
+                        <div class="col-4 text-center" style="background-color:rgb(199, 200, 101)">Manage Recipes <a
+                                href="/add_recipe" type="button" id="add_recipe">Add</a></div>
                     </div>
                     <div class="row">
-                            {% for r in recipes if recipes != "" %}
-                            <div class="col-2">{{ r.name }}</div>
-                            <div class="col-2">{{ r.description|truncate(100, False, '...', 0) }}</div>
-                            <div class="col-2 text-center">{{ r.views }}</div>
-                            <div class="col-2 text-center">{{ r.votes }}</div>
-                            <div class="col-4 text-center" style="background-color:darkgray">
-                                <div class="row">
-                                    <div class="col-6"><span>id: {{r._id}}</span>
-                                        <a href="{{ url_for('edit_recipe', recipe_id=r._id) }}" type="button" id="edit_recipe">Edit</a>
-                                    </div>
-                                    <div class="col-6">
-                                        <a href="/delete_recipe" type="button" id="delete_recipe">Delete</a>
-                                    </div>
+                        {% for r in recipes if recipes != "" %}
+                        <div class="col-2">{{ r.name }}</div>
+                        <div class="col-2">{{ r.description|truncate(100, False, '...', 0) }}</div>
+                        <div class="col-2 text-center">{{ r.views }}</div>
+                        <div class="col-2 text-center">{{ r.votes }}</div>
+                        <div class="col-4 text-center" style="background-color:darkgray">
+                            <div class="row">
+                                <div class="col-6"><span>{{r._id}}</span>
+                                    <a href="{{ url_for('edit_recipe', recipe_id=r._id) }}" type="button" id="edit_recipe">Edit</a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="#" type="button" class="delete_recipe" id="{{r._id}}">Delete</a>
+                                </div>
+                                <div id="confirm_delete" title="Empty the recycle bin" style="display:none">
+                                    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
                                 </div>
                             </div>
+                        </div>
 
-                         {% else %}
-                         <div class="col-12"> No recipes for you</div>
-                         {% endfor %}   
+                        {% else %}
+                        <div class="col-12"> No recipes for you</div>
+                        {% endfor %}
                     </div>
+                    <div id="profileMessages"></div>
                 </div>
             </section>
         </div>
@@ -91,28 +96,11 @@
 
 <!-- Debug area. Hidden if debug set to False -->
 {% block content_debug %}
+<h5>Current User</h5>
+<p>username: {{ current_user.username }}</p>
+<p>firstname: {{ current_user.firstname }}</p>
+<p>lastname: {{ current_user.lastname }}</p>
+<p>country: {{ current_user.country }}</p>
+<p>_id: {{current_user._id}}</p>
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-6">
-            <h5>Connection Test</h5>
-            {% for t in test %}
-            <p>{{t.test_description}}</p>
-            {% endfor %}
-            <h5>Session</h5>
-            <p>{{ session }}</p>
-            <p>session['username']</p>
-            <p>session['isLoggedin']</p>
-            <p>session['userid']</p>
-        </div>
-        <div class="col-md-6">
-            <h5>Current User</h5>
-            <p>username: {{ current_user.username }}</p>
-            <p>firstname: {{ current_user.firstname }}</p>
-            <p>lastname: {{ current_user.lastname }}</p>
-            <p>country: {{ current_user.country }}</p>
-            <p>_id: {{current_user._id}}</p>
-        </div>
-    </div>
-</div>
 {% endblock %}

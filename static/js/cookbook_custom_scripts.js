@@ -87,14 +87,16 @@ $(function () {
 $(function () {
   $('#update_recipe_form').submit(function (event) {
     event.preventDefault();
-    var recipe_id = document.getElementById("recipe_id").value
+    var url = window.location.href;
+    recipe_id = url.split("/").pop();
     $.ajax({
-      url: '/update_recipe/'+recipe_id,
+      url: '/update_recipe/' + recipe_id,
       data: $('#update_recipe_form').serialize(),
       type: 'POST',
       success: function (response) {
         console.log("RESPONSE FROM SERVER", response);
         $("#editRecipeMessages").html(response);
+        window.location.href = "/profile";
         // Delay before redirect to read message
         // var delay = 1200;
         // setTimeout(function () { window.location.href = "/profile"; }, delay);
@@ -119,7 +121,6 @@ function viewPanel() {
     panel.style.display = "none";
   }
 }
-
 
 //--------------------------------------------------------------------------------------------------------------//
 // add class to navbar link depending on the page displayed
@@ -183,16 +184,60 @@ $(document).ready(function () {
     });
   });
 
-});
 
 
-// <script type="text/javascript">
-//     $(function () {
-//         var ingredients = $("input[name='ingredient\\[\\]']")
-//             .map(function () { return $(this).val(); }).get();
+  // DOUBLE CHECK THE DELETE
+  $(function () {
+    $('.delete_recipe').click(function (e) {
+      e.preventDefault();
+      // GET THE ID OF THE RECIPE APPENDED TO DELETE BUTTON ID
+      var thisrecipeid = this.id;
+      $("#confirm_delete").dialog({
+        resizable: false,
+        height: "auto",
+        width: 400,
+        modal: true,
+        buttons: {
+          "Delete all items": function () {
+            $(this).dialog("close");
+            var recipe_id = thisrecipeid
+            $.ajax({
+              url: '/delete_recipe',
+              data: {"recipe_id" : recipe_id},
+              type: 'POST',
+              success: function (response) {
+                console.log("RESPONSE FROM SERVER", response);
+                $("#profileMessages").html(response);
+                window.location.href = "/profile";
+                // Delay before redirect to read message
+                // var delay = 1200;
+                // setTimeout(function () { window.location.href = "/profile"; }, delay);
+              },
+              error: function (error) {
+                console.log(error);
+                $("#profileMessages").html(response);
+              }
+            });           
+          },
+          Cancel: function () {
+            $(this).dialog("close");
+          }
+        }
+      });
+      return false;
+    });
+  });
 
-//         console.log("WOOOOO", ingredients);
-//     });
-// </script>
+
+
+
+
+
+
+
+
+
+});// on doc ready
+
 
 

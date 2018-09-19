@@ -43,10 +43,11 @@
                 </ul>
                 {% else %}
                 <ul class="ml-auto">
-                <li>
-                    <!-- Button trigger login modal -->
-                    <a class="btn btn-primary nav-logout" href="#" role="button" data-toggle="modal" data-target="#loginModal">Login >></a>
-                </li>
+                    <li>
+                        <!-- Button trigger login modal -->
+                        <a class="btn btn-primary nav-logout" href="#" role="button" data-toggle="modal" data-target="#loginModal">Login
+                            >></a>
+                    </li>
                 </ul>
                 {% endif %}
             </div>
@@ -65,13 +66,27 @@
     <div class="container-fluid" style="display:block; background-color:pink" id="panel-debug">
         <div class="row">
             <div class="col">
-                {% block content_debug %}{% endblock %}
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h5>Session</h5>
+                            <p>{{ session }}</p>
+                            <p>user id: {{ session['userid'] }}</p>
+                            <p>username: {{ session['username'] }}</p>
+                            <p>isLoggedin: {{ session['isLoggedin'] }}</p>
+                        </div>
+                        <div class="col-md-6">
+                            {% block content_debug %}{% endblock %}
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     {% endif %}
     <!-- Bootstrap JS -->
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
     <!-- Plugin JavaScript -->
@@ -94,4 +109,3 @@
 </html>
 
 <script>
-    

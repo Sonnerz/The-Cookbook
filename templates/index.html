@@ -69,10 +69,11 @@
             </div>
           </form>
         </div>
-        <div class="modal-footer">           
-          <span>Not registered? <a href="#" data-toggle="modal" data-target="#signupModal" data-dismiss="modal">Create an account now >></a></span>
+        <div class="modal-footer">
+          <span>Not registered? <a href="#" data-toggle="modal" data-target="#signupModal" data-dismiss="modal">Create
+              an account now >></a></span>
           <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          
+
         </div>
       </div>
     </div>
@@ -141,25 +142,12 @@
 
 <!-- Debug area. Hidden if debug set to False -->
 {% block content_debug %}
-
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-6">
-      <h5>Connection Test</h5>
-      {% for t in test %}
-      <p>{{t.test_description}}</p>
-      {% endfor %}
-      <h5>Session</h5>
-      <p>{{ session }}</p>
-      <p>session['username']</p>
-      <p>session['isLoggedin']</p>
-    </div>
-    <div class="col-md-6">
-      <h5>Usernames</h5>
-      {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
-      {{message}}
-      {% endfor %} {% endif %} {% endwith %}
-    </div>
-  </div>
-</div>
+ <h5>Connection Test</h5>
+  {% for t in test %}
+  <p>{{t.test_description}}</p>
+  {% endfor %}
+  <h5>Usernames</h5>
+  {% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
+  {{message}}
+  {% endfor %} {% endif %} {% endwith %}
 {% endblock %}
