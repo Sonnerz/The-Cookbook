@@ -20,8 +20,8 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1>Edit Recipe</h1>
-                            <h3 class="section-subheading text-muted">Edit a new recipe complete the form.</h3>
+                            <h1>View Recipe</h1>
+                            <h3 class="section-subheading text-muted">view a new recipe complete the form.</h3>
                         </div>
                     </div>
 
@@ -169,14 +169,7 @@
                                 <input value="{{ recipe.votes }}" type="input" class="form-control" id="votes" name="votes"
                                     hidden>
                             </div>
-                            <div class="form-group button-submit-margin" id="editRecipeMessages">
-                                {{message}}
-                            </div>
-                            <div class="col-12 text-center">
-                                <button action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" type="submit"
-                                    class="btn btn-primary" id="addRecipeButton">Update Recipe</button>
-                                <button type="button" class="btn btn-primary" id="cancelRecipeButton" ONCLICK="window.location.href='/profile'">Cancel</button>
-                            </div>
+
                     </form>
                 </div>
             </section>

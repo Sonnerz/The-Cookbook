@@ -27,7 +27,7 @@
 
 
                     <!-- ADD RECIPES FORM-->
-                    <form id="add_recipe_form" name="add_recipe_form" action="{{ url_for('insert_recipe') }}" method="POST">
+                    <form id="add_recipe_form" name="add_recipe_form" method="POST">
                         <div class="row" style="background-color:blueviolet">
                             <div class="col-md-6" style="background-color:burlywood">
                                 <div class="form-group">
@@ -154,15 +154,20 @@
                                 {{message}}
                             </div>
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary" id="addRecipeButton">Add Recipe</button></div>
+                                <button type="submit" class="btn btn-primary" id="addRecipeButton">Add Recipe</button>
+                                <button type="button" class="btn btn-primary" id="cancelRecipeButton" ONCLICK="window.location.href='/profile'">Cancel</button>
+                            </div>
                     </form>
                 </div>
             </section>
         </div>
     </div>
 </div>
-{% block javascript_addrecipe %}
-{% endblock %}
+<script type="text/javacript">
+        function goBack() {
+            window.history.back();
+        }
+        </script>
 
 <div class="flash_messages">
     {% with messages = get_flashed_messages() %}

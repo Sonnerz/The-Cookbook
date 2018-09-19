@@ -50,7 +50,7 @@ def get_record(username):
         print("one row with username does exist")
     return row
 
-# FUNCTION :: GET RECIPES FROM RECIPE COLLECTION FOR CURRENT USER
+# FUNCTION :: GET RECIPES FROM RECIPE COLLECTION FOR CURRENT USER AS AUTHOR OF RECIPE
 def get_recipes(current_user_id):
     rows={}
     try:
@@ -97,7 +97,7 @@ def profile():
     current_user = dict(get_record(session['username']))
     current_user_str = str(current_user['_id'])
     user_recipes = get_recipes(session['userid'])
-    print(user_recipes)
+    print(type(user_recipes))
     return render_template("profile.html", test=mongo.db.test_collection.find(), current_user=current_user, 
                             recipes=user_recipes)
 
@@ -214,6 +214,26 @@ def delete_recipe():
     mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
     message = "deleted"
     return message    
+
+# PAGE :: VIEW RECIPE DETAILS PAGE
+@app.route('/view_recipe/<recipe_id>')
+def view_recipe(recipe_id):
+    print(recipe_id)
+    #debug stuff
+    current_user = dict(get_record(session['username']))
+    ##
+    the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    categories = get_categories()
+    cuisine = get_cuisine()
+    allergens_list_of_dict = list(get_allergens()) # list of allergens dictionaries [{id:123, allergen_name:eggs}, ...]
+    allergens_list = [allergen_item["allergen_name"] for allergen_item in allergens_list_of_dict] #  list comprehension used to get allergen name from allergen_list
+    difficulty = get_difficulty()
+    return render_template("viewrecipe.html", test=mongo.db.test_collection.find(), current_user=current_user, 
+                            categories=categories, cuisine=cuisine, allergens_list=allergens_list, recipe=the_recipe, difficulty=difficulty )
+
+
+
+
 
 
 # FUNCTION :: SIGN UP NEW USER / REGISTER / CREATE RECORD IN USERS COLLECTION

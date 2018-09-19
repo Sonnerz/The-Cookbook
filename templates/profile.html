@@ -56,18 +56,21 @@
                         <div class="col-2 text-center">{{ r.votes }}</div>
                         <div class="col-4 text-center" style="background-color:darkgray">
                             <div class="row">
-                                <div class="col-6"><span>{{r._id}}</span>
-                                    <a href="{{ url_for('edit_recipe', recipe_id=r._id) }}" type="button" id="edit_recipe">Edit</a>
+                                <div class="col-4"><span>{{r._id}}</span>
+                                    <a href="{{ url_for('edit_recipe', recipe_id=r._id) }}" class="btn btn-primary" type="button" id="editRecipeButton">Edit</a>
                                 </div>
-                                <div class="col-6">
-                                    <a href="#" type="button" class="delete_recipe" id="{{r._id}}">Delete</a>
+                                <div class="col-4">
+                                    <a href="#" type="button" class="btn btn-primary delete_recipe" id="{{r._id}}">Delete</a>
                                 </div>
-                                <div id="confirm_delete" title="Empty the recycle bin" style="display:none">
-                                    <p><span class="ui-icon ui-icon-alert" style="float:left; margin:12px 12px 20px 0;"></span>These items will be permanently deleted and cannot be recovered. Are you sure?</p>
+                                <div class="col-4">
+                                        <a href="{{ url_for('view_recipe', recipe_id=r._id) }}" type="button" class="btn btn-primary" id="viewRecipeButton">View</a>
                                 </div>
                             </div>
                         </div>
-
+                        <div id="confirm_delete" title="Delete Recipe" style="display:none">
+                                <p><span class="ui-icon ui-icon-alert ml-auto mr-auto" style="float:left; margin:12px 12px 20px 0;"></span>
+                                    This recipe will be deleted<br>Are you sure?</p>
+                            </div>
                         {% else %}
                         <div class="col-12"> No recipes for you</div>
                         {% endfor %}

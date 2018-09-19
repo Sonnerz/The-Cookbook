@@ -70,8 +70,8 @@ $(function () {
         console.log("RESPONSE FROM SERVER", response);
         $("#newRecipeMessages").html(response);
         // Delay before redirect to read message
-        // var delay = 1200;
-        // setTimeout(function () { window.location.href = "/profile"; }, delay);
+        var delay = 1200;
+        setTimeout(function () { window.location.href = "/profile"; }, delay);
       },
       error: function (error) {
         console.log(error);
@@ -209,9 +209,6 @@ $(document).ready(function () {
                 console.log("RESPONSE FROM SERVER", response);
                 $("#profileMessages").html(response);
                 window.location.href = "/profile";
-                // Delay before redirect to read message
-                // var delay = 1200;
-                // setTimeout(function () { window.location.href = "/profile"; }, delay);
               },
               error: function (error) {
                 console.log(error);
@@ -227,11 +224,6 @@ $(document).ready(function () {
       return false;
     });
   });
-
-
-
-
-
 
 
 

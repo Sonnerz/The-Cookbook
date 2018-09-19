@@ -12,8 +12,8 @@
     }
 }
 
-#add_recipe_form {
-    .added-ingred, #ingredients_input_list>input {
+#add_recipe_form, #update_recipe_form  {
+    #ingredients_input_list>input {
         margin-top: 0.3rem;
     }
     #ingredients_input_list>label {

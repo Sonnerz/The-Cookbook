@@ -402,24 +402,24 @@ label.error {
   }
 }
 
-#add_recipe_form .added-ingred, #add_recipe_form #ingredients_input_list > input {
+#add_recipe_form #ingredients_input_list > input, #update_recipe_form #ingredients_input_list > input {
   margin-top: 0.3rem;
 }
 
-#add_recipe_form #ingredients_input_list > label {
+#add_recipe_form #ingredients_input_list > label, #update_recipe_form #ingredients_input_list > label {
   display: block;
 }
 
-#add_recipe_form #ingredients_input_list .form-control, #add_recipe_form #instruction_input_list .form-control {
+#add_recipe_form #ingredients_input_list .form-control, #add_recipe_form #instruction_input_list .form-control, #update_recipe_form #ingredients_input_list .form-control, #update_recipe_form #instruction_input_list .form-control {
   display: inline;
   width: 90%;
 }
 
-#add_recipe_form .delete {
+#add_recipe_form .delete, #update_recipe_form .delete {
   margin-left: 3px;
 }
 
-#add_recipe_form #instruction_input_list textarea {
+#add_recipe_form #instruction_input_list textarea, #update_recipe_form #instruction_input_list textarea {
   resize: none;
 }
 
