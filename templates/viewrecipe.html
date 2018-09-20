@@ -149,7 +149,7 @@
                                     <div class="row">
                                         
                                             {% if recipe.ingredients|length > 6 %}
-                                            {% for ingredient_col in recipe.ingredients | slice(4, '&nbsp;') %}
+                                            {% for ingredient_col in recipe.ingredients | slice(4) %}
                                             
                                                 {% for ingredient in ingredient_col %}
                                                 <div class="col-6">
