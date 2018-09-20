@@ -129,8 +129,7 @@ function viewPanel() {
 
 // #region GO BACK TO PREVIOUS PAGE
 
-function goPrev()
-{
+function goPrev() {
   window.history.back();
 }
 
@@ -141,7 +140,7 @@ function goPrev()
 
 $(document).ready(function () {
 
-// #region Add class to navbar link depending on the page displayed  
+  // #region Add class to navbar link depending on the page displayed  
 
   var current_path = $(location).attr('pathname');
   if (current_path == "/profile") {
@@ -151,7 +150,7 @@ $(document).ready(function () {
     $("#add-nav-link").addClass("active-link");
   }
 
-// #endregion  
+  // #endregion  
 
 
   //get localstorage user_id and set hidden field in add recipe form
@@ -225,7 +224,7 @@ $(document).ready(function () {
             var recipe_id = thisrecipeid
             $.ajax({
               url: '/delete_recipe',
-              data: {"recipe_id" : recipe_id},
+              data: { "recipe_id": recipe_id },
               type: 'POST',
               success: function (response) {
                 console.log("RESPONSE FROM SERVER", response);
@@ -236,7 +235,7 @@ $(document).ready(function () {
                 console.log(error);
                 $("#profileMessages").html(response);
               }
-            });           
+            });
           },
           Cancel: function () {
             $(this).dialog("close");
@@ -255,3 +254,49 @@ $(document).ready(function () {
 
 
 
+$(document).ready(function () {
+
+  $(window).on('resize', function () { 
+    var win = $(this); //this = window
+    if (win.width() >= 768) {
+      $("#home").css("display", "block");
+      $("#profile").css("display", "block");
+      $("#messages").css("display", "block");
+    }
+    else if (win.width() <= 767) {
+      if ($("#hometab>a").is(".active")) {
+        $("#home").css("display", "block");
+        $("#profile").css("display", "none");
+        $("#messages").css("display", "none");
+      }
+      else if ($("#ptab>a").is(".active")) {
+        $("#home").css("display", "none");
+        $("#profile").css("display", "block");
+        $("#messages").css("display", "none");
+      }
+      else if ($("#mtab>a").is(".active")) {
+        $("#home").css("display", "none");
+        $("#profile").css("display", "none");
+        $("#messages").css("display", "block");
+      }
+    }
+  });
+
+  $('#hometab').click(function () {
+    $("#home").css("display", "block");
+    $("#profile").css("display", "none");
+    $("#messages").css("display", "none");
+  })
+  $('#ptab').click(function () {
+    $("#profile").css("display", "block");
+    $("#home").css("display", "none");
+    $("#messages").css("display", "none");
+  })
+  $('#mtab').click(function () {
+    $("#messages").css("display", "block");
+    $("#profile").css("display", "none");
+    $("#home").css("display", "none");
+  })
+
+
+});

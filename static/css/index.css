@@ -1,0 +1,36 @@
+/* --------------- Responsive Fixes --------------- */
+		/* small device */
+		@media(min-width: 768px) {
+			.tab-content  .tab-pane {
+			  display: block;
+			}
+			.nav {
+			  display:none;
+			}
+			
+		  }
+		  
+		  @media(max-width: 767px) {
+			  #home{
+				 display:block;
+			 } 
+			 #profile, #messages {
+				 display: none;
+			 }
+		  }
+		  
+		  .show {
+			display: block;
+		  }
+    .red {
+      background-color: #ff0000;
+    }
+    .blue {
+      background-color: #5047d1;
+    }
+     .yellow {
+      background-color: #b0f05c;
+    }
+		/* --------------- / Responsive Fixes --------------- */
+
+		

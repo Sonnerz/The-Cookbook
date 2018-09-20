@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block template_content %}
+<div class="container-fluid" style="margin-top:200px">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs hidden-md-up" role="tablist">
+      <li class="nav-item" id="hometab"><a class="nav-link active" href="#home" aria-controls="home" data-toggle="tab">Home</a></li>
+      <li class="nav-item" id="ptab"><a class="nav-link" href="#profile" aria-controls="profile" data-toggle="tab">Profile</a></li>
+      <li class="nav-item" id="mtab"><a class="nav-link" href="#messages" aria-controls="messages" data-toggle="tab">Messages</a></li>
+    </ul>
+  
+    <!-- Tab panes -->
+    <div class="tab-content container-fluid">
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <div role="tabpanel" class="tab-pane active red col-12" id="home">...home...</div>
+        </div>
+        <div class="col-12 col-md-8">
+          <div role="tabpanel" class="tab-pane blue col-12" id="profile">...profile...</div>
+          <div role="tabpanel" class="tab-pane yellow col-12" id="messages">...messages...</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

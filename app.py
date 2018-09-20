@@ -31,6 +31,11 @@ def debug_on_off():
     return dict(debug=app.debug)
 
 
+# PAGE :: ADD RECIPE FORM
+@app.route('/content_to_tab')
+def content_to_tab():
+    return render_template("content_to_tab.html")
+
 # FUNCTION :: LOGIN REQUIRED WRAP
 def login_required(f):
     @wraps(f)
