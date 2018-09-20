@@ -175,7 +175,7 @@
                             <div class="col-12 text-center">
                                 <button action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" type="submit"
                                     class="btn btn-primary" id="addRecipeButton">Update Recipe</button>
-                                <button type="button" class="btn btn-primary" id="cancelRecipeButton" ONCLICK="window.location.href='/profile'">Cancel</button>
+                                <button type="button" class="btn btn-primary" id="cancelRecipeButton" ONCLICK="goPrev()">Cancel</button>
                             </div>
                     </form>
                 </div>
@@ -183,8 +183,6 @@
         </div>
     </div>
 </div>
-{% block javascript_addrecipe %}
-{% endblock %}
 
 <div class="flash_messages">
     {% with messages = get_flashed_messages() %}

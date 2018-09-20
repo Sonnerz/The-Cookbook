@@ -103,7 +103,7 @@ def index():
 
 
 # PAGE :: PROFILE PAGE
-@app.route('/profile/')
+@app.route('/profile')
 @login_required
 def profile():
     current_user = dict(get_record(session['username']))

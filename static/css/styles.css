@@ -428,6 +428,79 @@ label.error {
   text-transform: none;
 }
 
+#recipe-info .left-col {
+  padding: 0;
+  background-color: transparent;
+}
+
+#recipe-info .right-col {
+  background-color: transparent;
+}
+
+#recipe-info .right-col .btn {
+  margin-right: 1rem;
+}
+
+#recipe-info .recipe-image img {
+  width: 100%;
+  height: auto;
+}
+
+#recipe-info .recipe-details {
+  margin-top: 3rem;
+  padding-left: 12px;
+}
+
+#recipe-info .recipe-details .spacer {
+  margin-top: 2rem;
+}
+
+#recipe-info .recipe-details .row {
+  margin-bottom: 0.5rem;
+}
+
+#recipe-info .recipe-details .detail-title {
+  font-weight: 600;
+}
+
+#recipe-info .detail-title {
+  font-weight: 600;
+}
+
+#recipe-info #ingredients ul {
+  font-size: 0.9rem;
+  list-style-type: none;
+  padding-left: 10px;
+}
+
+#recipe-info #ingredients li {
+  padding-bottom: 5px;
+}
+
+#recipe-info #instructions .instuctions-line {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-left: 0;
+  padding-bottom: 20px;
+  text-align: justify;
+  text-justify: inter-word;
+}
+
+#recipe-info #instructions .loop-index {
+  display: none;
+}
+
+@media (min-width: 767px) {
+  #recipe-info .loop-index {
+    display: normal;
+  }
+  #recipe-info .service-heading {
+    margin: 15px 0;
+    text-transform: none;
+  }
+}
+
 #portfolio .portfolio-item {
   right: 0;
   margin: 0 0 15px;

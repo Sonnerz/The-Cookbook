@@ -1,4 +1,4 @@
-//AJAX send the signup data to the back end
+// #region AJAX send the signup data to Flask/Python
 
 $(function () {
   $('#signupForm').submit(function (event) {
@@ -28,8 +28,9 @@ $(function () {
   });
 });
 
-//--------------------------------------------------------------------------------------------------------------//
-//AJAX send the login data to the back end
+// #endregion
+
+// #region AJAX send the login data to Flask/Python
 
 $(function () {
   $('#loginForm').submit(function (event) {
@@ -56,8 +57,9 @@ $(function () {
   });
 });
 
-//--------------------------------------------------------------------------------------------------------------//
-//AJAX send the new recipe data from form to server
+// #endregion
+
+// #region AJAX send the new recipe data from form to Flask/Python
 
 $(function () {
   $('#add_recipe_form').submit(function (event) {
@@ -81,8 +83,9 @@ $(function () {
   });
 });
 
-//--------------------------------------------------------------------------------------------------------------//
-//AJAX update a recipe send data from form to server
+// #endregion
+
+// #region AJAX update a recipe send data from form to server
 
 $(function () {
   $('#update_recipe_form').submit(function (event) {
@@ -109,9 +112,9 @@ $(function () {
   });
 });
 
+// #endregion
 
-//--------------------------------------------------------------------------------------------------------------//
-// show/hide the Debug Panel
+// #region show/hide the Debug Panel
 function viewPanel() {
   var panel = document.getElementById("panel-debug");
   if (panel.style.display === "none") {
@@ -122,9 +125,24 @@ function viewPanel() {
   }
 }
 
-//--------------------------------------------------------------------------------------------------------------//
-// add class to navbar link depending on the page displayed
+// #endregion
+
+// #region GO BACK TO PREVIOUS PAGE
+
+function goPrev()
+{
+  window.history.back();
+}
+
+// #endregion
+
+
+// DOCUMENT.READY START //
+
 $(document).ready(function () {
+
+// #region Add class to navbar link depending on the page displayed  
+
   var current_path = $(location).attr('pathname');
   if (current_path == "/profile") {
     $("#profile-nav-link").addClass("active-link");
@@ -132,6 +150,8 @@ $(document).ready(function () {
   else if (current_path == "/add_recipe") {
     $("#add-nav-link").addClass("active-link");
   }
+
+// #endregion  
 
 
   //get localstorage user_id and set hidden field in add recipe form
@@ -142,15 +162,15 @@ $(document).ready(function () {
 
 
 
-  // add extra ingredient or instruction inputs to add recipe form
+  // #region Add extra ingredient or instruction inputs to add recipe form
   $('#add_ingredient').click(function () {
     addExtraInputs("i");
-    return false; //return false;  stops page jumping to top
+    return false; //return false;  stops page jumping back to top
   })
 
   $('#add_instruction').click(function () {
     addExtraInputs("m");
-    return false; //return false;  stops page jumping to top
+    return false; //return false;  stops page jumping back to top
   })
 
   function addExtraInputs(inputs) {
@@ -184,9 +204,11 @@ $(document).ready(function () {
     });
   });
 
+  // #endregion
 
 
-  // DOUBLE CHECK THE DELETE
+
+  // #region CONFIRM WITH USER BEFORE DELETE A RECIPE
   $(function () {
     $('.delete_recipe').click(function (e) {
       e.preventDefault();
@@ -225,11 +247,11 @@ $(document).ready(function () {
     });
   });
 
+  // #endregion
 
 
 
-
-});// on doc ready
+}); // DOCUMENT.READY END //
 
 
 

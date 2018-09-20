@@ -3,3 +3,69 @@
   margin: 15px 0;
   text-transform: none;
 }
+
+#recipe-info {
+    .left-col {
+        padding: 0;
+        background-color: transparent;
+    }
+    .right-col {
+      background-color: transparent;
+      .btn {
+        margin-right: 1rem;
+      }
+    }
+    .recipe-image img {
+        width: 100%;
+        height: auto;
+    }
+    .recipe-details {
+      margin-top: 3rem;
+      padding-left: 12px;
+        .spacer{
+          margin-top: 2rem;
+        }
+        .row {
+          margin-bottom: 0.5rem;
+        }
+        .detail-title {
+            font-weight: 600;
+        }
+    }
+    .detail-title {
+        font-weight: 600;
+    }
+    #ingredients {
+      ul {
+        font-size: 0.9rem;
+        list-style-type: none;
+        padding-left: 10px;
+        
+      }
+      li {
+        padding-bottom: 5px;
+      }
+    }
+    #instructions {
+      .instuctions-line {
+        justify-content: center;
+        padding-left:0;
+        padding-bottom: 20px;
+        text-align: justify;
+        text-justify: inter-word;
+      }
+      .loop-index {
+        display: none;
+      }
+    }
+
+    @media(min-width:767px) {
+      .loop-index {
+        display: normal;
+      }
+      .service-heading {
+        margin: 15px 0;
+        text-transform: none;
+    }
+    }
+}
