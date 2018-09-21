@@ -423,22 +423,44 @@ label.error {
   resize: none;
 }
 
-.service-heading {
+.recipe-heading {
   margin: 15px 0;
   text-transform: none;
 }
 
+#recipe-title {
+  margin-bottom: 2rem;
+}
+
+.btn-row {
+  margin-top: 0.8rem;
+  padding: 0;
+  padding-bottom: 0.8rem;
+  text-align: center;
+}
+
+.with-border {
+  border-bottom: 1px solid #546a7b;
+}
+
+.thumbs-col {
+  line-height: 3.6rem;
+}
+
+#editRecipeButton {
+  margin-right: 0.5rem;
+}
+
+.voteup {
+  font-size: 1.5rem;
+}
+
 #recipe-info .left-col {
   padding: 0;
-  background-color: transparent;
 }
 
-#recipe-info .right-col {
-  background-color: transparent;
-}
-
-#recipe-info .right-col .btn {
-  margin-right: 1rem;
+#recipe-info #recipe-description {
+  display: none;
 }
 
 #recipe-info .recipe-image img {
@@ -446,13 +468,14 @@ label.error {
   height: auto;
 }
 
+#recipe-info #editRecipeButton, #recipe-info .delete_recipe {
+  font-size: 0.8rem;
+  margin: 0;
+}
+
 #recipe-info .recipe-details {
   margin-top: 3rem;
   padding-left: 12px;
-}
-
-#recipe-info .recipe-details .spacer {
-  margin-top: 2rem;
 }
 
 #recipe-info .recipe-details .row {
@@ -463,14 +486,29 @@ label.error {
   font-weight: 600;
 }
 
+#recipe-info .recipe-details .allergen-list {
+  padding-left: 0;
+  list-style-type: none;
+}
+
+#recipe-info .recipe-details ul.detail-item {
+  padding-left: 0;
+  list-style-type: none;
+  padding-bottom: 0.8rem;
+}
+
 #recipe-info .detail-title {
   font-weight: 600;
+}
+
+#recipe-info #ingredients {
+  padding-top: 1rem;
 }
 
 #recipe-info #ingredients ul {
   font-size: 0.9rem;
   list-style-type: none;
-  padding-left: 10px;
+  padding-left: 0;
 }
 
 #recipe-info #ingredients li {
@@ -483,22 +521,68 @@ label.error {
           justify-content: center;
   padding-left: 0;
   padding-bottom: 20px;
-  text-align: justify;
-  text-justify: inter-word;
 }
 
-#recipe-info #instructions .loop-index {
-  display: none;
+#recipe-info #instructions div.col-12 {
+  padding: 0;
 }
 
-@media (min-width: 767px) {
+@media (min-width: 768px) {
   #recipe-info .loop-index {
     display: normal;
   }
-  #recipe-info .service-heading {
+  #recipe-info .recipe-heading {
     margin: 15px 0;
     text-transform: none;
   }
+  #recipe-info #instructions div.col-12 {
+    padding: 0 15px;
+  }
+  #recipe-info #ingredients {
+    padding-top: 1rem;
+  }
+  #recipe-info #recipe-description {
+    display: normal;
+  }
+  #recipe-info .btn-row {
+    text-align: right;
+  }
+}
+
+/* small device */
+@media (min-width: 768px) {
+  .tab-content .tab-pane {
+    display: block;
+  }
+  .nav {
+    display: none;
+  }
+}
+
+@media (max-width: 767px) {
+  #home {
+    display: block;
+  }
+  #profile,
+  #messages {
+    display: none;
+  }
+}
+
+.show {
+  display: block;
+}
+
+.red {
+  background-color: #ff0000;
+}
+
+.blue {
+  background-color: #5047d1;
+}
+
+.yellow {
+  background-color: #b0f05c;
 }
 
 #portfolio .portfolio-item {

@@ -261,23 +261,15 @@ $(document).ready(function () {
     if (win.width() >= 768) {
       $("#home").css("display", "block");
       $("#profile").css("display", "block");
-      $("#messages").css("display", "block");
     }
     else if (win.width() <= 767) {
       if ($("#hometab>a").is(".active")) {
         $("#home").css("display", "block");
         $("#profile").css("display", "none");
-        $("#messages").css("display", "none");
       }
       else if ($("#ptab>a").is(".active")) {
         $("#home").css("display", "none");
         $("#profile").css("display", "block");
-        $("#messages").css("display", "none");
-      }
-      else if ($("#mtab>a").is(".active")) {
-        $("#home").css("display", "none");
-        $("#profile").css("display", "none");
-        $("#messages").css("display", "block");
       }
     }
   });
@@ -285,18 +277,12 @@ $(document).ready(function () {
   $('#hometab').click(function () {
     $("#home").css("display", "block");
     $("#profile").css("display", "none");
-    $("#messages").css("display", "none");
   })
   $('#ptab').click(function () {
     $("#profile").css("display", "block");
-    $("#home").css("display", "none");
-    $("#messages").css("display", "none");
-  })
-  $('#mtab').click(function () {
-    $("#messages").css("display", "block");
-    $("#profile").css("display", "none");
     $("#home").css("display", "none");
   })
 
 
 });
+

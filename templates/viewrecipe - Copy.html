@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+
+{% block template_content %}
+<!-- USER NAME-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <section id="user_name">
+                <span>&#123;&#123; Hello {{ session['username'] }}, welcome back &#125;&#125;</span>
+            </section>
+        </div>
+    </div>
+</div>
+<!-- PAGE CONTENT-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <!-- PAGE HEADER -->
+            <section id="user_content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <h1>View Recipe</h1>
+                            <h3 class="section-subheading text-muted">view a new recipe complete the form.</h3>
+                        </div>
+                    </div>
+                    <!-- VIEW RECIPE DETAILS-->
+                    <div class="container-fluid" id="recipe-info">
+                        <div class="row">
+                            <!-- COLUMN 1 RECIPE INFO -->
+                            <div class="col-12 col-md-4 left-col">
+                                {% if recipe.image_url != "" %}
+                                <div class="recipe-image">
+                                    <img src="{{ recipe.image_url }}" alt="" id="" />
+                                </div>
+                                {% else %}
+                                <div class="recipe-image">
+                                    <img src="{{ url_for('static', filename='img/default_food.png')}}" alt="" id="" />
+                                </div>
+                                {% endif %}
+                                <div class="recipe-details">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-6 detail-title">
+                                                Main Ingredient:
+                                            </div>
+                                            <div class="col-6">
+                                                {{ recipe.main_ingredient }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 detail-title">
+                                                Category:
+                                            </div>
+                                            <div class="col-6">
+                                                {{ recipe.category }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 detail-title">
+                                                Cuisine:
+                                            </div>
+                                            <div class="col-6">
+                                                {{ recipe.cuisine }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 detail-title">
+                                                Difficulty:
+                                            </div>
+                                            <div class="col-6">
+                                                {{ recipe.difficulty }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 detail-title">
+                                                Prep time:
+                                            </div>
+                                            <div class="col-6">
+                                                {{ recipe.prep_time }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 detail-title">
+                                                Cook time:
+                                            </div>
+                                            <div class="col-6">
+                                                {{ recipe.cook_time }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 detail-title">
+                                                Serves:
+                                            </div>
+                                            <div class="col-6">
+                                                {{ recipe.serves }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 detail-title">
+                                                Calories:
+                                            </div>
+                                            <div class="col-6">
+                                                {{ recipe.calories }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 detail-title">
+                                                Allergens:
+                                            </div>
+                                            <div class="col-6">
+                                                {% for allergen in recipe.allergens %}
+                                                {{ allergen }},
+                                                {% endfor %}
+                                            </div>
+                                        </div>
+                                        <div class="row spacer">
+                                            <div class="col-6 detail-title">
+                                                Views:
+                                            </div>
+                                            <div class="col-6">
+                                                {{ recipe.views }}
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-6 detail-title">
+                                                Votes:
+                                            </div>
+                                            <div class="col-6">
+                                                {{ recipe.votes }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- COLUMN 2 INGREDIENTS AND INSTRUCTIONS -->
+                            <div class="col-12 col-md-8 right-col">
+                                <div class="container-fluid">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <h3 class="service-heading">{{ recipe.name }}</h3>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <p class="text-muted">{{ recipe.description }} </p>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="ingredients">
+                                        {% if recipe.ingredients|length > 6 %}
+                                        {% for ingredient_col in recipe.ingredients | slice(2) %}
+                                        <div class="col-12 col-md-6">
+                                            <ul>
+                                                {% for ingredient in ingredient_col %}
+
+                                                <li>{{ ingredient }}</li>
+
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                        {% endfor %}
+                                        {% endif %}
+                                    </div>
+                                    <div class="row" id="instructions">
+                                        <div class="col-12">
+                                            <h4 class="service-heading">Instructions</h4>
+                                            {% for instruct in recipe.instructions %}
+
+                                            <div class="loop-index">{{ loop.index }}</div>
+                                            <div class="instuctions-line">{{ instruct }}</div>
+
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                    {% if session['userid'] == recipe['author'] %}
+                                    <div class="row">
+                                        <div class="col-12 text-right">{{recipe._id}}
+                                            <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-primary"
+                                                type="button" id="editRecipeButton">Edit Recipe</a>
+                                            <a href="#" type="button" class="btn btn-primary delete_recipe" id="{{ recipe._id }}">Delete Recipe</a>
+                                        </div>
+                                        {% else %}
+                                        <div>no buttons</div>
+                                    </div>
+                                    {% endif %}
+                                    <div id="confirm_delete" title="Delete Recipe" style="display:none">
+                                            <p><span class="ui-icon ui-icon-alert ml-auto mr-auto" style="float:left; margin:12px 12px 20px 0;"></span>
+                                                This recipe will be deleted<br>Are you sure?</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+{% block javascript_addrecipe %}
+{% endblock %}
+
+<div class="flash_messages">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>
+
+{% endblock %}
+
+
+<!-- Debug area. Hidden if debug set to False -->
+{% block content_debug %}
+<h5>Current User</h5>
+<p>username: {{ current_user.username }}</p>
+<p>firstname: {{ current_user.firstname }}</p>
+<p>lastname: {{ current_user.lastname }}</p>
+<p>country: {{ current_user.country }}</p>
+<p>id: {{ current_user._id }}</p>
+{% endblock %}
