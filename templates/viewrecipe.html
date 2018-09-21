@@ -6,7 +6,9 @@
     <div class="row">
         <div class="col-12">
             <section id="user_name">
+                {% if session['isLoggedin'] == True %}
                 <span>&#123;&#123; Hello {{ session['username'] }}, welcome back &#125;&#125;</span>
+                {% endif %}
             </section>
         </div>
     </div>
@@ -99,25 +101,6 @@
                     </div>
                     <!-- COLUMN 2 INGREDIENTS AND INSTRUCTIONS -->
                     <div role="tabpanel" class="tab-pane col-12 col-md-8 right-col" id="profile">
-                        <!-- BUTTONS -->
-                        {% if session['userid'] == recipe['author'] %}
-                        <div class="row with-border">
-                            <!-- VOTE -->
-                            <div class="col-6 thumbs-col">
-                                <a href="#"><i class="far fa-thumbs-up voteup"></i></a>
-                                <a href="#"><i class="far fa-thumbs-down voteup"></i></a>
-                            </div>
-                            <div class="col-6 btn-row">
-                                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-primary"
-                                    type="button" id="editRecipeButton">Edit Recipe</a>
-                                <a href="#" type="button" class="btn btn-primary delete_recipe" id="{{ recipe._id }}">Delete
-                                    Recipe</a>
-                            </div>
-                        </div>
-                        {% else %}
-                        <div>&nbsp;</div>
-
-                        {% endif %}
                         <!-- RECIPE INGREDIENTS -->
                         <div class="row" id="ingredients">
                             {% if recipe.ingredients|length > 6 %}
@@ -143,6 +126,25 @@
                                 {% endfor %}
                             </div>
                         </div>
+                        <!-- BUTTONS -->
+                        {% if session['isLoggedin'] and session['userid'] == recipe['author']  %}
+                        <div class="row with-border">
+                            <!-- VOTE -->
+                            <div class="col-6 thumbs-col">
+                                <a href="#"><i class="far fa-thumbs-up voteup"></i></a>
+                                <a href="#"><i class="far fa-thumbs-down voteup"></i></a>
+                            </div>
+                            <div class="col-6 btn-row">
+                                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-primary"
+                                    type="button" id="editRecipeButton">Edit Recipe</a>
+                                <a href="#" type="button" class="btn btn-primary delete_recipe" id="{{ recipe._id }}">Delete
+                                    Recipe</a>
+                            </div>
+                        </div>
+                        {% else %}
+                        <div>&nbsp;</div>
+
+                        {% endif %}
                         <!-- CONFIRM DELETION POPUP -->
                         <div id="confirm_delete" title="Delete Recipe" style="display:none">
                             <p><span class="ui-icon ui-icon-alert ml-auto mr-auto" style="float:left; margin:12px 12px 20px 0;"></span>
@@ -174,10 +176,12 @@
 
 <!-- Debug area. Hidden if debug set to False -->
 {% block content_debug %}
+{% if session['isLoggedIn'] == True %}
 <h5>Current User</h5>
 <p>username: {{ current_user.username }}</p>
 <p>firstname: {{ current_user.firstname }}</p>
 <p>lastname: {{ current_user.lastname }}</p>
 <p>country: {{ current_user.country }}</p>
 <p>id: {{ current_user._id }}</p>
+{% endif %}
 {% endblock %}

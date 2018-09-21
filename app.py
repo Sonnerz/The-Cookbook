@@ -250,7 +250,7 @@ def delete_recipe():
 def view_recipe(recipe_id):
     print(recipe_id)
     # debug stuff
-    current_user = dict(get_record(session['username']))
+    #current_user = dict(get_record(session['username']))
     ##
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     categories = get_categories()
@@ -259,7 +259,7 @@ def view_recipe(recipe_id):
     allergens_list = [allergen_item["allergen_name"] for allergen_item in allergens_list_of_dict]  # list comprehension used to get allergen name from allergen_list
     difficulty = get_difficulty()
     return render_template("viewrecipe.html", test=mongo.db.test_collection.find(), 
-                        current_user=current_user, categories=categories, cuisine=cuisine, 
+                        categories=categories, cuisine=cuisine, 
                         allergens_list=allergens_list, recipe=the_recipe, difficulty=difficulty )
 
 
