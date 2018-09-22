@@ -321,7 +321,13 @@ def update_vote(recipe_id):
 @app.route('/recipesearch')
 def recipesearch():
     recipes = get_allrecipes()
-    return render_template("recipesearch.html", test=mongo.db.test_collection.find(), recipes=recipes)
+    categories = get_categories()
+    cuisine = get_cuisine()
+    allergens = get_allergens()
+    difficulty = get_difficulty()
+    return render_template("recipesearch.html", test=mongo.db.test_collection.find(), 
+                            recipes=recipes, categories=categories,
+                            cuisine=cuisine, allergens=allergens)
 
 
 
