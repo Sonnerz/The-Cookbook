@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block template_content %}
+<h1>all recipes</h1>
+
+{% for r in recipes %}
+{{r.name}}
+{% endfor %}
+
+{% endblock %}
+
+
+<!-- Debug area. Hidden if debug set to False -->
+{% block content_debug %}
+
+{% endblock %}

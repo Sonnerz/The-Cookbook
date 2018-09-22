@@ -307,8 +307,9 @@ $(document).ready(function () {
           $("#ratemeMessages").html(response);
         }
       });
-
   };
+// #endregion
+
 
 });
 // #endregion

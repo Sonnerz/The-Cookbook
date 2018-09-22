@@ -3,11 +3,15 @@ header.masthead {
   text-align: center;
   color: $paynesgrey;
   z-index: -1;
-  // background-image: url('../img/header-bg.jpg');
-  // background-repeat: no-repeat;
-  // background-attachment: scroll;
-  // background-position: center center;
-  // background-size: cover;
+  background-image: url('../img/home_image.jpg');
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
+  .intro-text-bkg {
+    padding: 50px 0px;
+    @include text-background;
+  }
   .intro-text {
     padding-top: 150px;
     padding-bottom: 100px;
@@ -59,7 +63,7 @@ header.masthead {
 label.valid {
   width: 24px;
   height: 24px;
-  background: url(/static/img/valid.png) right center no-repeat;
+  background: url(/static/img/global/valid.png) right center no-repeat;
   display: inline-block;
   text-indent: -9999px;
 }
@@ -114,18 +118,6 @@ label.error {
   animation-name: slideInDown;
 }
 
-@-webkit-keyframes slideInLeft {
-  from {
-    -webkit-transform: translate3d(-100%, 0, 0);
-    transform: translate3d(-100%, 0, 0);
-    visibility: visible;
-  }
-
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
 
 @media(min-width:768px) {
   header.masthead {

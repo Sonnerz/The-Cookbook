@@ -49,7 +49,7 @@ def login_required(f):
 
 
 # FUNCTION :: GET RECORD FROM USERS COLLECTION BY USERNAME
-def get_record(username):
+def get_user(username):
     row = {}
     try:
         row = mongo.db.users.find_one({'username': username.lower()})
@@ -62,7 +62,7 @@ def get_record(username):
 
 
 # FUNCTION :: GET RECIPES FROM RECIPE COLL FOR CURRENT USER AS RECIPE AUTHOR
-def get_recipes(current_user_id):
+def get_user_recipes(current_user_id):
     rows = {}
     try:
         rows = mongo.db.recipes.find({"author": current_user_id})
@@ -72,6 +72,19 @@ def get_recipes(current_user_id):
 
     if rows:
         print("recipes by author do exist")
+    return rows
+
+
+# FUNCTION :: GET ALL RECIPES
+def get_allrecipes():
+    rows = {}
+    try:
+        rows = mongo.db.recipes.find()
+    except Exception as e:
+        print("error accessing DB %s" % str(e))
+
+    if rows:
+        print("all recipes found")
     return rows
 
 
@@ -102,7 +115,7 @@ def get_difficulty():
 # PAGE :: INDEX - HOME PAGE
 @app.route('/')
 def index():
-    # session.pop('username', None)
+    # clear flash messages to reset
     session.pop('_flashes', None)
     return render_template("index.html", test=mongo.db.test_collection.find())
 
@@ -111,9 +124,10 @@ def index():
 @app.route('/profile')
 @login_required
 def profile():
-    current_user = dict(get_record(session['username']))
+    # get data: user, users recipes for profile page
+    current_user = dict(get_user(session['username']))
     current_user_str = str(current_user['_id'])
-    user_recipes = get_recipes(session['userid'])
+    user_recipes = get_user_recipes(session['userid'])
     return render_template("profile.html", test=mongo.db.test_collection.find(),
                             current_user=current_user, recipes=user_recipes)
 
@@ -121,12 +135,15 @@ def profile():
 # FUNCTION :: LOGOUT FUNCTION TRIGGERED BY LOGOUT BUTTON
 @app.route('/logout', methods=['GET', 'POST'])
 def logout():
+    # get value from get request and clear sessions values
     if request.method == 'GET':
         print(session)
         session.pop('username', None)
+        session.pop('userid', None)
         session['isLoggedin'] = False
         session.pop('_flashes', None)
-        flash("You are logged out", 'success')  # success error info
+        # success error flash message to users
+        flash("You are logged out", 'success')  
     return render_template("index.html", test=mongo.db.test_collection.find(), 
                             users=mongo.db.user_recipe.find())
 
@@ -136,9 +153,9 @@ def logout():
 @login_required
 def add_recipe():
     #debug stuff
-    current_user = dict(get_record(session['username']))
+    current_user = dict(get_user(session['username']))
     ##
-
+    # get categories, cuisine, allergens, difficulty from db for form dropdown lists
     categories = get_categories()
     cuisine = get_cuisine()
     allergens = get_allergens()
@@ -153,8 +170,11 @@ def add_recipe():
 @app.route('/insert_recipe', methods=['GET', 'POST'])
 @login_required
 def insert_recipe():
+    # get current user id from session
     current_user_id = session['userid']
+    # get all recipes to add a new recipe later
     recipes = mongo.db.recipes
+    # create new recipe object
     new_recipe = {
         'author': current_user_id,       
         'name': request.form.get('name'),
@@ -174,6 +194,7 @@ def insert_recipe():
         'views': 0,
         'votes': 0
     }
+    # insert new recipe
     recipes.insert_one(new_recipe)
     message = "updated to db"
     return message
@@ -183,9 +204,10 @@ def insert_recipe():
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
     # debug stuff
-    current_user = dict(get_record(session['username']))
-    ##
+    current_user = dict(get_user(session['username']))
+    # get the relevant recipe form db by id passed in url
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    # get categories, cuisine, allergens, difficulty from db for form dropdown lists
     categories = get_categories()
     cuisine = get_cuisine()
     allergens_list_of_dict = list(get_allergens())  # list of allergens dictionaries [{id:123, allergen_name:eggs}, ...]
@@ -204,10 +226,14 @@ def edit_recipe(recipe_id):
 # FUNCTION :: UPDATE RECIPE WRITE BACK TO RECIPES COLLECION IN DATABASE
 @app.route('/update_recipe/<recipe_id>', methods=['POST'])
 def update_recipe(recipe_id):
+    # set userid to var, current_user_id
     current_user_id = session['userid']
+    # get all recipes
     recipes = mongo.db.recipes
+    # get list of ingredients from form
     ingred_list = request.form.getlist('ingredient')
-    ingred_list_no_blanks = [i for i in ingred_list if i != ""] # remove blanks from list if user deletes one
+    # remove blanks from list if user deletes an ingredient
+    ingred_list_no_blanks = [i for i in ingred_list if i != ""]
     recipes.update_one({'_id': ObjectId(recipe_id)},
     {'$set':
         {
@@ -238,6 +264,7 @@ def update_recipe(recipe_id):
 # FUNCTION :: DELETE RECIPE TRIGGERED BY DELETE BUTTON ON PROFILE PAGE
 @app.route('/delete_recipe', methods=['POST'])
 def delete_recipe():
+    # get recipe id from the form
     recipe_id = request.form.get('recipe_id')
     mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
     message = "deleted"
@@ -247,10 +274,9 @@ def delete_recipe():
 # PAGE :: VIEW RECIPE DETAILS PAGE
 @app.route('/view_recipe/<recipe_id>')
 def view_recipe(recipe_id):
-    # debug stuff
-    #current_user = dict(get_record(session['username']))
-    ##
+    # get the recipe by using id passed in url
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    # get categories, cuisine, allergens, difficulty for form dropdown lists
     categories = get_categories()
     cuisine = get_cuisine()
     allergens_list_of_dict = list(get_allergens())  # list of allergens dictionaries [{id:123, allergen_name:eggs}, ...]
@@ -264,36 +290,47 @@ def view_recipe(recipe_id):
 # FUNCTION :: UPDATE RECIPE VOTE
 @app.route('/update_vote/<recipe_id>', methods=['POST'])
 def update_vote(recipe_id):
+    # creates votes varialbe
     votes = None
-    print("BEFORE", votes, recipe_id)
+    # get data from ajax post, set votes to data value
     votes = int(request.get_data())
-    print("AFTER", votes)
-    print(type(votes))
+    # get all recipes from db
     recipes = mongo.db.recipes
+    # get the relevant recipe by its id passed in url
     this_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    # get the current votes for relevant recipe. Change to integer for addition in next step
     current_vote = int(this_recipe['votes'])
-    print("RECIPE >>>>>>>", this_recipe['votes'])
+    # create new_vote var and add new vote to current recipe vote
     new_vote = current_vote + votes
-    print('new VOTE >>>>', new_vote)
+    # update the relevant recipe with the new vote
     recipes.update_one({'_id': ObjectId(recipe_id)},
     {'$set':
         {
             'votes': new_vote
         }
     })
+    # get the recipe again with updated votes
     this_recipe_updated = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    # get the new votes value
     updated_recipe_vote = this_recipe_updated['votes']
-    print(updated_recipe_vote)
-    flash("recipe upated")
-    message = "success update"
+    # pass the update vote value back to the ajax for to update the html page
     return str(updated_recipe_vote)
+
+
+# PAGE :: RECIPE SEARCH PAGE
+@app.route('/recipesearch')
+def recipesearch():
+    recipes = get_allrecipes()
+    return render_template("recipesearch.html", test=mongo.db.test_collection.find(), recipes=recipes)
 
 
 
 # FUNCTION :: SIGN UP NEW USER / REGISTER / CREATE RECORD IN USERS COLLECTION
 @app.route('/signup_user', methods=['POST'])
 def signup_user():
-    check_user = get_record(request.form.get('signupUsername'))
+    # query db to see if username already exists
+    check_user = get_user(request.form.get('signupUsername'))
+    # if that username is not in db then create new user object and add new user
     if not check_user:
         users = mongo.db.users
         new_user = {
@@ -301,7 +338,6 @@ def signup_user():
                 'password': request.form.get('signupPassword'),
                 'firstname': request.form.get('firstName'),
                 'lastname': request.form.get('lastName')} 
-        # pdb.set_trace()
         if new_user:
             users.insert_one(new_user)
             message = "success"
@@ -315,8 +351,9 @@ def signup_user():
 # FUNCTION :: LOGIN IN USER WHO IS REGISTERED TRIGGERED BY LOGIN BUTTON
 @app.route('/login_user', methods=['POST'])
 def login_user():
+    # get data from ajax post
     pw = request.form.get('loginPassword')
-    user = get_record(request.form.get('loginUsername'))
+    user = get_user(request.form.get('loginUsername'))
     if user and user["password"] == pw:
         # add username to flask session
         session['username'] = user['username']
@@ -335,6 +372,7 @@ def login_user():
         message = "no user by that name"
         return message
     return
+
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), 

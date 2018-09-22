@@ -42,7 +42,7 @@
                         </div>
                         {% else %}
                         <div class="recipe-image">
-                            <img src="{{ url_for('static', filename='img/default_food.png')}}" alt="No image was supplied of {{ recipe.name }} this is a default image"
+                            <img src="{{ url_for('static', filename='img/recipes/default_food.png')}}" alt="No image was supplied of {{ recipe.name }} this is a default image"
                                 title="No image was supplied of {{ recipe.name }} this is a default image" />
                         </div>
                         {% endif %}
@@ -97,7 +97,7 @@
                             <div class="col-12 col-md-6">
                                 <ul>
                                     {% for ingredient in ingredient_col %}
-                                    <li>{{ ingredient }}</li>
+                                    <li><i class="fas fa-utensil-spoon"></i>{{ ingredient }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
