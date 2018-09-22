@@ -114,6 +114,7 @@ $(function () {
 
 // #endregion
 
+
 // #region show/hide the Debug Panel
 function viewPanel() {
   var panel = document.getElementById("panel-debug");
@@ -136,7 +137,7 @@ function goPrev() {
 // #endregion
 
 
-// DOCUMENT.READY START //
+// #region DOCUMENT.READY START //
 
 $(document).ready(function () {
 
@@ -153,15 +154,8 @@ $(document).ready(function () {
   // #endregion  
 
 
-  //get localstorage user_id and set hidden field in add recipe form
-  // var user_id = localStorage.getItem("user_id");
-  // console.log(user_id);
-  // document.getElementById("form_user_id").value = user_id;
-  // document.getElementById("test").innerHTML = user_id;
-
-
-
   // #region Add extra ingredient or instruction inputs to add recipe form
+
   $('#add_ingredient').click(function () {
     addExtraInputs("i");
     return false; //return false;  stops page jumping back to top
@@ -206,17 +200,21 @@ $(document).ready(function () {
   // #endregion
 
 
+  // #region CONFIRM WITH USER BEFORE DELETING A RECIPE
 
-  // #region CONFIRM WITH USER BEFORE DELETE A RECIPE
   $(function () {
     $('.delete_recipe').click(function (e) {
       e.preventDefault();
       // GET THE ID OF THE RECIPE APPENDED TO DELETE BUTTON ID
       var thisrecipeid = this.id;
       $("#confirm_delete").dialog({
+        hide: { effect: "explode", duration: 1000 },
+        "ui-dialog": "ui-corner-all",
+        "ui-dialog-titlebar": "ui-corner-all",
+        dialogClass: "alert",
         resizable: false,
-        height: "auto",
-        width: 400,
+        height: 330,
+        width: 500,
         modal: true,
         buttons: {
           "Delete all items": function () {
@@ -242,19 +240,14 @@ $(document).ready(function () {
           }
         }
       });
-      return false;
+     return false;
     });
   });
 
   // #endregion
 
 
-
-}); // DOCUMENT.READY END //
-
-
-
-$(document).ready(function () {
+  // #region View Recipe page change from flat content to tabs in mobile view
 
   $(window).on('resize', function () { 
     var win = $(this); //this = window
@@ -283,6 +276,44 @@ $(document).ready(function () {
     $("#home").css("display", "none");
   })
 
+  // #endregion
+
+
+  // #region Rate this recipe
+
+  $('#rateme').click(function (e) {
+    e.preventDefault();
+    addVote();
+    return false; //return false;  stops page jumping back to top
+  })
+
+  function addVote() {
+      votes = 1;
+      var url = window.location.href;
+      recipe_id = url.split("/").pop();
+      console.log("got to here", votes)
+      $.ajax({
+        url: '/update_vote/' + recipe_id,
+        contentType: 'application/json',
+        data: JSON.stringify(votes),
+        type: 'POST',
+        success: function (response) {
+          console.log("RESPONSE FROM SERVER", response);
+          $("#ratemeMessages").html(response);
+          $("#vote_result").html(response);
+        },
+        error: function (error) {
+          console.log(error);
+          $("#ratemeMessages").html(response);
+        }
+      });
+
+  };
 
 });
+// #endregion
+
+
+
+
 

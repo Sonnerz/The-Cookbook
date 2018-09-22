@@ -17,7 +17,7 @@
 <div class="container-fluid">
     <!-- PAGE HEADER -->
     <section>
-        <div class="container">
+        <div class="container-fluid">
             <div class="row" id="recipe-title">
                 <div class="col-lg-12">
                     <h1>{{ recipe.name }}</h1>
@@ -38,13 +38,27 @@
                         <!-- RECIPE IMAGE -->
                         {% if recipe.image_url != "" %}
                         <div class="recipe-image">
-                            <img src="{{ recipe.image_url }}" alt="" id="" />
+                            <img src="{{ recipe.image_url }}" alt="image of {{ recipe.name }}" title="Image of {{ recipe.name }}" />
                         </div>
                         {% else %}
                         <div class="recipe-image">
-                            <img src="{{ url_for('static', filename='img/default_food.png')}}" alt="" id="" />
+                            <img src="{{ url_for('static', filename='img/default_food.png')}}" alt="No image was supplied of {{ recipe.name }} this is a default image"
+                                title="No image was supplied of {{ recipe.name }} this is a default image" />
                         </div>
                         {% endif %}
+                        <!-- UTILITIES PRINT/RATE-->
+                        <div class="row text-center">
+                            <div class="col-4">
+                                <a type="submit" action="{{ url_for('update_vote', recipe_id=recipe._id) }}" id="rateme" name="rateme" alt="Rate this recipe" title="Rate this recipe"><i class="far fa-heart">Rate</i></a>
+                               
+                            </div>
+                            <div class="col-4">
+                                <a href="#" alt="Print this recipe" title="Print this recipe"><i class="fas fa-print">Print</i></a>
+                            </div>
+                            <div class="col-4">
+                                <i class="far fa-heart"><span id="vote_result">{{ recipe.votes }}</span></i>
+                            </div>
+                        </div>
                         <!-- RECIPE INFO -->
                         <div class="recipe-details">
                             <div class="container">
@@ -55,13 +69,8 @@
                                             <li>Main Ingredient:</li>
                                             <li>Category:</li>
                                             <li>Cuisine:</li>
-                                            <li>Difficulty:</li>
-                                            <li>Prep time:</li>
-                                            <li>Cook time:</li>
-                                            <li>Serves:</li>
                                             <li>Calories:</li>
                                             <li>Allergens:</li>
-                                            <li></li>
                                         </ul>
                                     </div>
                                     <div class="col-6">
@@ -69,31 +78,11 @@
                                             <li>{{ recipe.main_ingredient }}</li>
                                             <li>{{ recipe.category }}</li>
                                             <li>{{ recipe.cuisine }}</li>
-                                            <li>{{ recipe.difficulty }}</li>
-                                            <li>{{ recipe.prep_time }}</li>
-                                            <li>{{ recipe.cook_time }}</li>
-                                            <li>{{ recipe.serves }}</li>
                                             <li>{{ recipe.calories }}</li>
                                             <li>{% for allergen in recipe.allergens %}
                                             <li>{{ allergen }}</li>
                                             {% endfor %}</li>
                                         </ul>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 detail-title">
-                                        Views:
-                                    </div>
-                                    <div class="col-6">
-                                        {{ recipe.views }}
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-6 detail-title">
-                                        Votes:
-                                    </div>
-                                    <div class="col-6">
-                                        {{ recipe.votes }}
                                     </div>
                                 </div>
                             </div>
@@ -108,14 +97,30 @@
                             <div class="col-12 col-md-6">
                                 <ul>
                                     {% for ingredient in ingredient_col %}
-
                                     <li>{{ ingredient }}</li>
-
                                     {% endfor %}
                                 </ul>
                             </div>
                             {% endfor %}
                             {% endif %}
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span><i class="far fa-clock"></i></span><span>Prep time</span><span>{{
+                                            recipe.prep_time }}</span><br>
+                                        <span><i class="far fa-clock"></i></span><span>Cook time</span><span>{{
+                                            recipe.cook_time }}</span>
+                                    </div>
+                                    <div class="col-6">
+                                        <span><i class="fas fa-utensils"></i></span><span>Serves</span><span>{{
+                                            recipe.serves }}</span><br>
+                                        <span><i class="far fa-clock"></i></span><span>Difficulty</span><span>{{
+                                            recipe.difficulty }}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <!-- RECIPE INSTRUCTIONS -->
                         <div class="row" id="instructions">
@@ -126,15 +131,15 @@
                                 {% endfor %}
                             </div>
                         </div>
+                        <!-- MESSAGES -->
+                        <div id="ratemeMessages" class="form-group button-submit-margin">
+                            MESSAGE: {{ result }}
+                        </div>
+                        {{ recipe._id}}
                         <!-- BUTTONS -->
-                        {% if session['isLoggedin'] and session['userid'] == recipe['author']  %}
+                        {% if session['isLoggedin'] and session['userid'] == recipe['author'] %}
                         <div class="row with-border">
-                            <!-- VOTE -->
-                            <div class="col-6 thumbs-col">
-                                <a href="#"><i class="far fa-thumbs-up voteup"></i></a>
-                                <a href="#"><i class="far fa-thumbs-down voteup"></i></a>
-                            </div>
-                            <div class="col-6 btn-row">
+                            <div class="col-12 btn-row text-center">
                                 <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-primary"
                                     type="button" id="editRecipeButton">Edit Recipe</a>
                                 <a href="#" type="button" class="btn btn-primary delete_recipe" id="{{ recipe._id }}">Delete
@@ -145,32 +150,30 @@
                         <div>&nbsp;</div>
 
                         {% endif %}
+
                         <!-- CONFIRM DELETION POPUP -->
                         <div id="confirm_delete" title="Delete Recipe" style="display:none">
-                            <p><span class="ui-icon ui-icon-alert ml-auto mr-auto" style="float:left; margin:12px 12px 20px 0;"></span>
-                                This recipe will be deleted<br>Are you sure?</p>
+                            <div class="vertical-align-modal">
+                                <div class="modal-dialog vertical-align-center" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Delete this Recipe</h5>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><span class="ui-icon ui-icon-alert ml-auto mr-auto" style="float:left; margin:12px 12px 20px 0;"></span>
+                                                This recipe will be deleted<br>Are you sure?</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
+
                     </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
-{% block javascript_addrecipe %}
-{% endblock %}
-
-<div class="flash_messages">
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-    {% endwith %}
-</div>
-
 {% endblock %}
 
 

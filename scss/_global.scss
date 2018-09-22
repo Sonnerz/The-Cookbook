@@ -6,6 +6,8 @@ body {
 
 a {
   color: $primary;
+  cursor: pointer;
+  
   &:hover {
     color: darken($primary, 10%);
   }

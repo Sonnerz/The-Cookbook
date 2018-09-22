@@ -24,33 +24,36 @@
                             <h3 class="section-subheading text-muted">Add a new recipe complete teh form.</h3>
                         </div>
                     </div>
-
-
                     <!-- ADD RECIPES FORM-->
                     <form id="add_recipe_form" name="add_recipe_form" method="POST">
                         <div class="row" style="background-color:blueviolet">
                             <div class="col-md-6" style="background-color:burlywood">
+                                <!-- NAME -->
                                 <div class="form-group">
                                     <label for="inputName">Name</label>
                                     <input value="Something cheesy" type="input" class="form-control" id="name" name="name"
                                         placeholder="Name of recipe">
                                 </div>
+                                <!-- IMAGE -->
                                 <div class="form-group">
                                     <label for="inputName">Add an Image</label>
                                     <input type="input" class="form-control" id="image_url" name="image_url"
                                         placeholder="Paste a link to your image">
                                 </div>
+                                <!-- DESCRIPTION -->
                                 <div class="form-group">
                                     <label for="inputDescription">Description</label>
                                     <textarea placeholder="Description" class="form-control" id="description" name="description"
                                         rows="3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pellentesque metus id condimentum imperdiet. Donec eleifend risus metus, eu aliquam lacus gravida porttitor. Cras ultricies augue a tortor imperdiet vehicula. Donec laoreet dolor ac egestas porttitor.</textarea>
                                 </div>
+                                <!-- MAIN INGREDIENT -->
                                 <div class="form-group">
                                     <label for="inputMain">Main Ingredient</label>
                                     <input value="Cheese" type="input" class="form-control" id="main_ingredient" name="main_ingredient"
                                         placeholder="Main Ingredient">
                                 </div>
                                 <div class="form-row">
+                                    <!-- CATEGORY -->
                                     <div class="form-group col-md-6">
                                         <label for="selectCategory">Category</label>
                                         <select class="custom-select" id="category" name="category">
@@ -61,6 +64,7 @@
                                             {% endfor %}
                                         </select>
                                     </div>
+                                    <!-- CUISINE -->
                                     <div class="form-group col-md-6">
                                         <label for="selectCuisine">Cuisine</label>
                                         <select class="custom-select" id="cuisine" name="cuisine">
@@ -72,6 +76,7 @@
                                         </select>
                                     </div>
                                 </div>
+                                <!-- DIFFICULTY -->
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="selectDifficulty">Difficulty</label>
@@ -84,21 +89,24 @@
                                     </div>
                                 </div>
                                 <div class="row">
+                                    <!-- PREP TIME -->
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="inputPrep">prep time</label>
+                                            <label for="inputPrep">Prep Time</label>
                                             <input value="20 minutes" type="input" class="form-control" id="prep_time"
                                                 name="prep_time" placeholder="prep time">
                                         </div>
                                     </div>
+                                    <!-- COOKE TIME -->
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="inputCook">cook time</label>
+                                            <label for="inputCook">Cook Time</label>
                                             <input value="1 hour" type="input" class="form-control" id="cook_time" name="cook_time"
                                                 placeholder="cook time">
                                         </div>
                                     </div>
                                 </div>
+                                <!-- SERVES -->
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
@@ -107,6 +115,7 @@
                                                 placeholder="serves">
                                         </div>
                                     </div>
+                                    <!-- CALORIES -->
                                     <div class="col">
                                         <div class="form-group">
                                             <label for="inputCalories">calories</label>
@@ -115,7 +124,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div><label for="inputAllergens">Allergens</label></div>
+                                <!-- ALLERGENS -->
+                                <div>
+                                    <label for="inputAllergens">Allergens</label>
+                                </div>
                                 {% for allergen in allergens %}
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" id="allergen" name="allergen" value="{{ allergen.allergen_name }}">
@@ -123,6 +135,7 @@
                                 </div>
                                 {% endfor %}
                             </div>
+                            <!-- INGREDIENTS -->
                             <div class="col-md-6" style="background-color:aqua">
                                 <div class="form-group">
                                     <div id="ingredients_input_list">
@@ -140,6 +153,7 @@
                                         <a href="#" id="add_ingredient"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
+                                <!-- INSTRUCTIONS -->
                                 <div class="form-group">
                                     <div id="instruction_input_list">
                                         <label for="inputInstruction">Instructions</label>
@@ -149,10 +163,11 @@
                                     </div>
                                 </div>
                             </div>
-
+                            <!-- RESPONSE MESSAGES -->
                             <div class="form-group button-submit-margin" id="newRecipeMessages">
                                 {{message}}
                             </div>
+                            <!-- BUTTONS -->
                             <div class="col-12 text-center">
                                 <button type="submit" class="btn btn-primary" id="addRecipeButton">Add Recipe</button>
                                 <button type="button" class="btn btn-primary" id="cancelRecipeButton" ONCLICK="window.location.href='/profile'">Cancel</button>
@@ -163,12 +178,6 @@
         </div>
     </div>
 </div>
-<script type="text/javacript">
-        function goBack() {
-            window.history.back();
-        }
-        </script>
-
 <div class="flash_messages">
     {% with messages = get_flashed_messages() %}
     {% if messages %}
@@ -180,18 +189,15 @@
     {% endif %}
     {% endwith %}
 </div>
-
 {% endblock %}
 
 
 <!-- Debug area. Hidden if debug set to False -->
 {% block content_debug %}
-
 <h5>Current User</h5>
 <p>username: {{ current_user.username }}</p>
 <p>firstname: {{ current_user.firstname }}</p>
 <p>lastname: {{ current_user.lastname }}</p>
 <p>country: {{ current_user.country }}</p>
 <p>id: {{ current_user._id }}</p>
-
 {% endblock %}

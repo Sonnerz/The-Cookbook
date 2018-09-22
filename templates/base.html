@@ -2,227 +2,221 @@
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>The CookBook</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}" type="text/css" />
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-        crossorigin="anonymous">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}" type="text/css" />
-    <link rel="icon" href="{{ url_for('static', filename='img/global/favicon.ico')}}" type="image/x-icon">
-    <!-- <link rel="stylesheet" href="static/css/index.css" type="text/css" /> -->
+  <!-- Required meta tags -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>The CookBook</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css')}}" type="text/css" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+    crossorigin="anonymous">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}" type="text/css" />
+  <link rel="icon" href="{{ url_for('static', filename='img/global/favicon.ico')}}" type="image/x-icon">
+  <!-- <link rel="stylesheet" href="static/css/index.css" type="text/css" /> -->
 </head>
 
 <body id="page-top">
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">
-                <img src="{{ url_for('static', filename='img/global/logo-navbar.png')}}" alt="Cookbook" title="Cookbook" />
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse text-center" id="navbarResponsive">
-                {% if session['isLoggedin'] == True %}
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="/profile" id="profile-nav-link">Profile</a></li>
-
-                    <li class="nav-item"><a href="/add_recipe" id="add-nav-link">Add Recipe</a></li>
-                    <li class="nav-item">
-                        <!-- Button trigger logout -->
-                        <a class="btn btn-primary nav-logout" href="/logout" role="button">Logout >></a>
-                    </li>
-                </ul>
-                {% else %}
-                <ul class="ml-auto">
-                    <li>
-                        <!-- Button trigger login modal -->
-                        <a class="btn btn-primary nav-logout" href="/index.html" role="button" data-toggle="modal" data-target="#loginModal">Login
-                            >></a>
-                    </li>
-                </ul>
-                {% endif %}
-            </div>
-        </div>
-    </nav>
-
-
-    
-<!-- Modal for Login-->
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" id="loginModal">
-        <div class="vertical-align-modal">
-          <div class="modal-dialog vertical-align-center" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Sign in</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form method="POST" action="/login_user" name="loginForm" id="loginForm">
-                  <div class="control-group">
-                    <div class="form-group floating-label-form-group controls">
-                      <input type="text" class="form-control" placeholder="Enter a user name..." name="loginUsername" id="loginUsername"
-                        required data-validation-required-message="Please enter your user name." pattern="[A-Za-z0-9]{1,50}"
-                        value="zed">
-                      <div class="invalid-feedback">
-                        Please enter your username.
-                      </div>
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <div class="form-group floating-label-form-group controls">
-                      <input type="password" class="form-control" placeholder="Enter a password.." name="loginPassword" id="loginPassword"
-                        required data-validation-required-message="Please enter your password." pattern="[A-Za-z0-9]{1,8}"
-                        value="123">
-                      <div class="invalid-feedback">
-                        Please enter your password.
-                      </div>
-                    </div>
-                  </div>
-                  <div class="form-group button-submit-margin">
-                    <button type="submit" class="btn btn-primary btn-block" id="loginButton">
-                      Login
-                    </button>
-                  </div>
-                  <div class="form-group button-submit-margin" id="loginMessages">
-                    {{ loginmessage}}
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <span>Not registered? <a href="#" data-toggle="modal" data-target="#signupModal" data-dismiss="modal">Create
-                    an account now >></a></span>
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-      
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
-
-<!-- Modal for Sign up -->
-<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true" id="signupModal">
-        <div class="vertical-align-modal">
-          <div class="modal-dialog vertical-align-center" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Create an account</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                <form method="POST" action="/signup_user" name="signupForm" id="signupForm">
-                  <div class="control-group">
-                    <div class="form-group floating-label-form-group controls">
-                      <input type="text" class="form-control" placeholder="Enter a user name..." name="signupUsername" id="signupUsername">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <div class="form-group floating-label-form-group controls">
-                      <input type="text" class="form-control" placeholder="Enter your first name..." name="firstName" id="firstName">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <div class="form-group floating-label-form-group controls">
-                      <input type="text" class="form-control" placeholder="Enter your last name..." name="lastName" id="lastName">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <div class="form-group floating-label-form-group controls">
-                      <input type="password" class="form-control" placeholder="Enter password..." name="signupPassword" id="signupPassword"
-                        required data-validation-required-message="Please enter your password.">
-                    </div>
-                  </div>
-                  <div class="control-group">
-                    <div class="form-group floating-label-form-group controls">
-                      <input type="password" class="form-control" placeholder="Confirm password..." name="confirmPassword" id="confirmPassword"
-                        required data-validation-required-message="Please enter your password.">
-                    </div>
-                  </div>
-                  <div class="form-group button-submit-margin">
-                    <button type="submit" class="btn btn-primary" id="signupButton">
-                      Create an account
-                    </button>
-                  </div>
-                  <div class="form-group button-submit-margin" id="signupMessages">
-                    {{message}}
-                  </div>
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-
-
-
-    
-    {% block template_content %}{% endblock%}
-
-    <!-- Debug panel for monitoring var values -->
-    {% if debug %}
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container-fluid">
-        <button onclick="viewPanel()" style="border-color:pink">
-            Hide/Show Debug Panel (only available in Debug Mode)
-        </button>
+      <a class="navbar-brand" href="/">
+        <img src="{{ url_for('static', filename='img/global/logo-navbar.png')}}" alt="Cookbook" title="Cookbook" />
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
+        aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse text-center" id="navbarResponsive">
+        {% if session['isLoggedin'] == True %}
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a href="/profile" id="profile-nav-link">Profile</a></li>
+
+          <li class="nav-item"><a href="/add_recipe" id="add-nav-link">Add Recipe</a></li>
+          <li class="nav-item">
+            <!-- Button trigger logout -->
+            <a class="btn btn-primary nav-logout" href="/logout" role="button">Logout >></a>
+          </li>
+        </ul>
+        {% else %}
+        <ul class="navbar-nav ml-auto">
+          <li>
+            <!-- Button trigger login modal -->
+            <a class="btn btn-primary nav-logout" href="/index.html" role="button" data-toggle="modal" data-target="#loginModal">Login
+              >></a>
+          </li>
+        </ul>
+        {% endif %}
+      </div>
     </div>
-    <div class="container-fluid" style="display:block; background-color:pink" id="panel-debug">
-        <div class="row">
-            <div class="col">
-                <div class="container-fluid">
-                    <div class="row">
-                            
-                        <div class="col-md-6">
-                            <h5>Session</h5>                           
-                            <p>{{ session }}</p>
-                            <p>user id: {{ session['userid'] }}</p>
-                            <p>username: {{ session['username'] }}</p>
-                            <p>isLoggedin: {{ session['isLoggedin'] }}</p>
-                        </div>
-                        <div class="col-md-6">
-                            {% block content_debug %}{% endblock %}
-                        </div>
-                        
-                    </div>
+  </nav>
+
+
+
+  <!-- Modal for Login-->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" id="loginModal">
+    <div class="vertical-align-modal">
+      <div class="modal-dialog vertical-align-center" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Sign in</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="/login_user" name="loginForm" id="loginForm">
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="text" class="form-control" placeholder="Enter a user name..." name="loginUsername" id="loginUsername"
+                    required data-validation-required-message="Please enter your user name." pattern="[A-Za-z0-9]{1,50}"
+                    value="zed">
+                  <div class="invalid-feedback">
+                    Please enter your username.
+                  </div>
                 </div>
-            </div>
+              </div>
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="password" class="form-control" placeholder="Enter a password.." name="loginPassword" id="loginPassword"
+                    required data-validation-required-message="Please enter your password." pattern="[A-Za-z0-9]{1,8}"
+                    value="123">
+                  <div class="invalid-feedback">
+                    Please enter your password.
+                  </div>
+                </div>
+              </div>
+              <div class="form-group button-submit-margin">
+                <button type="submit" class="btn btn-primary btn-block" id="loginButton">
+                  Login
+                </button>
+              </div>
+              <div class="form-group button-submit-margin" id="loginMessages">
+                {{ loginmessage}}
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <span>Not registered? <a href="#" data-toggle="modal" data-target="#signupModal" data-dismiss="modal">Create
+                an account now >></a></span>
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
         </div>
+      </div>
     </div>
-    {% endif %}
-    <!-- Bootstrap JS -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js')}}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
-    <!-- Plugin JavaScript -->
-    <script src="{{ url_for('static', filename='js/jquery.validate.js')}}"></script>
-    <script src="{{ url_for('static', filename='js/validation_script.js')}}"></script>
-    <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-    <!-- Custom scripts for this template -->
-    <script src="{{ url_for('static', filename='js/agency.min.js')}}"></script>
-    <!-- Custom scripts for this cookbook project -->
-    <script src="{{ url_for('static', filename='js/cookbook_custom_scripts.js')}}"></script>
-    <!-- <script>
+  </div>
+
+
+  <!-- Modal for Sign up -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true" id="signupModal">
+    <div class="vertical-align-modal">
+      <div class="modal-dialog vertical-align-center" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Create an account</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="/signup_user" name="signupForm" id="signupForm">
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="text" class="form-control" placeholder="Enter a user name..." name="signupUsername" id="signupUsername">
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="text" class="form-control" placeholder="Enter your first name..." name="firstName" id="firstName">
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="text" class="form-control" placeholder="Enter your last name..." name="lastName" id="lastName">
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="password" class="form-control" placeholder="Enter password..." name="signupPassword" id="signupPassword"
+                    required data-validation-required-message="Please enter your password.">
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="password" class="form-control" placeholder="Confirm password..." name="confirmPassword"
+                    id="confirmPassword" required data-validation-required-message="Please enter your password.">
+                </div>
+              </div>
+              <div class="form-group button-submit-margin">
+                <button type="submit" class="btn btn-primary" id="signupButton">
+                  Create an account
+                </button>
+              </div>
+              <div class="form-group button-submit-margin" id="signupMessages">
+                {{message}}
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  {% block template_content %}{% endblock%}
+
+  <!-- Debug panel for monitoring var values -->
+  {% if debug %}
+  <div class="container-fluid">
+    <button onclick="viewPanel()" style="border-color:pink">
+      Hide/Show Debug Panel (only available in Debug Mode)
+    </button>
+  </div>
+  <div class="container-fluid" style="display:block; background-color:pink" id="panel-debug">
+    <div class="row">
+      <div class="col">
+        <div class="container-fluid">
+          <div class="row">
+
+            <div class="col-md-6">
+              <h5>Session</h5>
+              <p>{{ session }}</p>
+              <p>user id: {{ session['userid'] }}</p>
+              <p>username: {{ session['username'] }}</p>
+              <p>isLoggedin: {{ session['isLoggedin'] }}</p>
+            </div>
+            <div class="col-md-6">
+              {% block content_debug %}{% endblock %}
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  <!-- Bootstrap JS -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js')}}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+  <!-- Plugin JavaScript -->
+  <script src="{{ url_for('static', filename='js/jquery.validate.js')}}"></script>
+  <script src="{{ url_for('static', filename='js/validation_script.js')}}"></script>
+  <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
+  <!-- Custom scripts for this template -->
+  <script src="{{ url_for('static', filename='js/agency.min.js')}}"></script>
+  <!-- Custom scripts for this cookbook project -->
+  <script src="{{ url_for('static', filename='js/cookbook_custom_scripts.js')}}"></script>
+  <!-- <script>
         addEventListener('load', prettyPrint, false);
         $(document).ready(function () {
             $('pre').addClass('prettyprint linenums');

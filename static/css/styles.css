@@ -6,6 +6,7 @@ body {
 
 a {
   color: #fed136;
+  cursor: pointer;
 }
 
 a:hover {
@@ -447,16 +448,13 @@ label.error {
   line-height: 3.6rem;
 }
 
-#editRecipeButton {
-  margin-right: 0.5rem;
-}
-
 .voteup {
   font-size: 1.5rem;
 }
 
 #recipe-info .left-col {
   padding: 0;
+  background-color: #ccc;
 }
 
 #recipe-info #recipe-description {
@@ -466,11 +464,13 @@ label.error {
 #recipe-info .recipe-image img {
   width: 100%;
   height: auto;
+  max-width: 100%;
 }
 
 #recipe-info #editRecipeButton, #recipe-info .delete_recipe {
   font-size: 0.8rem;
   margin: 0;
+  margin-right: 1.5rem;
 }
 
 #recipe-info .recipe-details {
@@ -484,6 +484,7 @@ label.error {
 
 #recipe-info .recipe-details .detail-title {
   font-weight: 600;
+  text-align: right;
 }
 
 #recipe-info .recipe-details .allergen-list {
@@ -528,9 +529,6 @@ label.error {
 }
 
 @media (min-width: 768px) {
-  #recipe-info .loop-index {
-    display: normal;
-  }
   #recipe-info .recipe-heading {
     margin: 15px 0;
     text-transform: none;
@@ -546,6 +544,9 @@ label.error {
   }
   #recipe-info .btn-row {
     text-align: right;
+  }
+  #recipe-info .right-col {
+    padding-left: 30px;
   }
 }
 

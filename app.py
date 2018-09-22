@@ -182,7 +182,6 @@ def insert_recipe():
 # PAGE :: EDIT RECIPE FORM
 @app.route('/edit_recipe/<recipe_id>')
 def edit_recipe(recipe_id):
-    print(recipe_id)
     # debug stuff
     current_user = dict(get_record(session['username']))
     ##
@@ -248,7 +247,6 @@ def delete_recipe():
 # PAGE :: VIEW RECIPE DETAILS PAGE
 @app.route('/view_recipe/<recipe_id>')
 def view_recipe(recipe_id):
-    print(recipe_id)
     # debug stuff
     #current_user = dict(get_record(session['username']))
     ##
@@ -261,6 +259,35 @@ def view_recipe(recipe_id):
     return render_template("viewrecipe.html", test=mongo.db.test_collection.find(), 
                         categories=categories, cuisine=cuisine, 
                         allergens_list=allergens_list, recipe=the_recipe, difficulty=difficulty )
+
+
+# FUNCTION :: UPDATE RECIPE VOTE
+@app.route('/update_vote/<recipe_id>', methods=['POST'])
+def update_vote(recipe_id):
+    votes = None
+    print("BEFORE", votes, recipe_id)
+    votes = int(request.get_data())
+    print("AFTER", votes)
+    print(type(votes))
+    recipes = mongo.db.recipes
+    this_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    current_vote = int(this_recipe['votes'])
+    print("RECIPE >>>>>>>", this_recipe['votes'])
+    new_vote = current_vote + votes
+    print('new VOTE >>>>', new_vote)
+    recipes.update_one({'_id': ObjectId(recipe_id)},
+    {'$set':
+        {
+            'votes': new_vote
+        }
+    })
+    this_recipe_updated = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    updated_recipe_vote = this_recipe_updated['votes']
+    print(updated_recipe_vote)
+    flash("recipe upated")
+    message = "success update"
+    return str(updated_recipe_vote)
+
 
 
 # FUNCTION :: SIGN UP NEW USER / REGISTER / CREATE RECORD IN USERS COLLECTION

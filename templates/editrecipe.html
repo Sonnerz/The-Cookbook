@@ -31,26 +31,31 @@
                         method="POST">
                         <div class="row" style="background-color:blueviolet">
                             <div class="col-md-6" style="background-color:burlywood">
+                                <!-- EDIT NAME -->
                                 <div class="form-group">
                                     <label for="inputName">Edit Name</label>
                                     <input value="{{ recipe.name }}" type="input" class="form-control" id="name" name="name"
                                         placeholder="Name of recipe">
                                 </div>
+                                <!-- EDIT IMAGE -->
                                 <div class="form-group">
                                     <label for="inputName">Edit Image</label>
                                     <input value="{{ recipe.image_url }}" type="input" class="form-control" id="image_url"
                                         name="image_url" placeholder="Paste a link to your image">
                                 </div>
+                                <!-- EDIT DESCRIPTION -->
                                 <div class="form-group">
                                     <label for="inputDescription">Edit Description</label>
                                     <textarea placeholder="Description" class="form-control" id="description" name="description"
                                         rows="3">{{ recipe.description }}</textarea>
                                 </div>
+                                <!-- EDIT MAIN INGREDIENT -->
                                 <div class="form-group">
                                     <label for="inputMain">Edit Main Ingredient</label>
                                     <input value="{{ recipe.main_ingredient }}" type="input" class="form-control" id="main_ingredient"
                                         name="main_ingredient" placeholder="Main Ingredient">
                                 </div>
+                                <!-- EDIT CATEGORY -->
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="selectCategory">Edit Category</label>
@@ -65,8 +70,8 @@
                                             {% endif %}
                                             {% endfor %}
                                         </select>
-
                                     </div>
+                                    <!-- EDIT CUISINE -->
                                     <div class="form-group col-md-6">
                                         <label for="selectCuisine">Cuisine</label>
                                         <select class="custom-select" id="cuisine" name="cuisine">
@@ -82,6 +87,7 @@
 
                                     </div>
                                 </div>
+                                <!-- EDIT DIFFICULTY -->
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="selectDifficulty">Difficulty</label>
@@ -98,22 +104,25 @@
                                         </select>
                                     </div>
                                 </div>
+                                <!-- EDIT PREP TIME -->
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="inputPrep">prep time</label>
+                                            <label for="inputPrep">Prep Time</label>
                                             <input value="{{ recipe.prep_time }}" type="input" class="form-control" id="prep_time"
                                                 name="prep_time" placeholder="prep time">
                                         </div>
                                     </div>
+                                    <!-- EDIT COOK TIME -->
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="inputCook">cook time</label>
+                                            <label for="inputCook">Cook Time</label>
                                             <input value="{{ recipe.cook_time }}" type="input" class="form-control" id="cook_time"
                                                 name="cook_time" placeholder="cook time">
                                         </div>
                                     </div>
                                 </div>
+                                <!-- EDIT SERVES -->
                                 <div class="row">
                                     <div class="col">
                                         <div class="form-group">
@@ -122,16 +131,19 @@
                                                 name="serves" placeholder="serves">
                                         </div>
                                     </div>
+                                    <!-- EDIT CALORIES -->
                                     <div class="col">
                                         <div class="form-group">
-                                            <label for="inputCalories">calories</label>
+                                            <label for="inputCalories">Calories</label>
                                             <input value="{{ recipe.calories }}" type="input" class="form-control" id="calories"
                                                 name="calories" placeholder="calories">
                                         </div>
                                     </div>
                                 </div>
-                                <div><label for="inputAllergens">Allergens</label></div>
-
+                                <!-- EDIT ALLERGENS -->
+                                <div>
+                                    <label for="inputAllergens">Allergens</label>
+                                </div>
                                 {% for allergen in allergens_list %}
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label" for="inline{{ allergen }}">{{ allergen }}</label>
@@ -139,9 +151,9 @@
                                         {% if allergen in recipe['allergens'] %} checked {% endif %}>
                                 </div>
                                 {% endfor %}
-
                             </div>
                             <div class="col-md-6" style="background-color:aqua">
+                                <!-- EDIT INGREDIENTS -->
                                 <div class="form-group">
                                     <div id="ingredients_input_list">
                                         <label for="inputIngredients">Ingredients</label>
@@ -152,6 +164,7 @@
                                         <a href="#" id="add_ingredient"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                     </div>
                                 </div>
+                                <!-- EDIT INSTRUCTIONS -->
                                 <div class="form-group">
                                     <div id="instruction_input_list">
                                         <label for="inputInstruction">Instructions</label>
@@ -163,15 +176,18 @@
                                     </div>
                                 </div>
                             </div>
+                            <!-- HIDDEN VOTES/VIEW -->
                             <div id="hiddenFields">
                                 <input value="{{ recipe.views }}" type="input" class="form-control" id="view" name="views"
                                     hidden>
                                 <input value="{{ recipe.votes }}" type="input" class="form-control" id="votes" name="votes"
                                     hidden>
                             </div>
+                            <!-- MESSAGES -->
                             <div class="form-group button-submit-margin" id="editRecipeMessages">
                                 {{message}}
                             </div>
+                            <!-- BUTTONS -->
                             <div class="col-12 text-center">
                                 <button action="{{ url_for('update_recipe', recipe_id=recipe._id) }}" type="submit"
                                     class="btn btn-primary" id="addRecipeButton">Update Recipe</button>
