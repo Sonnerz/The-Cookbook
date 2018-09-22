@@ -1,18 +1,6 @@
 {% extends 'base.html' %}
 
 {% block template_content %}
-<!-- USER NAME-->
-<div class="container-fluid" id="user_content">
-    <div class="row">
-        <div class="col-12">
-            <section id="user_name">
-                {% if session['isLoggedin'] == True %}
-                <span>&#123;&#123; Hello {{ session['username'] }}, welcome back &#125;&#125;</span>
-                {% endif %}
-            </section>
-        </div>
-    </div>
-</div>
 <!-- PAGE CONTENT-->
 <div class="container-fluid">
     <!-- PAGE HEADER -->

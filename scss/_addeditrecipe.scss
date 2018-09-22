@@ -1,17 +1,4 @@
 // Styling for the add recipe page
-#user_name {
-    padding: 0;
-    padding-top: 80px;
-    text-align: right;
-    padding-right: 5rem;
-    @media (min-width: 768px) {
-        padding-top: 130px;
-    }
-    @media (min-width: 576px) {
-        padding-top: 130px;
-    }
-}
-
 #add_recipe_form, #update_recipe_form  {
     #ingredients_input_list>input {
         margin-top: 0.3rem;

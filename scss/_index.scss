@@ -1,148 +1,176 @@
 // Styling for the masthead
 header.masthead {
-  text-align: center;
-  color: $paynesgrey;
-  z-index: -1;
-  background-image: url('../img/home_image.jpg');
-  background-repeat: no-repeat;
-  background-attachment: scroll;
-  background-position: center center;
-  background-size: cover;
-  .intro-text-bkg {
-    padding: 50px 0px;
-    @include text-background;
-  }
-  .intro-text {
-    padding-top: 150px;
-    padding-bottom: 100px;
-    .intro-lead-in {
-      font-size: 22px;
-      font-style: italic;
-      line-height: 22px;
-      margin-bottom: 25px;
-      @include serif-font;
+    text-align: center;
+    color: $paynesgrey;
+    z-index: -1;
+    background-image: url('../img/home_image.jpg');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
+    .intro-text-bkg {
+        padding: 50px 0px;
+        @include text-background;
     }
-    .intro-heading {
-      font-size: 50px;
-      font-weight: 700;
-      line-height: 50px;
-      margin-bottom: 25px;
-      @include heading-font;
+    .intro-text {
+        padding-top: 150px;
+        padding-bottom: 100px;
+        .intro-lead-in {
+            font-size: 22px;
+            font-style: italic;
+            line-height: 22px;
+            margin-bottom: 25px;
+            @include serif-font;
+        }
+        .intro-heading {
+            font-size: 50px;
+            font-weight: 700;
+            line-height: 50px;
+            margin-bottom: 25px;
+            @include heading-font;
+        }
     }
-  }
 }
 
 /* StackOverflow solution to vertically and horizontally center the Modal */
+
 .vertical-align-modal {
-  display: table;
-  height: 100%;
-  width: 100%;
-  pointer-events: none;
+    display: table;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
 }
+
 .vertical-align-center {
-  display: table-cell;
-  vertical-align: middle;
-  pointer-events: none;
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events: none;
 }
+
 .modal-content {
-  width: inherit;
-  max-width: inherit;
-  height: inherit;
-  margin: 0 auto;
-  pointer-events: all;
+    width: inherit;
+    max-width: inherit;
+    height: inherit;
+    margin: 0 auto;
+    pointer-events: all;
 }
+
 #form-wrapper {
-  width: 80%;
-  background-color: #ff0000;
+    width: 80%;
+    background-color: #ff0000;
 }
 
 #signupForm input {
-  width: 80%;
+    width: 80%;
 }
 
 label.valid {
-  width: 24px;
-  height: 24px;
-  background: url(/static/img/global/valid.png) right center no-repeat;
-  display: inline-block;
-  text-indent: -9999px;
-}
-label.error {
-  font-weight: bold;
-  color: red;
-  padding: 2px;
-  margin-top: 2px 5px;
+    width: 24px;
+    height: 24px;
+    background: url(/static/img/global/valid.png) right center no-repeat;
+    display: inline-block;
+    text-indent: -9999px;
 }
 
-.alert-container-index {
-  padding: 0;
-  padding-top: 75px;
-  margin: 0 auto;
-  position: absolute;
-  width: 100%;
-  z-index: 1020;
-  -webkit-animation-name: slideInDown; /* Safari 4.0 - 8.0 */
-  -webkit-animation-duration: 4s; /* Safari 4.0 - 8.0 */
-  animation-name: slideInDown;
-  animation-duration: 1s;
+label.error {
+    font-weight: bold;
+    color: red;
+    padding: 2px;
+    margin-top: 2px 5px;
+}
+
+.alert-wrapper {
+    width: 100%;
+    .alert-container-index {
+        padding: 0;
+        padding-top: 0;
+        margin: 0 auto;
+        position: absolute;
+        width: 100%;
+        z-index: 1020;
+        -webkit-animation-name: slideInDown;
+        /* Safari 4.0 - 8.0 */
+        -webkit-animation-duration: 4s;
+        /* Safari 4.0 - 8.0 */
+        animation-name: slideInDown;
+        animation-duration: 1s;
+    }
 }
 
 @-webkit-keyframes slideInDown {
-  from {
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-    visibility: visible;
-  }
-
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
+    from {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+        visibility: visible;
+    }
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
 }
 
 @keyframes slideInDown {
-  from {
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-    visibility: visible;
-  }
-
-  to {
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
+    from {
+        -webkit-transform: translate3d(0, -100%, 0);
+        transform: translate3d(0, -100%, 0);
+        visibility: visible;
+    }
+    to {
+        -webkit-transform: translate3d(0, 0, 0);
+        transform: translate3d(0, 0, 0);
+    }
 }
 
 .slideInDown {
-  -webkit-animation-name: slideInDown;
-  animation-name: slideInDown;
+    -webkit-animation-name: slideInDown;
+    animation-name: slideInDown;
 }
-
 
 @media(min-width:768px) {
-  header.masthead {
-    .intro-text {
-      padding-top: 300px;
-      padding-bottom: 200px;
-      .intro-lead-in {
-        font-size: 40px;
-        font-style: italic;
-        line-height: 40px;
-        margin-bottom: 25px;
-        @include sans-serif-font;;
-      }
-      .intro-heading {
-        font-size: 75px;
-        font-weight: 700;
-        line-height: 75px;
-        margin-bottom: 50px;
-        @include heading-font;
-      }
+    .alert-wrapper {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        .alert-container-index {
+            padding: 0;
+            padding-top: 0;
+            margin: 0 auto;
+            position: absolute;
+            width: 50%;
+            z-index: 1020;
+            -webkit-animation-name: slideInDown;
+            /* Safari 4.0 - 8.0 */
+            -webkit-animation-duration: 4s;
+            /* Safari 4.0 - 8.0 */
+            animation-name: slideInDown;
+            animation-duration: 1s;
+        }
     }
-  }
+    header.masthead {
+        .intro-text {
+            padding-top: 300px;
+            padding-bottom: 200px;
+            .intro-lead-in {
+                font-size: 40px;
+                font-style: italic;
+                line-height: 40px;
+                margin-bottom: 25px;
+                @include sans-serif-font;
+                ;
+            }
+            .intro-heading {
+                font-size: 75px;
+                font-weight: 700;
+                line-height: 75px;
+                margin-bottom: 50px;
+                @include heading-font;
+            }
+        }
+    }
 }
+
 @media(min-width:576px) {
-  .alert-container-index {
-    padding-top: 125px;
-  }
+    .alert-container-index {
+        padding-top: 0;
+    }
 }
