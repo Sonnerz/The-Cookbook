@@ -18,17 +18,28 @@
 <div class="container-fluid">
     <div class="row">
         <!-- LEFT COLUMN -->
-        <div class="col-4" style="background-color:blue">
+        <div class="col-4" style="background-color:rgb(229, 255, 0)">
             Filtering
             <div class="row">
                 <div class="col-12">
                     <label for="selectCategory">Category</label>
-                    <select class="custom-select" id="category" name="category">
-                        <option>Select a Category</option>
-                        {% for category in categories%}
-                        <option value="{{ category.category_name }}">{{ category.category_name }}</option>
-                        {% endfor %}
-                    </select>
+
+                    <form id="categoryFilter" name="categoryFilter" method="POST">
+                        <select class="custom-select" id="category-select">
+                            <option>Select a Category</option>
+                            {% for category in categories %}
+                            <option value="{{category.category_name}}"> {{category.category_name}}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="submit" class="btn btn-primary"></button>
+                        <!-- {#<a href="{{ url_for('filter_by_category', category=category.category_name) }}" type="submit" class="btn btn-primary">get cat</a> #}-->
+
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div id="sc">on change</div>
                 </div>
             </div>
             <div class="row">
@@ -55,28 +66,16 @@
         </div>
         <!-- RIGHT COLUMN -->
         <div class="col-8" style="background-color:brown">
-            {% for recipe_row in recipes | batch(3) %}
-            <div class="card-deck">
-                {% for recipe in recipe_row %}
-                <div class="card">
-                    {% if recipe.image_url != "" %}
-                    <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}" title="{{recipe.name}}">
-                    {% else %}
-                    <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}" alt="Default image of food"
-                        title="Default image of food">
-                    {% endif %}
-                    <div class="card-body">
-                        <h5 class="card-title">{{ recipe.name }}</h5>
-                        <p class="card-text">This is a longer card with supporting text below as a natural lead-in
-                            to
-                            additional content. This content is a little bit longer.</p>
-                        <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-            {% endfor %}
+            <div class="row" id="recipeResult">
+                RESULTS GO HERE<br><br><br><br><br>
 
+                
+
+
+            </div>
+            <div class="row" id="iniRecipes">
+                INITAL RECIPES
+            </div>
         </div>
     </div>
 </div>

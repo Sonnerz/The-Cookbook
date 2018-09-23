@@ -100,17 +100,40 @@ img::-moz-selection {
   background: transparent;
 }
 
-#user_name {
+#user-name-wrapper {
   padding: 0;
   padding-top: 77px;
-  text-align: right;
-  padding-right: 5rem;
+  text-align: center;
+  margin-left: 60%;
+  margin-right: auto;
 }
 
 @media (min-width: 576px) {
-  #user_name {
+  #user-name-wrapper {
     padding-top: 127px;
   }
+}
+
+@media (min-width: 768px) {
+  #user-name-wrapper .userwelcome {
+    min-width: 30%;
+    position: absolute;
+    width: 30%;
+    z-index: 1020;
+    margin: 0 auto;
+  }
+}
+
+.home-userwelcome {
+  background-color: rgba(245, 245, 245, 0.9);
+  border: 1px solid transparent;
+  border-radius: 1rem;
+  border-top-left-radius: 0rem;
+  border-top-right-radius: 0rem;
+  -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
 }
 
 #panel-debug p {
@@ -255,7 +278,7 @@ header.masthead .intro-text-bkg {
   padding: 50px 0px;
   background-color: rgba(245, 245, 245, 0.7);
   border: 1px solid transparent;
-  border-radius: .25rem;
+  border-radius: 8rem;
   -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
@@ -480,7 +503,7 @@ label.error {
 
 #recipe-info .left-col {
   padding: 0;
-  background-color: #ccc;
+  background-color: #fff;
 }
 
 #recipe-info #recipe-description {
@@ -488,9 +511,16 @@ label.error {
 }
 
 #recipe-info .recipe-image img {
-  width: 100%;
-  height: auto;
   max-width: 100%;
+  display: block;
+  max-height: 350px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+#recipe-info .utilities {
+  width: 60%;
+  margin: 0 auto;
 }
 
 #recipe-info #editRecipeButton, #recipe-info .delete_recipe {

@@ -35,7 +35,7 @@
                         </div>
                         {% endif %}
                         <!-- UTILITIES PRINT/RATE-->
-                        <div class="row text-center">
+                        <div class="row text-center utilities">
                             <div class="col-4">
                                 <a type="submit" action="{{ url_for('update_vote', recipe_id=recipe._id) }}" id="rateme" name="rateme" alt="Rate this recipe" title="Rate this recipe"><i class="far fa-heart">Rate</i></a>
                                
@@ -136,7 +136,6 @@
                         </div>
                         {% else %}
                         <div>&nbsp;</div>
-
                         {% endif %}
 
                         <!-- CONFIRM DELETION POPUP -->

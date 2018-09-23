@@ -30,6 +30,7 @@ $(function () {
 
 // #endregion
 
+
 // #region AJAX send the login data to Flask/Python
 
 $(function () {
@@ -59,6 +60,7 @@ $(function () {
 
 // #endregion
 
+
 // #region AJAX send the new recipe data from form to Flask/Python
 
 $(function () {
@@ -84,6 +86,7 @@ $(function () {
 });
 
 // #endregion
+
 
 // #region AJAX update a recipe send data from form to server
 
@@ -128,6 +131,7 @@ function viewPanel() {
 
 // #endregion
 
+
 // #region GO BACK TO PREVIOUS PAGE
 
 function goPrev() {
@@ -151,7 +155,16 @@ $(document).ready(function () {
     $("#add-nav-link").addClass("active-link");
   }
 
-  // #endregion  
+  // #endregion
+
+    // #region Add class welcome user message if home page  
+
+    var current_path = $(location).attr('pathname');
+    if (current_path == "/") {
+      $(".userwelcome").addClass("home-userwelcome");
+    }
+  
+    // #endregion 
 
 
   // #region Add extra ingredient or instruction inputs to add recipe form
@@ -240,7 +253,7 @@ $(document).ready(function () {
           }
         }
       });
-     return false;
+      return false;
     });
   });
 
@@ -249,7 +262,7 @@ $(document).ready(function () {
 
   // #region View Recipe page change from flat content to tabs in mobile view
 
-  $(window).on('resize', function () { 
+  $(window).on('resize', function () {
     var win = $(this); //this = window
     if (win.width() >= 768) {
       $("#home").css("display", "block");
@@ -279,7 +292,7 @@ $(document).ready(function () {
   // #endregion
 
 
-  // #region Rate this recipe
+  // #region RATE THIS RECIPE
 
   $('#rateme').click(function (e) {
     e.preventDefault();
@@ -288,32 +301,64 @@ $(document).ready(function () {
   })
 
   function addVote() {
-      votes = 1;
-      var url = window.location.href;
-      recipe_id = url.split("/").pop();
-      console.log("got to here", votes)
+    votes = 1;
+    var url = window.location.href;
+    recipe_id = url.split("/").pop();
+    console.log("got to here", votes)
+    $.ajax({
+      url: '/update_vote/' + recipe_id,
+      contentType: 'application/json',
+      data: JSON.stringify(votes),
+      type: 'POST',
+      success: function (response) {
+        console.log("RESPONSE FROM SERVER", response);
+        $("#ratemeMessages").html(response);
+        $("#vote_result").html(response);
+      },
+      error: function (error) {
+        console.log(error);
+        $("#ratemeMessages").html(response);
+      }
+    });
+  };
+  // #endregion
+
+
+  // #region GET CATEGORY FROM SEARCH FILTER AND PASS TO FLASK
+
+  $(function () {
+    $("#category-select").change(function (event) {
+      event.preventDefault();
+      var categorypicked = $('#category-select').find(":selected").text();
+      $("#sc").text(categorypicked);
+      category = categorypicked.trim();
+      console.log("category selected:", category)
       $.ajax({
-        url: '/update_vote/' + recipe_id,
+        url: '/filter_by_category/'+ category,
         contentType: 'application/json',
-        data: JSON.stringify(votes),
+        data: JSON.stringify(category),
         type: 'POST',
         success: function (response) {
           console.log("RESPONSE FROM SERVER", response);
-          $("#ratemeMessages").html(response);
-          $("#vote_result").html(response);
+          $("#recipeResult").html(response);
+          $('#iniRecipes').hide();
         },
         error: function (error) {
           console.log(error);
-          $("#ratemeMessages").html(response);
+          $("#recipeResult").html(response);
         }
       });
-  };
-// #endregion
-
-
+    });
 });
+
 // #endregion
 
+
+
+
+
+}); // close document.ready
+// #endregion
 
 
 

@@ -61,10 +61,12 @@
   <div class="container-fluid" id="user_content">
     <div class="row">
       <div class="col-12">
-        <section id="user_name">
-          {% if session['isLoggedin'] == True %}
-          <span>&#123;&#123; Hello {{ session['username'] }}, welcome back &#125;&#125;</span>
-          {% endif %}
+        <section id="user-name-wrapper">
+          <div class="userwelcome">
+            {% if session['isLoggedin'] == True %}
+            <span>&#123;&#123; Hello {{ session['username'] }}, welcome back &#125;&#125;</span>
+            {% endif %}
+          </div>
         </section>
       </div>
     </div>
@@ -200,8 +202,11 @@
           <div class="row">
 
             <div class="col-md-6">
+              <h5>Connection</h5>
+              {% for t in test %}
+              <p>{{ t.test_description }}</p>
+              {% endfor %}
               <h5>Session</h5>
-              <p>{{ session }}</p>
               <p>user id: {{ session['userid'] }}</p>
               <p>username: {{ session['username'] }}</p>
               <p>isLoggedin: {{ session['isLoggedin'] }}</p>

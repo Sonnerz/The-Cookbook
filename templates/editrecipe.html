@@ -137,7 +137,7 @@
                                 {% for allergen in allergens_list %}
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label" for="inline{{ allergen }}">{{ allergen }}</label>
-                                    <input class="form-check-input" type="checkbox" id="allergen" name="allergen" value="{{ allergen }}"
+                                    <input class="form-check-input" type="checkbox" name="allergen" value="{{ allergen }}"
                                         {% if allergen in recipe['allergens'] %} checked {% endif %}>
                                 </div>
                                 {% endfor %}
@@ -148,8 +148,7 @@
                                     <div id="ingredients_input_list">
                                         <label for="inputIngredients">Ingredients</label>
                                         {% for ingredient in recipe.ingredients %}
-                                        <input type="text" class="input form-control" id="ingredient"
-                                            name="ingredient" placeholder="ingredient" value="{{ ingredient }}" />
+                                        <input type="text" class="input form-control" name="ingredient" placeholder="ingredient" value="{{ ingredient }}" />
                                         {% endfor %}
                                         <a href="#" id="add_ingredient"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                     </div>
@@ -159,7 +158,7 @@
                                     <div id="instruction_input_list">
                                         <label for="inputInstruction">Instructions</label>
                                         {% for instruct in recipe.instructions %}
-                                        <textarea class="input form-control" id="instruction" name="instruction"
+                                        <textarea class="input form-control" name="instruction"
                                             placeholder="instructions">{{ instruct }}</textarea>
                                         {% endfor %}
                                         <a href="#" id="add_instruction"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>

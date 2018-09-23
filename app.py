@@ -4,7 +4,8 @@ from functools import wraps
 from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify, json
 from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
-from werkzeug.exceptions import abort, BadRequestKeyError
+from bson.json_util import dumps
+from bson import json_util
 
 DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
@@ -16,8 +17,8 @@ app.secret_key = 'The cat is on the roof'
 
 if app.debug:
     app.config["DBS_NAME"] = "cookbook"
-    # app.config["MONGO_URI"] = "mongodb://c00l3:BGirl808@ds251332.mlab.com:51332/cookbook"
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
+
 else:
     app.config["DBS_NAME"] = DBS_NAME
     app.config["MONGO_URI"] = MONGO_URI
@@ -127,8 +128,9 @@ def profile():
     current_user = dict(get_user(session['username']))
     current_user_str = str(current_user['_id'])
     user_recipes = get_user_recipes(session['userid'])
-    return render_template("profile.html", test=mongo.db.test_collection.find(),
-                            current_user=current_user, recipes=user_recipes)
+    test = mongo.db.test_collection.find()
+    print(test)
+    return render_template("profile.html", current_user=current_user, recipes=user_recipes, test=test)
 
 
 # FUNCTION :: LOGOUT FUNCTION TRIGGERED BY LOGOUT BUTTON
@@ -317,7 +319,7 @@ def update_vote(recipe_id):
 
 
 # PAGE :: RECIPE SEARCH PAGE
-@app.route('/recipesearch')
+@app.route('/recipesearch', methods=['POST', 'GET'])
 def recipesearch():
     recipes = get_allrecipes()
     categories = get_categories()
@@ -327,6 +329,35 @@ def recipesearch():
     return render_template("recipesearch.html", test=mongo.db.test_collection.find(), 
                             recipes=recipes, categories=categories,
                             cuisine=cuisine, allergens=allergens)
+
+
+
+# FUNCTION :: GET RECIPES BY CATEGORY
+@app.route('/filter_by_category/<category>', methods=['POST', 'GET'])
+def filter_by_category(category):
+    filteredRecipes = None
+    category_name = category
+    print("category_name 33333>>> ", category_name)
+    try:
+        filteredRecipes = [recipe for recipe in mongo.db.recipes.find({"category": category_name})]
+    except Exception as e:
+        print("error accessing DB to find category %s" % str(e))
+
+    if filteredRecipes:
+        print("recipes by category exist")
+        for recipe in filteredRecipes:
+            print(recipe['name'])
+    else:
+        print("no recipes found")
+
+    # result_to_return = []
+    for recipe in filteredRecipes:
+        recipe['_id']= str(recipe['_id'])
+        result_to_return = recipe
+        print(type(result_to_return))
+
+    return jsonify(result_to_return)
+
 
 
 
