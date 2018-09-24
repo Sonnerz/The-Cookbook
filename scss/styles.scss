@@ -4,13 +4,14 @@
 @import "_variables.scss";
 @import "_mixins.scss";
 
-// Global CSS
-@import "_global.scss";
-@import "_bootstrap-override.scss";
-
 // Components
 @import "_navbar.scss";
 @import "_index.scss";
 @import "_addeditrecipe.scss";
+@import "_recipesearch.scss";
 @import "_recipe.scss";
 @import "_footer.scss";
+
+// Global CSS
+@import "_global.scss";
+@import "_bootstrap-override.scss";

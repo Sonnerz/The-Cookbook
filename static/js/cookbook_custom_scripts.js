@@ -340,11 +340,13 @@ $(document).ready(function () {
         type: 'POST',
         success: function (response) {
           console.log("RESPONSE FROM SERVER", response);
-          console.log(typeof(response));
-          $("#recipeResult").html(response)
-          $("#one").html(response.name)
-          $("#two").val(response.name);
-          $('#iniRecipes').hide();
+          console.log(response.name)
+          $("#recipeResult").html(response.name);
+          $("#one").html(response.description);
+          $("#two").html("shit");
+          $("#recipeResult>#thisisacol>.recipe-name").html(response.cuisine);
+          $('#initialRecipes').hide();
+          $("#sc").val(response.name)
         },
         error: function (error) {
           console.log(error);

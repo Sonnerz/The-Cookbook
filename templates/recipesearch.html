@@ -65,23 +65,45 @@
             </div>
         </div>
         <!-- RIGHT COLUMN -->
-        <div class="col-8" style="background-color:brown">
+        <!-- FILTERING RESULTS -->
+        <div class="col-8">
             <div class="row">
-                RESULTS GO HERE<br><br><br><br><br>
-                {{ response }}
-                <div id="recipeResult"></div>
-                <div id="one" style="background-color:red"></div>
-                <div id="two" style="background-color:yellow"></div>
-                
-                
-
-
+                <div class="col-12" id="thisisacol">
+                    <div id="recipeResult"></div>
+                    <div id="two" ></div>
+                    <div class="recipe-name"></div>
+                </div>
             </div>
-            <div class="row" id="iniRecipes">
-                INITAL RECIPES
+            <div class="row" id="one" style="background-color:red">
+            </div>
+            <!-- INITIAL RANDON SELECTION OF RECIPES BEFORE FILTERING HIDDEN AFTER USER FILTERING -->
+            <div class="row" id="initialRecipes" style="background-color:#fff">
+                <div class="col-12">
+                    {% for recipe_row in recipes | batch(3) %}
+                    <div class="card-deck">
+                        {% for recipe in recipe_row %}
+                        <div class="card">
+                            {% if recipe.image_url != "" %}
+                            <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}" title="{{recipe.name}}">
+                            {% else %}
+                            <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}"
+                                alt="Default image of food" title="Default image of food">
+                            {% endif %}
+                            <div class="card-body">
+                                <h5 class="card-title">{{ recipe.name }}</h5>
+                                <p class="card-text">This is a longer card with supporting text below as a natural
+                                    lead-in to additional content. This content is a little bit longer.</p>
+                                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    {% endfor %}
+                </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 
 

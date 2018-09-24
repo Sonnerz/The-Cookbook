@@ -18,6 +18,7 @@ app.secret_key = 'The cat is on the roof'
 if app.debug:
     app.config["DBS_NAME"] = "cookbook"
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
+    
 
 else:
     app.config["DBS_NAME"] = DBS_NAME
@@ -86,6 +87,20 @@ def get_allrecipes():
     if rows:
         print("all recipes found")
     return rows
+
+
+# FUNCTION :: GET RANDOM RECIPES
+def get_random_recipes():
+    rows = {}
+    try:
+        rows = mongo.db.recipes.aggregate([{'$sample': {'size': 12}}])
+    except Exception as e:
+        print("error accessing DB %s" % str(e))
+
+    if rows:
+        print("all recipes found")
+    return rows
+
 
 
 # FUNCTION :: GET CATEGORIES
@@ -179,6 +194,7 @@ def insert_recipe():
     new_recipe = {
         'author': current_user_id,       
         'name': request.form.get('name'),
+        'image_url': request.form.get('image_url'),
         'description': request.form.get('description'),
         'main_ingredient': request.form.get('main_ingredient'),
         'category': request.form.get('category'),
@@ -191,8 +207,6 @@ def insert_recipe():
         'allergens': request.form.getlist('allergen'),
         'ingredients': request.form.getlist('ingredient'),
         'instructions': request.form.getlist('instruction'),
-        'image_url': request.form.get('image_url'),
-        'views': 0,
         'votes': 0
     }
     # insert new recipe
@@ -240,6 +254,7 @@ def update_recipe(recipe_id):
         {
             'author': current_user_id,
             'name': request.form.get('name'),
+            'image_url': request.form.get('image_url'),
             'description': request.form.get('description'),
             'main_ingredient': request.form.get('main_ingredient'),
             'category': request.form.get('category'),
@@ -252,8 +267,6 @@ def update_recipe(recipe_id):
             'allergens': request.form.getlist('allergen'),
             'ingredients': ingred_list_no_blanks,
             'instructions': request.form.getlist('instruction'),
-            'image_url': request.form.get('image_url'),
-            'views': request.form.get('views'),
             'votes': request.form.get('votes')
         }
     })
@@ -321,7 +334,9 @@ def update_vote(recipe_id):
 # PAGE :: RECIPE SEARCH PAGE
 @app.route('/recipesearch', methods=['POST', 'GET'])
 def recipesearch():
-    recipes = get_allrecipes()
+    # Show 12 random recipes on recipe search that change when page refreshes
+    recipes = get_random_recipes()
+    # get categories, cuisines, allergens, difficulty for dropdown filtering options
     categories = get_categories()
     cuisine = get_cuisine()
     allergens = get_allergens()
@@ -337,7 +352,7 @@ def recipesearch():
 def filter_by_category(category):
     filteredRecipes = None
     category_name = category
-    print("category_name 33333>>> ", category_name)
+    print("category_name 444>>> ", category_name)
     try:
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find({"category": category_name})]
     except Exception as e:
@@ -349,7 +364,6 @@ def filter_by_category(category):
         for recipe in filteredRecipes:
             recipe['_id']= str(recipe['_id'])
             result_to_return = recipe
-            print(type(result_to_return))
             return jsonify(result_to_return)
     else:
         print("no recipes found")

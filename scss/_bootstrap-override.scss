@@ -1,11 +1,21 @@
 .alert.success {
     background-color: green;
     color:$white;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
   }
 .alert.error {
     background-color: red;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
   }
 .alert.info{
     background-color: rgb(113, 90, 219);
     color:$white;
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
   }
+.card-deck {
+  margin-bottom: 2rem;
+  }
+  
