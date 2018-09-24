@@ -18,7 +18,7 @@ app.secret_key = 'The cat is on the roof'
 if app.debug:
     app.config["DBS_NAME"] = "cookbook"
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
-    
+    # app.config["MONGO_URI"] = "mongodb://c00l3:%A]sB2Jm!!V}Usww@ds251332.mlab.com:51332/cookbook"
 
 else:
     app.config["DBS_NAME"] = DBS_NAME
@@ -352,19 +352,20 @@ def recipesearch():
 def filter_by_category(category):
     filteredRecipes = None
     category_name = category
-    print("category_name 444>>> ", category_name)
+    print("category_name 6>>> ", category_name)
     try:
-        filteredRecipes = [recipe for recipe in mongo.db.recipes.find({"category": category_name})]
+        rows = [recipe for recipe in mongo.db.recipes.find({"category": category_name})]
     except Exception as e:
         print("error accessing DB to find category %s" % str(e))
 
-    result_to_return = []
-    if filteredRecipes:
+    if rows:
         print("recipes by category exist")
-        for recipe in filteredRecipes:
-            recipe['_id']= str(recipe['_id'])
-            result_to_return = recipe
-            return jsonify(result_to_return)
+        # for r in rows:
+        #     r['_id']= str(r['_id'])
+        #     result = r
+        #     print(result['name'])
+        # rows.append(r)
+        return render_template("resultTemplate.html", reciperesults=rows)    
     else:
         print("no recipes found")
         message = "no recipes found"

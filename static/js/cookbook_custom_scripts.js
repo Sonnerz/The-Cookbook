@@ -340,13 +340,23 @@ $(document).ready(function () {
         type: 'POST',
         success: function (response) {
           console.log("RESPONSE FROM SERVER", response);
-          console.log(response.name)
-          $("#recipeResult").html(response.name);
-          $("#one").html(response.description);
-          $("#two").html("shit");
-          $("#recipeResult>#thisisacol>.recipe-name").html(response.cuisine);
+          // $.each(response, function(k, v) {
+          //   console.log(response)
+          // });
+          // parsedResponse = JSON.parse(response)
+          // console.log(parsedResponse)
+          // $.each(parsedResponse, function() {
+          //   $.each(this, function(k, v) {
+          //     console.log(k, v)
+          //     $("#recipeResult").html(k,v);
+          //     $('#initialRecipes').hide();
+          //   });
+          // });
+          $("#recipeResult").html(response);
+          // $("#one").html(response.description);
+          // $("#two").html("shit");
+          // $("#recipeResult>#thisisacol>.recipe-name").html(response.cuisine);
           $('#initialRecipes').hide();
-          $("#sc").val(response.name)
         },
         error: function (error) {
           console.log(error);

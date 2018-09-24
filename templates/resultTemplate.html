@@ -1,0 +1,20 @@
+{% for recipe_row in reciperesults | batch(3) %}
+<div class="card-deck">
+    {% for recipe in recipe_row %}
+    <div class="card">
+        {% if recipe.image_url != "" %}
+        <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}" title="{{recipe.name}}">
+        {% else %}
+        <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}"
+            alt="Default image of food" title="Default image of food">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{ recipe.name }}</h5>
+            <p class="card-text">This is a longer card with supporting text below as a natural
+                lead-in to additional content. This content is a little bit longer.</p>
+            <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
