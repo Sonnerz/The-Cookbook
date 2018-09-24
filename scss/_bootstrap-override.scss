@@ -1,21 +1,30 @@
 .alert.success {
     background-color: green;
-    color:$white;
+    color: $white;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-  }
+}
+
 .alert.error {
     background-color: red;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-  }
-.alert.info{
+}
+
+.alert.info {
     background-color: rgb(113, 90, 219);
-    color:$white;
+    color: $white;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-  }
+}
+
 .card-deck {
-  margin-bottom: 2rem;
-  }
-  
+    margin-bottom: 2rem;
+}
+
+@media (min-width: 576px) {
+    .card-deck .card {
+        max-width: 33.33%;
+        width: 33.33%;
+    }
+}

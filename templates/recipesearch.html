@@ -23,7 +23,6 @@
             <div class="row">
                 <div class="col-12">
                     <label for="selectCategory">Category</label>
-
                     <form id="categoryFilter" name="categoryFilter" method="POST">
                         <select class="custom-select" id="category-select">
                             <option>Select a Category</option>
@@ -31,36 +30,33 @@
                             <option value="{{category.category_name}}"> {{category.category_name}}</option>
                             {% endfor %}
                         </select>
-                        <button type="submit" class="btn btn-primary"></button>
-                        <!-- {#<a href="{{ url_for('filter_by_category', category=category.category_name) }}" type="submit" class="btn btn-primary">get cat</a> #}-->
-
                     </form>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div id="sc">on change</div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
                     <label for="selectCuisine">Cuisine</label>
-                    <select class="custom-select" id="cuisine" name="cuisine">
-                        <option>Select a Cuisine</option>
-                        {% for cuis in cuisine%}
-                        <option value="{{ cuis.cuisine_name }}">{{ cuis.cuisine_name }}</option>
-                        {% endfor %}
-                    </select>
+                    <form id="cuisineFilter" name="cuisineFilter" method="POST">
+                        <select class="custom-select" id="cuisine-select">
+                            <option>Select a Cuisine</option>
+                            {% for cuis in cuisine%}
+                            <option value="{{ cuis.cuisine_name }}">{{ cuis.cuisine_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    {% for allergen in allergens %}
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" id="allergen" name="allergen" value="{{ allergen.allergen_name }}">
-                        <label class="form-check-label" for="inline{{ allergen.allergen_name }}">{{allergen.allergen_name}}</label>
-                    </div>
-                    {% endfor %}
+                    <label for="selectCuisine">Allergens</label>
+                    <form id="allergenFilter" name="allergenFilter" method="POST">
+                        <select class="custom-select" id="allergen-select">
+                            <option>Select a Cuisine</option>
+                            {% for allergen in allergens %}
+                            <option value="{{ allergen.allergen_name }}">{{ allergen.allergen_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </form>
                 </div>
             </div>
         </div>
@@ -69,10 +65,8 @@
         <div class="col-8">
             <div class="row" id="searchResult" style="background-color:rgb(13, 235, 216)">
                 <div class="col-12" id="thisisacol">
-                  <div id="recipeResult"></div>
+                    <div id="recipeResult"></div>
                 </div>
-            </div>
-            <div class="row" id="one" style="background-color:red">
             </div>
             <!-- INITIAL RANDON SELECTION OF RECIPES BEFORE FILTERING HIDDEN AFTER USER FILTERING -->
             <div class="row" id="initialRecipes" style="background-color:#fff">

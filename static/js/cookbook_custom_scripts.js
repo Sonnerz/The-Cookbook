@@ -291,7 +291,7 @@ $(document).ready(function () {
 
   // #endregion
 
-
+  
   // #region RATE THIS RECIPE
 
   $('#rateme').click(function (e) {
@@ -369,12 +369,66 @@ $(document).ready(function () {
 // #endregion
 
 
+  // #region GET CUISINE FROM SEARCH FILTER AND PASS TO FLASK
+
+ $(function () {
+  $("#cuisine-select").change(function (event) {
+    event.preventDefault();
+    var cuisinepicked = $('#cuisine-select').find(":selected").text();
+    $("#sc").text(cuisinepicked);
+    cuisine = cuisinepicked.trim();
+    console.log("cuisine selected:", cuisine)
+    $.ajax({
+      url: '/filter_by_cuisine/'+ cuisine,
+      contentType: 'application/json',
+      data: JSON.stringify(cuisine),
+      type: 'POST',
+      success: function (response) {
+        console.log("RESPONSE FROM SERVER", response);
+        $("#recipeResult").html(response);
+        $('#initialRecipes').hide();
+      },
+      error: function (error) {
+        console.log(error);
+        $("#recipeResult").html(response);
+      }
+    });
+  });
+});
+
+// #endregion
+
+
+  // #region GET ALLERGENS FROM SEARCH FILTER AND PASS TO FLASK
+
+ $(function () {
+  $("#allergen-select").change(function (event) {
+    event.preventDefault();
+    var allergenpicked = $('#allergen-select').find(":selected").text();
+    allergen = allergenpicked.trim();
+    console.log("allergen selected:", allergen)
+    $.ajax({
+      url: '/filter_by_allergen/'+ allergen,
+      contentType: 'application/json',
+      data: JSON.stringify(allergen),
+      type: 'POST',
+      success: function (response) {
+        console.log("RESPONSE FROM SERVER", response);
+        $("#recipeResult").html(response);
+        $('#initialRecipes').hide();
+      },
+      error: function (error) {
+        console.log(error);
+        $("#recipeResult").html(response);
+      }
+    });
+  });
+});
+
+// #endregion
 
 
 
 }); // close document.ready
 // #endregion
-
-
-
 

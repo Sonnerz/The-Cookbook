@@ -346,7 +346,6 @@ def recipesearch():
                             cuisine=cuisine, allergens=allergens)
 
 
-
 # FUNCTION :: GET RECIPES BY CATEGORY
 @app.route('/filter_by_category/<category>', methods=['POST', 'GET'])
 def filter_by_category(category):
@@ -367,8 +366,48 @@ def filter_by_category(category):
         # rows.append(r)
         return render_template("resultTemplate.html", reciperesults=rows)    
     else:
-        print("no recipes found")
-        message = "no recipes found"
+        print("no recipes with that category found")
+        message = "no recipes with that" + category_name + "found"
+        return message
+
+
+# FUNCTION :: GET RECIPES BY CUISINE
+@app.route('/filter_by_cuisine/<cuisine>', methods=['POST', 'GET'])
+def filter_by_cuisine(cuisine):
+    filteredRecipes = None
+    cuisine_name = cuisine
+    print("cuisine 6>>> ", cuisine_name)
+    try:
+        rows = [recipe for recipe in mongo.db.recipes.find({"cuisine": cuisine_name})]
+    except Exception as e:
+        print("error accessing DB to find cuisine %s" % str(e))
+
+    if rows:
+        print("recipes by cuisine exist")
+        return render_template("resultTemplate.html", reciperesults=rows)    
+    else:
+        print("no recipes with that cuisine found")
+        message = "no recipes with that" + cuisine_name + "found"
+        return message
+ 
+
+# FUNCTION :: GET RECIPES BY ALLERGEN
+@app.route('/filter_by_allergen/<allergen>', methods=['POST', 'GET'])
+def filter_by_allergen(allergen):
+    filteredRecipes = None
+    allergen_name = allergen
+    print("allergen 6>>> ", allergen_name)
+    try:
+        rows = [recipe for recipe in mongo.db.recipes.find({"allergens": allergen_name})]
+    except Exception as e:
+        print("error accessing DB to find allergen %s" % str(e))
+
+    if rows:
+        print("recipes by allergen exist")
+        return render_template("resultTemplate.html", reciperesults=rows)    
+    else:
+        print("no recipes with that allergen found")
+        message = "no recipes with that" + allergen_name + "found"
         return message
 
 

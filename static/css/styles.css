@@ -697,4 +697,11 @@ img::-moz-selection {
 .card-deck {
   margin-bottom: 2rem;
 }
+
+@media (min-width: 576px) {
+  .card-deck .card {
+    max-width: 33.33%;
+    width: 33.33%;
+  }
+}
 /*# sourceMappingURL=styles.css.map */
