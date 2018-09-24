@@ -93,14 +93,16 @@ def get_allrecipes():
 def get_random_recipes():
     rows = {}
     try:
-        rows = mongo.db.recipes.aggregate([{'$sample': {'size': 12}}])
+        # Query recipes collection and return ordered by votes descending
+        rows = mongo.db.recipes.aggregate([{'$sample': {'size': 12}},{'$sort':{'votes': -1}}])
+
+
     except Exception as e:
         print("error accessing DB %s" % str(e))
 
     if rows:
         print("all recipes found")
     return rows
-
 
 
 # FUNCTION :: GET CATEGORIES
@@ -353,21 +355,24 @@ def filter_by_category(category):
     category_name = category
     print("category_name 6>>> ", category_name)
     try:
-        rows = [recipe for recipe in mongo.db.recipes.find({"category": category_name})]
+        # filteredRecipes = [recipe for recipe in mongo.db.recipes.find({"category": category_name})]
+        # Query recipes collection and return ordered by votes descending
+        filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'category': category_name}, '$orderby': { 'votes' : -1 } })]
+
     except Exception as e:
         print("error accessing DB to find category %s" % str(e))
 
-    if rows:
+    if filteredRecipes:
         print("recipes by category exist")
-        # for r in rows:
+        # for r in filteredRecipes:
         #     r['_id']= str(r['_id'])
         #     result = r
         #     print(result['name'])
-        # rows.append(r)
-        return render_template("resultTemplate.html", reciperesults=rows)    
+        # filteredRecipes.append(r)
+        return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
     else:
         print("no recipes with that category found")
-        message = "no recipes with that" + category_name + "found"
+        message = "no recipes with that " + category_name + " found"
         return message
 
 
@@ -378,13 +383,14 @@ def filter_by_cuisine(cuisine):
     cuisine_name = cuisine
     print("cuisine 6>>> ", cuisine_name)
     try:
-        rows = [recipe for recipe in mongo.db.recipes.find({"cuisine": cuisine_name})]
+        # Query recipes collection and return ordered by votes descending
+        filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'cuisine': cuisine_name}, '$orderby': { 'votes' : -1 } })]
     except Exception as e:
         print("error accessing DB to find cuisine %s" % str(e))
 
-    if rows:
+    if filteredRecipes:
         print("recipes by cuisine exist")
-        return render_template("resultTemplate.html", reciperesults=rows)    
+        return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
     else:
         print("no recipes with that cuisine found")
         message = "no recipes with that" + cuisine_name + "found"
@@ -398,13 +404,14 @@ def filter_by_allergen(allergen):
     allergen_name = allergen
     print("allergen 6>>> ", allergen_name)
     try:
-        rows = [recipe for recipe in mongo.db.recipes.find({"allergens": allergen_name})]
+        # Query recipes collection and return ordered by votes descending
+        filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'allergens': allergen_name}, '$orderby': { 'votes' : -1 } })]
     except Exception as e:
         print("error accessing DB to find allergen %s" % str(e))
 
-    if rows:
+    if filteredRecipes:
         print("recipes by allergen exist")
-        return render_template("resultTemplate.html", reciperesults=rows)    
+        return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
     else:
         print("no recipes with that allergen found")
         message = "no recipes with that" + allergen_name + "found"
