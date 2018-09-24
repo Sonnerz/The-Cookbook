@@ -343,21 +343,18 @@ def filter_by_category(category):
     except Exception as e:
         print("error accessing DB to find category %s" % str(e))
 
+    result_to_return = []
     if filteredRecipes:
         print("recipes by category exist")
         for recipe in filteredRecipes:
-            print(recipe['name'])
+            recipe['_id']= str(recipe['_id'])
+            result_to_return = recipe
+            print(type(result_to_return))
+            return jsonify(result_to_return)
     else:
         print("no recipes found")
-
-    # result_to_return = []
-    for recipe in filteredRecipes:
-        recipe['_id']= str(recipe['_id'])
-        result_to_return = recipe
-        print(type(result_to_return))
-
-    return jsonify(result_to_return)
-
+        message = "no recipes found"
+        return message
 
 
 

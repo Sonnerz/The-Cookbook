@@ -340,7 +340,10 @@ $(document).ready(function () {
         type: 'POST',
         success: function (response) {
           console.log("RESPONSE FROM SERVER", response);
-          $("#recipeResult").html(response);
+          console.log(typeof(response));
+          $("#recipeResult").html(response)
+          $("#one").html(response.name)
+          $("#two").val(response.name);
           $('#iniRecipes').hide();
         },
         error: function (error) {
