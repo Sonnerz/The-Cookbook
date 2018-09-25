@@ -8,8 +8,6 @@ from bson.json_util import dumps
 from bson import json_util
 from datetime import datetime
 
-
-
 DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
 
@@ -23,6 +21,8 @@ if app.debug:
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
     # app.config["MONGO_URI"] = "mongodb://c00l3:%A]sB2Jm!!V}Usww@ds251332.mlab.com:51332/cookbook"
     # app.config["MONGO_URI"] = "mongodb://c00l33:eZc727sZ7XmixRH@ds251332.mlab.com:51332/cookbook"
+    
+
 else:
     app.config["DBS_NAME"] = DBS_NAME
     app.config["MONGO_URI"] = MONGO_URI
@@ -36,63 +36,9 @@ def debug_on_off():
 
 
 # PAGE :: ADD RECIPE FORM
-@app.route('/numbers', methods=['GET'])
-def numbers():
-    offset = int(request.args['offset'])
-    limit  = int(request.args['limit'])
-
-    starting_id = [recipe for recipe in mongo.db.recipes.find({'$query': {'author': session['userid']}, '$orderby': { 'votes' : -1 } })]
-    last_id = starting_id[offset]['_id']
-
-    # recipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'author': session['userid']}{'_id':{'$gte': last_id}}, '$orderby': { 'votes' : -1 } }).limit(limit)]
-    # recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [ {'author': session['userid']}, {'_id': {'$gte': last_id} } ] } ).limit(limit)]
-    recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [ {'author': session['userid']}, {'_id': {'$gte': last_id} }] }).limit(limit).sort('votes', -1)]
-
-    output = []
-    for i in recipes:
-        output.append({'recipe' : i['name']})
-
-    next_url = '/numbers?limit=' + str(limit) + '&offset=' + str(offset + limit)
-    prev_url = '/numbers?limit=' + str(limit) + '&offset=' + str(offset - limit)
-
-    return jsonify({'result' : output, 'prev_url' : prev_url, 'next_url' : next_url})
-
-
-
-# PAGE :: MY RECIPES
-@app.route('/myrecipes')
-
-def myrecipes():
-    # get data: user, users recipes for myrecipes page
-    current_user = dict(get_user(session['username']))
-    current_user_str = str(current_user['_id'])
-    test = mongo.db.test_collection.find()
-
-    #  START PAGING
-    offset = int(request.args['offset'])
-    limit  = int(request.args['limit'])
-    
-    user_recipes_starting_id = get_user_recipes(session['userid'])
-    total_count=len(user_recipes_starting_id)
-    print(total_count)
-    last_id = user_recipes_starting_id[offset]['_id']
-
-    recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [ {'author': session['userid']}, {'_id': {'$gte': last_id} }] }).limit(limit).sort('votes', -1)]
-    
-    for r in recipes:
-        print(r['name'])
-    
-    next_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset + limit)
-    prev_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset - limit)
-
-    return render_template("myrecipes.html", current_user=current_user, test=test, total_count=total_count, recipes=recipes, prev_url=prev_url, next_url=next_url)
-
-
-
-
-
-
-
+@app.route('/content_to_tab')
+def content_to_tab():
+    return render_template("content_to_tab.html")
 
 # FUNCTION :: LOGIN REQUIRED WRAP
 def login_required(f):
@@ -192,17 +138,17 @@ def index():
     return render_template("index.html", test=mongo.db.test_collection.find())
 
 
-# # PAGE :: MY RECIPES
-# @app.route('/myrecipes')
-# @login_required
-# def myrecipes():
-#     # get data: user, users recipes for myrecipes page
-#     current_user = dict(get_user(session['username']))
-#     current_user_str = str(current_user['_id'])
-#     user_recipes = get_user_recipes(session['userid'])
-#     test = mongo.db.test_collection.find()
-#     print(test)
-#     return render_template("myrecipes.html", current_user=current_user, recipes=user_recipes, test=test)
+# PAGE :: MY RECIPES
+@app.route('/myrecipes')
+@login_required
+def myrecipes():
+    # get data: user, users recipes for myrecipes page
+    current_user = dict(get_user(session['username']))
+    current_user_str = str(current_user['_id'])
+    user_recipes = get_user_recipes(session['userid'])
+    test = mongo.db.test_collection.find()
+    print(test)
+    return render_template("myrecipes.html", current_user=current_user, recipes=user_recipes, test=test)
 
 
 # FUNCTION :: LOGOUT FUNCTION TRIGGERED BY LOGOUT BUTTON
@@ -524,12 +470,6 @@ def login_user():
         message = "no user by that name"
         return message
     return
-
-
-
-
-
-
 
 
 if __name__ == '__main__':

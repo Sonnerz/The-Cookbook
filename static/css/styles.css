@@ -450,6 +450,7 @@ label.error {
 @media (min-width: 768px) {
   #recipe-info .recipe-heading {
     margin: 15px 0;
+    margin-top: 60px;
     text-transform: none;
   }
   #recipe-info #instructions div.col-12 {
@@ -516,6 +517,23 @@ label.error {
   .m-desc-hide {
     display: block;
   }
+}
+
+.pagination-page-info {
+  padding: .6em;
+  padding-left: 0;
+  width: 40em;
+  margin: .5em;
+  margin-left: 0;
+  font-size: 12px;
+}
+
+.pagination-page-info b {
+  color: black;
+  background: #6aa6ed;
+  padding-left: 2px;
+  padding: .1em .25em;
+  font-size: 150%;
 }
 
 footer {
@@ -666,7 +684,6 @@ img::-moz-selection {
   padding: 0;
   padding-top: 77px;
   text-align: center;
-  margin-left: 60%;
   margin-right: auto;
 }
 
@@ -676,14 +693,35 @@ img::-moz-selection {
   }
 }
 
+@media (min-width: 320px) {
+  .userwelcome {
+    min-width: 30%;
+    position: absolute;
+    width: 100%;
+    z-index: 1020;
+    margin: 0 auto;
+    color: #fff;
+    background-color: rgba(98, 146, 158, 0.9);
+    border: 1px solid transparent;
+    border-radius: 1rem;
+    border-top-left-radius: 0rem;
+    border-top-right-radius: 0rem;
+    -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+  }
+}
+
 @media (min-width: 768px) {
-  #user-name-wrapper .userwelcome {
+  .userwelcome {
     min-width: 30%;
     position: absolute;
     width: 30%;
     z-index: 1020;
     margin: 0 auto;
     color: #fff;
+    margin-left: 60%;
     background-color: rgba(98, 146, 158, 0.9);
     border: 1px solid transparent;
     border-radius: 1rem;

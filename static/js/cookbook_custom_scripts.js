@@ -48,7 +48,7 @@ $(function () {
         localStorage.setItem("user_id", response._id);
         // Delay before redirect to read message
         var delay = 1200;
-        setTimeout(function () { window.location.href = "/profile"; }, delay);
+        setTimeout(function () { window.location.href = "/myrecipes"; }, delay);
       },
       error: function (error) {
         console.log(error);
@@ -75,7 +75,7 @@ $(function () {
         $("#newRecipeMessages").html(response);
         // Delay before redirect to read message
         var delay = 1200;
-        setTimeout(function () { window.location.href = "/profile"; }, delay);
+        setTimeout(function () { window.location.href = "/myrecipes"; }, delay);
       },
       error: function (error) {
         console.log(error);
@@ -102,10 +102,10 @@ $(function () {
       success: function (response) {
         console.log("RESPONSE FROM SERVER", response);
         $("#editRecipeMessages").html(response);
-        window.location.href = "/profile";
+        window.location.href = "/myrecipes";
         // Delay before redirect to read message
         // var delay = 1200;
-        // setTimeout(function () { window.location.href = "/profile"; }, delay);
+        // setTimeout(function () { window.location.href = "/myrecipes"; }, delay);
       },
       error: function (error) {
         console.log(error);
@@ -148,8 +148,8 @@ $(document).ready(function () {
   // #region Add class to navbar link depending on the page displayed  
 
   var current_path = $(location).attr('pathname');
-  if (current_path == "/profile") {
-    $("#profile-nav-link").addClass("active-link");
+  if (current_path == "/myrecipes") {
+    $("#myrecipes-nav-link").addClass("active-link");
   }
   else if (current_path == "/add_recipe") {
     $("#add-nav-link").addClass("active-link");
@@ -239,12 +239,12 @@ $(document).ready(function () {
               type: 'POST',
               success: function (response) {
                 console.log("RESPONSE FROM SERVER", response);
-                $("#profileMessages").html(response);
-                window.location.href = "/profile";
+                $("#myrecipesMessages").html(response);
+                window.location.href = "/myrecipes";
               },
               error: function (error) {
                 console.log(error);
-                $("#profileMessages").html(response);
+                $("#myrecipesMessages").html(response);
               }
             });
           },
@@ -266,26 +266,26 @@ $(document).ready(function () {
     var win = $(this); //this = window
     if (win.width() >= 768) {
       $("#home").css("display", "block");
-      $("#profile").css("display", "block");
+      $("#myrecipes").css("display", "block");
     }
     else if (win.width() <= 767) {
       if ($("#hometab>a").is(".active")) {
         $("#home").css("display", "block");
-        $("#profile").css("display", "none");
+        $("#myrecipes").css("display", "none");
       }
       else if ($("#ptab>a").is(".active")) {
         $("#home").css("display", "none");
-        $("#profile").css("display", "block");
+        $("#myrecipes").css("display", "block");
       }
     }
   });
 
   $('#hometab').click(function () {
     $("#home").css("display", "block");
-    $("#profile").css("display", "none");
+    $("#myrecipes").css("display", "none");
   })
   $('#ptab').click(function () {
-    $("#profile").css("display", "block");
+    $("#myrecipes").css("display", "block");
     $("#home").css("display", "none");
   })
 

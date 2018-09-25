@@ -7,6 +7,7 @@ decorator==4.3.0
 defusedxml==0.5.0
 entrypoints==0.2.3
 Flask==1.0.2
+flask-paginate==0.5.1
 Flask-PyMongo==2.1.0
 html5lib==1.0.1
 ipykernel==4.9.0

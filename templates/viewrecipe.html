@@ -16,7 +16,7 @@
             <ul class="nav nav-tabs hidden-md-up" role="tablist">
                 <li class="nav-item" id="hometab"><a class="nav-link active" href="#home" aria-controls="home"
                         data-toggle="tab">Details</a></li>
-                <li class="nav-item" id="ptab"><a class="nav-link" href="#profile" aria-controls="profile" data-toggle="tab">Instructions</a></li>
+                <li class="nav-item" id="ptab"><a class="nav-link" href="#myrecipes" aria-controls="myrecipes" data-toggle="tab">Instructions</a></li>
             </ul>
             <!-- VIEW RECIPE DETAILS-->
             <div class="tab-content container-fluid" id="recipe-info">
@@ -38,7 +38,6 @@
                         <div class="row text-center utilities">
                             <div class="col-4">
                                 <a type="submit" action="{{ url_for('update_vote', recipe_id=recipe._id) }}" id="rateme" name="rateme" alt="Rate this recipe" title="Rate this recipe"><i class="far fa-heart">Rate</i></a>
-                               
                             </div>
                             <div class="col-4">
                                 <a href="#" alt="Print this recipe" title="Print this recipe"><i class="fas fa-print">Print</i></a>
@@ -77,7 +76,7 @@
                         </div>
                     </div>
                     <!-- COLUMN 2 INGREDIENTS AND INSTRUCTIONS -->
-                    <div role="tabpanel" class="tab-pane col-12 col-md-8 right-col" id="profile">
+                    <div role="tabpanel" class="tab-pane col-12 col-md-8 right-col" id="myrecipes">
                         <!-- RECIPE INGREDIENTS -->
                         <div class="row" id="ingredients">
                             {% if recipe.ingredients|length > 6 %}
@@ -95,16 +94,16 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="row">
-                                    <div class="col-6">
-                                        <span><i class="far fa-clock"></i></span><span>Prep time</span><span>{{
+                                    <div class="col-12 col-6">
+                                        <span><img src="{{ url_for('static', filename='img/recipes/timer.png')}}"></span><span>Prep time: </span><span>{{
                                             recipe.prep_time }}</span><br>
-                                        <span><i class="far fa-clock"></i></span><span>Cook time</span><span>{{
+                                        <span><img src="{{ url_for('static', filename='img/recipes/timer.png')}}"></span><span>Cook time: </span><span>{{
                                             recipe.cook_time }}</span>
                                     </div>
-                                    <div class="col-6">
-                                        <span><i class="fas fa-utensils"></i></span><span>Serves</span><span>{{
+                                    <div class="col-12 col-6">
+                                        <span><img src="{{ url_for('static', filename='img/recipes/spoon-and-fork.png')}}"></span><span>Serves: </span><span>{{
                                             recipe.serves }}</span><br>
-                                        <span><i class="far fa-clock"></i></span><span>Difficulty</span><span>{{
+                                        <span><img src="{{ url_for('static', filename='img/recipes/apron.png')}}"></span><span>Difficulty: </span><span>{{
                                             recipe.difficulty }}</span>
                                     </div>
                                 </div>
@@ -113,7 +112,7 @@
                         <!-- RECIPE INSTRUCTIONS -->
                         <div class="row" id="instructions">
                             <div class="col-12">
-                                <h4 class="recipe-heading">Instructions</h4>
+                                <h4 class="recipe-heading"><img src="{{ url_for('static', filename='img/recipes/recipe.png')}}"> Instructions</h4>
                                 {% for instruct in recipe.instructions %}
                                 <div class="instuctions-line">{{ instruct }}</div>
                                 {% endfor %}
