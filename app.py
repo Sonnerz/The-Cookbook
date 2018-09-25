@@ -293,6 +293,8 @@ def delete_recipe():
 def view_recipe(recipe_id):
     # get the recipe by using id passed in url
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    the_author = mongo.db.users.find_one({"_id":  ObjectId(the_recipe['author'])})
+    print(the_author)
     # get categories, cuisine, allergens, difficulty for form dropdown lists
     categories = get_categories()
     cuisine = get_cuisine()
@@ -301,7 +303,8 @@ def view_recipe(recipe_id):
     difficulty = get_difficulty()
     return render_template("viewrecipe.html", test=mongo.db.test_collection.find(), 
                         categories=categories, cuisine=cuisine, 
-                        allergens_list=allergens_list, recipe=the_recipe, difficulty=difficulty )
+                        allergens_list=allergens_list, recipe=the_recipe, 
+                        difficulty=difficulty, recipeauthor=the_author)
 
 
 # FUNCTION :: UPDATE RECIPE VOTE

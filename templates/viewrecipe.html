@@ -119,11 +119,18 @@
                                 {% endfor %}
                             </div>
                         </div>
+
+                        <!-- CREATED BY AND DATE -->
+                        <div class="row">
+                            <div class="col-12">
+                                Created by:{{recipeauthor.username}} Date: {{ recipe['_id'].generation_time.date().strftime('%d %m %Y') }}
+                            </div>
+                            
+                        </div>
                         <!-- MESSAGES -->
                         <div id="ratemeMessages" class="form-group button-submit-margin">
                             MESSAGE: {{ result }}
                         </div>
-                        {{ recipe._id}}
                         <!-- BUTTONS -->
                         {% if session['isLoggedin'] and session['userid'] == recipe['author'] %}
                         <div class="row with-border">
