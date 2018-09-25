@@ -69,8 +69,12 @@ def get_user(username):
 def get_user_recipes(current_user_id):
     rows = {}
     try:
-        rows = mongo.db.recipes.find({"author": current_user_id})
-        # rows = mongo.db.recipes.find_one({"name" : "Chicken chasseur"})
+        # rows = mongo.db.recipes.find({"author": current_user_id})
+
+        rows = [recipe for recipe in mongo.db.recipes.find({'$query': {'author': current_user_id}, '$orderby': { 'votes' : -1 } })]
+
+        # rows = mongo.db.recipes.find([{"author": current_user_id},{'$sort':{'votes': -1}}])
+        # rows = mongo.db.recipes.find([{'$sample': {'size': 9}},{'$sort':{'votes': -1}}])
     except Exception as e:
         print("error accessing DB %s" % str(e))
 
