@@ -61,7 +61,7 @@
                                             <li>Allergens:</li>
                                         </ul>
                                     </div>
-                                    <div class="col-6">
+                                    <div class="col-6 detail-value" >
                                         <ul class="detail-item">
                                             <li>{{ recipe.main_ingredient }}</li>
                                             <li>{{ recipe.category }}</li>
@@ -71,6 +71,11 @@
                                             <li>{{ allergen }}</li>
                                             {% endfor %}</li>
                                         </ul>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12">
+                                            <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +90,7 @@
                             <div class="col-12 col-md-6">
                                 <ul>
                                     {% for ingredient in ingredient_col %}
-                                    <li><i class="fas fa-utensil-spoon"></i>{{ ingredient }}</li>
+                                    <li><img src="{{ url_for('static', filename='img/recipes/measuring-spoons.png')}}">{{ ingredient }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>

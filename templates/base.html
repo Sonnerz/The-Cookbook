@@ -64,7 +64,7 @@
         <section id="user-name-wrapper">
           <div class="userwelcome">
             {% if session['isLoggedin'] == True %}
-            <span>&#123;&#123; Hello {{ session['username'] }}, welcome back &#125;&#125;</span>
+            <span>&#123;&#123; Hello {{ session['username'] }}, you are welcome back &#125;&#125;</span>
             {% endif %}
           </div>
         </section>
@@ -188,6 +188,47 @@
 
   {% block template_content %}{% endblock%}
 
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <span class="copyright">Copyright &copy; &#123;&#123;The Cookbook&#125;&#125;  2018</span>
+        </div>
+        <div class="col-md-4">
+          <ul class="list-inline social-buttons">
+            <li class="list-inline-item">
+              <a href="#">
+                <i class="fab fa-twitter"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <ul class="list-inline quicklinks">
+            <li class="list-inline-item">
+              <a href="#">Privacy Policy</a>
+            </li>
+            <li class="list-inline-item">
+              <a href="#">Terms of Use</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
   <!-- Debug panel for monitoring var values -->
   {% if debug %}
   <div class="container-fluid">
@@ -195,7 +236,7 @@
       Hide/Show Debug Panel (only available in Debug Mode)
     </button>
   </div>
-  <div class="container-fluid" style="display:block; background-color:pink" id="panel-debug">
+  <div class="container-fluid" style="display:none; background-color:pink" id="panel-debug">
     <div class="row">
       <div class="col">
         <div class="container-fluid">
@@ -235,12 +276,6 @@
   <script src="{{ url_for('static', filename='js/agency.min.js')}}"></script>
   <!-- Custom scripts for this cookbook project -->
   <script src="{{ url_for('static', filename='js/cookbook_custom_scripts.js')}}"></script>
-  <!-- <script>
-        addEventListener('load', prettyPrint, false);
-        $(document).ready(function () {
-            $('pre').addClass('prettyprint linenums');
-        });
-    </script> -->
 
 </body>
 

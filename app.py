@@ -92,12 +92,12 @@ def get_allrecipes():
     return rows
 
 
-# FUNCTION :: GET RANDOM RECIPES
+# FUNCTION :: GET 9 RANDOM RECIPES
 def get_random_recipes():
     rows = {}
     try:
         # Query recipes collection and return ordered by votes descending
-        rows = mongo.db.recipes.aggregate([{'$sample': {'size': 12}},{'$sort':{'votes': -1}}])
+        rows = mongo.db.recipes.aggregate([{'$sample': {'size': 9}},{'$sort':{'votes': -1}}])
     except Exception as e:
         print("error accessing DB %s" % str(e))
 

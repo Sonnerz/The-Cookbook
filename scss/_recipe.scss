@@ -14,8 +14,10 @@
 }
 .with-border {
     border-top: 1px solid #546a7b;
-    width: 70%;
+    width: 90%;
     text-align:center;
+    margin-left: auto;
+    margin-right: auto;
 }
 .thumbs-col{
     line-height: 3.6rem;
@@ -25,6 +27,9 @@
 }
 #rateme {
     -webkit-appearance: none;
+}
+.card-btn {
+    text-align: right;
 }
 #recipe-info {
     .left-col {
@@ -42,7 +47,7 @@
         margin: 0 auto;
     }
     .utilities {
-        width: 60%;
+        width: 100%;
         margin: 0 auto;
     }
     #editRecipeButton, .delete_recipe {
@@ -52,13 +57,18 @@
     }
     .recipe-details {
         margin-top: 3rem;
-        padding-left: 12px;
         .row {
             margin-bottom: 0.5rem;
         }
         .detail-title {
             font-weight: 600;
             text-align: right;
+            padding-left: 0;
+            font-size: 0.9rem;
+        }
+        .detail-value {
+            padding-right: 0;
+            font-size: 0.9rem;
         }
         .allergen-list {
             padding-left: 0;
@@ -69,6 +79,7 @@
             list-style-type: none;
             padding-bottom: 0.8rem;
         }
+        
     }
     .detail-title {
         font-weight: 600;
@@ -113,6 +124,9 @@
         }
         .right-col {
             padding-left: 30px;
+        }
+        .utilities {
+            width: 60%;
         }
     }
 }

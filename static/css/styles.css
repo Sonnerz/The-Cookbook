@@ -314,8 +314,8 @@ label.error {
   resize: none;
 }
 
-.card img {
-  height: 275px !important;
+.filter-col {
+  padding-bottom: 2rem;
 }
 
 .recipe-heading {
@@ -336,8 +336,10 @@ label.error {
 
 .with-border {
   border-top: 1px solid #546a7b;
-  width: 70%;
+  width: 90%;
   text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .thumbs-col {
@@ -350,6 +352,10 @@ label.error {
 
 #rateme {
   -webkit-appearance: none;
+}
+
+.card-btn {
+  text-align: right;
 }
 
 #recipe-info .left-col {
@@ -370,7 +376,7 @@ label.error {
 }
 
 #recipe-info .utilities {
-  width: 60%;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -382,7 +388,6 @@ label.error {
 
 #recipe-info .recipe-details {
   margin-top: 3rem;
-  padding-left: 12px;
 }
 
 #recipe-info .recipe-details .row {
@@ -392,6 +397,13 @@ label.error {
 #recipe-info .recipe-details .detail-title {
   font-weight: 600;
   text-align: right;
+  padding-left: 0;
+  font-size: 0.9rem;
+}
+
+#recipe-info .recipe-details .detail-value {
+  padding-right: 0;
+  font-size: 0.9rem;
 }
 
 #recipe-info .recipe-details .allergen-list {
@@ -455,6 +467,9 @@ label.error {
   #recipe-info .right-col {
     padding-left: 30px;
   }
+  #recipe-info .utilities {
+    width: 60%;
+  }
 }
 
 /* small device */
@@ -506,6 +521,7 @@ label.error {
 footer {
   padding: 25px 0;
   text-align: center;
+  border-top: 1px solid #546a7b;
 }
 
 footer span.copyright {
@@ -667,6 +683,16 @@ img::-moz-selection {
     width: 30%;
     z-index: 1020;
     margin: 0 auto;
+    color: #fff;
+    background-color: rgba(98, 146, 158, 0.9);
+    border: 1px solid transparent;
+    border-radius: 1rem;
+    border-top-left-radius: 0rem;
+    border-top-right-radius: 0rem;
+    -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
   }
 }
 
@@ -708,6 +734,17 @@ img::-moz-selection {
 
 .card-deck {
   margin-bottom: 2rem;
+}
+
+.card-image {
+  height: 200px;
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .card-image-top {
+    height: 160px;
+  }
 }
 
 @media (min-width: 576px) {

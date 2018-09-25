@@ -21,6 +21,17 @@
 .card-deck {
     margin-bottom: 2rem;
 }
+.card-image{
+    height: 200px;
+    overflow: hidden;
+}
+
+@media (min-width: 768px) {
+    .card-image-top {
+        height: 160px;
+    }
+}
+
 
 @media (min-width: 576px) {
     .card-deck .card {

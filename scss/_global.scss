@@ -111,6 +111,14 @@ img::-moz-selection {
             width: 30%;
             z-index: 1020;
             margin: 0 auto;
+            color:#fff;
+            background-color:$cyanrgba;
+            border: 1px solid transparent;
+            border-radius: 1rem;
+            border-top-left-radius: 0rem;
+            border-top-right-radius: 0rem;
+            transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;    
+          
         }
     }
 }
