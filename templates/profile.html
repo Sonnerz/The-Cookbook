@@ -32,27 +32,29 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-3">Name</div>
-                        <div class="col-3 d-none d-sm-table-cell d-md-block">Description</div>
+                        <div class="col-2">Name</div>
+                        <div class="col-2 d-none d-sm-table-cell d-md-block">Description</div>
                         <div class="col-2 text-center">Votes</div>
+                        <div class="col-2 text-center">Created</div>
                         <div class="col-4 text-center" style="background-color:rgb(199, 200, 101)">Manage Recipes</div>
                     </div>
                     <div class="row">
-                        {% for r in recipes if recipes != "" %}
-                        <div class="col-3">{{ r.name }}</div>
-                        <div class="col-3 d-none d-sm-table-cell d-md-block">{{ r.description|truncate(100, False, '...', 0) }}</div>
-                        <div class="col-2 text-center">{{ r.votes }}</div>
+                        {% for recipe in recipes if recipes != "" %}
+                        <div class="col-2">{{ recipe.name }}</div>
+                        <div class="col-2 d-none d-sm-table-cell d-md-block">{{ recipe.description|truncate(50, False, '...', 0) }}</div>
+                        <div class="col-2 text-center">{{ recipe.votes }}</div>
+                        <div class="col-2 text-center">{{recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</div>
                         <div class="col-4 text-center" style="background-color:darkgray">
                             <div class="row">
                                 <div class="col-12 col-md-4">
-                                    <a href="{{ url_for('edit_recipe', recipe_id=r._id) }}" class="btn btn-primary"
+                                    <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-primary"
                                         type="button" id="editRecipeButton">Edit</a>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <a href="#" type="button" class="btn btn-primary delete_recipe" id="{{r._id}}">Delete</a>
+                                    <a href="#" type="button" class="btn btn-primary delete_recipe" id="{{recipe._id}}">Delete</a>
                                 </div>
                                 <div class="col-12 col-md-4">
-                                    <a href="{{ url_for('view_recipe', recipe_id=r._id) }}" type="button" class="btn btn-primary"
+                                    <a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}" type="button" class="btn btn-primary"
                                         id="viewRecipeButton">View</a>
                                 </div>
                             </div>
