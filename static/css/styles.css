@@ -491,6 +491,16 @@ label.error {
   background-color: #b0f05c;
 }
 
+.m-desc-hide {
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .m-desc-hide {
+    display: block;
+  }
+}
+
 footer {
   padding: 25px 0;
   text-align: center;

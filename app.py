@@ -6,6 +6,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 from bson.json_util import dumps
 from bson import json_util
+from datetime import datetime
 
 DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
@@ -19,6 +20,8 @@ if app.debug:
     app.config["DBS_NAME"] = "cookbook"
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
     # app.config["MONGO_URI"] = "mongodb://c00l3:%A]sB2Jm!!V}Usww@ds251332.mlab.com:51332/cookbook"
+    # app.config["MONGO_URI"] = "mongodb://c00l33:eZc727sZ7XmixRH@ds251332.mlab.com:51332/cookbook"
+    
 
 else:
     app.config["DBS_NAME"] = DBS_NAME
@@ -95,8 +98,6 @@ def get_random_recipes():
     try:
         # Query recipes collection and return ordered by votes descending
         rows = mongo.db.recipes.aggregate([{'$sample': {'size': 12}},{'$sort':{'votes': -1}}])
-
-
     except Exception as e:
         print("error accessing DB %s" % str(e))
 

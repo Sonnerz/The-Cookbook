@@ -1,0 +1,9 @@
+.m-desc-hide {
+    display: none;
+}
+
+@media (min-width: 576px) {
+    .m-desc-hide {
+        display:block;
+    }
+}

@@ -353,6 +353,9 @@ $(document).ready(function () {
           //   });
           // });
           $("#recipeResult").html(response);
+          $("h3").html("Recipes searched by Category: " +categorypicked)
+          $('#cuisine-select').val("Select a Cuisine");
+          $('#allergen-select').val("Select an Allergen");
           // $("#one").html(response.description);
           // $("#two").html("shit");
           // $("#recipeResult>#thisisacol>.recipe-name").html(response.cuisine);
@@ -385,6 +388,9 @@ $(document).ready(function () {
       type: 'POST',
       success: function (response) {
         console.log("RESPONSE FROM SERVER", response);
+        $("h3").html("Recipes searched by Cuisine: " +cuisinepicked)
+        $('#category-select').val("Select a Category");
+        $('#allergen-select').val("Select an Allergen");
         $("#recipeResult").html(response);
         $('#initialRecipes').hide();
       },
@@ -414,6 +420,9 @@ $(document).ready(function () {
       type: 'POST',
       success: function (response) {
         console.log("RESPONSE FROM SERVER", response);
+        $("h3").html("Recipes searched by Allergen: " +allergenpicked)
+        $('#category-select').val("Select a Category");
+        $('#cuisine-select').val("Select a Cuisine");
         $("#recipeResult").html(response);
         $('#initialRecipes').hide();
       },

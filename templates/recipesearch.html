@@ -18,8 +18,9 @@
 <div class="container-fluid">
     <div class="row">
         <!-- LEFT COLUMN -->
-        <div class="col-4" style="background-color:rgb(229, 255, 0)">
+        <div class="col-12 col-md-3" style="background-color:rgb(229, 255, 0)">
             Filtering
+            <!--CATEGORY FILTER-->
             <div class="row">
                 <div class="col-12">
                     <label for="selectCategory">Category</label>
@@ -33,6 +34,7 @@
                     </form>
                 </div>
             </div>
+            <!--CUISINE FILTER-->
             <div class="row">
                 <div class="col-12">
                     <label for="selectCuisine">Cuisine</label>
@@ -46,12 +48,13 @@
                     </form>
                 </div>
             </div>
+            <!--ALLERGENS FILTER-->
             <div class="row">
                 <div class="col-12">
                     <label for="selectCuisine">Allergens</label>
                     <form id="allergenFilter" name="allergenFilter" method="POST">
                         <select class="custom-select" id="allergen-select">
-                            <option>Select a Cuisine</option>
+                            <option>Select an Allergen</option>
                             {% for allergen in allergens %}
                             <option value="{{ allergen.allergen_name }}">{{ allergen.allergen_name }}</option>
                             {% endfor %}
@@ -62,13 +65,14 @@
         </div>
         <!-- RIGHT COLUMN -->
         <!-- FILTERING RESULTS -->
-        <div class="col-8">
+        <div class="col-12 col-md-9">
+            <!--SEARCH RESULTS-->
             <div class="row" id="searchResult" style="background-color:rgb(13, 235, 216)">
                 <div class="col-12" id="thisisacol">
                     <div id="recipeResult"></div>
                 </div>
             </div>
-            <!-- INITIAL RANDON SELECTION OF RECIPES BEFORE FILTERING HIDDEN AFTER USER FILTERING -->
+            <!-- INITIAL RANDOM SELECTION OF RECIPES BEFORE SEARCHING, HIDDEN AFTER USER FILTERS -->
             <div class="row" id="initialRecipes" style="background-color:#fff">
                 <div class="col-12">
                     {% for recipe_row in recipes | batch(3) %}
@@ -84,8 +88,9 @@
                             <div class="card-body">
                                 <h5 class="card-title">{{ recipe.name }}</h5>
                                 <p class="card-text">{{ recipe.description|truncate(100, False, '...', 0) }}</p>
-                                <p class="card-text"><small class="text-muted"><i class="far fa-heart"></i> {{ recipe.votes }}</small></p>
-                            </div>
+                                <p class="card-text"><small class="text-muted">Created: {{ recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></p>
+                                <p class="card-text"><small class="text-muted"><i class="far fa-heart"></i> {{recipe.votes }}</small></p>
+                           </div>
                         </div>
                         {% endfor %}
                     </div>
@@ -96,7 +101,7 @@
     </div>
 </div>
 </div>
-
+<p>    
 
 
 
