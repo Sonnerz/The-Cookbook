@@ -48,7 +48,7 @@ $(function () {
         localStorage.setItem("user_id", response._id);
         // Delay before redirect to read message
         var delay = 1200;
-        setTimeout(function () { window.location.href = "/myrecipes"; }, delay);
+        setTimeout(function () { window.location.href = "/myrecipes?limit=5&offset=0"; }, delay);
       },
       error: function (error) {
         console.log(error);
@@ -102,7 +102,7 @@ $(function () {
       success: function (response) {
         console.log("RESPONSE FROM SERVER", response);
         $("#editRecipeMessages").html(response);
-        window.location.href = "/myrecipes";
+        window.location.href = "/myrecipes?limit=5&offset=0";
         // Delay before redirect to read message
         // var delay = 1200;
         // setTimeout(function () { window.location.href = "/myrecipes"; }, delay);

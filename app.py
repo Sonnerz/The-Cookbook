@@ -1,5 +1,6 @@
 import os
 import pdb
+import pymongo
 from functools import wraps
 from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify, json
 from flask_pymongo import PyMongo
@@ -7,6 +8,7 @@ from bson.objectid import ObjectId
 from bson.json_util import dumps
 from bson import json_util
 from datetime import datetime
+
 
 
 
@@ -19,10 +21,9 @@ app.secret_key = 'The cat is on the roof'
 # app.secret_key = os.urandom(24)
 
 if app.debug:
-    app.config["DBS_NAME"] = "cookbook"
+    # app.config["DBS_NAME"] = "cookbook"
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
-    # app.config["MONGO_URI"] = "mongodb://c00l3:%A]sB2Jm!!V}Usww@ds251332.mlab.com:51332/cookbook"
-    # app.config["MONGO_URI"] = "mongodb://c00l33:eZc727sZ7XmixRH@ds251332.mlab.com:51332/cookbook"
+
 else:
     app.config["DBS_NAME"] = DBS_NAME
     app.config["MONGO_URI"] = MONGO_URI
@@ -35,53 +36,69 @@ def debug_on_off():
     return dict(debug=app.debug)
 
 
-# PAGE :: ADD RECIPE FORM
-@app.route('/numbers', methods=['GET'])
-def numbers():
-    offset = int(request.args['offset'])
-    limit  = int(request.args['limit'])
+# PAGE :: PAGINATION TEST
+# @app.route('/numbers', methods=['GET'])
+# def numbers():
+#     offset = int(request.args['offset'])
+#     limit  = int(request.args['limit'])
 
-    starting_id = [recipe for recipe in mongo.db.recipes.find({'$query': {'author': session['userid']}, '$orderby': { 'votes' : -1 } })]
-    last_id = starting_id[offset]['_id']
+#     starting_id = [recipe for recipe in mongo.db.recipes.find({'$query': {'author': session['userid']}, '$orderby': { 'votes' : -1 } })]
+#     total_count=len(starting_id)
+#     last_id = starting_id[offset]['_id']
 
-    # recipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'author': session['userid']}{'_id':{'$gte': last_id}}, '$orderby': { 'votes' : -1 } }).limit(limit)]
-    # recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [ {'author': session['userid']}, {'_id': {'$gte': last_id} } ] } ).limit(limit)]
-    recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [ {'author': session['userid']}, {'_id': {'$gte': last_id} }] }).limit(limit).sort('votes', -1)]
+#     # recipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'author': session['userid']}{'_id':{'$gte': last_id}}, '$orderby': { 'votes' : -1 } }).limit(limit)]
+#     # recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [ {'author': session['userid']}, {'_id': {'$gte': last_id} } ] } ).limit(limit)]
+#     recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [ {'author': session['userid']}, {'_id': {'$gte': last_id} }] }).limit(limit).sort('votes', -1)]
 
-    output = []
-    for i in recipes:
-        output.append({'recipe' : i['name']})
+#     output = []
+#     for i in recipes:
+#         output.append({'recipe' : i['name']})
 
-    next_url = '/numbers?limit=' + str(limit) + '&offset=' + str(offset + limit)
-    prev_url = '/numbers?limit=' + str(limit) + '&offset=' + str(offset - limit)
+#     next_url = '/numbers?limit=' + str(limit) + '&offset=' + str(offset + limit)
+#     prev_url = '/numbers?limit=' + str(limit) + '&offset=' + str(offset - limit)
 
-    return jsonify({'result' : output, 'prev_url' : prev_url, 'next_url' : next_url})
+#     return jsonify({'result' : output, 'prev_url' : prev_url, 'next_url' : next_url, 'total_count': total_count})
+
+
+
+
 
 
 
 # PAGE :: MY RECIPES
 @app.route('/myrecipes')
-
 def myrecipes():
     # get data: user, users recipes for myrecipes page
     current_user = dict(get_user(session['username']))
-    current_user_str = str(current_user['_id'])
     test = mongo.db.test_collection.find()
-
+    
+ 
     #  START PAGING
     offset = int(request.args['offset'])
     limit  = int(request.args['limit'])
-    
-    user_recipes_starting_id = get_user_recipes(session['userid'])
+
+    # user_recipes_starting_id = get_user_recipes(session['userid'])
+    # user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': '5ba6a175d4cff52894ef222c'})]
+    # user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': session['userid']})]
+    user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': session['userid']})]
+    print(type(user_recipes_starting_id))
     total_count=len(user_recipes_starting_id)
     print(total_count)
     last_id = user_recipes_starting_id[offset]['_id']
+    print(last_id)
 
-    recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [ {'author': session['userid']}, {'_id': {'$gte': last_id} }] }).limit(limit).sort('votes', -1)]
-    
-    for r in recipes:
-        print(r['name'])
-    
+
+
+    # recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [{'author': session['userid']}, {'_id': {'$gte': last_id} }] }).limit(limit).sort('votes', -1)]
+    # recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [{'author': '5ba6a175d4cff52894ef222c'}, {'_id': {'$gte': last_id}}]}).limit(limit)]
+    recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [{'author': session['userid']}, {'_id': {'$gte': last_id}}]}).limit(limit)]
+    total_count_2=len(recipes)
+    print(total_count_2)
+
+
+    # for r in recipes:
+    #     print(r)
+
     next_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset + limit)
     prev_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset - limit)
 
@@ -192,7 +209,7 @@ def index():
     return render_template("index.html", test=mongo.db.test_collection.find())
 
 
-# # PAGE :: MY RECIPES
+# PAGE :: MY RECIPES
 # @app.route('/myrecipes')
 # @login_required
 # def myrecipes():
@@ -274,6 +291,7 @@ def insert_recipe():
 
 # PAGE :: EDIT RECIPE FORM
 @app.route('/edit_recipe/<recipe_id>')
+@login_required
 def edit_recipe(recipe_id):
     # debug stuff
     current_user = dict(get_user(session['username']))
@@ -297,6 +315,7 @@ def edit_recipe(recipe_id):
 
 # FUNCTION :: UPDATE RECIPE WRITE BACK TO RECIPES COLLECION IN DATABASE
 @app.route('/update_recipe/<recipe_id>', methods=['POST'])
+@login_required
 def update_recipe(recipe_id):
     # set userid to var, current_user_id
     current_user_id = session['userid']
@@ -334,6 +353,7 @@ def update_recipe(recipe_id):
 
 # FUNCTION :: DELETE RECIPE TRIGGERED BY DELETE BUTTON ON PROFILE PAGE
 @app.route('/delete_recipe', methods=['POST'])
+@login_required
 def delete_recipe():
     # get recipe id from the form
     recipe_id = request.form.get('recipe_id')
@@ -476,7 +496,6 @@ def filter_by_allergen(allergen):
         return message
 
 
-
 # FUNCTION :: SIGN UP NEW USER / REGISTER / CREATE RECORD IN USERS COLLECTION
 @app.route('/signup_user', methods=['POST'])
 def signup_user():
@@ -526,6 +545,22 @@ def login_user():
     return
 
 
+@app.errorhandler(404)
+def page_not_found(error):
+    '''
+    404 error is redirected to 404.html
+    '''
+    return render_template('404.html')
+
+@app.errorhandler(500)
+def internal_error(error):
+    '''
+    500 error is redirected to 500.html
+    '''
+    session.pop('_flashes', None)
+    session.pop('username', None)
+    return render_template('500.html') 
+    
 
 
 

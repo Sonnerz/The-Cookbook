@@ -34,7 +34,7 @@
       <div class="collapse navbar-collapse text-center" id="navbarResponsive">
         {% if session['isLoggedin'] == True %}
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="/myrecipes" id="myrecipes-nav-link">My Recipes</a></li>
+          <li class="nav-item"><a href="/myrecipes?limit=5&offset=0" id="myrecipes-nav-link">My Recipes</a></li>
 
           <li class="nav-item"><a href="/add_recipe" id="add-nav-link">Add Recipe</a></li>
           <li class="nav-item">
