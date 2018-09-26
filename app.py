@@ -21,9 +21,9 @@ app.secret_key = 'The cat is on the roof'
 # app.secret_key = os.urandom(24)
 
 if app.debug:
-    # app.config["DBS_NAME"] = "cookbook"
-    app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
-    # app.config["MONGO_URI"] = "mongodb://c00l33:eZc727sZ7XmixRH@ds251332.mlab.com:51332/cookbook"
+    app.config["DBS_NAME"] = "cookbook"
+    # app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
+    
 else:
     app.config["DBS_NAME"] = DBS_NAME
     app.config["MONGO_URI"] = MONGO_URI
@@ -208,7 +208,7 @@ def insert_recipe():
         'name': request.form.get('name'),
         'image_url': request.form.get('image_url'),
         'description': request.form.get('description'),
-        'main_ingredient': request.form.get('main_ingredient'),
+        'main_ingredient': request.form.get('main_ingredient').lower(),
         'category': request.form.get('category'),
         'cuisine': request.form.get('cuisine'),
         'difficulty': request.form.get('difficulty'),
@@ -270,7 +270,7 @@ def update_recipe(recipe_id):
             'name': request.form.get('name'),
             'image_url': request.form.get('image_url'),
             'description': request.form.get('description'),
-            'main_ingredient': request.form.get('main_ingredient'),
+            'main_ingredient': request.form.get('main_ingredient').lower(),
             'category': request.form.get('category'),
             'cuisine': request.form.get('cuisine'),
             'difficulty': request.form.get('difficulty'),
@@ -355,13 +355,20 @@ def myrecipes():
     # get data: user, users recipes for myrecipes page
     current_user = dict(get_user(session['username']))
     test = mongo.db.test_collection.find()
+
+     # initiate the data, search recipes by author
+    user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': session['userid']})]
+    for r in user_recipes_starting_id:
+        print(r['name'])
+
+    if not user_recipes_starting_id:
+        return render_template("myrecipes.html", current_user=current_user, test=test)
+
     
     # START PAGING - set offset and limit from url
     offset = int(request.args['offset'])
     limit  = int(request.args['limit'])
 
-    # initiate the data, search recipes by author
-    user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': session['userid']})]
     # get total count of recipes for this author
     total_count=len(user_recipes_starting_id)
     # get last id displayed using _id as identifier
@@ -378,7 +385,7 @@ def myrecipes():
         if offset + limit < total_count:
             next_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset + limit)
 
-        if offset + limit > total_count-limit:   
+        if offset + limit > total_count-limit:
             prev_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset - limit)
     return render_template("myrecipes.html", current_user=current_user, test=test, number_of_pages=number_of_pages, total_count=total_count, recipes=recipes, prev_url=prev_url, next_url=next_url)
 
@@ -473,6 +480,31 @@ def filter_by_allergen(allergen):
         return message
 
 
+# FUNCTION :: GET RECIPES BY INGREDIENT
+@app.route('/filter_by_ingredient', methods=['POST', 'GET'])
+def filter_by_ingredient():
+    filteredRecipes = None
+    # convert to string and lower()
+    ingredient_name = str(request.get_data()).lower()
+    # remove b from search text
+    ingredient_name = ingredient_name[1:]
+    # remove quotes ' ' from either end of search text
+    ingredient_name = ingredient_name.strip('\')
+    try:
+        # Query recipes collection and return ordered by votes descending
+        filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'main_ingredient': ingredient_name}, '$orderby': { 'votes' : -1 } })]
+    except Exception as e:
+        print("error accessing DB to find ingredient name %s" % str(e))
+
+    if filteredRecipes:
+        print("recipes by ingredient exist")
+        return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
+    else:
+        print("no recipes with that ingredient found")
+        message = "no recipes with that" + ingredient_name + "found"
+        return message
+
+
 # FUNCTION :: GET RECIPES BY CATEGORY & CUISINE
 @app.route('/filter_by_catcuis/<value1><value2>', methods=['POST', 'GET'])
 def filter_by_catcuis(value):
@@ -505,7 +537,7 @@ def signup_user():
     if not check_user:
         users = mongo.db.users
         new_user = {
-                'username': request.form.get('signupUsername'),
+                'username': request.form.get('signupUsername').lower(),
                 'password': request.form.get('signupPassword'),
                 'firstname': request.form.get('firstName'),
                 'lastname': request.form.get('lastName')} 
@@ -524,7 +556,7 @@ def signup_user():
 def login_user():
     # get data from ajax post
     pw = request.form.get('loginPassword')
-    user = get_user(request.form.get('loginUsername'))
+    user = get_user(request.form.get('loginUsername').lower())
     if user and user["password"] == pw:
         # add username to flask session
         session['username'] = user['username']

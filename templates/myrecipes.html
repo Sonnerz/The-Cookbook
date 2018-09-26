@@ -39,19 +39,28 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
-                            {% if prev_url == "" %}
-                            <a href="{{prev_url}}" style="display: none">previous</a>
-                            {%else%}
+                            {% if prev_url %}
                             <a href="{{prev_url}}">previous</a>
-                            {%endif%}
-
-                            {% if next_url == "" %}
-                            <a href="{{next_url}}" style="display: none">next</a>
                             {%else%}
+                            <a href="{{prev_url}}" style="display: none">previous</a>
+                            {%endif%}
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            {% if next_url %}
                             <a href="{{next_url}}">next</a>
+                            {%else%}
+                            <a href="{{next_url}}" style="display: none">next</a>
                             {%endif%}
                            <span class="text-right">{{total_count}}</span>
-                            <span>{{ number_of_pages }}</span>
+                           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span>Mumber of pages:  {{ number_of_pages }}</span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span>Page:  {{ page }}</span>
                         </div>
                     </div>
                     <div class="row">
@@ -62,7 +71,8 @@
                         <div class="col-4 text-center" style="background-color:rgb(199, 200, 101)">Manage Recipes</div>
                     </div>
                     <div class="row">
-                        {% for recipe in recipes if recipes != "" %}
+                        {% for recipe in recipes if recipes %}
+                       
                         <div class="col-2"><span style="margin-right:6px">{{loop.index}}</span><br><span style="white-space: nowrap;">{{ recipe.name }}</span></div>
                         <div class="col-2 d-none d-sm-table-cell d-md-block">{{ recipe.description|truncate(50, False, '...', 0) }}</div>
                         <div class="col-2 text-center">{{ recipe.votes }}</div>
@@ -87,7 +97,8 @@
                                 This recipe will be deleted<br>Are you sure?</p>
                         </div>{{listing}}
                         {% else %}
-                        <div class="col-12"> No recipes for you</div>
+                        <div class="col-12">You have not added any recipes yet.</div>
+                       
                         {% endfor %}
                     </div>
 

@@ -446,6 +446,33 @@ $(document).ready(function () {
 // #endregion
 
 
+  // #region GET INGREDIENT FROM SEARCH FILTER AND PASS TO FLASK
+
+  $(function () {
+    $('#ingredientFilter').submit(function (event)  {
+      event.preventDefault();
+      var ingredient = $('#searchmain').val()
+      console.log(ingredient)
+      $.ajax({
+        url: '/filter_by_ingredient',
+        data: ingredient,
+        type: 'POST',
+        success: function (response) {
+          console.log("RESPONSE FROM SERVER", response);
+          $("#searchResult").show();
+          $("h3").html("Recipes searched by Ingredient: ")
+          $("#recipeResult").html(response);
+          $('.initialRecipes').hide();
+        },
+        error: function (error) {
+          console.log(error);
+          $("#recipeResult").html(response);
+        }
+      });
+    });
+  });
+  
+  // #endregion
   // #region GET CUISINE & CATEGORY FROM SEARCH FILTER AND PASS TO FLASK
 
   // $(function () {

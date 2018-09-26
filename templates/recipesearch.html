@@ -21,7 +21,11 @@
         <div class="col-12 col-md-3 filter-col" style="background-color:rgb(229, 255, 0)">
             <div class="row">
                 <div class="col-12">
-                    <a href="">Most recent recipes</a>
+                    <form id="ingredientFilter" name="ingredientFilter" method="POST">
+                        <label for="searchmain">Search for a main ingredient</label>
+                        <input type="input" class="form-control" id="searchmain" name="searchmain" placeholder="Search for a recipe by ingredient">
+                        <button class="btn btn-primary" id="ingredientFilterButton" type="submit">Search</button>
+                    </form>
                 </div>
             </div>
             <!--CATEGORY FILTER-->
@@ -153,6 +157,7 @@
                     </div>
                 </div>
                 <!-- RANDOM RECIPES-->
+                <h2>Selection of Recipes</h2>
                 {% for recipe_row in recipes | batch(4) %}
                 <div class="row" style="background-color:#fff">
                     <div class="col-12">
