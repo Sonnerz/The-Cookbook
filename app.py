@@ -23,6 +23,7 @@ app.secret_key = 'The cat is on the roof'
 if app.debug:
     app.config["DBS_NAME"] = "cookbook"
     # app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
+    app.config["MONGO_URI"] = "mongodb://c00l33:eZc727sZ7XmixRH@ds251332.mlab.com:51332/cookbook"
     
 else:
     app.config["DBS_NAME"] = DBS_NAME
@@ -489,7 +490,7 @@ def filter_by_ingredient():
     # remove b from search text
     ingredient_name = ingredient_name[1:]
     # remove quotes ' ' from either end of search text
-    ingredient_name = ingredient_name.strip('\')
+    ingredient_name = ingredient_name.strip('\'')
     try:
         # Query recipes collection and return ordered by votes descending
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'main_ingredient': ingredient_name}, '$orderby': { 'votes' : -1 } })]
