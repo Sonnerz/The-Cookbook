@@ -19,8 +19,11 @@
     <div class="row">
         <!-- LEFT COLUMN -->
         <div class="col-12 col-md-3 filter-col" style="background-color:rgb(229, 255, 0)">
-            Filtering
-            <a href="">Latest recipes</a>
+            <div class="row">
+                <div class="col-12">
+                    <a href="">Most recent recipes</a>
+                </div>
+            </div>
             <!--CATEGORY FILTER-->
             <div class="row">
                 <div class="col-12">
@@ -84,55 +87,113 @@
                 </div>
             </div>
             <!-- INITIAL RANDOM SELECTION OF RECIPES BEFORE SEARCHING, HIDDEN AFTER USER FILTERS -->
-
-            {% for recipe_row in recipes | batch(3) %}
-            <div class="row initialRecipes" style="background-color:#fff">
-                <div class="col-12">
-                    <div class="card-deck">
-                        {% for recipe in recipe_row %}
-                        <div class="card">
-                            <div class="card-image">
-                                {% if recipe.image_url != "" %}
-                                <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}" title="{{recipe.name}}">
-                                {% else %}
-                                <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}"
-                                    alt="Default image of food" title="Default image of food">
-                                {% endif %}
+            <!-- MOST RECENT RECIPES-->
+            <div class="initialRecipes">
+                <h2>Recent Recipes</h2>
+                <div class="row recentRecipes" style="background-color:#fff">
+                    <div class="col-12">
+                        <div class="card-deck">
+                            {% for recipe in recentrecipes|sort(attribute='votes', reverse = True)%}
+                            <div class="card">
+                                <div class="card-image">
+                                    {% if recipe.image_url != "" %}
+                                    <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}" title="{{recipe.name}}">
+                                    {% else %}
+                                    <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}"
+                                        alt="Default image of food" title="Default image of food">
+                                    {% endif %}
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ recipe.name }}</h5>
+                                    <p class="card-text">{{ recipe.description|truncate(100, False, '...', 0) }}</p>
+                                    <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}"
+                                            class="btn btn-primary" type="button" id="viewRecipeButton">View Recipe</a></p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-text"><small class="text-muted">Created: {{
+                                            recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></div>
+                                    <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
+                                            {{ recipe.votes }}</small></div>
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{ recipe.name }}</h5>
-                                <p class="card-text">{{ recipe.description|truncate(100, False, '...', 0) }}</p>
-                                <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}" class="btn btn-primary"
-                                        type="button" id="viewRecipeButton">View Recipe</a></p>
-                            </div>
-                            <div class="card-footer">
-                                <div class="card-text"><small class="text-muted">Created: {{
-                                        recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></div>
-                                <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
-                                        {{recipe.votes }}</small></div>
-                            </div>
+                            {% endfor %}
                         </div>
-                        {% endfor %}
                     </div>
                 </div>
+                <!-- MOST POPULAR-->
+                <h2>Most Popular Recipes</h2>
+                <div class="row recentRecipes" style="background-color:#fff">
+                    <div class="col-12">
+                        <div class="card-deck">
+                            {% for recipe in highestvotes %}
+                            <div class="card">
+                                <div class="card-image">
+                                    {% if recipe.image_url != "" %}
+                                    <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}" title="{{recipe.name}}">
+                                    {% else %}
+                                    <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}"
+                                        alt="Default image of food" title="Default image of food">
+                                    {% endif %}
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ recipe.name }}</h5>
+                                    <p class="card-text">{{ recipe.description|truncate(100, False, '...', 0) }}</p>
+                                    <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}"
+                                            class="btn btn-primary" type="button" id="viewRecipeButton">View Recipe</a></p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-text"><small class="text-muted">Created: {{
+                                            recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></div>
+                                    <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
+                                            {{ recipe.votes }}</small></div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <!-- RANDOM RECIPES-->
+                {% for recipe_row in recipes | batch(4) %}
+                <div class="row" style="background-color:#fff">
+                    <div class="col-12">
+                        <div class="card-deck">
+                            {% for recipe in recipe_row %}
+                            <div class="card">
+                                <div class="card-image">
+                                    {% if recipe.image_url != "" %}
+                                    <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}" title="{{recipe.name}}">
+                                    {% else %}
+                                    <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}"
+                                        alt="Default image of food" title="Default image of food">
+                                    {% endif %}
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ recipe.name }}</h5>
+                                    <p class="card-text">{{ recipe.description|truncate(100, False, '...', 0) }}</p>
+                                    <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}"
+                                            class="btn btn-primary" type="button" id="viewRecipeButton">View Recipe</a></p>
+                                </div>
+                                <div class="card-footer">
+                                    <div class="card-text"><small class="text-muted">Created: {{
+                                            recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></div>
+                                    <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
+                                            {{recipe.votes }}</small></div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
             </div>
-            {% endfor %}
-
-
-
         </div>
     </div>
 </div>
-</div>
-<p>
+
+{% endblock %}
 
 
+<!-- Debug area. Hidden if debug set to False -->
+{% block content_debug %}
 
-
-    {% endblock %}
-
-
-    <!-- Debug area. Hidden if debug set to False -->
-    {% block content_debug %}
-
-    {% endblock %}
+{% endblock %}

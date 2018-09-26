@@ -1,4 +1,4 @@
-// #region AJAX send the signup data to Flask/Python
+// #region AJAX send the SIGNUP data to Flask/Python
 
 $(function () {
   $('#signupForm').submit(function (event) {
@@ -31,7 +31,7 @@ $(function () {
 // #endregion
 
 
-// #region AJAX send the login data to Flask/Python
+// #region AJAX send the LOGIN data to Flask/Python
 
 $(function () {
   $('#loginForm').submit(function (event) {
@@ -61,7 +61,7 @@ $(function () {
 // #endregion
 
 
-// #region AJAX send the new recipe data from form to Flask/Python
+// #region AJAX send the NEW RECIPE data from form to Flask/Python
 
 $(function () {
   $('#add_recipe_form').submit(function (event) {
@@ -88,7 +88,7 @@ $(function () {
 // #endregion
 
 
-// #region AJAX update a recipe send data from form to server
+// #region AJAX UPDATEA RECIPE send data from form to server
 
 $(function () {
   $('#update_recipe_form').submit(function (event) {
@@ -118,7 +118,7 @@ $(function () {
 // #endregion
 
 
-// #region show/hide the Debug Panel
+// #region show/hide the DEBUG PANEL
 function viewPanel() {
   var panel = document.getElementById("panel-debug");
   if (panel.style.display === "none") {
@@ -144,8 +144,10 @@ function goPrev() {
 // #region DOCUMENT.READY START //
 
 $(document).ready(function () {
+  //hide search results div until populated with data
+  $("#searchResult").hide();
 
-  // #region Add class to navbar link depending on the page displayed  
+  // #region Add class to NAVBAR LINK depending on the page displayed  
 
   var current_path = $(location).attr('pathname');
   if (current_path == "/myrecipes") {
@@ -154,10 +156,14 @@ $(document).ready(function () {
   else if (current_path == "/add_recipe") {
     $("#add-nav-link").addClass("active-link");
   }
+  else if (current_path == "/recipesearch") {
+    $("#search-nav-link").addClass("active-link");
+  }
 
   // #endregion
 
-    // #region Add class welcome user message if home page  
+  
+  // #region Add class WECLOME USER MESSAGE if home page  
 
     var current_path = $(location).attr('pathname');
     if (current_path == "/") {
@@ -167,7 +173,7 @@ $(document).ready(function () {
     // #endregion 
 
 
-  // #region Add extra ingredient or instruction inputs to add recipe form
+  // #region Add EXTRA INGREDIENT OR INSTRUCTION inputs to add recipe form
 
   $('#add_ingredient').click(function () {
     addExtraInputs("i");
@@ -260,7 +266,7 @@ $(document).ready(function () {
   // #endregion
 
 
-  // #region View Recipe page change from flat content to tabs in mobile view
+  // #region VIEW RECIPE page change from FLAT CONTENT TO TABS in mobile view
 
   $(window).on('resize', function () {
     var win = $(this); //this = window
@@ -352,6 +358,7 @@ $(document).ready(function () {
           //     $('#initialRecipes').hide();
           //   });
           // });
+          $("#searchResult").show();
           $("#recipeResult").html(response);
           $("h3").html("Recipes searched by Category: " +categorypicked)
           $('#cuisine-select').val("Select a Cuisine");
@@ -388,6 +395,7 @@ $(document).ready(function () {
       type: 'POST',
       success: function (response) {
         console.log("RESPONSE FROM SERVER", response);
+        $("#searchResult").show();
         $("h3").html("Recipes searched by Cuisine: " +cuisinepicked)
         $('#category-select').val("Select a Category");
         $('#allergen-select').val("Select an Allergen");
@@ -420,6 +428,7 @@ $(document).ready(function () {
       type: 'POST',
       success: function (response) {
         console.log("RESPONSE FROM SERVER", response);
+        $("#searchResult").show();
         $("h3").html("Recipes searched by Allergen: " +allergenpicked)
         $('#category-select').val("Select a Category");
         $('#cuisine-select').val("Select a Cuisine");
@@ -439,30 +448,30 @@ $(document).ready(function () {
 
   // #region GET CUISINE & CATEGORY FROM SEARCH FILTER AND PASS TO FLASK
 
-  $(function () {
-    if ($('#and').is(":checked")){
-      var categorypicked = $('#category-select').find(":selected").text();
-      var cuisinepicked = $('#cuisine-select').find(":selected").text();
-      $.ajax({
-        url: '/filter_by_catcuis/'+ categorypicked + cuisinepicked ,
-        contentType: 'application/json',
-        data: JSON.stringify(categorypicked,cuisinepicked ),
-        type: 'POST',
-        success: function (response) {
-          console.log("RESPONSE FROM SERVER", response);
-          $("h3").html("Recipes searched by Cuisine: " +cuisinepicked)
-          $('#category-select').val("Select a Category");
-          $('#allergen-select').val("Select an Allergen");
-          $("#recipeResult").html(response);
-          $('.initialRecipes').hide();
-        },
-        error: function (error) {
-          console.log(error);
-          $("#recipeResult").html(response);
-        }
-      });
-    });
-  });
+  // $(function () {
+  //   if ($('#and').is(":checked")){
+  //     var categorypicked = $('#category-select').find(":selected").text();
+  //     var cuisinepicked = $('#cuisine-select').find(":selected").text();
+  //     $.ajax({
+  //       url: '/filter_by_catcuis/'+ categorypicked + cuisinepicked ,
+  //       contentType: 'application/json',
+  //       data: JSON.stringify(categorypicked,cuisinepicked ),
+  //       type: 'POST',
+  //       success: function (response) {
+  //         console.log("RESPONSE FROM SERVER", response);
+  //         $("h3").html("Recipes searched by Cuisine: " +cuisinepicked)
+  //         $('#category-select').val("Select a Category");
+  //         $('#allergen-select').val("Select an Allergen");
+  //         $("#recipeResult").html(response);
+  //         $('.initialRecipes').hide();
+  //       },
+  //       error: function (error) {
+  //         console.log(error);
+  //         $("#recipeResult").html(response);
+  //       }
+  //     });
+  //   });
+  // });
   
   // #endregion
 

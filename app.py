@@ -35,83 +35,6 @@ mongo = PyMongo(app)
 def debug_on_off():
     return dict(debug=app.debug)
 
-
-# PAGE :: PAGINATION TEST
-# @app.route('/numbers', methods=['GET'])
-# def numbers():
-#     offset = int(request.args['offset'])
-#     limit  = int(request.args['limit'])
-
-#     starting_id = [recipe for recipe in mongo.db.recipes.find({'$query': {'author': session['userid']}, '$orderby': { 'votes' : -1 } })]
-#     total_count=len(starting_id)
-#     last_id = starting_id[offset]['_id']
-
-#     # recipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'author': session['userid']}{'_id':{'$gte': last_id}}, '$orderby': { 'votes' : -1 } }).limit(limit)]
-#     # recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [ {'author': session['userid']}, {'_id': {'$gte': last_id} } ] } ).limit(limit)]
-#     recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [ {'author': session['userid']}, {'_id': {'$gte': last_id} }] }).limit(limit).sort('votes', -1)]
-
-#     output = []
-#     for i in recipes:
-#         output.append({'recipe' : i['name']})
-
-#     next_url = '/numbers?limit=' + str(limit) + '&offset=' + str(offset + limit)
-#     prev_url = '/numbers?limit=' + str(limit) + '&offset=' + str(offset - limit)
-
-#     return jsonify({'result' : output, 'prev_url' : prev_url, 'next_url' : next_url, 'total_count': total_count})
-
-
-
-
-
-
-
-# PAGE :: MY RECIPES
-@app.route('/myrecipes')
-def myrecipes():
-    # get data: user, users recipes for myrecipes page
-    current_user = dict(get_user(session['username']))
-    test = mongo.db.test_collection.find()
-    
- 
-    #  START PAGING
-    offset = int(request.args['offset'])
-    limit  = int(request.args['limit'])
-
-    # user_recipes_starting_id = get_user_recipes(session['userid'])
-    # user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': '5ba6a175d4cff52894ef222c'})]
-    # user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': session['userid']})]
-    user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': session['userid']})]
-    total_count=len(user_recipes_starting_id)
-    last_id = user_recipes_starting_id[offset]['_id']
-
-
-    # recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [{'author': session['userid']}, {'_id': {'$gte': last_id} }] }).limit(limit).sort('votes', -1)]
-    # recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [{'author': '5ba6a175d4cff52894ef222c'}, {'_id': {'$gte': last_id}}]}).limit(limit)]
-    recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [{'author': session['userid']}, {'_id': {'$gte': last_id}}]}).limit(limit)]
-
-    next_url=""
-    prev_url=""
-
-    number_of_pages = int(math.ceil(total_count/limit))
-
-    if limit < total_count:
-        if offset + limit < total_count:
-            next_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset + limit)
-
-        if offset + limit > total_count-limit:   
-            prev_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset - limit)
-
-    
-
-
-    return render_template("myrecipes.html", current_user=current_user, test=test, number_of_pages=number_of_pages, total_count=total_count, recipes=recipes, prev_url=prev_url, next_url=next_url)
-
-
-
-
-
-
-
 # FUNCTION :: LOGIN REQUIRED WRAP
 def login_required(f):
     @wraps(f)
@@ -164,18 +87,45 @@ def get_allrecipes():
     return rows
 
 
-# FUNCTION :: GET 9 RANDOM RECIPES
-def get_random_recipes():
+# FUNCTION :: GET RECIPES WITH HIGHEST VOTES x4
+def get_votes_recipes():
     rows = {}
     try:
-        # Query recipes collection and return ordered by votes descending
-        rows = mongo.db.recipes.aggregate([{'$sample': {'size': 9}},{'$sort':{'votes': -1}}])
+        rows = mongo.db.recipes.find().sort('votes', -1).limit(4)
     except Exception as e:
         print("error accessing DB %s" % str(e))
 
     if rows:
         print("all recipes found")
     return rows
+
+
+# FUNCTION :: GET 8 RANDOM RECIPES
+def get_random_recipes():
+    rows = {}
+    try:
+        # Query recipes collection and return ordered by votes descending
+        rows = mongo.db.recipes.aggregate([{'$sample': {'size': 8}},{'$sort':{'votes': -1}}])
+    except Exception as e:
+        print("error accessing DB %s" % str(e))
+
+    if rows:
+        print("all recipes found")
+    return rows
+
+
+# FUNCTION :: GET RECENT RECIPES x4
+def get_recent_recipes():
+    rows = {}
+    try:
+        # Query recipes collection and return ordered by votes descending
+       rows = mongo.db.recipes.find().sort('_id',-1).limit(4)
+    except Exception as e:
+        print("error accessing DB %s" % str(e))
+
+    if rows:
+        print("latest 3 recipes found")
+    return rows    
 
 
 # FUNCTION :: GET CATEGORIES
@@ -208,19 +158,6 @@ def index():
     # clear flash messages to reset
     session.pop('_flashes', None)
     return render_template("index.html", test=mongo.db.test_collection.find())
-
-
-# PAGE :: MY RECIPES
-# @app.route('/myrecipes')
-# @login_required
-# def myrecipes():
-#     # get data: user, users recipes for myrecipes page
-#     current_user = dict(get_user(session['username']))
-#     current_user_str = str(current_user['_id'])
-#     user_recipes = get_user_recipes(session['userid'])
-#     test = mongo.db.test_collection.find()
-#     print(test)
-#     return render_template("myrecipes.html", current_user=current_user, recipes=user_recipes, test=test)
 
 
 # FUNCTION :: LOGOUT FUNCTION TRIGGERED BY LOGOUT BUTTON
@@ -412,9 +349,47 @@ def update_vote(recipe_id):
     return str(updated_recipe_vote)
 
 
+# PAGE :: MY RECIPES
+@app.route('/myrecipes')
+def myrecipes():
+    # get data: user, users recipes for myrecipes page
+    current_user = dict(get_user(session['username']))
+    test = mongo.db.test_collection.find()
+    
+    # START PAGING - set offset and limit from url
+    offset = int(request.args['offset'])
+    limit  = int(request.args['limit'])
+
+    # initiate the data, search recipes by author
+    user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': session['userid']})]
+    # get total count of recipes for this author
+    total_count=len(user_recipes_starting_id)
+    # get last id displayed using _id as identifier
+    last_id = user_recipes_starting_id[offset]['_id']
+    # get updated data greater than the last doc _id displayed
+    recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [{'author': session['userid']}, {'_id': {'$gte': last_id}}]}).limit(limit)]
+
+    next_url=""
+    prev_url=""
+
+    number_of_pages = int(math.ceil(total_count/limit))
+    # conditionally display the next & previous links
+    if limit < total_count:
+        if offset + limit < total_count:
+            next_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset + limit)
+
+        if offset + limit > total_count-limit:   
+            prev_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset - limit)
+    return render_template("myrecipes.html", current_user=current_user, test=test, number_of_pages=number_of_pages, total_count=total_count, recipes=recipes, prev_url=prev_url, next_url=next_url)
+
+
 # PAGE :: RECIPE SEARCH PAGE
 @app.route('/recipesearch', methods=['POST', 'GET'])
 def recipesearch():
+    # Show 3 most recent recipes
+    recent_recipes = get_recent_recipes()
+    # Show 3 recipes with highest votes
+    highest_voted_recipe = get_votes_recipes()
     # Show 12 random recipes on recipe search that change when page refreshes
     recipes = get_random_recipes()
     # get categories, cuisines, allergens, difficulty for dropdown filtering options
@@ -424,7 +399,8 @@ def recipesearch():
     difficulty = get_difficulty()
     return render_template("recipesearch.html", test=mongo.db.test_collection.find(), 
                             recipes=recipes, categories=categories,
-                            cuisine=cuisine, allergens=allergens)
+                            cuisine=cuisine, allergens=allergens,
+                            recentrecipes=recent_recipes, highestvotes=highest_voted_recipe)
 
 
 # FUNCTION :: GET RECIPES BY CATEGORY
@@ -520,10 +496,6 @@ def filter_by_catcuis(value):
 
 
 
-
-
-
-
 # FUNCTION :: SIGN UP NEW USER / REGISTER / CREATE RECORD IN USERS COLLECTION
 @app.route('/signup_user', methods=['POST'])
 def signup_user():
@@ -580,6 +552,7 @@ def page_not_found(error):
     '''
     return render_template('404.html')
 
+
 @app.errorhandler(500)
 def internal_error(error):
     '''
@@ -591,10 +564,6 @@ def internal_error(error):
     
 
 
-
-
-
-
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), 
             port=int(os.environ.get('PORT')), 
@@ -602,3 +571,15 @@ if __name__ == '__main__':
 
 
 # import pdb; pdb.set_trace()
+
+# PAGE :: MY RECIPES
+# @app.route('/myrecipes')
+# @login_required
+# def myrecipes():
+#     # get data: user, users recipes for myrecipes page
+#     current_user = dict(get_user(session['username']))
+#     current_user_str = str(current_user['_id'])
+#     user_recipes = get_user_recipes(session['userid'])
+#     test = mongo.db.test_collection.find()
+#     print(test)
+#     return render_template("myrecipes.html", current_user=current_user, recipes=user_recipes, test=test)

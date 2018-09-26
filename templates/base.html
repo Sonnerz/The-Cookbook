@@ -34,20 +34,21 @@
       <div class="collapse navbar-collapse text-center" id="navbarResponsive">
         {% if session['isLoggedin'] == True %}
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="/myrecipes?limit=5&offset=0" id="myrecipes-nav-link">My Recipes</a></li>
-
-          <li class="nav-item"><a href="/add_recipe" id="add-nav-link">Add Recipe</a></li>
+          <li class="nav-item"><a href="/recipesearch" title="Recipe search" id="search-nav-link">Search</a></li>
+          <li class="nav-item"><a href="/myrecipes?limit=5&offset=0" id="myrecipes-nav-link" title="My Recipes">My Recipes</a></li>
+          <li class="nav-item"><a href="/add_recipe" id="add-nav-link" title="Add Recipe">Add Recipe</a></li>
           <li class="nav-item">
             <!-- Button trigger logout -->
-            <a class="btn btn-primary nav-logout" href="/logout" role="button">Logout >></a>
+            <a class="btn btn-primary nav-logout" href="/logout" role="button" title="Logout">Logout >></a>
           </li>
         </ul>
         {% else %}
         <ul class="navbar-nav ml-auto">
+          <li class="nav-item"><a href="/recipesearch" title="Recipe search" id="search-nav-link">Search</a></li>
           <li>
             <span>Already registered?</span>
             <!-- Button trigger login modal -->
-            <a class="btn btn-primary nav-logout" href="/index.html" role="button" data-toggle="modal" data-target="#loginModal">Login
+            <a class="btn btn-primary nav-logout" title="Login" href="/index.html" role="button" data-toggle="modal" data-target="#loginModal">Login
               >></a>
           </li>
         </ul>
