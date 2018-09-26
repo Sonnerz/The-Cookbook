@@ -131,25 +131,25 @@ def get_recent_recipes():
 
 # FUNCTION :: GET CATEGORIES
 def get_categories():
-    categories = mongo.db.categories.find()
+    categories = [category for category in mongo.db.categories.find()]
     return categories
 
 
 # FUNCTION :: GET CUISINE
 def get_cuisine():
-    cuisine = mongo.db.cuisine.find()
+    cuisine = [cuisine for cuisine in mongo.db.cuisine.find()]
     return cuisine
 
 
 # FUNCTION :: GET ALLERGENS
 def get_allergens():
-    allergens = mongo.db.allergens.find()
+    allergens = [allergen for allergen in mongo.db.allergens.find()]
     return allergens
 
 
 # FUNCTION :: GET DIFFICULTY OPTIONS
 def get_difficulty():
-    difficulty = mongo.db.difficulty.find()
+    difficulty = [difficulty for difficulty in mongo.db.difficulty.find()]
     return difficulty
 
 
@@ -507,15 +507,15 @@ def filter_by_ingredient():
 
 
 # FUNCTION :: GET RECIPES BY CATEGORY & CUISINE
-@app.route('/filter_by_catcuis/<value1><value2>', methods=['POST', 'GET'])
-def filter_by_catcuis(value):
+@app.route('/filter_by_catcuis/<category>/<cuisine>', methods=['POST', 'GET'])
+def filter_by_catcuis(category,cuisine):
     filteredRecipes = None
-    category = value1
-    cuisine = value2
+    category_name = category
+    cuisine_name = cuisine
     print(category, cuisine)
     try:
         # Query recipes collection and return ordered by votes descending
-        filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {{'category': category}, {'cuisine': cuisine}},'$orderby': { 'votes' : -1 } })]
+        filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'category': category_name, 'cuisine': cuisine_name}, '$orderby': { 'votes' : -1 } })]
     except Exception as e:
         print("error accessing DB to find allergen %s" % str(e))
 
@@ -524,7 +524,7 @@ def filter_by_catcuis(value):
         return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
     else:
         print("no recipes with that allergen found")
-        message = "no recipes with that" + allergen_name + "found"
+        message = "no recipes with that" + category_name + cuisine_name + "found"
         return message
 
 

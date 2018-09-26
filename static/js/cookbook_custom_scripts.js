@@ -162,15 +162,15 @@ $(document).ready(function () {
 
   // #endregion
 
-  
+
   // #region Add class WECLOME USER MESSAGE if home page  
 
-    var current_path = $(location).attr('pathname');
-    if (current_path == "/") {
-      $(".userwelcome").addClass("home-userwelcome");
-    }
-  
-    // #endregion 
+  var current_path = $(location).attr('pathname');
+  if (current_path == "/") {
+    $(".userwelcome").addClass("home-userwelcome");
+  }
+
+  // #endregion 
 
 
   // #region Add EXTRA INGREDIENT OR INSTRUCTION inputs to add recipe form
@@ -297,7 +297,7 @@ $(document).ready(function () {
 
   // #endregion
 
-  
+
   // #region RATE THIS RECIPE
 
   $('#rateme').click(function (e) {
@@ -336,36 +336,20 @@ $(document).ready(function () {
     $("#category-select").change(function (event) {
       event.preventDefault();
       var categorypicked = $('#category-select').find(":selected").text();
-      $("#sc").text(categorypicked);
       category = categorypicked.trim();
       console.log("category selected:", category)
       $.ajax({
-        url: '/filter_by_category/'+ category,
+        url: '/filter_by_category/' + category,
         contentType: 'application/json',
         data: JSON.stringify(category),
         type: 'POST',
         success: function (response) {
           console.log("RESPONSE FROM SERVER", response);
-          // $.each(response, function(k, v) {
-          //   console.log(response)
-          // });
-          // parsedResponse = JSON.parse(response)
-          // console.log(parsedResponse)
-          // $.each(parsedResponse, function() {
-          //   $.each(this, function(k, v) {
-          //     console.log(k, v)
-          //     $("#recipeResult").html(k,v);
-          //     $('#initialRecipes').hide();
-          //   });
-          // });
           $("#searchResult").show();
           $("#recipeResult").html(response);
-          $("h3").html("Recipes searched by Category: " +categorypicked)
-          $('#cuisine-select').val("Select a Cuisine");
-          $('#allergen-select').val("Select an Allergen");
-          // $("#one").html(response.description);
-          // $("#two").html("shit");
-          // $("#recipeResult>#thisisacol>.recipe-name").html(response.cuisine);
+          $("h3").html("Recipes searched by Category: " + categorypicked)
+          // $('#cuisine-select').val("Select a Cuisine");
+          // $('#allergen-select').val("Select an Allergen");
           $('.initialRecipes').hide();
         },
         error: function (error) {
@@ -374,82 +358,82 @@ $(document).ready(function () {
         }
       });
     });
-});
+  });
 
-// #endregion
+  // #endregion
 
 
   // #region GET CUISINE FROM SEARCH FILTER AND PASS TO FLASK
 
- $(function () {
-  $("#cuisine-select").change(function (event) {
-    event.preventDefault();
-    var cuisinepicked = $('#cuisine-select').find(":selected").text();
-    $("#sc").text(cuisinepicked);
-    cuisine = cuisinepicked.trim();
-    console.log("cuisine selected:", cuisine)
-    $.ajax({
-      url: '/filter_by_cuisine/'+ cuisine,
-      contentType: 'application/json',
-      data: JSON.stringify(cuisine),
-      type: 'POST',
-      success: function (response) {
-        console.log("RESPONSE FROM SERVER", response);
-        $("#searchResult").show();
-        $("h3").html("Recipes searched by Cuisine: " +cuisinepicked)
-        $('#category-select').val("Select a Category");
-        $('#allergen-select').val("Select an Allergen");
-        $("#recipeResult").html(response);
-        $('.initialRecipes').hide();
-      },
-      error: function (error) {
-        console.log(error);
-        $("#recipeResult").html(response);
-      }
+  $(function () {
+    $("#cuisine-select").change(function (event) {
+      event.preventDefault();
+      var cuisinepicked = $('#cuisine-select').find(":selected").text();
+      $("#sc").text(cuisinepicked);
+      cuisine = cuisinepicked.trim();
+      console.log("cuisine selected:", cuisine)
+      $.ajax({
+        url: '/filter_by_cuisine/' + cuisine,
+        contentType: 'application/json',
+        data: JSON.stringify(cuisine),
+        type: 'POST',
+        success: function (response) {
+          console.log("RESPONSE FROM SERVER", response);
+          $("#searchResult").show();
+          $("h3").html("Recipes searched by Cuisine: " + cuisinepicked)
+          // $('#category-select').val("Select a Category");
+          // $('#allergen-select').val("Select an Allergen");
+          $("#recipeResult").html(response);
+          $('.initialRecipes').hide();
+        },
+        error: function (error) {
+          console.log(error);
+          $("#recipeResult").html(response);
+        }
+      });
     });
   });
-});
 
-// #endregion
+  // #endregion
 
 
   // #region GET ALLERGENS FROM SEARCH FILTER AND PASS TO FLASK
 
- $(function () {
-  $("#allergen-select").change(function (event) {
-    event.preventDefault();
-    var allergenpicked = $('#allergen-select').find(":selected").text();
-    allergen = allergenpicked.trim();
-    console.log("allergen selected:", allergen)
-    $.ajax({
-      url: '/filter_by_allergen/'+ allergen,
-      contentType: 'application/json',
-      data: JSON.stringify(allergen),
-      type: 'POST',
-      success: function (response) {
-        console.log("RESPONSE FROM SERVER", response);
-        $("#searchResult").show();
-        $("h3").html("Recipes searched by Allergen: " +allergenpicked)
-        $('#category-select').val("Select a Category");
-        $('#cuisine-select').val("Select a Cuisine");
-        $("#recipeResult").html(response);
-        $('.initialRecipes').hide();
-      },
-      error: function (error) {
-        console.log(error);
-        $("#recipeResult").html(response);
-      }
+  $(function () {
+    $("#allergen-select").change(function (event) {
+      event.preventDefault();
+      var allergenpicked = $('#allergen-select').find(":selected").text();
+      allergen = allergenpicked.trim();
+      console.log("allergen selected:", allergen)
+      $.ajax({
+        url: '/filter_by_allergen/' + allergen,
+        contentType: 'application/json',
+        data: JSON.stringify(allergen),
+        type: 'POST',
+        success: function (response) {
+          console.log("RESPONSE FROM SERVER", response);
+          $("#searchResult").show();
+          $("h3").html("Recipes searched by Allergen: " + allergenpicked)
+          // $('#category-select').val("Select a Category");
+          // $('#cuisine-select').val("Select a Cuisine");
+          $("#recipeResult").html(response);
+          $('.initialRecipes').hide();
+        },
+        error: function (error) {
+          console.log(error);
+          $("#recipeResult").html(response);
+        }
+      });
     });
   });
-});
 
-// #endregion
+  // #endregion
 
 
   // #region GET INGREDIENT FROM SEARCH FILTER AND PASS TO FLASK
 
   $(function () {
-    $('#ingredientFilter').submit(function (event)  {
+    $('#ingredientFilter').submit(function (event) {
       event.preventDefault();
       var ingredient = $('#searchmain').val()
       console.log(ingredient)
@@ -471,35 +455,47 @@ $(document).ready(function () {
       });
     });
   });
-  
-  // #endregion
-  // #region GET CUISINE & CATEGORY FROM SEARCH FILTER AND PASS TO FLASK
 
-  // $(function () {
-  //   if ($('#and').is(":checked")){
-  //     var categorypicked = $('#category-select').find(":selected").text();
-  //     var cuisinepicked = $('#cuisine-select').find(":selected").text();
-  //     $.ajax({
-  //       url: '/filter_by_catcuis/'+ categorypicked + cuisinepicked ,
-  //       contentType: 'application/json',
-  //       data: JSON.stringify(categorypicked,cuisinepicked ),
-  //       type: 'POST',
-  //       success: function (response) {
-  //         console.log("RESPONSE FROM SERVER", response);
-  //         $("h3").html("Recipes searched by Cuisine: " +cuisinepicked)
-  //         $('#category-select').val("Select a Category");
-  //         $('#allergen-select').val("Select an Allergen");
-  //         $("#recipeResult").html(response);
-  //         $('.initialRecipes').hide();
-  //       },
-  //       error: function (error) {
-  //         console.log(error);
-  //         $("#recipeResult").html(response);
-  //       }
-  //     });
-  //   });
-  // });
-  
+  // #endregion
+
+
+
+  // #region GET CATEGORY & CUISINE FROM SEARCH FILTER AND PASS TO FLASK
+
+  $(function () {
+    $('#categorycuisineFilter').submit(function(event){
+      event.preventDefault();
+      var cuisinepicked = $('#cuisine-select1').find(":selected").text();
+      var categorypicked = $('#category-select1').find(":selected").text();
+      cuisine = cuisinepicked.trim();
+      category = categorypicked.trim();
+      console.log(cuisine, category)
+      console.log("cuisine selected:", cuisine);
+      $.ajax({
+        url: '/filter_by_catcuis/' + category + '/' + cuisine,
+        contentType: 'application/json',
+        data: JSON.stringify(cuisine),
+        type: 'POST',
+        success: function (response) {
+          console.log("RESPONSE FROM SERVER", response);
+          $("#searchResult").show();
+          $("h3").html("Recipes searched by Category: " + cuisinepicked + " and Category: " + categorypicked);
+          // $('#category-select').val("Select a Category");
+          // $('#allergen-select').val("Select an Allergen");
+          $("#recipeResult").html(response);
+          $('.initialRecipes').hide();
+        },
+        error: function (error) {
+          console.log(error);
+          $("#recipeResult").html(response);
+        }
+      });
+    });
+  });
+
+
+
+
   // #endregion
 
 
