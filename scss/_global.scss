@@ -120,6 +120,9 @@ img::-moz-selection {
         border-top-left-radius: 0rem;
         border-top-right-radius: 0rem;
         transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        span {
+            white-space: nowrap;
+        }
     }
 
 }
@@ -140,6 +143,9 @@ img::-moz-selection {
         border-top-left-radius: 0rem;
         border-top-right-radius: 0rem;
         transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        span {
+            white-space: nowrap;
+        }
     }
 
 }

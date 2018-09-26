@@ -20,6 +20,7 @@
         <!-- LEFT COLUMN -->
         <div class="col-12 col-md-3 filter-col" style="background-color:rgb(229, 255, 0)">
             Filtering
+            <a href="">Latest recipes</a>
             <!--CATEGORY FILTER-->
             <div class="row">
                 <div class="col-12">
@@ -62,6 +63,16 @@
                     </form>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="form-check form-check-inline">
+                        <form name="and" id="and" method="POST">
+                            <input class="form-check-input" type="checkbox" name="and">
+                            <label class="form-check-label" for="inlineAND">AND</label>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
         <!-- RIGHT COLUMN -->
         <!-- FILTERING RESULTS -->
@@ -75,9 +86,9 @@
             <!-- INITIAL RANDOM SELECTION OF RECIPES BEFORE SEARCHING, HIDDEN AFTER USER FILTERS -->
 
             {% for recipe_row in recipes | batch(3) %}
-            <div class="row" style="background-color:#fff">
+            <div class="row initialRecipes" style="background-color:#fff">
                 <div class="col-12">
-                    <div class="card-deck   ">
+                    <div class="card-deck">
                         {% for recipe in recipe_row %}
                         <div class="card">
                             <div class="card-image">

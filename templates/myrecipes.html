@@ -33,9 +33,25 @@
                     </div>
                     <div class="row">
                         <div class="col-12">
+                              N: {{next_url}}
+                              P: {{prev_url}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            {% if prev_url == "" %}
+                            <a href="{{prev_url}}" style="display: none">previous</a>
+                            {%else%}
                             <a href="{{prev_url}}">previous</a>
+                            {%endif%}
+
+                            {% if next_url == "" %}
+                            <a href="{{next_url}}" style="display: none">next</a>
+                            {%else%}
                             <a href="{{next_url}}">next</a>
-                            <span class="text-right">{{total_count}}</span>
+                            {%endif%}
+                           <span class="text-right">{{total_count}}</span>
+                            <span>{{ number_of_pages }}</span>
                         </div>
                     </div>
                     <div class="row">

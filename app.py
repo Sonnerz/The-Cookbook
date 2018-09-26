@@ -1,6 +1,7 @@
 import os
 import pdb
 import pymongo
+import math
 from functools import wraps
 from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify, json
 from flask_pymongo import PyMongo
@@ -8,8 +9,7 @@ from bson.objectid import ObjectId
 from bson.json_util import dumps
 from bson import json_util
 from datetime import datetime
-
-
+from math import ceil
 
 
 DBS_NAME = os.getenv("DBS_NAME")
@@ -23,7 +23,7 @@ app.secret_key = 'The cat is on the roof'
 if app.debug:
     # app.config["DBS_NAME"] = "cookbook"
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
-
+    # app.config["MONGO_URI"] = "mongodb://c00l33:eZc727sZ7XmixRH@ds251332.mlab.com:51332/cookbook"
 else:
     app.config["DBS_NAME"] = DBS_NAME
     app.config["MONGO_URI"] = MONGO_URI
@@ -81,29 +81,30 @@ def myrecipes():
     # user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': '5ba6a175d4cff52894ef222c'})]
     # user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': session['userid']})]
     user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': session['userid']})]
-    print(type(user_recipes_starting_id))
     total_count=len(user_recipes_starting_id)
-    print(total_count)
     last_id = user_recipes_starting_id[offset]['_id']
-    print(last_id)
-
 
 
     # recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [{'author': session['userid']}, {'_id': {'$gte': last_id} }] }).limit(limit).sort('votes', -1)]
     # recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [{'author': '5ba6a175d4cff52894ef222c'}, {'_id': {'$gte': last_id}}]}).limit(limit)]
     recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [{'author': session['userid']}, {'_id': {'$gte': last_id}}]}).limit(limit)]
-    total_count_2=len(recipes)
-    print(total_count_2)
+
+    next_url=""
+    prev_url=""
+
+    number_of_pages = int(math.ceil(total_count/limit))
+
+    if limit < total_count:
+        if offset + limit < total_count:
+            next_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset + limit)
+
+        if offset + limit > total_count-limit:   
+            prev_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset - limit)
+
+    
 
 
-    # for r in recipes:
-    #     print(r)
-
-    next_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset + limit)
-    prev_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset - limit)
-
-    return render_template("myrecipes.html", current_user=current_user, test=test, total_count=total_count, recipes=recipes, prev_url=prev_url, next_url=next_url)
-
+    return render_template("myrecipes.html", current_user=current_user, test=test, number_of_pages=number_of_pages, total_count=total_count, recipes=recipes, prev_url=prev_url, next_url=next_url)
 
 
 
@@ -494,6 +495,33 @@ def filter_by_allergen(allergen):
         print("no recipes with that allergen found")
         message = "no recipes with that" + allergen_name + "found"
         return message
+
+
+# FUNCTION :: GET RECIPES BY CATEGORY & CUISINE
+@app.route('/filter_by_catcuis/<value1><value2>', methods=['POST', 'GET'])
+def filter_by_catcuis(value):
+    filteredRecipes = None
+    category = value1
+    cuisine = value2
+    print(category, cuisine)
+    try:
+        # Query recipes collection and return ordered by votes descending
+        filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {{'category': category}, {'cuisine': cuisine}},'$orderby': { 'votes' : -1 } })]
+    except Exception as e:
+        print("error accessing DB to find allergen %s" % str(e))
+
+    if filteredRecipes:
+        print("recipes by allergen exist")
+        return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
+    else:
+        print("no recipes with that allergen found")
+        message = "no recipes with that" + allergen_name + "found"
+        return message
+
+
+
+
+
 
 
 # FUNCTION :: SIGN UP NEW USER / REGISTER / CREATE RECORD IN USERS COLLECTION

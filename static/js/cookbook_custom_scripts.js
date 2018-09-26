@@ -359,7 +359,7 @@ $(document).ready(function () {
           // $("#one").html(response.description);
           // $("#two").html("shit");
           // $("#recipeResult>#thisisacol>.recipe-name").html(response.cuisine);
-          $('#initialRecipes').hide();
+          $('.initialRecipes').hide();
         },
         error: function (error) {
           console.log(error);
@@ -392,7 +392,7 @@ $(document).ready(function () {
         $('#category-select').val("Select a Category");
         $('#allergen-select').val("Select an Allergen");
         $("#recipeResult").html(response);
-        $('#initialRecipes').hide();
+        $('.initialRecipes').hide();
       },
       error: function (error) {
         console.log(error);
@@ -424,7 +424,7 @@ $(document).ready(function () {
         $('#category-select').val("Select a Category");
         $('#cuisine-select').val("Select a Cuisine");
         $("#recipeResult").html(response);
-        $('#initialRecipes').hide();
+        $('.initialRecipes').hide();
       },
       error: function (error) {
         console.log(error);
@@ -436,6 +436,35 @@ $(document).ready(function () {
 
 // #endregion
 
+
+  // #region GET CUISINE & CATEGORY FROM SEARCH FILTER AND PASS TO FLASK
+
+  $(function () {
+    if ($('#and').is(":checked")){
+      var categorypicked = $('#category-select').find(":selected").text();
+      var cuisinepicked = $('#cuisine-select').find(":selected").text();
+      $.ajax({
+        url: '/filter_by_catcuis/'+ categorypicked + cuisinepicked ,
+        contentType: 'application/json',
+        data: JSON.stringify(categorypicked,cuisinepicked ),
+        type: 'POST',
+        success: function (response) {
+          console.log("RESPONSE FROM SERVER", response);
+          $("h3").html("Recipes searched by Cuisine: " +cuisinepicked)
+          $('#category-select').val("Select a Category");
+          $('#allergen-select').val("Select an Allergen");
+          $("#recipeResult").html(response);
+          $('.initialRecipes').hide();
+        },
+        error: function (error) {
+          console.log(error);
+          $("#recipeResult").html(response);
+        }
+      });
+    });
+  });
+  
+  // #endregion
 
 
 }); // close document.ready
