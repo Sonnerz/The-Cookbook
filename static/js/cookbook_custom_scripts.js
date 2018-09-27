@@ -3,28 +3,32 @@
 $(function () {
   $('#signupForm').submit(function (event) {
     event.preventDefault();
-    $.ajax({
-      url: '/signup_user',
-      data: $('#signupForm').serialize(),
-      type: 'POST',
-      success: function (response) {
-        console.log(response);
-        if (response == "success") {
-          var message = "Success. Log in now."
-          $("#signupMessages").html(message);
-          var delay = 1000;
-          setTimeout(function () { window.location.href = "/"; }, delay);
+    // ensure passwords match
+    if ($('#signupPassword').val() == $('#confirmPassword').val()) {
+      $.ajax({
+        url: '/signup_user',
+        data: $('#signupForm').serialize(),
+        type: 'POST',
+        success: function (response) {
+          console.log(response);
+          if (response == "success") {
+            var message = "Success. Log in now."
+            $("#signupMessages").html(message);
+            var delay = 1000;
+            setTimeout(function () { window.location.href = "/"; }, delay);
+          }
+          else if (response == "fail") {
+            var message = "Failure name take"
+            $("#signupMessages").html(message);
+          }
+        },
+        error: function (error) {
+          console.log(error);
+          $("#signupMessages").html(response);
         }
-        else if (response == "fail") {
-          var message = "Failure name take"
-          $("#signupMessages").html(message);
-        }
-      },
-      error: function (error) {
-        console.log(error);
-        $("#signupMessages").html(response);
-      }
-    });
+      });
+    } else
+      $('#signupMessages').html('Passwords do not match').css('color', 'red');
   });
 });
 
@@ -155,28 +159,6 @@ $(document).ready(function () {
   //hide search results div until populated with data
   $("#searchResult").hide();
 
-  // #region  VALIDATE LOGIN AND REGISTER FORMS
-
-  (function () {
-    'use strict';
-    window.addEventListener('load', function () {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName('needs-validation');
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function (form) {
-        form.addEventListener('submit', function (event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-  })();
-
-  // #endregion
-
 
   // #region Add class to NAVBAR LINK depending on the page displayed  
 
@@ -194,7 +176,7 @@ $(document).ready(function () {
   // #endregion
 
 
-  // #region Add class WECLOME USER MESSAGE if home page  
+  // #region Add class WELCOME USER MESSAGE if home page  
 
   var current_path = $(location).attr('pathname');
   if (current_path == "/") {

@@ -17,7 +17,7 @@
   <!-- Custom CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}" type="text/css" />
   <link rel="icon" href="{{ url_for('static', filename='img/global/favicon.ico')}}" type="image/x-icon">
-  <!-- <link rel="stylesheet" href="static/css/index.css" type="text/css" /> -->
+
 </head>
 
 <body id="page-top">
@@ -86,11 +86,11 @@
             </button>
           </div>
           <div class="modal-body">
-            <form method="POST" name="loginForm" id="loginForm" class="needs-validation" novalidate> 
+            <form method="POST" action="/login_user" name="loginForm" id="loginForm">
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
-                  <input type="text" class="form-control" placeholder="Enter a user name..." name="loginUsername" id="loginUsername"
-                    required data-validation-required-message="Please enter your user name." pattern="[A-Za-z0-9]{1,50}">
+                  <input type="text" class="form-control" placeholder="Enter a user name." name="loginUsername" id="loginUsername"
+                    required data-validation-required-message="Please enter your user name." pattern="[A-Za-z0-9]{1,10}">
                   <div class="invalid-feedback">
                     Please enter your username.
                   </div>
@@ -126,6 +126,71 @@
   </div>
 
 
+  <!-- MODAL FOR SIGN UP/REGISTRATION -->
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true" id="signupModal">
+    <div class="vertical-align-modal">
+      <div class="modal-dialog vertical-align-center" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Create an account</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form method="POST" action="/signup_user" name="signupForm" id="signupForm">
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="text" class="form-control" placeholder="Enter a user name with up to 10 letters or numbers." name="signupUsername" id="signupUsername" 
+                  pattern="[A-Za-z0-9]{1,10}" oninvalid="this.setCustomValidity('Enter a user name with up to 10 letters or numbers')" oninput="setCustomValidity('')" required>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="text" class="form-control" placeholder="Enter your first name up to 10 letters" name="firstName" id="firstName" 
+                  pattern="[A-Za-z0-9]{1,10}" oninvalid="this.setCustomValidity('Enter your first name up to 10 letters')" oninput="setCustomValidity('')" required>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="text" class="form-control" placeholder="Enter your last name up to 15 letters" name="lastName" id="lastName" 
+                  pattern="[A-Za-z0-9]{1,15}" oninvalid="this.setCustomValidity('Enter your last name with up to 15 letters.')" oninput="setCustomValidity('')" required>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="password" class="form-control" placeholder="Enter password up to 8 letters or numbers" name="signupPassword" id="signupPassword"
+                  pattern="[A-Za-z0-9]{1,8}" oninvalid="this.setCustomValidity('Enter a password with up to 8 letters or numbers.')" oninput="setCustomValidity('')" required>
+                    <div class="invalid-feedback">
+                      Please enter a password (up to 8 letters or numbers)
+                    </div>
+                </div>
+              </div>
+              <div class="control-group">
+                <div class="form-group floating-label-form-group controls">
+                  <input type="password" class="form-control" placeholder="Confirm password..." name="confirmPassword"
+                    id="confirmPassword" pattern="[A-Za-z0-9]{1,8}" oninvalid="this.setCustomValidity('Please confirm your password.')" oninput="setCustomValidity('')" required>
+                </div>
+              </div>
+              <div class="form-group button-submit-margin">
+                <button type="submit" class="btn btn-primary" id="signupButton">
+                  Create an account
+                </button>
+              </div>
+              <div class="form-group button-submit-margin" id="signupMessages">
+                {{message}}
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
   <!-- MODAL FOR LICENCES-->
   <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" id="licenseModal">
     <div class="vertical-align-modal">
@@ -150,68 +215,7 @@
     </div>
   </div>
 
-
-  <!-- MODAL FOR SIGN UP/REGISTRATION -->
-  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true" id="signupModal">
-    <div class="vertical-align-modal">
-      <div class="modal-dialog vertical-align-center" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Create an account</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form method="POST" name="signupForm" id="signupForm">
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls">
-                  <input type="text" class="form-control" placeholder="Enter a user name..." name="signupUsername" id="signupUsername">
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls">
-                  <input type="text" class="form-control" placeholder="Enter your first name..." name="firstName" id="firstName">
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls">
-                  <input type="text" class="form-control" placeholder="Enter your last name..." name="lastName" id="lastName">
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls">
-                  <input type="password" class="form-control" placeholder="Enter password..." name="signupPassword" id="signupPassword"
-                    required data-validation-required-message="Please enter your password.">
-                </div>
-              </div>
-              <div class="control-group">
-                <div class="form-group floating-label-form-group controls">
-                  <input type="password" class="form-control" placeholder="Confirm password..." name="confirmPassword"
-                    id="confirmPassword" required data-validation-required-message="Please enter your password.">
-                </div>
-              </div>
-              <div class="form-group button-submit-margin">
-                <button type="submit" class="btn btn-primary" id="signupButton">
-                  Create an account
-                </button>
-              </div>
-              <div class="form-group button-submit-margin" id="signupMessages">
-                {{message}}
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
   {% block template_content %}{% endblock%}
-
 
   <!-- FOOTER -->
   <footer>

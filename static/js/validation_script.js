@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
 
-		$('#signupForm').validate({
+		$('#signupFormX').validate({
 	    rules: {	  
 			signupUsername: {
 				minlength: 1,
