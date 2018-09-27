@@ -86,12 +86,11 @@
             </button>
           </div>
           <div class="modal-body">
-            <form method="POST" action="/login_user" name="loginForm" id="loginForm">
+            <form method="POST" name="loginForm" id="loginForm" class="needs-validation" novalidate> 
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
                   <input type="text" class="form-control" placeholder="Enter a user name..." name="loginUsername" id="loginUsername"
-                    required data-validation-required-message="Please enter your user name." pattern="[A-Za-z0-9]{1,50}"
-                    value="zed">
+                    required data-validation-required-message="Please enter your user name." pattern="[A-Za-z0-9]{1,50}">
                   <div class="invalid-feedback">
                     Please enter your username.
                   </div>
@@ -100,8 +99,7 @@
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
                   <input type="password" class="form-control" placeholder="Enter a password.." name="loginPassword" id="loginPassword"
-                    required data-validation-required-message="Please enter your password." pattern="[A-Za-z0-9]{1,8}"
-                    value="123">
+                    required data-validation-required-message="Please enter your password." pattern="[A-Za-z0-9]{1,8}">
                   <div class="invalid-feedback">
                     Please enter your password.
                   </div>
@@ -120,7 +118,7 @@
           <div class="modal-footer">
             <span>Not registered? <a href="#" data-toggle="modal" data-target="#signupModal" data-dismiss="modal">Create
                 an account now >></a></span>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" type="submit">Close</button>
           </div>
         </div>
       </div>
@@ -165,7 +163,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form method="POST" action="/signup_user" name="signupForm" id="signupForm">
+            <form method="POST" name="signupForm" id="signupForm">
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
                   <input type="text" class="form-control" placeholder="Enter a user name..." name="signupUsername" id="signupUsername">

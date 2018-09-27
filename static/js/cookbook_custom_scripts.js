@@ -42,13 +42,21 @@ $(function () {
       type: 'POST',
       success: function (response) {
         console.log(response);
-        $("#loginMessages").html(response.message);
-        //Add username and id to localstorage        
-        localStorage.setItem("username", response.username);
-        localStorage.setItem("user_id", response._id);
-        // Delay before redirect to read message
-        var delay = 1200;
-        setTimeout(function () { window.location.href = "/myrecipes?limit=5&offset=0"; }, delay);
+        if (response == 1) {
+          $("#loginMessages").html("The password was incorrect");
+        }
+        else if (response == 2) {
+          $("#loginMessages").html("That username is not registered");
+        }
+        else {
+          $("#loginMessages").html(response.message);
+          //Add username and id to localstorage        
+          localStorage.setItem("username", response.username);
+          localStorage.setItem("user_id", response._id);
+          // Delay before redirect to myrecipes page
+          var delay = 1200;
+          setTimeout(function () { window.location.href = "/myrecipes?limit=5&offset=0"; }, delay);
+        }
       },
       error: function (error) {
         console.log(error);
@@ -146,6 +154,29 @@ function goPrev() {
 $(document).ready(function () {
   //hide search results div until populated with data
   $("#searchResult").hide();
+
+  // #region  VALIDATE LOGIN AND REGISTER FORMS
+
+  (function () {
+    'use strict';
+    window.addEventListener('load', function () {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+
+  // #endregion
+
 
   // #region Add class to NAVBAR LINK depending on the page displayed  
 
@@ -462,7 +493,7 @@ $(document).ready(function () {
   // #region GET CATEGORY & CUISINE FROM SEARCH FILTER AND PASS TO FLASK
 
   $(function () {
-    $('#categorycuisineFilter').submit(function(event){
+    $('#categorycuisineFilter').submit(function (event) {
       event.preventDefault();
       var cuisinepicked = $('#cuisine-select1').find(":selected").text();
       var categorypicked = $('#category-select1').find(":selected").text();

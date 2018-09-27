@@ -2,6 +2,8 @@ import os
 import pdb
 import pymongo
 import math
+import werkzeug.security
+from werkzeug.security import check_password_hash
 from functools import wraps
 from flask import Flask, render_template, request, flash, redirect, url_for, session, jsonify, json
 from flask_pymongo import PyMongo
@@ -10,6 +12,7 @@ from bson.json_util import dumps
 from bson import json_util
 from datetime import datetime
 from math import ceil
+
 
 
 DBS_NAME = os.getenv("DBS_NAME")
@@ -23,10 +26,12 @@ app.secret_key = 'The cat is on the roof'
 if app.debug:
     app.config["DBS_NAME"] = "cookbook"
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
+
 else:
     app.config["DBS_NAME"] = DBS_NAME
     app.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo(app)
+
 
 
 # DEBUGGING
@@ -44,6 +49,12 @@ def login_required(f):
             flash("You need to be logged in, to view this page", 'info')
             return render_template("index.html")
     return wrap
+
+
+# FUNCTION :: COMPARE PASSWORD
+def compare_password(hashedpw, formpw):
+    compare_pw = check_password_hash(hashedpw,formpw)
+    return compare_pw
 
 
 # FUNCTION :: GET RECORD FROM USERS COLLECTION BY USERNAME
@@ -213,12 +224,12 @@ def insert_recipe():
         'difficulty': request.form.get('difficulty'),
         'prep_time': request.form.get('prep_time'),
         'cook_time': request.form.get('cook_time'),
-        'serves': request.form.get('serves'),
+        'serves': int(request.form.get('serves')),
         'calories': request.form.get('calories'),
         'allergens': request.form.getlist('allergen'),
         'ingredients': request.form.getlist('ingredient'),
         'instructions': request.form.getlist('instruction'),
-        'votes': 0
+        'votes': int(0)
     }
     # insert new recipe
     recipes.insert_one(new_recipe)
@@ -275,12 +286,12 @@ def update_recipe(recipe_id):
             'difficulty': request.form.get('difficulty'),
             'prep_time': request.form.get('prep_time'),
             'cook_time': request.form.get('cook_time'),
-            'serves': request.form.get('serves'),
+            'serves': int(request.form.get('serves')),
             'calories': request.form.get('calories'),
             'allergens': request.form.getlist('allergen'),
             'ingredients': ingred_list_no_blanks,
             'instructions': request.form.getlist('instruction'),
-            'votes': request.form.get('votes')
+            'votes': int(request.form.get('votes'))
         }
     })
     flash("recipe upated")
@@ -537,7 +548,7 @@ def signup_user():
         users = mongo.db.users
         new_user = {
                 'username': request.form.get('signupUsername').lower(),
-                'password': request.form.get('signupPassword'),
+                'hashed_password': generate_password_hash(request.form.get('signupPassword'), "sha256"),
                 'firstname': request.form.get('firstName'),
                 'lastname': request.form.get('lastName')} 
         if new_user:
@@ -556,23 +567,27 @@ def login_user():
     # get data from ajax post
     pw = request.form.get('loginPassword')
     user = get_user(request.form.get('loginUsername').lower())
-    if user and user["password"] == pw:
-        # add username to flask session
-        session['username'] = user['username']
-        session['userid'] = str(user['_id'])  # ObjectId to str
-        # set session isLoggedin to True: session is true
-        session['isLoggedin'] = True
-        # message to user
-        message = "Welcome back " + user['username'] + " you will be redirected to your myrecipes page."
-        id = str(user['_id'])
-        response = {"username": user['username'], "_id": id, "message": message}
-        return jsonify(response)
-    elif user and user["password"] != pw:
-        message = "password wrong"
-        return message
-    elif not user:
-        message = "no user by that name"
-        return message
+    if user:
+        check_password = compare_password(user['hashed_password'], pw)
+        if check_password:
+            # add username to flask session
+            session['username'] = user['username']
+            session['userid'] = str(user['_id'])  # ObjectId to str
+            # set session isLoggedin to True: session is true
+            session['isLoggedin'] = True
+            # message to user
+            message = "Welcome back " + user['username'] + " you will be redirected to your myrecipes page."
+            id = str(user['_id'])
+            response = {"username": user['username'], "_id": id, "message": message}
+            return jsonify(response)
+        elif not check_password:
+            # wrong password
+            returnvar = "1"
+            return returnvar
+    else:
+        # no user by that username
+        returnvar = "2"
+        return returnvar
     return
 
 
@@ -598,7 +613,7 @@ def internal_error(error):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), 
             port=int(os.environ.get('PORT')), 
-            debug=False)
+            debug=True)
 
 
 # import pdb; pdb.set_trace()

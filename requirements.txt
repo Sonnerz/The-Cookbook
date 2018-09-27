@@ -1,6 +1,7 @@
 astroid==2.0.4
 backcall==0.1.0
 bleach==2.1.4
+cffi==1.11.5
 click==6.7
 colorama==0.3.9
 decorator==4.3.0
@@ -35,6 +36,7 @@ parso==0.3.1
 pickleshare==0.7.4
 prometheus-client==0.3.1
 prompt-toolkit==1.0.15
+pycparser==2.19
 Pygments==2.2.0
 pylint==2.1.1
 pymongo==3.7.1
