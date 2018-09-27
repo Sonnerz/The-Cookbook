@@ -84,7 +84,7 @@
     .detail-title {
         font-weight: 600;
     }
-    #ingredients {
+    #ingredients, #recipe-info {
         padding-top: 1rem;
         ul {
             font-size: 0.9rem;
@@ -93,6 +93,9 @@
         }
         li {
             padding-bottom: 5px;
+        }
+        li img {
+            padding-right:10px;
         }
     }
     #instructions {

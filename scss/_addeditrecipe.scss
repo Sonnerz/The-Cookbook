@@ -16,5 +16,10 @@
     #instruction_input_list textarea  {
         resize: none;
     }
+    .added-ingred, .added-instruction {
+        input, textarea {
+            margin-top: 0.3rem;
+        }
+    }
 }
 

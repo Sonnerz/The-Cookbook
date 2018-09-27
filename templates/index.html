@@ -19,11 +19,13 @@
         <div class="intro-heading text-uppercase">yada yadda yadda</div>
         <div id="signup-button-container">
           <!-- Button trigger signup modal -->
+          {% if not session['isLoggedin']%}
           <a href="#" onclick="$('#signupModal').modal({'backdrop': 'static'});">
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signupModal">
               Register
             </button>
           </a>
+          {% endif %}
           <!-- Button to recipe searching -->
           <a href="recipesearch">
             <button type="button" class="btn btn-primary">

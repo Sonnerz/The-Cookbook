@@ -14,7 +14,6 @@ from datetime import datetime
 from math import ceil
 
 
-
 DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
 
@@ -26,7 +25,6 @@ app.secret_key = 'The cat is on the roof'
 if app.debug:
     app.config["DBS_NAME"] = "cookbook"
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
-   
 else:
     app.config["DBS_NAME"] = DBS_NAME
     app.config["MONGO_URI"] = MONGO_URI
@@ -436,11 +434,6 @@ def filter_by_category(category):
 
     if filteredRecipes:
         print("recipes by category exist")
-        # for r in filteredRecipes:
-        #     r['_id']= str(r['_id'])
-        #     result = r
-        #     print(result['name'])
-        # filteredRecipes.append(r)
         return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
     else:
         print("no recipes with that category found")

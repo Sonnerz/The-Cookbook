@@ -314,6 +314,10 @@ label.error {
   resize: none;
 }
 
+#add_recipe_form .added-ingred input, #add_recipe_form .added-ingred textarea, #add_recipe_form .added-instruction input, #add_recipe_form .added-instruction textarea, #update_recipe_form .added-ingred input, #update_recipe_form .added-ingred textarea, #update_recipe_form .added-instruction input, #update_recipe_form .added-instruction textarea {
+  margin-top: 0.3rem;
+}
+
 .filter-col {
   padding-bottom: 2rem;
 }
@@ -421,18 +425,22 @@ label.error {
   font-weight: 600;
 }
 
-#recipe-info #ingredients {
+#recipe-info #ingredients, #recipe-info #recipe-info {
   padding-top: 1rem;
 }
 
-#recipe-info #ingredients ul {
+#recipe-info #ingredients ul, #recipe-info #recipe-info ul {
   font-size: 0.9rem;
   list-style-type: none;
   padding-left: 0;
 }
 
-#recipe-info #ingredients li {
+#recipe-info #ingredients li, #recipe-info #recipe-info li {
   padding-bottom: 5px;
+}
+
+#recipe-info #ingredients li img, #recipe-info #recipe-info li img {
+  padding-right: 10px;
 }
 
 #recipe-info #instructions .instuctions-line {
@@ -742,6 +750,7 @@ img::-moz-selection {
 
 .home-userwelcome {
   background-color: rgba(245, 245, 245, 0.9);
+  color: #393d3f;
   border: 1px solid transparent;
   border-radius: 1rem;
   border-top-left-radius: 0rem;
