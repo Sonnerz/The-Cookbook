@@ -22,9 +22,7 @@ app.secret_key = 'The cat is on the roof'
 
 if app.debug:
     app.config["DBS_NAME"] = "cookbook"
-    # app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
-    app.config["MONGO_URI"] = "mongodb://c00l33:eZc727sZ7XmixRH@ds251332.mlab.com:51332/cookbook"
-    
+    app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
 else:
     app.config["DBS_NAME"] = DBS_NAME
     app.config["MONGO_URI"] = MONGO_URI
@@ -600,7 +598,7 @@ def internal_error(error):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), 
             port=int(os.environ.get('PORT')), 
-            debug=True)
+            debug=False)
 
 
 # import pdb; pdb.set_trace()

@@ -51,7 +51,7 @@
                                         <label for="selectCategory">Edit Category</label>
                                         <select class="custom-select" id="category" name="category">
                                             <option value="" disabled selected>Select a Category</option>
-                                            {% for category in categories %}
+                                            {% for category in categories|sort(attribute='category_name') %}
                                             {% if category.category_name == recipe.category %}
                                             <option value="{{ category.category_name }}" selected>{{
                                                 category.category_name }}</option>
@@ -66,7 +66,7 @@
                                         <label for="selectCuisine">Cuisine</label>
                                         <select class="custom-select" id="cuisine" name="cuisine">
                                             <option value="" disabled selected>Select a Cuisine</option>
-                                            {% for cuis in cuisine %}
+                                            {% for cuis in cuisine|sort(attribute='cuisine_name') %}
                                             {% if cuis.cuisine_name == recipe.cuisine %}
                                             <option value="{{ cuis.cuisine_name }}" selected>{{ cuis.cuisine_name }}</option>
                                             {% else %}

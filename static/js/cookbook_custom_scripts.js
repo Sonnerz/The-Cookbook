@@ -459,7 +459,6 @@ $(document).ready(function () {
   // #endregion
 
 
-
   // #region GET CATEGORY & CUISINE FROM SEARCH FILTER AND PASS TO FLASK
 
   $(function () {

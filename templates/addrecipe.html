@@ -48,7 +48,7 @@
                                         <label for="selectCategory">Category</label>
                                         <select class="custom-select" id="category" name="category">
                                             <option>Select a Category</option>
-                                            {% for category in categories%}
+                                            {% for category in categories|sort(attribute='category_name') %}
                                             <option value="{{ category.category_name }}">{{ category.category_name }}</option>
                                             {% endfor %}
                                         </select>
@@ -58,7 +58,7 @@
                                         <label for="selectCuisine">Cuisine</label>
                                         <select class="custom-select" id="cuisine" name="cuisine">
                                             <option>Select a Cuisine</option>
-                                            {% for cuis in cuisine%}
+                                            {% for cuis in cuisine|sort(attribute='cuisine_name')%}
                                             <option value="{{ cuis.cuisine_name }}">{{ cuis.cuisine_name }}</option>
                                             {% endfor %}
                                         </select>
@@ -116,7 +116,7 @@
                                 <div>
                                     <label for="inputAllergens">Allergens</label>
                                 </div>
-                                {% for allergen in allergens %}
+                                {% for allergen in allergens|sort(attribute='allergen_name') %}
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="checkbox" name="allergen" value="{{ allergen.allergen_name }}">
                                     <label class="form-check-label" for="inline{{ allergen.allergen_name }}">{{allergen.allergen_name}}</label>
