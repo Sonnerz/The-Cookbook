@@ -22,15 +22,15 @@
             <div class="col-12 col-md-3 filter-col">
                 <div class="row">
                     <div class="col-12">
-                        <img src="{{ url_for('static', filename='img/recipes/search.png')}}">
                         <h3>Search all Recipes</h3>
+                        <img src="{{ url_for('static', filename='img/recipes/search.png')}}">
                     </div>
                 </div>
                 <!--MAIN INGREDIENT-->
                 <div class="row">
                     <div class="col-12">
                         <form id="ingredientFilter" name="ingredientFilter" method="POST">
-                            <label for="searchmain">Search by main ingredient</label>
+                            <label for="searchmain">Search by Main Ingredient</label>
                             <div class="input-group mb-3">
                                 <input type="input" class="form-control" id="searchmain" name="searchmain" placeholder="Search by main ingredient"
                                     aria-label="Search for a main ingredient" aria-describedby="ingredientFilterButton">
@@ -112,7 +112,7 @@
             </div>
             <!-- RIGHT COLUMN -->
             <!-- FILTERING RESULTS -->
-            <div class="col-12 col-md-9">
+            <div class="col-12 col-md-9 results-col">
                 <!--SEARCH RESULTS-->
                 <div class="row" id="searchResult">
                     <div class="col-12" id="thisisacol">
@@ -189,7 +189,7 @@
                     </div>
                     <!-- RANDOM RECIPES-->
                     <h2>Selection of Recipes</h2>
-                    {% for recipe_row in recipes | batch(4) %}
+                    {% for recipe_row in recipes | batch(3) %}
                     <div class="row" style="background-color:#fff">
                         <div class="col-12">
                             <div class="card-deck">
@@ -222,9 +222,10 @@
                         </div>
                     </div>
                     {% endfor %}
+                    <!-- BACK TO TOP -->
                     <div class="row">
                         <div class="col-12">
-                            <a href="#page-top" class="back-to-top" title="Back to top"><img alt="Back to top" title="Back to top" src="{{ url_for('static', filename='img/global/backtotop.png')}}"></a>
+                            <button onclick="topFunction()" id="backtotopIcon" title="Go to top"></button>
                         </div>
                     </div>
                 </div>

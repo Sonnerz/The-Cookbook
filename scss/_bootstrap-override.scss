@@ -22,7 +22,7 @@
     margin-bottom: 2rem;
 }
 .card-image{
-    height: 200px;
+    height: 180px;
     overflow: hidden;
 }
 
@@ -48,7 +48,7 @@
 
 @media (min-width: 576px) {
     .card-deck .card {
-        max-width: 33.33%;
+        max-width: 28%;
         width: 33.33%;
     }
 }

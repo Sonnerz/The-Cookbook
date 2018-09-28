@@ -100,7 +100,7 @@ def get_allrecipes():
 def get_votes_recipes():
     rows = {}
     try:
-        rows = mongo.db.recipes.find().sort('votes', -1).limit(4)
+        rows = mongo.db.recipes.find().sort('votes', -1).limit(3)
     except Exception as e:
         print("error accessing DB %s" % str(e))
 
@@ -128,7 +128,7 @@ def get_recent_recipes():
     rows = {}
     try:
         # Query recipes collection and return ordered by votes descending
-       rows = mongo.db.recipes.find().sort('_id',-1).limit(4)
+       rows = mongo.db.recipes.find().sort('_id',-1).limit(3)
     except Exception as e:
         print("error accessing DB %s" % str(e))
 
@@ -607,7 +607,7 @@ def internal_error(error):
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'), 
             port=int(os.environ.get('PORT')), 
-            debug=True)
+            debug=False)
 
 
 # import pdb; pdb.set_trace()

@@ -148,7 +148,8 @@
                                     <div id="ingredients_input_list">
                                         <label for="inputIngredients">Ingredients</label>
                                         {% for ingredient in recipe.ingredients %}
-                                        <input type="text" class="input form-control" name="ingredient" placeholder="ingredient" value="{{ ingredient }}" />
+                                        <input type="text" class="input form-control" name="ingredient" placeholder="ingredient"
+                                            value="{{ ingredient }}" />
                                         {% endfor %}
                                         <a href="#" id="add_ingredient"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                     </div>
@@ -158,8 +159,7 @@
                                     <div id="instruction_input_list">
                                         <label for="inputInstruction">Instructions</label>
                                         {% for instruct in recipe.instructions %}
-                                        <textarea class="input form-control" name="instruction"
-                                            placeholder="instructions">{{ instruct }}</textarea>
+                                        <textarea class="input form-control" name="instruction" placeholder="instructions">{{ instruct }}</textarea>
                                         {% endfor %}
                                         <a href="#" id="add_instruction"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
                                     </div>
@@ -167,8 +167,6 @@
                             </div>
                             <!-- HIDDEN VOTES/VIEW -->
                             <div id="hiddenFields">
-                                <input value="{{ recipe.views }}" type="input" class="form-control" id="view" name="views"
-                                    hidden>
                                 <input value="{{ recipe.votes }}" type="input" class="form-control" id="votes" name="votes"
                                     hidden>
                             </div>
@@ -186,6 +184,12 @@
                 </div>
             </section>
         </div>
+    </div>
+</div>
+<!--BACK TO TOP -->
+<div class="row">
+    <div class="col-12">
+        <button onclick="topFunction()" id="backtotopIcon" title="Go to top"></button>
     </div>
 </div>
 

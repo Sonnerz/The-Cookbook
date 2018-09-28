@@ -153,6 +153,28 @@ function goPrev() {
 // #endregion
 
 
+// #region SCROLL BACK TO TOP OF PAGE
+
+// https://www.w3schools.com/howto/howto_js_scroll_to_top.asp
+// When the user scrolls down 20px from the top of the document, show the button
+
+window.onscroll = function() {scrollFunction()};
+
+function scrollFunction() {
+    if (document.body.scrollTop> 20 || document.documentElement.scrollTop > 20) {
+        document.getElementById("backtotopIcon").style.display = "block";
+    } else {
+        document.getElementById("backtotopIcon").style.display = "none";
+    }
+}
+
+// When the user clicks on the button, scroll to the top of the document
+function topFunction() {
+    document.body.scrollTop = 0; // For Safari
+    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+}
+// #endregion
+
 // #region DOCUMENT.READY START //
 
 $(document).ready(function () {
@@ -364,6 +386,10 @@ $(document).ready(function () {
           $('#cuisine-select').val("Select a Cuisine");
           $('#allergen-select').val("Select an Allergen");
           $('.initialRecipes').hide();
+          //scroll window to results
+          $('html, body').animate({
+            scrollTop: $(".results-col").offset().top -50
+          }, 'slow');          
         },
         error: function (error) {
           console.log(error);
@@ -398,6 +424,10 @@ $(document).ready(function () {
           $('#allergen-select').val("Select an Allergen");
           $("#recipeResult").html(response);
           $('.initialRecipes').hide();
+          //scroll window to results
+          $('html, body').animate({
+            scrollTop: $(".results-col").offset().top -50
+          }, 'slow');          
         },
         error: function (error) {
           console.log(error);
@@ -431,6 +461,10 @@ $(document).ready(function () {
           $('#cuisine-select').val("Select a Cuisine");
           $("#recipeResult").html(response);
           $('.initialRecipes').hide();
+          //scroll window to results
+          $('html, body').animate({
+            scrollTop: $(".results-col").offset().top -50
+          }, 'slow');          
         },
         error: function (error) {
           console.log(error);
@@ -460,6 +494,10 @@ $(document).ready(function () {
           $("h3.section-subheading").html("Recipes searched by Ingredient: " + ingredient)
           $("#recipeResult").html(response);
           $('.initialRecipes').hide();
+          //scroll window to results
+          $('html, body').animate({
+            scrollTop: $(".results-col").offset().top -50
+          }, 'slow');
         },
         error: function (error) {
           console.log(error);
@@ -498,7 +536,7 @@ $(document).ready(function () {
           $('.initialRecipes').hide();
           //scroll window to results
           $('html, body').animate({
-            scrollTop: $("#page-top").offset().top -50
+            scrollTop: $(".results-col").offset().top -50
           }, 'slow');
         },
         error: function (error) {

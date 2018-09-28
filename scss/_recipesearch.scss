@@ -1,28 +1,60 @@
 .filter-col {
     padding-bottom: 2rem;
+    padding-top: 0px;
+    border-right:0px;
     h3 {
-        display: inline-block;
+        display: inline;
     }
     img {
-        vertical-align: baseline!important;
-        margin-right: 5px;
+        vertical-align: baseline !important;
+        margin-left: 10px;
     }
     #ingredientFilter {
-        margin-top:2rem;
+        margin-top: 2rem;
     }
     form {
         margin-bottom: 2rem;
     }
     #categorycuisineFilter {
-        margin-bottom:0;
+        margin-bottom: 0;
     }
     #andButton {
-        float:right;
+        float: right;
     }
 }
-.back-to-top {
-    float:right;
-    img {
-        width:30%;
+
+#backtotopIcon {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 30px;
+    z-index: 99;
+    border: none;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    padding: 30px;
+    border-radius: 30px;
+    font-size: 18px;
+    background-image: url('../img/global/backtotop.png');
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-position: center center;
+    background-size: cover;
+}
+
+.initialRecipes h2 {
+    border-bottom: 2px dashed $cyan;
+    margin-top: 1rem;
+}
+
+.filter-col label {
+    font-weight: 700;
+}
+
+@media(min-width:768px) {
+    .filter-col {
+        padding-top: 100px;
+        border-right: 2px dashed $cyan;
     }
 }

@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css?family=Lato:400,400i,700,700i,900,900i");
 #mainNav {
-  background-color: #fff;
+  background-color: #e8e7dd;
   border-bottom: 1px solid #546a7b;
   -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
@@ -92,7 +92,7 @@
     -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
     transition: padding-top 0.3s, padding-bottom 0.3s;
     border: none;
-    background-color: #fff;
+    background-color: #e8e7dd;
     border-bottom: 1px solid #546a7b;
   }
   #mainNav .navbar-brand {
@@ -333,15 +333,17 @@ label.error {
 
 .filter-col {
   padding-bottom: 2rem;
+  padding-top: 0px;
+  border-right: 0px;
 }
 
 .filter-col h3 {
-  display: inline-block;
+  display: inline;
 }
 
 .filter-col img {
   vertical-align: baseline !important;
-  margin-right: 5px;
+  margin-left: 10px;
 }
 
 .filter-col #ingredientFilter {
@@ -360,12 +362,40 @@ label.error {
   float: right;
 }
 
-.back-to-top {
-  float: right;
+#backtotopIcon {
+  display: none;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+  z-index: 99;
+  border: none;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  padding: 30px;
+  border-radius: 30px;
+  font-size: 18px;
+  background-image: url("../img/global/backtotop.png");
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-position: center center;
+  background-size: cover;
 }
 
-.back-to-top img {
-  width: 30%;
+.initialRecipes h2 {
+  border-bottom: 2px dashed #62929e;
+  margin-top: 1rem;
+}
+
+.filter-col label {
+  font-weight: 700;
+}
+
+@media (min-width: 768px) {
+  .filter-col {
+    padding-top: 100px;
+    border-right: 2px dashed #62929e;
+  }
 }
 
 .recipe-heading {
@@ -835,7 +865,7 @@ img::-moz-selection {
 }
 
 .card-image {
-  height: 200px;
+  height: 180px;
   overflow: hidden;
 }
 
@@ -863,7 +893,7 @@ img::-moz-selection {
 
 @media (min-width: 576px) {
   .card-deck .card {
-    max-width: 33.33%;
+    max-width: 28%;
     width: 33.33%;
   }
 }
