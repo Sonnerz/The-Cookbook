@@ -2,219 +2,236 @@
 
 {% block template_content %}
 <!-- PAGE CONTENT-->
-<div class="container-fluid">
-    <!-- PAGE HEADER -->
-    <section>
+<section class="section-heading">
+    <div class="container-fluid">
+        <!-- PAGE HEADER -->
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                    <h1>Recipes</h1>
+                    <h1>Recipe Search</h1>
                     <h3 class="section-subheading text-muted">Search and filter recipes</h3>
                 </div>
             </div>
         </div>
-    </section>
-</div>
-<div class="container-fluid">
-    <div class="row">
-        <!-- LEFT COLUMN -->
-        <div class="col-12 col-md-3 filter-col" style="background-color:rgb(229, 255, 0)">
-            <div class="row">
-                <div class="col-12">
-                    <form id="ingredientFilter" name="ingredientFilter" method="POST">
-                        <label for="searchmain">Search for a main ingredient</label>
-                        <input type="input" class="form-control" id="searchmain" name="searchmain" placeholder="Search for a recipe by ingredient">
-                        <button class="btn btn-primary" id="ingredientFilterButton" type="submit">Search</button>
-                    </form>
+    </div>
+</section>
+<section class="section-content">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- LEFT COLUMN -->
+            <div class="col-12 col-md-3 filter-col">
+                <div class="row">
+                    <div class="col-12">
+                        <img src="{{ url_for('static', filename='img/recipes/search.png')}}">
+                        <h3>Search all Recipes</h3>
+                    </div>
                 </div>
-            </div>
-            <!--CATEGORY FILTER-->
-            <div class="row">
-                <div class="col-12">
-                    <label for="selectCategory">Category</label>
-                    <form id="categoryFilter" name="categoryFilter" method="POST">
-                        <select class="custom-select" id="category-select">
-                            <option>Select a Category</option>
-                            {% for category in categories|sort(attribute='category_name') %}
-                            <option value="{{category.category_name}}"> {{category.category_name}}</option>
-                            {% endfor %}
-                        </select>
-                    </form>
+                <!--MAIN INGREDIENT-->
+                <div class="row">
+                    <div class="col-12">
+                        <form id="ingredientFilter" name="ingredientFilter" method="POST">
+                            <label for="searchmain">Search by main ingredient</label>
+                            <div class="input-group mb-3">
+                                <input type="input" class="form-control" id="searchmain" name="searchmain" placeholder="Search by main ingredient"
+                                    aria-label="Search for a main ingredient" aria-describedby="ingredientFilterButton">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" id="ingredientFilterButton" type="submit">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
-            <!--CUISINE FILTER-->
-            <div class="row">
-                <div class="col-12">
-                    <label for="selectCuisine">Cuisine</label>
-                    <form id="cuisineFilter" name="cuisineFilter" method="POST">
-                        <select class="custom-select" id="cuisine-select">
-                            <option>Select a Cuisine</option>
-                            {% for cuis in cuisine|sort(attribute='cuisine_name')%}
-                            <option value="{{ cuis.cuisine_name }}">{{ cuis.cuisine_name }}</option>
-                            {% endfor %}
-                        </select>
-                    </form>
-                </div>
-            </div>
-            <!--ALLERGENS FILTER-->
-            <div class="row">
-                <div class="col-12">
-                    <label for="selectCuisine">Allergens</label>
-                    <form id="allergenFilter" name="allergenFilter" method="POST">
-                        <select class="custom-select" id="allergen-select">
-                            <option>Select an Allergen</option>
-                            {% for allergen in allergens|sort(attribute='allergen_name') %}
-                            <option value="{{ allergen.allergen_name }}">{{ allergen.allergen_name }}</option>
-                            {% endfor %}
-                        </select>
-                    </form>
-                </div>
-            </div>
-            <!--CATEGORY FILTER-->
-            <div class="row">
-                <div class="col-5">
-                    <label for="selectCategory1">Category</label>
-                    <form id="categorycuisineFilter" name="categorycuisineFilter" method="POST">
-                        <select class="custom-select" id="category-select1">
-                            <option>Select a Category</option>
-                            {% for category in categories|sort(attribute='category_name') %}
-                            <option value="{{category.category_name}}"> {{category.category_name}}</option>
-                            {% endfor %}
-                        </select>
+                <!--CATEGORY FILTER-->
+                <div class="row">
+                    <div class="col-12">
+                        <label for="selectCategory">Search by Category</label>
+                        <form id="categoryFilter" name="categoryFilter" method="POST">
+                            <select class="custom-select" id="category-select">
+                                <option>Select a Category</option>
+                                {% for category in categories|sort(attribute='category_name') %}
+                                <option value="{{category.category_name}}"> {{category.category_name}}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
                 </div>
                 <!--CUISINE FILTER-->
-                <div class="col-5">
-                    <label for="selectCuisine1">Cuisine</label>
-                    <select class="custom-select" id="cuisine-select1">
-                        <option>Select a Cuisine</option>
-                        {% for cuis in cuisine|sort(attribute='cuisine_name')%}
-                        <option value="{{ cuis.cuisine_name }}">{{ cuis.cuisine_name }}</option>
-                        {% endfor %}
-                    </select>
+                <div class="row">
+                    <div class="col-12">
+                        <label for="selectCuisine">Search by Cuisine</label>
+                        <form id="cuisineFilter" name="cuisineFilter" method="POST">
+                            <select class="custom-select" id="cuisine-select">
+                                <option>Select a Cuisine</option>
+                                {% for cuis in cuisine|sort(attribute='cuisine_name')%}
+                                <option value="{{ cuis.cuisine_name }}">{{ cuis.cuisine_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+                <!--ALLERGENS FILTER-->
+                <div class="row">
+                    <div class="col-12">
+                        <label for="selectCuisine">Search by Allergens</label>
+                        <form id="allergenFilter" name="allergenFilter" method="POST">
+                            <select class="custom-select" id="allergen-select">
+                                <option>Select an Allergen</option>
+                                {% for allergen in allergens|sort(attribute='allergen_name') %}
+                                <option value="{{ allergen.allergen_name }}">{{ allergen.allergen_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </form>
+                    </div>
+                </div>
+                <!--CATEGORY & CUISINE FILTER-->
+                <div class="row">
+                    <div class="col-12">
+                        <label for="selectCategory1">Search by Category & Cuisine</label>
+                        <form id="categorycuisineFilter" name="categorycuisineFilter" method="POST">
+                            <select class="custom-select" id="category-select1">
+                                <option>Select a Category</option>
+                                {% for category in categories|sort(attribute='category_name') %}
+                                <option value="{{category.category_name}}"> {{category.category_name}}</option>
+                                {% endfor %}
+                            </select>
+                            <select class="custom-select" id="cuisine-select1">
+                                <option>Select a Cuisine</option>
+                                {% for cuis in cuisine|sort(attribute='cuisine_name')%}
+                                <option value="{{ cuis.cuisine_name }}">{{ cuis.cuisine_name }}</option>
+                                {% endfor %}
+                            </select>
+                    </div>
                 </div>
                 <!-- AND BUTTON-->
-                <div class="col-2">
-                    <div>
-                        <button type="submit" class="btn btn-primary" id="andButton">AND</button>
+                <div class="row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary" id="andButton">Search</button>
                     </div>
                 </div>
                 </form>
             </div>
-        </div>
-        <!-- RIGHT COLUMN -->
-        <!-- FILTERING RESULTS -->
-        <div class="col-12 col-md-9">
-            <!--SEARCH RESULTS-->
-            <div class="row" id="searchResult" style="background-color:rgb(13, 235, 216)">
-                <div class="col-12" id="thisisacol">
-                    <div id="recipeResult"></div>
+            <!-- RIGHT COLUMN -->
+            <!-- FILTERING RESULTS -->
+            <div class="col-12 col-md-9">
+                <!--SEARCH RESULTS-->
+                <div class="row" id="searchResult">
+                    <div class="col-12" id="thisisacol">
+                        <div id="recipeResult"></div>
+                    </div>
                 </div>
-            </div>
-            <!-- INITIAL RANDOM SELECTION OF RECIPES BEFORE SEARCHING, HIDDEN AFTER USER FILTERS -->
-            <!-- MOST RECENT RECIPES-->
-            <div class="initialRecipes">
-                <h2>Recent Recipes</h2>
-                <div class="row recentRecipes" style="background-color:#fff">
-                    <div class="col-12">
-                        <div class="card-deck">
-                            {% for recipe in recentrecipes|sort(attribute='votes', reverse = True)%}
-                            <div class="card">
-                                <div class="card-image">
-                                    {% if recipe.image_url != "" %}
-                                    <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}" title="{{recipe.name}}">
-                                    {% else %}
-                                    <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}"
-                                        alt="Default image of food" title="Default image of food">
-                                    {% endif %}
+                <!-- INITIAL RANDOM SELECTION OF RECIPES BEFORE SEARCHING, HIDDEN AFTER USER FILTERS -->
+                <!-- MOST RECENT RECIPES-->
+                <div class="initialRecipes">
+                    <h2>Recent Recipes</h2>
+                    <div class="row recentRecipes" style="background-color:#fff">
+                        <div class="col-12">
+                            <div class="card-deck">
+                                {% for recipe in recentrecipes|sort(attribute='votes', reverse = True)%}
+                                <div class="card">
+                                    <div class="card-image">
+                                        {% if recipe.image_url != "" %}
+                                        <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}"
+                                            title="{{recipe.name}}">
+                                        {% else %}
+                                        <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}"
+                                            alt="Default image of food" title="Default image of food">
+                                        {% endif %}
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ recipe.name }}</h5>
+                                        <p class="card-text">{{ recipe.description|truncate(100, False, '...', 0) }}</p>
+                                        <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}"
+                                                class="btn btn-primary" type="button" id="viewRecipeButton">View Recipe</a></p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="card-text"><small class="text-muted">Created: {{
+                                                recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></div>
+                                        <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
+                                                {{ recipe.votes }}</small></div>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ recipe.name }}</h5>
-                                    <p class="card-text">{{ recipe.description|truncate(100, False, '...', 0) }}</p>
-                                    <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}"
-                                            class="btn btn-primary" type="button" id="viewRecipeButton">View Recipe</a></p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="card-text"><small class="text-muted">Created: {{
-                                            recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></div>
-                                    <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
-                                            {{ recipe.votes }}</small></div>
-                                </div>
+                                {% endfor %}
                             </div>
-                            {% endfor %}
+                        </div>
+                    </div>
+                    <!-- MOST POPULAR-->
+                    <h2>Most Popular Recipes</h2>
+                    <div class="row recentRecipes" style="background-color:#fff">
+                        <div class="col-12">
+                            <div class="card-deck">
+                                {% for recipe in highestvotes %}
+                                <div class="card">
+                                    <div class="card-image">
+                                        {% if recipe.image_url != "" %}
+                                        <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}"
+                                            title="{{recipe.name}}">
+                                        {% else %}
+                                        <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}"
+                                            alt="Default image of food" title="Default image of food">
+                                        {% endif %}
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ recipe.name }}</h5>
+                                        <p class="card-text">{{ recipe.description|truncate(100, False, '...', 0) }}</p>
+                                        <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}"
+                                                class="btn btn-primary" type="button" id="viewRecipeButton">View Recipe</a></p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="card-text"><small class="text-muted">Created: {{
+                                                recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></div>
+                                        <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
+                                                {{ recipe.votes }}</small></div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- RANDOM RECIPES-->
+                    <h2>Selection of Recipes</h2>
+                    {% for recipe_row in recipes | batch(4) %}
+                    <div class="row" style="background-color:#fff">
+                        <div class="col-12">
+                            <div class="card-deck">
+                                {% for recipe in recipe_row %}
+                                <div class="card">
+                                    <div class="card-image">
+                                        {% if recipe.image_url != "" %}
+                                        <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}"
+                                            title="{{recipe.name}}">
+                                        {% else %}
+                                        <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}"
+                                            alt="Default image of food" title="Default image of food">
+                                        {% endif %}
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ recipe.name }}</h5>
+                                        <p class="card-text">{{ recipe.description|truncate(100, False, '...', 0) }}</p>
+                                        <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}"
+                                                class="btn btn-primary" type="button" id="viewRecipeButton">View Recipe</a></p>
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="card-text"><small class="text-muted">Created: {{
+                                                recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></div>
+                                        <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
+                                                {{recipe.votes }}</small></div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                    <div class="row">
+                        <div class="col-12">
+                            <a href="#page-top" class="back-to-top" title="Back to top"><img alt="Back to top" title="Back to top" src="{{ url_for('static', filename='img/global/backtotop.png')}}"></a>
                         </div>
                     </div>
                 </div>
-                <!-- MOST POPULAR-->
-                <h2>Most Popular Recipes</h2>
-                <div class="row recentRecipes" style="background-color:#fff">
-                    <div class="col-12">
-                        <div class="card-deck">
-                            {% for recipe in highestvotes %}
-                            <div class="card">
-                                <div class="card-image">
-                                    {% if recipe.image_url != "" %}
-                                    <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}" title="{{recipe.name}}">
-                                    {% else %}
-                                    <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}"
-                                        alt="Default image of food" title="Default image of food">
-                                    {% endif %}
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ recipe.name }}</h5>
-                                    <p class="card-text">{{ recipe.description|truncate(100, False, '...', 0) }}</p>
-                                    <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}"
-                                            class="btn btn-primary" type="button" id="viewRecipeButton">View Recipe</a></p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="card-text"><small class="text-muted">Created: {{
-                                            recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></div>
-                                    <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
-                                            {{ recipe.votes }}</small></div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-                <!-- RANDOM RECIPES-->
-                <h2>Selection of Recipes</h2>
-                {% for recipe_row in recipes | batch(4) %}
-                <div class="row" style="background-color:#fff">
-                    <div class="col-12">
-                        <div class="card-deck">
-                            {% for recipe in recipe_row %}
-                            <div class="card">
-                                <div class="card-image">
-                                    {% if recipe.image_url != "" %}
-                                    <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}" title="{{recipe.name}}">
-                                    {% else %}
-                                    <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}"
-                                        alt="Default image of food" title="Default image of food">
-                                    {% endif %}
-                                </div>
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ recipe.name }}</h5>
-                                    <p class="card-text">{{ recipe.description|truncate(100, False, '...', 0) }}</p>
-                                    <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}"
-                                            class="btn btn-primary" type="button" id="viewRecipeButton">View Recipe</a></p>
-                                </div>
-                                <div class="card-footer">
-                                    <div class="card-text"><small class="text-muted">Created: {{
-                                            recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></div>
-                                    <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
-                                            {{recipe.votes }}</small></div>
-                                </div>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
             </div>
         </div>
     </div>
-</div>
-
+</section>
 {% endblock %}
 
 

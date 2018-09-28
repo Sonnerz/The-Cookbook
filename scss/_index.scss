@@ -23,12 +23,18 @@ header.masthead {
             @include serif-font;
         }
         .intro-heading {
-            font-size: 50px;
+            font-size: 2.3rem;
             font-weight: 700;
             line-height: 50px;
             margin-bottom: 25px;
             @include heading-font;
         }
+    }
+}
+
+#signup-button-container {
+    button{
+        margin-right:1rem;
     }
 }
 
@@ -60,9 +66,6 @@ header.masthead {
     background-color: #ff0000;
 }
 
-#signupForm input {
-    width: 80%;
-}
 
 label.valid {
     width: 24px;

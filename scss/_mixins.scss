@@ -17,8 +17,8 @@
 }
 
 @mixin text-background() {
-  background-color: rgba(245, 245, 245, 0.7);
+  background-color: rgba(245, 245, 245, 0.8);
   border: 1px solid transparent;
-  border-radius: 8rem;
+  border-radius: 6rem;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;    
 } 

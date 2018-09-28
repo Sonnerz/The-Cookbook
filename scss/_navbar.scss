@@ -2,6 +2,7 @@
 #mainNav {
     background-color: $white;
     border-bottom: 1px solid $paynesgrey;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
     .navbar-toggler {
         font-size: 12px;
         right: 0;
@@ -29,16 +30,21 @@
         .nav-item {
             .nav-link {
                 font-size: 90%;
-                font-weight: 400;
+                font-weight: 700;
                 padding: 0.75em 0;
                 letter-spacing: 1px;
                 color: white;
                 @include heading-font;
                 &.active,
                 &:hover {
-                    color: $primary;
+                    color: $orange;
                 }
             }
+        }
+        .already span {
+            font-style: italic;
+            font-weight: 600;
+            color:$primary;
         }
     }
     ul {
@@ -56,13 +62,17 @@
             margin-right: 25px;
             padding-bottom: 0;
             a {
-                color: #000;
+                color: $primary;
+                font-weight: 600;
+                &:hover{
+                    color:$orange;
+                }
             }
             .nav-logout {
               color: #fff;
             }
             .active-link{
-              color:#ff0000;
+              color: $orange;
               text-decoration: underline;
             }
         }

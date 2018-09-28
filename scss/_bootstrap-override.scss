@@ -26,6 +26,20 @@
     overflow: hidden;
 }
 
+.form-control:focus {
+    color: $orange!important;
+    background-color: #fff;
+    border-color: $orange;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(242,101,34,.25);
+}
+
+.custom-select:focus {
+    border-color: $orange;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(242,101,34,.5);
+}
+
 @media (min-width: 768px) {
     .card-image-top {
         height: 160px;

@@ -25,6 +25,7 @@ app.secret_key = 'The cat is on the roof'
 if app.debug:
     app.config["DBS_NAME"] = "cookbook"
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
+    # app.config["MONGO_URI"] = "mongodb://xris:eZc727sZ7XmixRHL@ds251332.mlab.com:51332/cookbook"
 else:
     app.config["DBS_NAME"] = DBS_NAME
     app.config["MONGO_URI"] = MONGO_URI

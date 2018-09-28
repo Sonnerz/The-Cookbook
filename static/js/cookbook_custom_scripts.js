@@ -360,9 +360,9 @@ $(document).ready(function () {
           console.log("RESPONSE FROM SERVER", response);
           $("#searchResult").show();
           $("#recipeResult").html(response);
-          $("h3").html("Recipes searched by Category: " + categorypicked)
-          // $('#cuisine-select').val("Select a Cuisine");
-          // $('#allergen-select').val("Select an Allergen");
+          $("h3.section-subheading").html("Recipes searched by Category: " + categorypicked)
+          $('#cuisine-select').val("Select a Cuisine");
+          $('#allergen-select').val("Select an Allergen");
           $('.initialRecipes').hide();
         },
         error: function (error) {
@@ -393,9 +393,9 @@ $(document).ready(function () {
         success: function (response) {
           console.log("RESPONSE FROM SERVER", response);
           $("#searchResult").show();
-          $("h3").html("Recipes searched by Cuisine: " + cuisinepicked)
-          // $('#category-select').val("Select a Category");
-          // $('#allergen-select').val("Select an Allergen");
+          $("h3.section-subheading").html("Recipes searched by Cuisine: " + cuisinepicked)
+          $('#category-select').val("Select a Category");
+          $('#allergen-select').val("Select an Allergen");
           $("#recipeResult").html(response);
           $('.initialRecipes').hide();
         },
@@ -426,9 +426,9 @@ $(document).ready(function () {
         success: function (response) {
           console.log("RESPONSE FROM SERVER", response);
           $("#searchResult").show();
-          $("h3").html("Recipes searched by Allergen: " + allergenpicked)
-          // $('#category-select').val("Select a Category");
-          // $('#cuisine-select').val("Select a Cuisine");
+          $("h3.section-subheading").html("Recipes searched by Allergen: " + allergenpicked)
+          $('#category-select').val("Select a Category");
+          $('#cuisine-select').val("Select a Cuisine");
           $("#recipeResult").html(response);
           $('.initialRecipes').hide();
         },
@@ -457,7 +457,7 @@ $(document).ready(function () {
         success: function (response) {
           console.log("RESPONSE FROM SERVER", response);
           $("#searchResult").show();
-          $("h3").html("Recipes searched by Ingredient: ")
+          $("h3.section-subheading").html("Recipes searched by Ingredient: " + ingredient)
           $("#recipeResult").html(response);
           $('.initialRecipes').hide();
         },
@@ -491,11 +491,15 @@ $(document).ready(function () {
         success: function (response) {
           console.log("RESPONSE FROM SERVER", response);
           $("#searchResult").show();
-          $("h3").html("Recipes searched by Category: " + cuisinepicked + " and Category: " + categorypicked);
-          // $('#category-select').val("Select a Category");
-          // $('#allergen-select').val("Select an Allergen");
+          $("h3.section-subheading").html("Recipes searched by Category: " + categorypicked + " and Cuisine: " + cuisinepicked);
+          $('#category-select').val("Select a Category");
+          $('#allergen-select').val("Select an Allergen");
           $("#recipeResult").html(response);
           $('.initialRecipes').hide();
+          //scroll window to results
+          $('html, body').animate({
+            scrollTop: $("#page-top").offset().top -50
+          }, 'slow');
         },
         error: function (error) {
           console.log(error);

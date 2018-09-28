@@ -1,3 +1,28 @@
 .filter-col {
     padding-bottom: 2rem;
+    h3 {
+        display: inline-block;
+    }
+    img {
+        vertical-align: baseline!important;
+        margin-right: 5px;
+    }
+    #ingredientFilter {
+        margin-top:2rem;
+    }
+    form {
+        margin-bottom: 2rem;
+    }
+    #categorycuisineFilter {
+        margin-bottom:0;
+    }
+    #andButton {
+        float:right;
+    }
+}
+.back-to-top {
+    float:right;
+    img {
+        width:30%;
+    }
 }

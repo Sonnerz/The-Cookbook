@@ -2,6 +2,8 @@
 #mainNav {
   background-color: #fff;
   border-bottom: 1px solid #546a7b;
+  -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 #mainNav .navbar-toggler {
@@ -15,12 +17,12 @@
 }
 
 #mainNav .navbar-brand {
-  color: #fed136;
+  color: #546a7b;
   font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
 #mainNav .navbar-brand.active, #mainNav .navbar-brand:active, #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-  color: #fec503;
+  color: #3f505d;
 }
 
 #mainNav .navbar-brand img {
@@ -30,7 +32,7 @@
 
 #mainNav .navbar-nav .nav-item .nav-link {
   font-size: 90%;
-  font-weight: 400;
+  font-weight: 700;
   padding: 0.75em 0;
   letter-spacing: 1px;
   color: white;
@@ -38,7 +40,13 @@
 }
 
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
-  color: #fed136;
+  color: #f26522;
+}
+
+#mainNav .navbar-nav .already span {
+  font-style: italic;
+  font-weight: 600;
+  color: #546a7b;
 }
 
 #mainNav ul {
@@ -62,7 +70,12 @@
 }
 
 #mainNav ul li a {
-  color: #000;
+  color: #546a7b;
+  font-weight: 600;
+}
+
+#mainNav ul li a:hover {
+  color: #f26522;
 }
 
 #mainNav ul li .nav-logout {
@@ -70,7 +83,7 @@
 }
 
 #mainNav ul li .active-link {
-  color: #ff0000;
+  color: #f26522;
   text-decoration: underline;
 }
 
@@ -121,9 +134,9 @@ header.masthead {
 
 header.masthead .intro-text-bkg {
   padding: 50px 0px;
-  background-color: rgba(245, 245, 245, 0.7);
+  background-color: rgba(245, 245, 245, 0.8);
   border: 1px solid transparent;
-  border-radius: 8rem;
+  border-radius: 6rem;
   -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
@@ -144,11 +157,15 @@ header.masthead .intro-text .intro-lead-in {
 }
 
 header.masthead .intro-text .intro-heading {
-  font-size: 50px;
+  font-size: 2.3rem;
   font-weight: 700;
   line-height: 50px;
   margin-bottom: 25px;
   font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+#signup-button-container button {
+  margin-right: 1rem;
 }
 
 /* StackOverflow solution to vertically and horizontally center the Modal */
@@ -176,10 +193,6 @@ header.masthead .intro-text .intro-heading {
 #form-wrapper {
   width: 80%;
   background-color: #ff0000;
-}
-
-#signupForm input {
-  width: 80%;
 }
 
 label.valid {
@@ -322,6 +335,39 @@ label.error {
   padding-bottom: 2rem;
 }
 
+.filter-col h3 {
+  display: inline-block;
+}
+
+.filter-col img {
+  vertical-align: baseline !important;
+  margin-right: 5px;
+}
+
+.filter-col #ingredientFilter {
+  margin-top: 2rem;
+}
+
+.filter-col form {
+  margin-bottom: 2rem;
+}
+
+.filter-col #categorycuisineFilter {
+  margin-bottom: 0;
+}
+
+.filter-col #andButton {
+  float: right;
+}
+
+.back-to-top {
+  float: right;
+}
+
+.back-to-top img {
+  width: 30%;
+}
+
 .recipe-heading {
   margin: 15px 0;
   text-transform: none;
@@ -360,11 +406,6 @@ label.error {
 
 .card-btn {
   text-align: right;
-}
-
-#recipe-info .left-col {
-  padding: 0;
-  background-color: #fff;
 }
 
 #recipe-info #recipe-description {
@@ -584,7 +625,7 @@ ul.social-buttons li a {
 }
 
 ul.social-buttons li a:active, ul.social-buttons li a:focus, ul.social-buttons li a:hover {
-  background-color: #fed136;
+  background-color: #546a7b;
 }
 
 body {
@@ -593,16 +634,16 @@ body {
 }
 
 a {
-  color: #fed136;
+  color: #546a7b;
   cursor: pointer;
 }
 
 a:hover {
-  color: #fec503;
+  color: #d54d0d;
 }
 
 .text-primary {
-  color: #fed136 !important;
+  color: #546a7b !important;
 }
 
 h1,
@@ -651,28 +692,28 @@ section h3.section-subheading {
 }
 
 .btn-primary {
-  background-color: #fed136;
-  border-color: #fed136;
+  background-color: #546a7b;
+  border-color: #546a7b;
 }
 
 .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
-  background-color: #fec810 !important;
-  border-color: #fec810 !important;
+  background-color: #537c87 !important;
+  border-color: #537c87 !important;
   color: white;
 }
 
 .btn-primary:active, .btn-primary:focus {
-  -webkit-box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
-          box-shadow: 0 0 0 0.2rem rgba(254, 209, 55, 0.5) !important;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(242, 101, 34, 0.5) !important;
+          box-shadow: 0 0 0 0.2rem rgba(242, 101, 34, 0.5) !important;
 }
 
 ::-moz-selection {
-  background: #fed136;
+  background: #546a7b;
   text-shadow: none;
 }
 
 ::selection {
-  background: #fed136;
+  background: #546a7b;
   text-shadow: none;
 }
 
@@ -688,7 +729,11 @@ img::-moz-selection {
   background: transparent;
 }
 
-#user-name-wrapper {
+.modal-footer > span {
+  margin-right: 6rem !important;
+}
+
+#user-name-wrapper, #user-name-wrapper-notloggedin {
   padding: 0;
   padding-top: 77px;
   text-align: center;
@@ -696,7 +741,7 @@ img::-moz-selection {
 }
 
 @media (min-width: 576px) {
-  #user-name-wrapper {
+  #user-name-wrapper, #user-name-wrapper-notloggedin {
     padding-top: 127px;
   }
 }
@@ -792,6 +837,22 @@ img::-moz-selection {
 .card-image {
   height: 200px;
   overflow: hidden;
+}
+
+.form-control:focus {
+  color: #f26522 !important;
+  background-color: #fff;
+  border-color: #f26522;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(242, 101, 34, 0.25);
+          box-shadow: 0 0 0 0.2rem rgba(242, 101, 34, 0.25);
+}
+
+.custom-select:focus {
+  border-color: #f26522;
+  outline: 0;
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(242, 101, 34, 0.5);
+          box-shadow: 0 0 0 0.2rem rgba(242, 101, 34, 0.5);
 }
 
 @media (min-width: 768px) {

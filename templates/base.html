@@ -25,17 +25,18 @@
   <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">
-        <img src="{{ url_for('static', filename='img/global/logo-navbar.png')}}" alt="Cookbook" title="Cookbook" />
+        <img src="{{ url_for('static', filename='img/global/logo-nav.png')}}" alt="Cookbook" title="Cookbook" />
       </a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
         aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse text-center" id="navbarResponsive">
-        {% if session['isLoggedin'] == True %}
+        {% if session['isLoggedin'] %}
         <ul class="navbar-nav ml-auto">
           <li class="nav-item"><a href="/recipesearch" title="Recipe search" id="search-nav-link">Recipes</a></li>
-          <li class="nav-item"><a href="/myrecipes?limit=5&offset=0" id="myrecipes-nav-link" title="My Recipes">My Recipes</a></li>
+          <li class="nav-item"><a href="/myrecipes?limit=5&offset=0" id="myrecipes-nav-link" title="My Recipes">My
+              Recipes</a></li>
           <li class="nav-item"><a href="/add_recipe" id="add-nav-link" title="Add Recipe">Add Recipe</a></li>
           <li class="nav-item">
             <!-- Button trigger logout -->
@@ -45,11 +46,11 @@
         {% else %}
         <ul class="navbar-nav ml-auto">
           <li class="nav-item"><a href="/recipesearch" title="Recipe search" id="search-nav-link">Recipes</a></li>
-          <li>
-            <span>Already registered?</span>
-            <!-- Button trigger login modal -->
-            <a class="btn btn-primary nav-logout" title="Login" href="/index.html" role="button" data-toggle="modal" data-target="#loginModal">Login
-              >></a>
+          <li class="nav-item already"><span>Already registered?</span></li>
+          <!-- Button trigger login modal -->
+          <li class="nav-item">
+            <a class="btn btn-primary nav-logout" title="Login" href="/index.html" role="button" data-toggle="modal"
+              data-target="#loginModal">Login >></a>
           </li>
         </ul>
         {% endif %}
@@ -58,20 +59,29 @@
   </nav>
 
 
-  <!-- USER NAME-->
-  {% if session['isLoggedin'] == True %}
-  <div class="container-fluid" id="user_content">
+ <!-- USER NAME-->
+ {% if session['isLoggedin'] %}
+ <div class="container-fluid" id="user_content">
+   <div class="row">
+     <div class="col-12">
+       <section id="user-name-wrapper">
+         <div class="userwelcome">
+           <span>&#123;&#123; Hello {{ session['username'] }}, you are welcome back &#125;&#125;</span>
+         </div>
+       </section>
+     </div>
+   </div>
+ </div>
+ {% else %}
+ <div class="container-fluid" id="user_content">
     <div class="row">
       <div class="col-12">
-        <section id="user-name-wrapper">
-          <div class="userwelcome">
-            <span>&#123;&#123; Hello {{ session['username'] }}, you are welcome back &#125;&#125;</span>
-          </div>
+        <section id="user-name-wrapper-notloggedin">
         </section>
       </div>
     </div>
   </div>
-  {% endif %}
+ {% endif %}
 
   <!-- MODAL FOR LOGIN-->
   <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" id="loginModal">
@@ -140,35 +150,40 @@
             <form method="POST" action="/signup_user" name="signupForm" id="signupForm">
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
-                  <input type="text" class="form-control" placeholder="Enter a user name with up to 10 letters or numbers." name="signupUsername" id="signupUsername" 
-                  pattern="[A-Za-z0-9]{1,10}" oninvalid="this.setCustomValidity('Enter a user name with up to 10 letters or numbers')" oninput="setCustomValidity('')" required>
+                  <input type="text" class="form-control" placeholder="Enter a user name with up to 10 letters or numbers."
+                    name="signupUsername" id="signupUsername" pattern="[A-Za-z0-9]{1,10}" oninvalid="this.setCustomValidity('Enter a user name with up to 10 letters or numbers')"
+                    oninput="setCustomValidity('')" required>
                 </div>
               </div>
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
-                  <input type="text" class="form-control" placeholder="Enter your first name up to 10 letters" name="firstName" id="firstName" 
-                  pattern="[A-Za-z0-9]{1,10}" oninvalid="this.setCustomValidity('Enter your first name up to 10 letters')" oninput="setCustomValidity('')" required>
+                  <input type="text" class="form-control" placeholder="Enter your first name up to 10 letters" name="firstName"
+                    id="firstName" pattern="[A-Za-z0-9]{1,10}" oninvalid="this.setCustomValidity('Enter your first name up to 10 letters')"
+                    oninput="setCustomValidity('')" required>
                 </div>
               </div>
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
-                  <input type="text" class="form-control" placeholder="Enter your last name up to 15 letters" name="lastName" id="lastName" 
-                  pattern="[A-Za-z0-9]{1,15}" oninvalid="this.setCustomValidity('Enter your last name with up to 15 letters.')" oninput="setCustomValidity('')" required>
+                  <input type="text" class="form-control" placeholder="Enter your last name up to 15 letters" name="lastName"
+                    id="lastName" pattern="[A-Za-z0-9]{1,15}" oninvalid="this.setCustomValidity('Enter your last name with up to 15 letters.')"
+                    oninput="setCustomValidity('')" required>
                 </div>
               </div>
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
-                  <input type="password" class="form-control" placeholder="Enter password up to 8 letters or numbers" name="signupPassword" id="signupPassword"
-                  pattern="[A-Za-z0-9]{1,8}" oninvalid="this.setCustomValidity('Enter a password with up to 8 letters or numbers.')" oninput="setCustomValidity('')" required>
-                    <div class="invalid-feedback">
-                      Please enter a password (up to 8 letters or numbers)
-                    </div>
+                  <input type="password" class="form-control" placeholder="Enter password up to 8 letters or numbers"
+                    name="signupPassword" id="signupPassword" pattern="[A-Za-z0-9]{1,8}" oninvalid="this.setCustomValidity('Enter a password with up to 8 letters or numbers.')"
+                    oninput="setCustomValidity('')" required>
+                  <div class="invalid-feedback">
+                    Please enter a password (up to 8 letters or numbers)
+                  </div>
                 </div>
               </div>
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
                   <input type="password" class="form-control" placeholder="Confirm password..." name="confirmPassword"
-                    id="confirmPassword" pattern="[A-Za-z0-9]{1,8}" oninvalid="this.setCustomValidity('Please confirm your password.')" oninput="setCustomValidity('')" required>
+                    id="confirmPassword" pattern="[A-Za-z0-9]{1,8}" oninvalid="this.setCustomValidity('Please confirm your password.')"
+                    oninput="setCustomValidity('')" required>
                 </div>
               </div>
               <div class="form-group button-submit-margin">
@@ -202,7 +217,7 @@
             </button>
           </div>
           <div class="modal-body">
-              Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"
+            Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"
               title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
               title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
           </div>
