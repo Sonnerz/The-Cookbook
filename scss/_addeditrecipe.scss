@@ -39,6 +39,10 @@
             margin-top: 0.3rem;
         }
     }
+    #newRecipeMessages {
+        font-weight: 700;
+        color: $orange;
+    }
     @media(min-width:768px) {
         .add-left-col {
             border-right: 2px dashed $cyan;

@@ -73,28 +73,37 @@ $(function () {
 // #endregion
 
 
-// #region AJAX send the NEW RECIPE data from form to Flask/Python
+// #region AJAX ADD NEW RECIPE
 
 $(function () {
   $('#add_recipe_form').submit(function (event) {
     event.preventDefault();
-    $.ajax({
-      url: '/insert_recipe',
-      data: $('#add_recipe_form').serialize(),
-      type: 'POST',
-      success: function (response) {
-        console.log("RESPONSE FROM SERVER", response);
-        $("#newRecipeMessages").html(response);
-        $("h3.section-subheading").html("Your recipe has been added")
-        // Delay before redirect to read message
-        var delay = 1200;
-        setTimeout(function () { window.location.href = "/myrecipes?limit=5&offset=0"; }, delay);
-      },
-      error: function (error) {
-        console.log(error);
-        $("#newRecipeMessages").html(response);
-      }
-    });
+    var categorypicked = $('#category').find(":selected").text();
+    var cuisinepicked = $('#cuisine').find(":selected").text();
+    var dfficultypicked = $('#difficulty').find(":selected").text();
+    console.log(categorypicked)
+    if (categorypicked == "Select a Category" || cuisinepicked == "Select a Cuisine" || dfficultypicked == "Select a Difficulty level") {
+      $("#newRecipeMessages").html("You must select a Category, Cuisine and Difficulty Level");
+    }
+    else {
+      $.ajax({
+        url: '/insert_recipe',
+        data: $('#add_recipe_form').serialize(),
+        type: 'POST',
+        success: function (response) {
+          console.log("RESPONSE FROM SERVER", response);
+          $("#newRecipeMessages").html(response);
+          $("h3.section-subheading").html("Your recipe has been added")
+          // Delay before redirect to read message
+          var delay = 1200;
+          setTimeout(function () { window.location.href = "/myrecipes?limit=5&offset=0"; }, delay);
+        },
+        error: function (error) {
+          console.log(error);
+          $("#newRecipeMessages").html(response);
+        }
+      });
+    }
   });
 });
 
@@ -286,7 +295,7 @@ $(document).ready(function () {
               success: function (response) {
                 console.log("RESPONSE FROM SERVER", response);
                 $("#myrecipesMessages").html(response);
-                window.location.href = "/myrecipes";
+                window.location.href = "/myrecipes/limit=5&offset=0";
               },
               error: function (error) {
                 console.log(error);
@@ -481,7 +490,7 @@ $(document).ready(function () {
           //scroll window to results
           $('html, body').animate({
             scrollTop: $(".results-col").offset().top -300
-          }, 'slow');          
+          }, 'slow');
         },
         error: function (error) {
           console.log(error);

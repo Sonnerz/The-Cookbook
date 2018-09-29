@@ -353,6 +353,11 @@ label.error {
   margin-top: 0.3rem;
 }
 
+#add_recipe_form #newRecipeMessages, #update_recipe_form #newRecipeMessages {
+  font-weight: 700;
+  color: #f26522;
+}
+
 @media (min-width: 768px) {
   #add_recipe_form .add-left-col, #update_recipe_form .add-left-col {
     border-right: 2px dashed #62929e;
