@@ -78,6 +78,10 @@ $(function () {
 $(function () {
   $('#add_recipe_form').submit(function (event) {
     event.preventDefault();
+    //scroll window to results
+    $('html, body').animate({
+      scrollTop: $("#page=top").offset().top -300
+    }, 'slow');    
     var categorypicked = $('#category').find(":selected").text();
     var cuisinepicked = $('#cuisine').find(":selected").text();
     var dfficultypicked = $('#difficulty').find(":selected").text();
@@ -110,7 +114,7 @@ $(function () {
 // #endregion
 
 
-// #region AJAX UPDATE A RECIPE send data from form to server
+// #region AJAX UPDATE A RECIPE
 
 $(function () {
   $('#update_recipe_form').submit(function (event) {
@@ -125,9 +129,6 @@ $(function () {
         console.log("RESPONSE FROM SERVER", response);
         $("#editRecipeMessages").html(response);
         window.location.href = "/myrecipes?limit=5&offset=0";
-        // Delay before redirect to read message
-        // var delay = 1200;
-        // setTimeout(function () { window.location.href = "/myrecipes"; }, delay);
       },
       error: function (error) {
         console.log(error);
@@ -402,7 +403,7 @@ $(document).ready(function () {
             $("#recipeResult").html(response);
           }
           else {
-            $("#recipeResult").html("There were no recipes found under the category <span class='search-param'>" + categorypicked + "</span>. <br>Try searching again." );
+            $("#recipeResult").html("There were no recipes found under the Category <span class='search-param'>" + categorypicked + "</span>. <br>Try searching again." );
           }         
           //scroll window to results
           $('html, body').animate({
@@ -444,7 +445,7 @@ $(document).ready(function () {
             $("#recipeResult").html(response);
           }
           else {
-            $("#recipeResult").html("There were no recipes found under the cuisine <span class='search-param'>" + cuisinepicked + "</span>. <br>Try searching again." );
+            $("#recipeResult").html("There were no recipes found under the Cuisine <span class='search-param'>" + cuisinepicked + "</span>. <br>Try searching again." );
           }          
           //scroll window to results
           $('html, body').animate({
@@ -485,7 +486,7 @@ $(document).ready(function () {
             $("#recipeResult").html(response);
           }
           else {
-            $("#recipeResult").html("There were no recipes found with the allergen <span class='search-param'>" + allergenpicked + "</span>. <br>Try searching again." );
+            $("#recipeResult").html("There were no recipes found with the Allergen <span class='search-param'>" + allergenpicked + "</span>. <br>Try searching again." );
           }
           //scroll window to results
           $('html, body').animate({
@@ -523,7 +524,7 @@ $(document).ready(function () {
             $("#recipeResult").html(response);
           }
           else {
-            $("#recipeResult").html("There were no recipes found with <span class='search-param'>" + ingredient + "</span> as the main ingredient. <br>Try searching again." );
+            $("#recipeResult").html("There were no recipes found with <span class='search-param'>" + ingredient + "</span> as the Main Ingredient. <br>Try searching again." );
           }
           //scroll window to results
           $('html, body').animate({
@@ -549,42 +550,42 @@ $(document).ready(function () {
       var categorypicked = $('#category-select1').find(":selected").text();
       cuisine = cuisinepicked.trim();
       category = categorypicked.trim();
-      console.log(cuisine, category)
-      console.log("cuisine selected:", cuisine);
-      $.ajax({
-        url: '/filter_by_catcuis/' + category + '/' + cuisine,
-        contentType: 'application/json',
-        data: JSON.stringify(cuisine),
-        type: 'POST',
-        success: function (response) {
-          console.log("RESPONSE FROM SERVER", response);
-          $("#searchResult").show();
-          $('.initialRecipes').hide();
-          $("h3.section-subheading").html("Recipes searched by Category: " + categorypicked + " and Cuisine: " + cuisinepicked);
-          $('#category-select').val("Select a Category");
-          $('#allergen-select').val("Select an Allergen");
-          if (response != "fail") {
+      if (category == "Select a Category" || cuisine == "Select a Cuisine") {
+        $("#filterMessage").html("You must select a Category and Cuisine");
+      }
+      else {
+        $.ajax({
+          url: '/filter_by_catcuis/' + category + '/' + cuisine,
+          contentType: 'application/json',
+          data: JSON.stringify(cuisine),
+          type: 'POST',
+          success: function (response) {
+            console.log("RESPONSE FROM SERVER", response);
+            $("#searchResult").show();
+            $('.initialRecipes').hide();
+            $("h3.section-subheading").html("Recipes searched by Category: " + categorypicked + " and Cuisine: " + cuisinepicked);
+            $('#category-select').val("Select a Category");
+            $('#allergen-select').val("Select an Allergen");
+            if (response != "fail") {
+              $("#recipeResult").html(response);
+            }
+            else {
+              $("#recipeResult").html("There were no recipes found with Category <span class='search-param'>" + categorypicked + "</span> and Cuisine <span class='search-param'>" + cuisinepicked + "</span>. <br>Try searching again." );
+            }
+            //scroll window to results
+            $('html, body').animate({
+              scrollTop: $(".results-col").offset().top -300
+            }, 'slow');
+          },
+          error: function (error) {
+            console.log(error);
             $("#recipeResult").html(response);
           }
-          else {
-            $("#recipeResult").html("There were no recipes found with category <span class='search-param'>" + categorypicked + "</span> and cuisine <span class='search-param'>" + cuisinepicked + "</span>. <br>Try searching again." );
-          }
-          //scroll window to results
-          $('html, body').animate({
-            scrollTop: $(".results-col").offset().top -300
-          }, 'slow');
-        },
-        error: function (error) {
-          console.log(error);
-          $("#recipeResult").html(response);
-        }
-      });
+        });
+      }
     });
   });
 
-
-
-  
 
   // #endregion
 

@@ -37,18 +37,17 @@
                         {% endif %}
                         <!-- UTILITIES PRINT/RATE-->
                         <div class="row text-center utilities">
+                                {% if (recipe.author != session['userid']) and  (session['isLoggedin'] == True)%}
                             <div class="col-4">
-                                {% if (recipe.author != session['userid']) %}
-                                {% if (session['isLoggedin'] == True) %}
                                 <a type="submit" action="{{ url_for('update_vote', recipe_id=recipe._id) }}" id="rateme"
-                                    name="rateme" alt="Rate this recipe" title="Rate this recipe"><i class="far fa-heart">Rate</i></a>
-                                {% endif %}{% endif %}
+                                    name="rateme" alt="Rate this recipe" title="Rate this recipe"><i class="far fa-heart"></i>Rate</a>
                             </div>
-                            <div class="col-4">
-                                <a href="#" alt="Print this recipe" title="Print this recipe"><i class="fas fa-print">Print</i></a>
+                            {% endif %}
+                            <div class="col">
+                                <a href="#" onclick="window.print();return false;" alt="Print this recipe" title="Print this recipe"><i class="fas fa-print"></i>Print</a>
                             </div>
-                            <div class="col-4">
-                                <i class="far fa-heart"><span id="vote_result">{{ recipe.votes }}</span></i>
+                            <div class="col">
+                                <i class="far fa-heart"></i><span id="vote_result">{{ recipe.votes }}</span>
                             </div>
                         </div>
                         <!-- RECIPE INFO -->
@@ -136,15 +135,13 @@
                         </div>
                         <!-- CREATED BY AND DATE -->
                         <div class="row">
-                            <div class="col-12">
-                                Created by:{{recipeauthor.username}} Date: {{
-                                recipe['_id'].generation_time.date().strftime('%d %m %Y') }}
+                            <div class="col-12 createdby">
+                                Created by: <span>{{recipeauthor.username}}</span> on <span>{{ recipe['_id'].generation_time.date().strftime('%d-%m-%Y') }}</span>
                             </div>
 
                         </div>
                         <!-- MESSAGES -->
                         <div id="ratemeMessages" class="form-group button-submit-margin">
-                            MESSAGE: author: {{ recipe.author }} <br> session: {{ session['userid'] }}
                         </div>
                         <!-- BUTTONS -->
                         {% if session['isLoggedin'] and session['userid'] == recipe['author'] %}
@@ -182,6 +179,12 @@
             </div>
         </div>
     </section>
+</div>
+<!-- BACK TO TOP -->
+<div class="row">
+    <div class="col-12">
+        <button onclick="topFunction()" id="backtotopIcon" title="Go to top"></button>
+    </div>
 </div>
 {% endblock %}
 

@@ -62,7 +62,8 @@ def get_user(username):
     try:
         row = mongo.db.users.find_one({'username': username.lower()})
     except Exception as e:
-        print("error accessing DB %s" % str(e))
+        # print("error accessing DB %s" % str(e))
+        return render_template("500.html")
 
     if row:
         print("one row with username does exist")
@@ -76,7 +77,8 @@ def get_user_recipes(current_user_id):
         # rows = mongo.db.recipes.find({"author": current_user_id})
         rows = [recipe for recipe in mongo.db.recipes.find({'$query': {'author': current_user_id}, '$orderby': { 'votes' : -1 } })]
     except Exception as e:
-        print("error accessing DB %s" % str(e))
+        # print("error accessing DB %s" % str(e))
+        return render_template("500.html")
 
     if rows:
         print("recipes by author do exist")
@@ -89,7 +91,8 @@ def get_allrecipes():
     try:
         rows = mongo.db.recipes.find()
     except Exception as e:
-        print("error accessing DB %s" % str(e))
+        # print("error accessing DB %s" % str(e))
+        return render_template("500.html")
 
     if rows:
         print("all recipes found")
@@ -102,7 +105,8 @@ def get_votes_recipes():
     try:
         rows = mongo.db.recipes.find().sort('votes', -1).limit(3)
     except Exception as e:
-        print("error accessing DB %s" % str(e))
+        # print("error accessing DB %s" % str(e))
+        return render_template("500.html")
 
     if rows:
         print("all recipes found")
@@ -116,7 +120,8 @@ def get_random_recipes():
         # Query recipes collection and return ordered by votes descending
         rows = mongo.db.recipes.aggregate([{'$sample': {'size': 8}},{'$sort':{'votes': -1}}])
     except Exception as e:
-        print("error accessing DB %s" % str(e))
+        # print("error accessing DB %s" % str(e))
+        return render_template("500.html")
 
     if rows:
         print("all recipes found")
@@ -130,7 +135,8 @@ def get_recent_recipes():
     # Query recipes collection and return ordered by votes descending
        recipes = mongo.db.recipes.find().sort('_id',-1).limit(3)
     except Exception as e:
-        print("error accessing DB %s" % str(e))
+        # print("error accessing DB %s" % str(e))
+        return render_template("500.html")
 
     if recipes:
         print("latest 3 recipes found")
@@ -156,25 +162,37 @@ def get_recipe_author_username(cursor):
 
 # FUNCTION :: GET CATEGORIES
 def get_categories():
-    categories = [category for category in mongo.db.categories.find()]
+    try:
+        categories = [category for category in mongo.db.categories.find()]
+    except:
+        return render_template("500.html")    
     return categories
 
 
 # FUNCTION :: GET CUISINE
 def get_cuisine():
-    cuisine = [cuisine for cuisine in mongo.db.cuisine.find()]
+    try:
+        cuisine = [cuisine for cuisine in mongo.db.cuisine.find()]
+    except:
+        return render_template("500.html")
     return cuisine
 
 
 # FUNCTION :: GET ALLERGENS
 def get_allergens():
-    allergens = [allergen for allergen in mongo.db.allergens.find()]
+    try:
+        allergens = [allergen for allergen in mongo.db.allergens.find()]
+    except:
+        return render_template("500.html")
     return allergens
 
 
 # FUNCTION :: GET DIFFICULTY OPTIONS
 def get_difficulty():
-    difficulty = [difficulty for difficulty in mongo.db.difficulty.find()]
+    try:
+        difficulty = [difficulty for difficulty in mongo.db.difficulty.find()]
+    except:
+        return render_template("500.html")        
     return difficulty
 
 
@@ -389,6 +407,7 @@ def update_vote(recipe_id):
 
 # PAGE :: MY RECIPES
 @app.route('/myrecipes')
+@login_required
 def myrecipes():
     # get data: user, users recipes for myrecipes page
     current_user = dict(get_user(session['username']))
@@ -598,7 +617,7 @@ def login_user():
             # set session isLoggedin to True: session is true
             session['isLoggedin'] = True
             # message to user
-            message = "Welcome back " + user['username'] + " you will be redirected to your myrecipes page."
+            message = "Welcome back " + user['username'] + " You will be redirected to your MyRecipes page."
             id = str(user['_id'])
             response = {"username": user['username'], "_id": id, "message": message}
             return jsonify(response)

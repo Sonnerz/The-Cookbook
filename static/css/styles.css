@@ -315,6 +315,7 @@ label.error {
 #add_recipe_form .allergens-label, #update_recipe_form .allergens-label {
   font-weight: normal;
   font-style: normal;
+  padding-right: 3px;
 }
 
 #add_recipe_form .add-left-col, #update_recipe_form .add-left-col {
@@ -402,6 +403,12 @@ label.error {
   font-weight: 700;
 }
 
+#filterMessage {
+  font-weight: 700;
+  color: #f26522;
+  padding-top: 10px;
+}
+
 #backtotopIcon {
   display: none;
   position: fixed;
@@ -476,6 +483,10 @@ label.error {
 
 #rateme {
   -webkit-appearance: none;
+}
+
+.createdby span {
+  font-weight: 700;
 }
 
 .card-btn {
@@ -592,7 +603,11 @@ label.error {
     padding-left: 30px;
   }
   #recipe-info .utilities {
+    padding-top: 15px;
     width: 60%;
+  }
+  #recipe-info .utilities .fa-print {
+    padding-right: 5px;
   }
 }
 
@@ -810,7 +825,6 @@ img::-moz-selection {
 .search-param {
   font-weight: 700;
   font-style: italic;
-  text-decoration: underline;
   color: #f26522;
 }
 
@@ -901,7 +915,7 @@ img::-moz-selection {
 }
 
 .alert.success {
-  background-color: green;
+  background-color: #0390e2;
   color: #fff;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
@@ -914,7 +928,7 @@ img::-moz-selection {
 }
 
 .alert.info {
-  background-color: #715adb;
+  background-color: #c03802;
   color: #fff;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;

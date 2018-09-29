@@ -28,6 +28,10 @@
 #rateme {
     -webkit-appearance: none;
 }
+.createdby span{
+    font-weight: 700;
+    
+}
 .card-btn {
     text-align: right;
 }
@@ -126,7 +130,11 @@
             padding-left: 30px;
         }
         .utilities {
+            padding-top:15px;
             width: 60%;
+            .fa-print{
+                padding-right: 5px;
+            }
         }
     }
 }

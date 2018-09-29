@@ -117,8 +117,8 @@
                     </div>
                     {% for allergen in allergens|sort(attribute='allergen_name') %}
                     <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="allergen" value="{{ allergen.allergen_name }}">
                         <label class="form-check-label allergens-label" for="inline{{ allergen.allergen_name }}">{{allergen.allergen_name}}</label>
+                        <input class="form-check-input" type="checkbox" name="allergen" value="{{ allergen.allergen_name }}">
                     </div>
                     {% endfor %}
                 </div>
