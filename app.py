@@ -467,7 +467,7 @@ def filter_by_category(category):
         return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
     else:
         print("no recipes with that category found")
-        message = "no recipes with that " + category_name + " found"
+        message = "fail"
         return message
 
 
@@ -488,7 +488,7 @@ def filter_by_cuisine(cuisine):
         return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
     else:
         print("no recipes with that cuisine found")
-        message = "no recipes with that" + cuisine_name + "found"
+        message = "fail"
         return message
  
 
@@ -509,7 +509,7 @@ def filter_by_allergen(allergen):
         return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
     else:
         print("no recipes with that allergen found")
-        message = "no recipes with that" + allergen_name + "found"
+        message = "fail"
         return message
 
 
@@ -534,7 +534,7 @@ def filter_by_ingredient():
         return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
     else:
         print("no recipes with that ingredient found")
-        message = "no recipes with that" + ingredient_name + "found"
+        message = "fail"
         return message
 
 
@@ -556,9 +556,8 @@ def filter_by_catcuis(category,cuisine):
         return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
     else:
         print("no recipes with that allergen found")
-        message = "no recipes with that" + category_name + cuisine_name + "found"
+        message = "fail"
         return message
-
 
 
 # FUNCTION :: SIGN UP NEW USER / REGISTER / CREATE RECORD IN USERS COLLECTION

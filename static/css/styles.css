@@ -319,6 +319,7 @@ label.error {
 
 #add_recipe_form .add-left-col, #update_recipe_form .add-left-col {
   border-right: none;
+  padding-bottom: 50px;
 }
 
 #add_recipe_form .add-form-buttons, #update_recipe_form .add-form-buttons {
@@ -353,10 +354,10 @@ label.error {
 }
 
 @media (min-width: 768px) {
-  .add-left-col {
+  #add_recipe_form .add-left-col, #update_recipe_form .add-left-col {
     border-right: 2px dashed #62929e;
   }
-  #ingredients_input_list .form-control, #instruction_input_list .form-control {
+  #add_recipe_form #ingredients_input_list .form-control, #add_recipe_form #instruction_input_list .form-control, #update_recipe_form #ingredients_input_list .form-control, #update_recipe_form #instruction_input_list .form-control {
     width: 80%;
   }
 }
@@ -390,6 +391,10 @@ label.error {
 
 .filter-col #andButton {
   float: right;
+}
+
+#recipeResult {
+  font-weight: 700;
 }
 
 #backtotopIcon {
@@ -795,6 +800,13 @@ img::-moz-selection {
 
 .modal-footer > span {
   margin-right: 6rem !important;
+}
+
+.search-param {
+  font-weight: 700;
+  font-style: italic;
+  text-decoration: underline;
+  color: #f26522;
 }
 
 #user-name-wrapper, #user-name-wrapper-notloggedin {

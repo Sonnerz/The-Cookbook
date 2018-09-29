@@ -384,13 +384,17 @@ $(document).ready(function () {
         data: JSON.stringify(category),
         type: 'POST',
         success: function (response) {
-          console.log("RESPONSE FROM SERVER", response);
+          $('.initialRecipes').hide();
           $("#searchResult").show();
-          $("#recipeResult").html(response);
           $("h3.section-subheading").html("Recipes searched by Category: " + categorypicked)
           $('#cuisine-select').val("Select a Cuisine");
           $('#allergen-select').val("Select an Allergen");
-          $('.initialRecipes').hide();
+          if (response != "fail") {
+            $("#recipeResult").html(response);
+          }
+          else {
+            $("#recipeResult").html("There were no recipes found under the category <span class='search-param'>" + categorypicked + "</span>. <br>Try searching again." );
+          }         
           //scroll window to results
           $('html, body').animate({
             scrollTop: $(".results-col").offset().top -300
@@ -422,13 +426,17 @@ $(document).ready(function () {
         data: JSON.stringify(cuisine),
         type: 'POST',
         success: function (response) {
-          console.log("RESPONSE FROM SERVER", response);
+          $('.initialRecipes').hide();
           $("#searchResult").show();
           $("h3.section-subheading").html("Recipes searched by Cuisine: " + cuisinepicked)
           $('#category-select').val("Select a Category");
           $('#allergen-select').val("Select an Allergen");
-          $("#recipeResult").html(response);
-          $('.initialRecipes').hide();
+          if (response != "fail") {
+            $("#recipeResult").html(response);
+          }
+          else {
+            $("#recipeResult").html("There were no recipes found under the cuisine <span class='search-param'>" + cuisinepicked + "</span>. <br>Try searching again." );
+          }          
           //scroll window to results
           $('html, body').animate({
             scrollTop: $(".results-col").offset().top -300
@@ -436,7 +444,7 @@ $(document).ready(function () {
         },
         error: function (error) {
           console.log(error);
-          $("#recipeResult").html(response);
+          
         }
       });
     });
@@ -459,13 +467,17 @@ $(document).ready(function () {
         data: JSON.stringify(allergen),
         type: 'POST',
         success: function (response) {
-          console.log("RESPONSE FROM SERVER", response);
+          $('.initialRecipes').hide();
           $("#searchResult").show();
           $("h3.section-subheading").html("Recipes searched by Allergen: " + allergenpicked)
           $('#category-select').val("Select a Category");
           $('#cuisine-select').val("Select a Cuisine");
-          $("#recipeResult").html(response);
-          $('.initialRecipes').hide();
+          if (response != "fail") {
+            $("#recipeResult").html(response);
+          }
+          else {
+            $("#recipeResult").html("There were no recipes found with the allergen <span class='search-param'>" + allergenpicked + "</span>. <br>Try searching again." );
+          }
           //scroll window to results
           $('html, body').animate({
             scrollTop: $(".results-col").offset().top -300
@@ -495,18 +507,22 @@ $(document).ready(function () {
         type: 'POST',
         success: function (response) {
           console.log("RESPONSE FROM SERVER", response);
+          $('.initialRecipes').hide();
           $("#searchResult").show();
           $("h3.section-subheading").html("Recipes searched by Ingredient: " + ingredient)
-          $("#recipeResult").html(response);
-          $('.initialRecipes').hide();
+          if (response != "fail") {
+            $("#recipeResult").html(response);
+          }
+          else {
+            $("#recipeResult").html("There were no recipes found with <span class='search-param'>" + ingredient + "</span> as the main ingredient. <br>Try searching again." );
+          }
           //scroll window to results
           $('html, body').animate({
-            scrollTop: $(".results-col").offset().top -50
+            scrollTop: $(".results-col").offset().top -300
           }, 'slow');
         },
         error: function (error) {
           console.log(error);
-          $("#recipeResult").html(response);
         }
       });
     });
@@ -534,14 +550,19 @@ $(document).ready(function () {
         success: function (response) {
           console.log("RESPONSE FROM SERVER", response);
           $("#searchResult").show();
+          $('.initialRecipes').hide();
           $("h3.section-subheading").html("Recipes searched by Category: " + categorypicked + " and Cuisine: " + cuisinepicked);
           $('#category-select').val("Select a Category");
           $('#allergen-select').val("Select an Allergen");
-          $("#recipeResult").html(response);
-          $('.initialRecipes').hide();
+          if (response != "fail") {
+            $("#recipeResult").html(response);
+          }
+          else {
+            $("#recipeResult").html("There were no recipes found with category <span class='search-param'>" + categorypicked + "</span> and cuisine <span class='search-param'>" + cuisinepicked + "</span>. <br>Try searching again." );
+          }
           //scroll window to results
           $('html, body').animate({
-            scrollTop: $(".results-col").offset().top -50
+            scrollTop: $(".results-col").offset().top -300
           }, 'slow');
         },
         error: function (error) {
@@ -554,6 +575,7 @@ $(document).ready(function () {
 
 
 
+  
 
   // #endregion
 

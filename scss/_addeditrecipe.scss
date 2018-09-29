@@ -11,6 +11,7 @@
     }
     .add-left-col {
         border-right:none;
+        padding-bottom: 50px;
     }
     .add-form-buttons {
         border-top: 2px dashed $cyan;
@@ -38,12 +39,12 @@
             margin-top: 0.3rem;
         }
     }
-}
-@media(min-width:768px) {
-    .add-left-col {
-        border-right: 2px dashed $cyan;
-    }
-    #ingredients_input_list .form-control, #instruction_input_list .form-control {
-        width: 80%;
+    @media(min-width:768px) {
+        .add-left-col {
+            border-right: 2px dashed $cyan;
+        }
+        #ingredients_input_list .form-control, #instruction_input_list .form-control {
+            width: 80%;
+        }
     }
 }

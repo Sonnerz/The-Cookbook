@@ -100,6 +100,13 @@ img::-moz-selection {
     margin-right: 6rem!important;
 }
 
+.search-param {
+    font-weight: 700;
+    font-style: italic;
+    text-decoration: underline;
+    color: $orange;
+}
+
 #user-name-wrapper, #user-name-wrapper-notloggedin {
     padding: 0;
     padding-top: 77px;

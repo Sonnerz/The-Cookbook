@@ -33,7 +33,7 @@
                             <label for="searchmain">Search by Main Ingredient</label>
                             <div class="input-group mb-3">
                                 <input type="input" class="form-control" id="searchmain" name="searchmain" placeholder="Search by main ingredient"
-                                    aria-label="Search for a main ingredient" aria-describedby="ingredientFilterButton">
+                                    aria-label="Search for a main ingredient" aria-describedby="ingredientFilterButton" required>
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" id="ingredientFilterButton" type="submit">Search</button>
                                 </div>
@@ -116,7 +116,7 @@
                 <!--SEARCH RESULTS-->
                 <div class="row" id="searchResult">
                     <div class="col-12" id="thisisacol">
-                        <div id="recipeResult"></div>
+                        <div><p id="recipeResult"></p></div>
                     </div>
                 </div>
                 <!-- INITIAL RANDOM SELECTION OF RECIPES BEFORE SEARCHING, HIDDEN AFTER USER FILTERS -->
