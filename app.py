@@ -125,16 +125,33 @@ def get_random_recipes():
 
 # FUNCTION :: GET RECENT RECIPES x4
 def get_recent_recipes():
-    rows = {}
+    recipes = {}
     try:
-        # Query recipes collection and return ordered by votes descending
-       rows = mongo.db.recipes.find().sort('_id',-1).limit(3)
+    # Query recipes collection and return ordered by votes descending
+       recipes = mongo.db.recipes.find().sort('_id',-1).limit(3)
     except Exception as e:
         print("error accessing DB %s" % str(e))
 
-    if rows:
+    if recipes:
         print("latest 3 recipes found")
-    return rows    
+    return recipes
+
+
+# FUNCTION :: GET RECIPE AUTHOR USERNAME
+def get_recipe_author_username(cursor):
+    author_id = []
+    # for recipe in mongo.db.recipes.find():
+    #     author_id.append((recipe['_id'], recipe['author']))
+    for recipe in cursor:
+        author_id.append((recipe['_id'], recipe['author']))    
+        
+    for id, item in author_id:
+        recipe = mongo.db.recipes.find_one({"_id": id})
+        authorname = mongo.db.users.find_one({"_id": ObjectId(item)}, {"username": 1})
+        username = {recipe: authorname}
+        for u in username:
+            print(u)
+    return username
 
 
 # FUNCTION :: GET CATEGORIES
@@ -211,6 +228,14 @@ def insert_recipe():
     current_user_id = session['userid']
     # get all recipes to add a new recipe later
     recipes = mongo.db.recipes
+    # get list of ingredients from form
+    ingred_list = request.form.getlist('ingredient')
+    # remove blanks from list if user add a blank input
+    ingred_list_no_blanks = [i for i in ingred_list if i != ""]
+    # get list of instructions from form
+    instruct_list = request.form.getlist('instruction')
+    # remove blanks from list if user deletes an ingredient
+    instruct_list_no_blanks = [i for i in instruct_list if i != ""]
     # create new recipe object
     new_recipe = {
         'author': current_user_id,       
@@ -223,16 +248,16 @@ def insert_recipe():
         'difficulty': request.form.get('difficulty'),
         'prep_time': request.form.get('prep_time'),
         'cook_time': request.form.get('cook_time'),
-        'serves': int(request.form.get('serves')),
+        'serves': request.form.get('serves'),
         'calories': request.form.get('calories'),
         'allergens': request.form.getlist('allergen'),
-        'ingredients': request.form.getlist('ingredient'),
-        'instructions': request.form.getlist('instruction'),
+        'ingredients': ingred_list_no_blanks,
+        'instructions': instruct_list_no_blanks,
         'votes': int(0)
     }
     # insert new recipe
     recipes.insert_one(new_recipe)
-    message = "updated to db"
+    message = "Your recipe has been added."
     return message
 
 
@@ -272,6 +297,10 @@ def update_recipe(recipe_id):
     ingred_list = request.form.getlist('ingredient')
     # remove blanks from list if user deletes an ingredient
     ingred_list_no_blanks = [i for i in ingred_list if i != ""]
+    # get list of instructions from form
+    instruct_list = request.form.getlist('instruction')
+    # remove blanks from list if user deletes an ingredient
+    instruct_list_no_blanks = [i for i in instruct_list if i != ""]
     recipes.update_one({'_id': ObjectId(recipe_id)},
     {'$set':
         {
@@ -285,11 +314,11 @@ def update_recipe(recipe_id):
             'difficulty': request.form.get('difficulty'),
             'prep_time': request.form.get('prep_time'),
             'cook_time': request.form.get('cook_time'),
-            'serves': int(request.form.get('serves')),
+            'serves': request.form.get('serves'),
             'calories': request.form.get('calories'),
             'allergens': request.form.getlist('allergen'),
             'ingredients': ingred_list_no_blanks,
-            'instructions': request.form.getlist('instruction'),
+            'instructions': instruct_list_no_blanks,
             'votes': int(request.form.get('votes'))
         }
     })

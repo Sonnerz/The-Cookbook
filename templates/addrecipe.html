@@ -1,176 +1,172 @@
 {% extends 'base.html' %}
 
 {% block template_content %}
-<!-- PAGE CONTENT-->
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <!-- PAGE HEADER -->
-            <section id="user_content">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1>Add Recipe</h1>
-                            <h3 class="section-subheading text-muted">Add a new recipe complete teh form.</h3>
+<!-- PAGE HEADER -->
+<section class="section-heading">
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h1>Add Recipe</h1>
+                    <h3 class="section-subheading text-muted">Complete the form to add a new recipe. </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- PAGE CONTENT -->
+<section class="section-content">
+    <div class="container">
+        <!-- ADD RECIPES FORM-->
+        <form id="add_recipe_form" name="add_recipe_form" method="POST">
+            <div class="row">
+                <div class="col-md-6 add-left-col">
+                    <!-- NAME -->
+                    <div class="form-group">
+                        <label for="inputName">Name</label>
+                        <input type="input" class="form-control" id="name" name="name" placeholder="Name of the recipe">
+                    </div>
+                    <!-- IMAGE -->
+                    <div class="form-group">
+                        <label for="inputName">Add an Image</label>
+                        <input type="input" class="form-control" id="image_url" name="image_url" placeholder="Paste a link to your image">
+                    </div>
+                    <!-- DESCRIPTION -->
+                    <div class="form-group">
+                        <label for="inputDescription">Description</label>
+                        <textarea placeholder="A brief description of the dish" class="form-control" id="description" name="description"
+                            rows="3"></textarea>
+                    </div>
+                    <!-- MAIN INGREDIENT -->
+                    <div class="form-group">
+                        <label for="inputMain">Main Ingredient</label>
+                        <input type="input" class="form-control" id="main_ingredient" name="main_ingredient"
+                            placeholder="Main Ingredient">
+                    </div>
+                    <div class="form-row">
+                        <!-- CATEGORY -->
+                        <div class="form-group col-md-6">
+                            <label for="selectCategory">Category</label>
+                            <select class="custom-select" id="category" name="category">
+                                <option>Select a Category</option>
+                                {% for category in categories|sort(attribute='category_name') %}
+                                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <!-- CUISINE -->
+                        <div class="form-group col-md-6">
+                            <label for="selectCuisine">Cuisine</label>
+                            <select class="custom-select" id="cuisine" name="cuisine">
+                                <option>Select a Cuisine</option>
+                                {% for cuis in cuisine|sort(attribute='cuisine_name')%}
+                                <option value="{{ cuis.cuisine_name }}">{{ cuis.cuisine_name }}</option>
+                                {% endfor %}
+                            </select>
                         </div>
                     </div>
-                    <!-- ADD RECIPES FORM-->
-                    <form id="add_recipe_form" name="add_recipe_form" method="POST">
-                        <div class="row" style="background-color:blueviolet">
-                            <div class="col-md-6" style="background-color:burlywood">
-                                <!-- NAME -->
-                                <div class="form-group">
-                                    <label for="inputName">Name</label>
-                                    <input type="input" class="form-control" id="name" name="name"
-                                        placeholder="Name of recipe">
-                                </div>
-                                <!-- IMAGE -->
-                                <div class="form-group">
-                                    <label for="inputName">Add an Image</label>
-                                    <input type="input" class="form-control" id="image_url" name="image_url"
-                                        placeholder="Paste a link to your image">
-                                </div>
-                                <!-- DESCRIPTION -->
-                                <div class="form-group">
-                                    <label for="inputDescription">Description</label>
-                                    <textarea placeholder="Description" class="form-control" id="description" name="description"
-                                        rows="3"></textarea>
-                                </div>
-                                <!-- MAIN INGREDIENT -->
-                                <div class="form-group">
-                                    <label for="inputMain">Main Ingredient</label>
-                                    <input type="input" class="form-control" id="main_ingredient" name="main_ingredient"
-                                        placeholder="Main Ingredient">
-                                </div>
-                                <div class="form-row">
-                                    <!-- CATEGORY -->
-                                    <div class="form-group col-md-6">
-                                        <label for="selectCategory">Category</label>
-                                        <select class="custom-select" id="category" name="category">
-                                            <option>Select a Category</option>
-                                            {% for category in categories|sort(attribute='category_name') %}
-                                            <option value="{{ category.category_name }}">{{ category.category_name }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                    <!-- CUISINE -->
-                                    <div class="form-group col-md-6">
-                                        <label for="selectCuisine">Cuisine</label>
-                                        <select class="custom-select" id="cuisine" name="cuisine">
-                                            <option>Select a Cuisine</option>
-                                            {% for cuis in cuisine|sort(attribute='cuisine_name')%}
-                                            <option value="{{ cuis.cuisine_name }}">{{ cuis.cuisine_name }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                                <!-- DIFFICULTY -->
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="selectDifficulty">Difficulty</label>
-                                        <select class="custom-select" id="difficulty" name="difficulty">
-                                            <option selected>Select a Difficulty level</option>
-                                            {% for diff in difficulty %}
-                                            <option>{{ diff.difficulty_name }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <!-- PREP TIME -->
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="inputPrep">Prep Time</label>
-                                            <input type="input" class="form-control" id="prep_time"
-                                                name="prep_time" placeholder="prep time">
-                                        </div>
-                                    </div>
-                                    <!-- COOKE TIME -->
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="inputCook">Cook Time</label>
-                                            <input type="input" class="form-control" id="cook_time" name="cook_time"
-                                                placeholder="cook time">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- SERVES -->
-                                <div class="row">
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="inputServes">Serves</label>
-                                            <input type="input" class="form-control" id="serves" name="serves"
-                                                placeholder="serves">
-                                        </div>
-                                    </div>
-                                    <!-- CALORIES -->
-                                    <div class="col">
-                                        <div class="form-group">
-                                            <label for="inputCalories">calories</label>
-                                            <input type="input" class="form-control" id="calories" name="calories"
-                                                placeholder="kcal">
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- ALLERGENS -->
-                                <div>
-                                    <label for="inputAllergens">Allergens</label>
-                                </div>
-                                {% for allergen in allergens|sort(attribute='allergen_name') %}
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" name="allergen" value="{{ allergen.allergen_name }}">
-                                    <label class="form-check-label" for="inline{{ allergen.allergen_name }}">{{allergen.allergen_name}}</label>
-                                </div>
+                    <!-- DIFFICULTY -->
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="selectDifficulty">Difficulty</label>
+                            <select class="custom-select" id="difficulty" name="difficulty">
+                                <option selected>Select a Difficulty level</option>
+                                {% for diff in difficulty %}
+                                <option>{{ diff.difficulty_name }}</option>
                                 {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <!-- PREP TIME -->
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="inputPrep">Prep Time</label>
+                                <input type="input" class="form-control" id="prep_time" name="prep_time" placeholder="Preparation time">
                             </div>
-                            <!-- INGREDIENTS -->
-                            <div class="col-md-6" style="background-color:aqua">
-                                <div class="form-group">
-                                    <div id="ingredients_input_list">
-                                        <label for="inputIngredients">Ingredients</label>
-                                        <input type="text" class="input form-control" id="ingredient1"
-                                            name="ingredient" placeholder="ingredient" />
-                                        <input type="text" class="input form-control" id="ingredient2"
-                                            name="ingredient" placeholder="ingredient" />
-                                        <input type="text" class="input form-control" id="ingredient3"
-                                            name="ingredient" placeholder="ingredient" />
-                                        <input type="text" class="input form-control" id="ingredient4" name="ingredient"
-                                            placeholder="ingredient" />
-                                        <input type="text" class="input form-control" id="ingredient5"
-                                            name="ingredient" placeholder="ingredient" />
-                                        <a href="#" id="add_ingredient"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
-                                <!-- INSTRUCTIONS -->
-                                <div class="form-group">
-                                    <div id="instruction_input_list">
-                                        <label for="inputInstruction">Instructions</label>
-                                        <input class="input form-control" id="instruction" name="instruction" placeholder="instructions" />
-                                        <a href="#" id="add_instruction"><i class="fa fa-plus-circle" aria-hidden="true"></i></a>
-                                    </div>
-                                </div>
+                        </div>
+                        <!-- COOKE TIME -->
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="inputCook">Cook Time</label>
+                                <input type="input" class="form-control" id="cook_time" name="cook_time" placeholder="Cooking time">
                             </div>
-                            <!-- RESPONSE MESSAGES -->
-                            <div class="form-group button-submit-margin" id="newRecipeMessages">
-                                {{message}}
+                        </div>
+                    </div>
+                    <!-- SERVES -->
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="inputServes">Serves</label>
+                                <input type="input" class="form-control" id="serves" name="serves" placeholder="Number of servings">
                             </div>
-                            <!-- BUTTONS -->
-                            <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-primary" id="addRecipeButton">Add Recipe</button>
-                                <button type="button" class="btn btn-primary" id="cancelRecipeButton" ONCLICK="window.location.href='/myrecipes?limit=5&offset=1'">Cancel</button>
+                        </div>
+                        <!-- CALORIES -->
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="inputCalories">Calories per serving</label>
+                                <input type="input" class="form-control" id="calories" name="calories" placeholder="Number of calories in kcal">
                             </div>
-                    </form>
+                        </div>
+                    </div>
+                    <!-- ALLERGENS -->
+                    <div>
+                        <label for="inputAllergens">Allergens</label>
+                    </div>
+                    {% for allergen in allergens|sort(attribute='allergen_name') %}
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="checkbox" name="allergen" value="{{ allergen.allergen_name }}">
+                        <label class="form-check-label allergens-label" for="inline{{ allergen.allergen_name }}">{{allergen.allergen_name}}</label>
+                    </div>
+                    {% endfor %}
                 </div>
-            </section>
-        </div>
+                <div class="col-md-6">
+                    <!-- INGREDIENTS -->
+                    <div class="form-group">
+                        <div id="ingredients_input_list">
+                            <label for="inputIngredients">Ingredients</label>
+                            <input type="text" class="input form-control" id="ingredient1" name="ingredient"
+                                placeholder="Ingredient"/>
+                            <input type="text" class="input form-control" id="ingredient2" name="ingredient"
+                                placeholder="Ingredient"/>
+                            <input type="text" class="input form-control" id="ingredient3" name="ingredient"
+                                placeholder="Ingredient"/>
+                            <input type="text" class="input form-control" id="ingredient4" name="ingredient"
+                                placeholder="Ingredient"/>
+                            <input type="text" class="input form-control" id="ingredient5" name="ingredient"
+                                placeholder="Ingredient"/>
+                            <a href="#" id="add_ingredient" title="Add another ingredient"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</a>
+                        </div>
+                    </div>
+                    <!-- INSTRUCTIONS -->
+                    <div class="form-group">
+                        <div id="instruction_input_list">
+                            <label for="inputInstruction">Instructions</label>
+                            <textarea class="input form-control" id="instruction" name="instruction" placeholder="instructions"></textarea>
+                            <a href="#" id="add_instruction"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add</a>
+                        </div>
+                    </div>
+                </div>
+                <!-- RESPONSE MESSAGES -->
+                <div class="form-group button-submit-margin" id="newRecipeMessages">
+                    {{message}}
+                </div>
+                <!-- BUTTONS -->
+                <div class="col-12 text-center add-form-buttons">
+                    <button type="submit" class="btn btn-primary" id="addRecipeButton">Add Recipe</button>
+                    <button type="button" class="btn btn-primary" id="cancelRecipeButton" ONCLICK="window.location.href='/myrecipes?limit=5&offset=0'">Cancel</button>
+                </div>
+            </div> 
+        </form>
     </div>
-</div>
+</section>
+
 <!--BACK TO TOP -->
 <div class="row">
-        <div class="col-12">
-            <button onclick="topFunction()" id="backtotopIcon" title="Go to top"></button>
-        </div>
+    <div class="col-12">
+        <button onclick="topFunction()" id="backtotopIcon" title="Go to top"></button>
     </div>
+</div>
 <div class="flash_messages">
     {% with messages = get_flashed_messages() %}
     {% if messages %}

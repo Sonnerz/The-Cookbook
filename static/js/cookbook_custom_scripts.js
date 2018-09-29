@@ -85,9 +85,10 @@ $(function () {
       success: function (response) {
         console.log("RESPONSE FROM SERVER", response);
         $("#newRecipeMessages").html(response);
+        $("h3.section-subheading").html("Your recipe has been added")
         // Delay before redirect to read message
         var delay = 1200;
-        setTimeout(function () { window.location.href = "/myrecipes"; }, delay);
+        setTimeout(function () { window.location.href = "/myrecipes?limit=5&offset=0"; }, delay);
       },
       error: function (error) {
         console.log(error);
@@ -100,7 +101,7 @@ $(function () {
 // #endregion
 
 
-// #region AJAX UPDATEA RECIPE send data from form to server
+// #region AJAX UPDATE A RECIPE send data from form to server
 
 $(function () {
   $('#update_recipe_form').submit(function (event) {
@@ -171,9 +172,13 @@ function scrollFunction() {
 // When the user clicks on the button, scroll to the top of the document
 function topFunction() {
     document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    // document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    $('html, body').animate({
+      scrollTop: $("#page-top").offset().top -50
+    }, 'slow');
 }
 // #endregion
+
 
 // #region DOCUMENT.READY START //
 
@@ -223,14 +228,14 @@ $(document).ready(function () {
   function addExtraInputs(inputs) {
     if (inputs == "i") {
       var ingred = '<div class="added-ingred">' +
-        '<input type="text" class="input form-control" placeholder="ingredient" name="ingredient">' +
-        '<a href="#"><i class="fa fa-minus-circle delete" aria-hidden="true"></i></a></div>';
+        '<input type="text" class="input form-control" placeholder="Ingredient" name="ingredient">' +
+        '<a href="#" class="delete"><i class="fa fa-minus-circle" aria-hidden="true"></i> Remove</a></div>';
       $("#ingredients_input_list").append(ingred);
     }
     else {
       var method = '<div class="added-instruction">' +
-        '<textarea class="input form-control" placeholder="instruction" name="instruction"></textarea>' +
-        '<a href="#"><i class="fa fa-minus-circle delete" aria-hidden="true"></i></a></div>';
+        '<textarea class="input form-control" placeholder="Instruction" name="instruction"></textarea>' +
+        '<a href="#" class="delete"><i class="fa fa-minus-circle" aria-hidden="true"></i> Remove</a></div>';
       $("#instruction_input_list").append(method);
     }
   }
@@ -388,7 +393,7 @@ $(document).ready(function () {
           $('.initialRecipes').hide();
           //scroll window to results
           $('html, body').animate({
-            scrollTop: $(".results-col").offset().top -50
+            scrollTop: $(".results-col").offset().top -300
           }, 'slow');          
         },
         error: function (error) {
@@ -426,7 +431,7 @@ $(document).ready(function () {
           $('.initialRecipes').hide();
           //scroll window to results
           $('html, body').animate({
-            scrollTop: $(".results-col").offset().top -50
+            scrollTop: $(".results-col").offset().top -300
           }, 'slow');          
         },
         error: function (error) {
@@ -463,7 +468,7 @@ $(document).ready(function () {
           $('.initialRecipes').hide();
           //scroll window to results
           $('html, body').animate({
-            scrollTop: $(".results-col").offset().top -50
+            scrollTop: $(".results-col").offset().top -300
           }, 'slow');          
         },
         error: function (error) {

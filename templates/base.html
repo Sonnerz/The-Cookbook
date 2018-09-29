@@ -60,19 +60,31 @@
 
 
  <!-- USER NAME-->
- {% if session['isLoggedin'] %}
+ {% if session['isLoggedin'] and request.path != "/" %}
  <div class="container-fluid" id="user_content">
    <div class="row">
      <div class="col-12">
        <section id="user-name-wrapper">
          <div class="userwelcome">
-           <span>&#123;&#123; Hello {{ session['username'] }}, you are welcome back &#125;&#125;</span>
+           <span>&#123;&#123; Welcome back, {{ session['username'] }} &#125;&#125;</span>
          </div>
        </section>
      </div>
    </div>
  </div>
- {% else %}
+ {% elif session['isLoggedin'] and request.path == "/" %}
+ <div class="container-fluid" id="user_content">
+    <div class="row">
+      <div class="col-12">
+        <section id="user-name-wrapper">
+          <div class="userwelcome home-userwelcome">
+            <span>&#123;&#123; Welcome back, {{ session['username'] }} &#125;&#125;</span>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+  {% else %}
  <div class="container-fluid" id="user_content">
     <div class="row">
       <div class="col-12">

@@ -106,7 +106,7 @@
   #mainNav.navbar-shrink {
     padding-top: 0;
     padding-bottom: 0;
-    background-color: #fff;
+    background-color: #e8e7dd;
   }
   #mainNav.navbar-shrink .navbar-brand {
     font-size: 1.25em;
@@ -306,17 +306,38 @@ label.error {
   }
 }
 
+#add_recipe_form label, #update_recipe_form label {
+  font-weight: 700;
+  font-size: 1.1rem;
+  font-style: italic;
+}
+
+#add_recipe_form .allergens-label, #update_recipe_form .allergens-label {
+  font-weight: normal;
+  font-style: normal;
+}
+
+#add_recipe_form .add-left-col, #update_recipe_form .add-left-col {
+  border-right: none;
+}
+
+#add_recipe_form .add-form-buttons, #update_recipe_form .add-form-buttons {
+  border-top: 2px dashed #62929e;
+  padding-top: 20px;
+}
+
 #add_recipe_form #ingredients_input_list > input, #update_recipe_form #ingredients_input_list > input {
   margin-top: 0.3rem;
 }
 
-#add_recipe_form #ingredients_input_list > label, #update_recipe_form #ingredients_input_list > label {
+#add_recipe_form #ingredients_input_list > label, #add_recipe_form #instruction_input_list > label, #update_recipe_form #ingredients_input_list > label, #update_recipe_form #instruction_input_list > label {
   display: block;
+  font-weight: 700;
 }
 
 #add_recipe_form #ingredients_input_list .form-control, #add_recipe_form #instruction_input_list .form-control, #update_recipe_form #ingredients_input_list .form-control, #update_recipe_form #instruction_input_list .form-control {
   display: inline;
-  width: 90%;
+  width: 75%;
 }
 
 #add_recipe_form .delete, #update_recipe_form .delete {
@@ -329,6 +350,15 @@ label.error {
 
 #add_recipe_form .added-ingred input, #add_recipe_form .added-ingred textarea, #add_recipe_form .added-instruction input, #add_recipe_form .added-instruction textarea, #update_recipe_form .added-ingred input, #update_recipe_form .added-ingred textarea, #update_recipe_form .added-instruction input, #update_recipe_form .added-instruction textarea {
   margin-top: 0.3rem;
+}
+
+@media (min-width: 768px) {
+  .add-left-col {
+    border-right: 2px dashed #62929e;
+  }
+  #ingredients_input_list .form-control, #instruction_input_list .form-control {
+    width: 80%;
+  }
 }
 
 .filter-col {
@@ -385,6 +415,10 @@ label.error {
 .initialRecipes h2 {
   border-bottom: 2px dashed #62929e;
   margin-top: 1rem;
+}
+
+.initialRecipes > h2:nth-child(1) {
+  margin-top: -0.4rem;
 }
 
 .filter-col label {
@@ -772,15 +806,15 @@ img::-moz-selection {
 
 @media (min-width: 576px) {
   #user-name-wrapper, #user-name-wrapper-notloggedin {
-    padding-top: 127px;
+    padding-top: 124px;
   }
 }
 
 @media (min-width: 320px) {
   .userwelcome {
     min-width: 30%;
-    position: absolute;
-    width: 100%;
+    position: fixed;
+    width: 90%;
     z-index: 1020;
     margin: 0 auto;
     color: #fff;
@@ -789,6 +823,8 @@ img::-moz-selection {
     border-radius: 1rem;
     border-top-left-radius: 0rem;
     border-top-right-radius: 0rem;
+    -webkit-box-shadow: 0px 1px 6px 1px rgba(0, 0, 0, 0.4);
+            box-shadow: 0px 1px 6px 1px rgba(0, 0, 0, 0.4);
     -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
     transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
@@ -796,44 +832,51 @@ img::-moz-selection {
   }
   .userwelcome span {
     white-space: nowrap;
+  }
+  .home-userwelcome {
+    background-color: rgba(245, 245, 245, 0.9);
+    color: #393d3f;
+    min-width: 30%;
+    position: absolute;
+    width: 90%;
+    z-index: 1020;
+    margin: 0 auto;
+    border: 1px solid transparent;
+    border-radius: 1rem;
+    border-top-left-radius: 0rem;
+    border-top-right-radius: 0rem;
+    -webkit-box-shadow: 0px 1px 6px 1px rgba(0, 0, 0, 0.4);
+            box-shadow: 0px 1px 6px 1px rgba(0, 0, 0, 0.4);
+    -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+  }
+  .home-userwelcome span {
+    white-space: nowrap;
+  }
+}
+
+@media (min-width: 576px) {
+  .userwelcome {
+    margin-left: 40%;
+    width: 50%;
+  }
+  .home-userwelcome {
+    background-color: rgba(245, 245, 245, 0.9);
+    color: #393d3f;
   }
 }
 
 @media (min-width: 768px) {
   .userwelcome {
-    min-width: 30%;
-    position: absolute;
-    width: 30%;
-    z-index: 1020;
-    margin: 0 auto;
-    color: #fff;
-    margin-left: 60%;
-    background-color: rgba(98, 146, 158, 0.9);
-    border: 1px solid transparent;
-    border-radius: 1rem;
-    border-top-left-radius: 0rem;
-    border-top-right-radius: 0rem;
-    -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
+    width: 40%;
+    margin-left: 50%;
   }
-  .userwelcome span {
-    white-space: nowrap;
+  .home-userwelcome {
+    background-color: rgba(245, 245, 245, 0.9);
+    color: #393d3f;
   }
-}
-
-.home-userwelcome {
-  background-color: rgba(245, 245, 245, 0.9);
-  color: #393d3f;
-  border: 1px solid transparent;
-  border-radius: 1rem;
-  border-top-left-radius: 0rem;
-  border-top-right-radius: 0rem;
-  -webkit-transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
-  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
-  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-  transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out, -webkit-box-shadow .15s ease-in-out;
 }
 
 #panel-debug p {
