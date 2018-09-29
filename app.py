@@ -165,7 +165,7 @@ def get_categories():
     try:
         categories = [category for category in mongo.db.categories.find()]
     except:
-        return render_template("500.html")    
+        return render_template("500.html")
     return categories
 
 
@@ -192,7 +192,7 @@ def get_difficulty():
     try:
         difficulty = [difficulty for difficulty in mongo.db.difficulty.find()]
     except:
-        return render_template("500.html")        
+        return render_template("500.html")
     return difficulty
 
 
@@ -309,8 +309,11 @@ def edit_recipe(recipe_id):
 def update_recipe(recipe_id):
     # set userid to var, current_user_id
     current_user_id = session['userid']
-    # get all recipes
-    recipes = mongo.db.recipes
+    try:
+        # get all recipes
+        recipes = mongo.db.recipes
+    except:
+        return render_template("500.html")
     # get list of ingredients from form
     ingred_list = request.form.getlist('ingredient')
     # remove blanks from list if user deletes an ingredient
@@ -351,7 +354,10 @@ def update_recipe(recipe_id):
 def delete_recipe():
     # get recipe id from the form
     recipe_id = request.form.get('recipe_id')
-    mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
+    try:
+        mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
+    except:
+        return render_template("500.html")
     message = "deleted"
     return message
 
@@ -382,8 +388,11 @@ def update_vote(recipe_id):
     votes = None
     # get data from ajax post, set votes to data value
     votes = int(request.get_data())
-    # get all recipes from db
-    recipes = mongo.db.recipes
+    try:
+        # get all recipes from db
+        recipes = mongo.db.recipes
+    except:
+        return render_template("500.html")        
     # get the relevant recipe by its id passed in url
     this_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     # get the current votes for relevant recipe. Change to integer for addition in next step
@@ -477,9 +486,9 @@ def filter_by_category(category):
         # filteredRecipes = [recipe for recipe in mongo.db.recipes.find({"category": category_name})]
         # Query recipes collection and return ordered by votes descending
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'category': category_name}, '$orderby': { 'votes' : -1 } })]
-
     except Exception as e:
-        print("error accessing DB to find category %s" % str(e))
+        # print("error accessing DB to find category %s" % str(e)) - Needs to be logged
+        return render_template("500.html")
 
     if filteredRecipes:
         print("recipes by category exist")
@@ -500,7 +509,8 @@ def filter_by_cuisine(cuisine):
         # Query recipes collection and return ordered by votes descending
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'cuisine': cuisine_name}, '$orderby': { 'votes' : -1 } })]
     except Exception as e:
-        print("error accessing DB to find cuisine %s" % str(e))
+        # print("error accessing DB to find cuisine %s" % str(e))
+        return render_template("500.html")        
 
     if filteredRecipes:
         print("recipes by cuisine exist")
@@ -521,7 +531,8 @@ def filter_by_allergen(allergen):
         # Query recipes collection and return ordered by votes descending
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'allergens': allergen_name}, '$orderby': { 'votes' : -1 } })]
     except Exception as e:
-        print("error accessing DB to find allergen %s" % str(e))
+        # print("error accessing DB to find allergen %s" % str(e))
+        return render_template("500.html")
 
     if filteredRecipes:
         print("recipes by allergen exist")
@@ -546,7 +557,8 @@ def filter_by_ingredient():
         # Query recipes collection and return ordered by votes descending
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'main_ingredient': ingredient_name}, '$orderby': { 'votes' : -1 } })]
     except Exception as e:
-        print("error accessing DB to find ingredient name %s" % str(e))
+        # print("error accessing DB to find ingredient name %s" % str(e))
+        return render_template("500.html")
 
     if filteredRecipes:
         print("recipes by ingredient exist")
@@ -567,8 +579,9 @@ def filter_by_catcuis(category,cuisine):
     try:
         # Query recipes collection and return ordered by votes descending
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'category': category_name, 'cuisine': cuisine_name}, '$orderby': { 'votes' : -1 } })]
-    except Exception as e:
-        print("error accessing DB to find allergen %s" % str(e))
+    except:
+        # print("error accessing DB to find allergen %s" % str(e))
+        return render_template("500.html")
 
     if filteredRecipes:
         print("recipes by allergen exist")
@@ -634,17 +647,13 @@ def login_user():
 
 @app.errorhandler(404)
 def page_not_found(error):
-    '''
-    404 error is redirected to 404.html
-    '''
+   # 404 error is redirected to 404.html
     return render_template('404.html')
 
 
 @app.errorhandler(500)
 def internal_error(error):
-    '''
-    500 error is redirected to 500.html
-    '''
+    #500 error is redirected to 500.html
     session.pop('_flashes', None)
     session.pop('username', None)
     return render_template('500.html') 
