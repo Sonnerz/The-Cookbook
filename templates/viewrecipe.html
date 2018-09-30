@@ -50,6 +50,9 @@
                                 <i class="far fa-heart"></i><span id="vote_result">{{ recipe.votes }}</span>
                             </div>
                         </div>
+                        <!-- MESSAGES -->
+                        <div id="ratemeMessages" class="form-group mt-1 text-center generalMessages">
+                        </div>
                         <!-- RECIPE INFO -->
                         <div class="recipe-details">
                             <div class="container">
@@ -139,9 +142,6 @@
                                 Created by: <span>{{recipeauthor.username}}</span> on <span>{{ recipe['_id'].generation_time.date().strftime('%d-%m-%Y') }}</span>
                             </div>
 
-                        </div>
-                        <!-- MESSAGES -->
-                        <div id="ratemeMessages" class="form-group button-submit-margin">
                         </div>
                         <!-- BUTTONS -->
                         {% if session['isLoggedin'] and session['userid'] == recipe['author'] %}

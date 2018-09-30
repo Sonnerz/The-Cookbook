@@ -384,34 +384,44 @@ def view_recipe(recipe_id):
 # FUNCTION :: UPDATE RECIPE VOTE
 @app.route('/update_vote/<recipe_id>', methods=['POST'])
 def update_vote(recipe_id):
-    # creates votes varialbe
-    votes = None
-    # get data from ajax post, set votes to data value
-    votes = int(request.get_data())
-    try:
-        # get all recipes from db
-        recipes = mongo.db.recipes
-    except:
-        return render_template("500.html")        
-    # get the relevant recipe by its id passed in url
-    this_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    # get the current votes for relevant recipe. Change to integer for addition in next step
-    current_vote = int(this_recipe['votes'])
-    # create new_vote var and add new vote to current recipe vote
-    new_vote = current_vote + votes
-    # update the relevant recipe with the new vote
-    recipes.update_one({'_id': ObjectId(recipe_id)},
-    {'$set':
-        {
-            'votes': new_vote
-        }
-    })
-    # get the recipe again with updated votes
-    this_recipe_updated = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    # get the new votes value
-    updated_recipe_vote = this_recipe_updated['votes']
-    # pass the update vote value back to the ajax for to update the html page
-    return str(updated_recipe_vote)
+    #check that user has not voted for recipe previously
+    current_user = session['username']
+    recipes_voted_for = get_user(current_user)
+    print(recipes_voted_for['recipe_votes'])
+    if recipe_id in recipes_voted_for['recipe_votes']:
+        message = 'fail'
+        return message
+    else:        
+        # creates votes variable
+        votes = None
+        # get data from ajax post, set votes to data value
+        votes = int(request.get_data())
+        # get the relevant recipe by its id passed in url
+        this_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+        # get the current votes for relevant recipe. Change to integer for addition in next step
+        current_vote = int(this_recipe['votes'])
+        # create new_vote var and add new vote to current recipe vote
+        new_vote = current_vote + votes
+        # update the relevant recipe with the new vote
+        mongo.db.recipes.update_one({'_id': ObjectId(recipe_id)},
+        {'$set':
+            {
+                'votes': new_vote
+            }
+        })
+        #update the users list of voted recipes
+        mongo.db.users.update_one({"username": current_user},
+        {'$push':
+            {
+                'recipe_votes': recipe_id
+            }
+        })
+        # get the recipe again with updated votes
+        this_recipe_updated = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+        # get the new votes value
+        updated_recipe_vote = this_recipe_updated['votes']
+        # pass the update vote value back to the ajax for to update the html page
+        return str(updated_recipe_vote)
 
 
 # PAGE :: MY RECIPES
@@ -604,7 +614,9 @@ def signup_user():
                 'username': request.form.get('signupUsername').lower(),
                 'hashed_password': generate_password_hash(request.form.get('signupPassword'), "sha256"),
                 'firstname': request.form.get('firstName'),
-                'lastname': request.form.get('lastName')} 
+                'lastname': request.form.get('lastName'),
+                'recipe_votes': []
+        }
         if new_user:
             users.insert_one(new_user)
             message = "success"

@@ -355,7 +355,6 @@ $(document).ready(function () {
     addVote();
     return false; //return false;  stops page jumping back to top
   })
-
   function addVote() {
     votes = 1;
     var url = window.location.href;
@@ -368,8 +367,13 @@ $(document).ready(function () {
       type: 'POST',
       success: function (response) {
         console.log("RESPONSE FROM SERVER", response);
-        $("#ratemeMessages").html(response);
-        $("#vote_result").html(response);
+        if (response == 'fail') {
+          $("#ratemeMessages").html("You've already voted for this recipe");
+        }
+        else {
+          $("#ratemeMessages").html(response);
+          $("#vote_result").html(response);
+        }
       },
       error: function (error) {
         console.log(error);

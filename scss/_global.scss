@@ -43,6 +43,11 @@ section {
     }
 }
 
+.generalMessages {
+    font-weight: 700;
+    color: $orange;
+}
+
 @media(min-width:768px) {
     section {
         padding: 30px 0;

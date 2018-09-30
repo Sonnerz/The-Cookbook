@@ -764,6 +764,11 @@ section h3.section-subheading {
   font-family: 'Lato', sans-serif, cursive;
 }
 
+.generalMessages {
+  font-weight: 700;
+  color: #f26522;
+}
+
 @media (min-width: 768px) {
   section {
     padding: 30px 0;
