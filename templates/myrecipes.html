@@ -1,85 +1,66 @@
 {% extends 'base.html' %}
 
 {% block template_content %}
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12">
-            <!-- User Content -->
-            <section id="user_content">
+<!-- PAGE HEADER -->
+<section class="section-heading">
+    <div class="container-fluid">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <h1>My Recipes</h1>
+                    <h3 class="section-subheading text-muted">Manage your recipes.</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- PAGE CONTENT -->
+<section class="section-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
                 <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <h1>My Recipes</h1>
-                            <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-                        </div>
-                    </div>
-                    <!-- User Details -->
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h4 class="service-heading">User details</h4>
-                            <p class="text-muted">username: {{ current_user.username }}</p>
-                            <p class="text-muted">First name: {{ current_user.firstname }}</p>
-                            <p class="text-muted">last name: {{ current_user.lastname }}</p>
-                            <p class="text-muted">id: {{ current_user._id }}</p>
-                        </div>
-                    </div>
                     <!-- User Recipes -->
                     <div class="row">
                         <div class="col-md-12">
-                            <h4 class="service-heading">My recipes</h4>
-                            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima
-                                maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                            <p>You have {{total_count}} recipes in total.</p>
                         </div>
                     </div>
+                    {% if total_count == 0 %}
+                    <div class="row">
+                            <div class="col-12"></div>
+                    </div>
+                    {%else%}
+                    <div class="row"><div class="col-12"><span>Number of pages: {{ number_of_pages }}</span></div></div>
                     <div class="row">
                         <div class="col-12">
-                            N: {{next_url}}
-                            P: {{prev_url}}
+                            <span class="prev-span">
+                                <a href="{{prev_url}}" class="previous">&lt;&lt; Previous page</a>
+                            </span>
+                            <span>
+                                <a href="{{next_url}}" class="next">Next page &gt;&gt;</a>
+                            </span>
                         </div>
                     </div>
+                    {%endif%}
                     <div class="row">
-                        <div class="col-12">
-                            {% if prev_url %}
-                            <a href="{{prev_url}}">previous</a>
-                            {%else%}
-                            <a href="{{prev_url}}" style="display: none">previous</a>
-                            {%endif%}
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            {% if next_url %}
-                            <a href="{{next_url}}">next</a>
-                            {%else%}
-                            <a href="{{next_url}}" style="display: none">next</a>
-                            {%endif%}
-                            <span class="text-right">{{total_count}}</span>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span>Mumber of pages: {{ number_of_pages }}</span>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span>Page: {{ page }}</span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2">Name</div>
-                        <div class="col-2 d-none d-sm-table-cell d-md-block">Description</div>
-                        <div class="col-2 text-center">Votes</div>
-                        <div class="col-2 text-center">Created</div>
-                        <div class="col-4 text-center" style="background-color:rgb(199, 200, 101)">Manage Recipes</div>
+                        <div class="col-2 myrecipe-table-title">Name</div>
+                        <div class="col-2 d-none d-sm-table-cell d-md-block myrecipe-table-title">Description</div>
+                        <div class="col-2 text-center myrecipe-table-title">Votes</div>
+                        <div class="col-2 text-center myrecipe-table-title">Created</div>
+                        <div class="col-4 text-center myrecipe-table-title">Manage Recipes</div>
                     </div>
                     <div class="row">
                         {% for recipe in recipes if recipes %}
-
-                        <div class="col-2"><span style="margin-right:6px">{{loop.index}}</span><br><span style="white-space: nowrap;">{{
-                                recipe.name }}</span></div>
-                        <div class="col-2 d-none d-sm-table-cell d-md-block">{{ recipe.description|truncate(50, False,
-                            '...', 0) }}</div>
+                        <div class="col-2">
+                            <span>{{recipe.name }}</span>
+                        </div>
+                        <div class="col-2 d-none d-sm-table-cell d-md-block">
+                            {{ recipe.description|truncate(50, False, '...', 0) }}
+                        </div>
                         <div class="col-2 text-center">{{ recipe.votes }}</div>
-                        <div class="col-2 text-center">{{recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</div>
-                        <div class="col-4 text-center" style="background-color:darkgray">
+                        <div class="col-2 text-center">{{recipe['_id'].generation_time.date().strftime('%d %m %Y')}}</div>
+                        <div class="col-4 text-center">
                             <div class="row">
                                 <div class="col-12 col-md-4">
                                     <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-primary"
@@ -99,17 +80,17 @@
                                 This recipe will be deleted<br>Are you sure?</p>
                         </div>{{listing}}
                         {% else %}
-                        <div class="col-12">You have not added any recipes yet.</div>
+                        <div class="col-12 pt-5">You have not added any recipes yet. You can add recipes <a href="/add_recipe" title="Add a recipe">here</a></div>
 
                         {% endfor %}
                     </div>
-
                     <div id="myrecipesMessages"></div>
                 </div>
-            </section>
+
+            </div>
         </div>
     </div>
-</div>
+</section>
 <!--BACK TO TOP -->
 <div class="row">
     <div class="col-12">

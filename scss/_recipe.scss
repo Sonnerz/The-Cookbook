@@ -28,9 +28,14 @@
 #rateme {
     -webkit-appearance: none;
 }
+#rateme:hover {
+    color:$orange;
+}
+.fa-heart {
+    padding-right:5px;
+}
 .createdby span{
     font-weight: 700;
-    
 }
 .card-btn {
     text-align: right;
@@ -131,7 +136,6 @@
         }
         .utilities {
             padding-top:15px;
-            width: 60%;
             .fa-print{
                 padding-right: 5px;
             }

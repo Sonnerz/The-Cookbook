@@ -366,12 +366,10 @@ $(document).ready(function () {
       data: JSON.stringify(votes),
       type: 'POST',
       success: function (response) {
-        console.log("RESPONSE FROM SERVER", response);
         if (response == 'fail') {
-          $("#ratemeMessages").html("You've already voted for this recipe");
+          $("#ratemeMessages").html("You have already voted for this recipe");
         }
         else {
-          $("#ratemeMessages").html(response);
           $("#vote_result").html(response);
         }
       },
@@ -594,6 +592,20 @@ $(document).ready(function () {
   // #endregion
 
 
+  var current_path = $(location).attr('pathname');
+  if (current_path == "/myrecipes") {
+    var limit = url.searchParams.get("limit");
+    var offset = url.searchParams.get("offset");
+    var href = $(this).attr('href');
+    console.log(limit, offset)
+    if (offset < limit) {
+      $(".previous").hide();
+    }
+    if (offset >= limit) {
+      $(".previous").show();
+      $(".next").hide();
+    }
+  }
 }); // close document.ready
 // #endregion
 

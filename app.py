@@ -387,7 +387,7 @@ def update_vote(recipe_id):
     #check that user has not voted for recipe previously
     current_user = session['username']
     recipes_voted_for = get_user(current_user)
-    print(recipes_voted_for['recipe_votes'])
+    # if recipe id is in recipe_votes, person cannot vote
     if recipe_id in recipes_voted_for['recipe_votes']:
         message = 'fail'
         return message
@@ -398,7 +398,7 @@ def update_vote(recipe_id):
         votes = int(request.get_data())
         # get the relevant recipe by its id passed in url
         this_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-        # get the current votes for relevant recipe. Change to integer for addition in next step
+        # get the current votes for this recipe. Change to integer for addition in next step
         current_vote = int(this_recipe['votes'])
         # create new_vote var and add new vote to current recipe vote
         new_vote = current_vote + votes
@@ -434,19 +434,20 @@ def myrecipes():
 
      # initiate the data, search recipes by author
     user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': session['userid']})]
+    # get total count of recipes for this author
+    total_count=len(user_recipes_starting_id)
+    print("total_count", total_count)    
     for r in user_recipes_starting_id:
         print(r['name'])
 
     if not user_recipes_starting_id:
-        return render_template("myrecipes.html", current_user=current_user, test=test)
+        return render_template("myrecipes.html", current_user=current_user, test=test, total_count=total_count)
 
     
     # START PAGING - set offset and limit from url
     offset = int(request.args['offset'])
     limit  = int(request.args['limit'])
 
-    # get total count of recipes for this author
-    total_count=len(user_recipes_starting_id)
     # get last id displayed using _id as identifier
     last_id = user_recipes_starting_id[offset]['_id']
     # get updated data greater than the last doc _id displayed
@@ -456,13 +457,10 @@ def myrecipes():
     prev_url=""
 
     number_of_pages = int(math.ceil(total_count/limit))
-    # conditionally display the next & previous links
-    if limit < total_count:
-        if offset + limit < total_count:
-            next_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset + limit)
 
-        if offset + limit > total_count-limit:
-            prev_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset - limit)
+    next_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset + limit)
+    prev_url = '/myrecipes?limit=' + str(limit) + '&offset=' + str(offset - limit)
+
     return render_template("myrecipes.html", current_user=current_user, test=test, number_of_pages=number_of_pages, total_count=total_count, recipes=recipes, prev_url=prev_url, next_url=next_url)
 
 

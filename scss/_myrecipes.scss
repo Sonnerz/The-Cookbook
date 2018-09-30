@@ -23,3 +23,29 @@
     padding: .1em .25em;
     font-size: 150%;
 }
+
+.section-content .myrecipe-table-title {
+    font-weight: 700;
+    font-size: 1.2rem;
+    font-style: italic;
+}
+.prev-span{
+    width:140px;
+    display: inline-block;
+}
+.previous {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    width: 140px;
+    padding: 5px 10px;
+
+}
+
+.next {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    width: 120px;
+    padding: 5px 10px;
+}

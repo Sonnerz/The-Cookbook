@@ -485,6 +485,14 @@ label.error {
   -webkit-appearance: none;
 }
 
+#rateme:hover {
+  color: #f26522;
+}
+
+.fa-heart {
+  padding-right: 5px;
+}
+
 .createdby span {
   font-weight: 700;
 }
@@ -604,7 +612,6 @@ label.error {
   }
   #recipe-info .utilities {
     padding-top: 15px;
-    width: 60%;
   }
   #recipe-info .utilities .fa-print {
     padding-right: 5px;
@@ -672,6 +679,33 @@ label.error {
   padding-left: 2px;
   padding: .1em .25em;
   font-size: 150%;
+}
+
+.section-content .myrecipe-table-title {
+  font-weight: 700;
+  font-size: 1.2rem;
+  font-style: italic;
+}
+
+.prev-span {
+  width: 140px;
+  display: inline-block;
+}
+
+.previous {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  width: 140px;
+  padding: 5px 10px;
+}
+
+.next {
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  width: 120px;
+  padding: 5px 10px;
 }
 
 footer {
@@ -747,6 +781,7 @@ h6 {
 
 section {
   padding: 30px 0;
+  padding-top: 50px;
 }
 
 section h2.section-heading {
@@ -764,6 +799,10 @@ section h3.section-subheading {
   font-family: 'Lato', sans-serif, cursive;
 }
 
+.section-content {
+  padding-top: 30px;
+}
+
 .generalMessages {
   font-weight: 700;
   color: #f26522;
@@ -772,6 +811,7 @@ section h3.section-subheading {
 @media (min-width: 768px) {
   section {
     padding: 30px 0;
+    padding-top: 50px;
   }
 }
 
