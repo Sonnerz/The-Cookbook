@@ -26,13 +26,24 @@
 #recipeResult {
     font-weight: 700;
 }
-
+p.card-keyword {
+    margin-top: 35px;
+    span {
+    margin: 3px 0;
+    display: inline-block;
+    }
+}
+.keyword {
+    background-color: $orange;
+    border-radius: 1rem;
+    padding: 4px 10px;
+    font-weight: 700;
+}
 #filterMessage {
     font-weight: 700;
     color: $orange;
     padding-top:10px;
 }
-
 #backtotopIcon {
     display: none;
     position: fixed;

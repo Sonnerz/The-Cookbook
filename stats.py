@@ -19,7 +19,7 @@ def read_json(file_path):
         return results
 
 
-def is_text_in_description(token, text):
+def is_text_in_field(token, text):
     token = token.lower()
     text = ''.join(text).lower()
     match = re.search(token, text)
@@ -30,12 +30,16 @@ def is_text_in_description(token, text):
 
 results = read_json(RECIPES_DATA_PATH)
 recipesDataFrame = pandas.DataFrame()
-recipesDataFrame['description'] = [recipe['description'] for recipe in results]
+# recipesDataFrame['description'] = [recipe['description'] for recipe in results]
+recipesDataFrame['cuisine'] = [recipe['cuisine'] for recipe in results]
 
-recipesDataFrame['tarts'] = recipesDataFrame['description'].apply(lambda recipe: is_text_in_description('tarts', recipe))
+# recipesDataFrame['tarts'] = recipesDataFrame['description'].apply(lambda recipe: is_text_in_field('tarts', recipe))
+recipesDataFrame['Chinese'] = recipesDataFrame['cuisine'].apply(lambda recipe: is_text_in_field('Chinese', recipe))
 
-print(recipesDataFrame['tarts'].value_counts()[True])
 
+
+# print(recipesDataFrame['tarts'].value_counts()[True])
+print(recipesDataFrame['Chinese'].value_counts()[True])
 
 
 

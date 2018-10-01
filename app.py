@@ -490,6 +490,32 @@ def recipesearch():
                             recentrecipes=recent_recipes, highestvotes=highest_voted_recipe)
 
 
+# FUNCTION :: GET RECIPES BY ANY
+@app.route('/recipesearchquery', methods=['POST', 'GET'])
+def recipesearchquery():
+    query = request.get_data()
+    query = str(query)
+    # remove b from search text
+    query = query[1:]
+    # remove quotes ' ' from either end of search text
+    query = query.strip('\'"')
+    print("query AFTER>>> ", query)
+    filteredRecipes = None
+    try:
+        filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$text': {'$search': query}})]
+    except Exception as e:
+        # print("error accessing DB to find category %s" % str(e))
+        return render_template("500.html")
+
+    if filteredRecipes:
+        print("recipes by category exist")
+        return render_template("resultTemplate.html", reciperesults=filteredRecipes)
+    else:
+        print("no recipes with that category found")
+        message = "fail"
+        return message
+
+
 # FUNCTION :: GET RECIPES BY CATEGORY
 @app.route('/filter_by_category/<category>', methods=['POST', 'GET'])
 def filter_by_category(category):
@@ -506,7 +532,7 @@ def filter_by_category(category):
 
     if filteredRecipes:
         print("recipes by category exist")
-        return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
+        return render_template("resultTemplate.html", reciperesults=filteredRecipes)
     else:
         print("no recipes with that category found")
         message = "fail"

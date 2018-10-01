@@ -403,6 +403,22 @@ label.error {
   font-weight: 700;
 }
 
+p.card-keyword {
+  margin-top: 35px;
+}
+
+p.card-keyword span {
+  margin: 3px 0;
+  display: inline-block;
+}
+
+.keyword {
+  background-color: #f26522;
+  border-radius: 1rem;
+  padding: 4px 10px;
+  font-weight: 700;
+}
+
 #filterMessage {
   font-weight: 700;
   color: #f26522;

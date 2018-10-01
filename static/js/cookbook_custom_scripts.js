@@ -190,6 +190,40 @@ function topFunction() {
 // #endregion
 
 
+// #region SEARCH ANY FIELD
+
+  function searchdb(a){
+  searchQuery = a.innerHTML;
+  $.ajax({
+    url: '/recipesearchquery',
+    contentType: 'application/json',
+    data: JSON.stringify(searchQuery),
+    type: 'POST',
+    success: function (response) {
+      console.log("RESPONSE FROM SERVER", response);
+      $('.initialRecipes').hide();
+      $("#searchResult").show();
+      $("h3.section-subheading").html("Recipes searched by Ingredient: " + searchQuery)
+      if (response != "fail") {
+        $("#recipeResult").html(response);
+      }
+      else {
+        $("#recipeResult").html("There were no recipes found with <span class='search-param'>" + searchQuery + "</span> as a search value. <br>Try searching again." );
+      }
+      //scroll window to results
+      $('html, body').animate({
+        scrollTop: $(".results-col").offset().top -300
+      }, 'slow');
+    },
+    error: function (error) {
+      console.log(error);
+      $("#ratemeMessages").html(response);
+    }
+  });
+};
+// #endregion
+
+
 // #region DOCUMENT.READY START //
 
 $(document).ready(function () {
@@ -614,6 +648,7 @@ $(document).ready(function () {
   }
 
  // #endregion
+
 
 }); // close document.ready
 // #endregion
