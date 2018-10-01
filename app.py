@@ -490,7 +490,7 @@ def recipesearch():
                             recentrecipes=recent_recipes, highestvotes=highest_voted_recipe)
 
 
-# FUNCTION :: GET RECIPES BY ANY
+# FUNCTION :: GET RECIPES BY ANY VALUE - KEYWORDS HASHTAGS
 @app.route('/recipesearchquery', methods=['POST', 'GET'])
 def recipesearchquery():
     query = request.get_data()
@@ -499,7 +499,6 @@ def recipesearchquery():
     query = query[1:]
     # remove quotes ' ' from either end of search text
     query = query.strip('\'"')
-    print("query AFTER>>> ", query)
     filteredRecipes = None
     try:
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$text': {'$search': query}})]
