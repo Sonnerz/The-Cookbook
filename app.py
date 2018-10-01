@@ -444,11 +444,9 @@ def myrecipes():
     if not user_recipes_starting_id:
         return render_template("myrecipes.html", total_count=total_count)
 
-
     # START PAGING - set offset and limit from url
     offset = int(request.args['offset'])
     limit  = int(request.args['limit'])
-
 
     # get last id displayed using _id as identifier
     try:
