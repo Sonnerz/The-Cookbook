@@ -283,10 +283,10 @@ $(document).ready(function () {
         dialogClass: "alert",
         resizable: false,
         height: 330,
-        width: 500,
+        width: 320,
         modal: true,
         buttons: {
-          "Delete all items": function () {
+          "Delete the recipe": function () {
             $(this).dialog("close");
             var recipe_id = thisrecipeid
             $.ajax({
@@ -296,7 +296,7 @@ $(document).ready(function () {
               success: function (response) {
                 console.log("RESPONSE FROM SERVER", response);
                 $("#myrecipesMessages").html(response);
-                window.location.href = "/myrecipes/limit=5&offset=0";
+                window.location.href = "/myrecipes/?limit=5&offset=0";
               },
               error: function (error) {
                 console.log(error);

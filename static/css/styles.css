@@ -733,6 +733,7 @@ label.error {
 
 .table-content {
   background-color: #fafafa;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 576px) {
@@ -868,7 +869,7 @@ section h3.section-subheading {
 .btn-primary:active, .btn-primary:focus, .btn-primary:hover {
   background-color: #537c87 !important;
   border-color: #537c87 !important;
-  color: white;
+  color: #f26522;
 }
 
 .btn-primary:active, .btn-primary:focus {
@@ -919,6 +920,54 @@ img::-moz-selection {
   #user-name-wrapper, #user-name-wrapper-notloggedin {
     padding-top: 124px;
   }
+}
+
+.ui-dialog-titlebar, .ui-dialog-buttonset {
+  height: 4rem;
+  background-color: #393d3f;
+  color: #fafafa;
+  font-weight: 700;
+  padding: 1rem 1rem;
+  border-radius: 0.2rem;
+  border-top-left-radius: 0.3rem;
+  border-top-right-radius: 0.3rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.ui-dialog-titlebar span, .ui-dialog-buttonset span {
+  font-size: 1.3rem;
+}
+
+.ui-dialog-titlebar button, .ui-dialog-buttonset button {
+  margin-right: 10px;
+}
+
+.ui-dialog-buttonset {
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 0.3rem;
+  border-bottom-right-radius: 0.3rem;
+}
+
+.ui-dialog-titlebar button {
+  float: right;
+  line-height: 0.9rem;
+}
+
+.ui-dialog-titlebar-close {
+  display: none;
+}
+
+.ui-dialog-content {
+  background-color: #62929e;
+  padding: 8%;
+  padding-bottom: 30%;
+}
+
+.ui-dialog-content p {
+  font-weight: 600;
+  color: #fafafa;
 }
 
 @media (min-width: 320px) {

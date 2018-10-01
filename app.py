@@ -27,8 +27,10 @@ if app.debug:
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
     # app.config["MONGO_URI"] = "mongodb://xris:eZc727sZ7XmixRHL@ds251332.mlab.com:51332/cookbook"
 else:
-    app.config["DBS_NAME"] = DBS_NAME
-    app.config["MONGO_URI"] = MONGO_URI
+    # app.config["DBS_NAME"] = DBS_NAME
+    # app.config["MONGO_URI"] = MONGO_URI
+    app.config["DBS_NAME"] = "cookbook"
+    app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
 mongo = PyMongo(app)
 
 
@@ -115,17 +117,17 @@ def get_votes_recipes():
 
 # FUNCTION :: GET 8 RANDOM RECIPES
 def get_random_recipes():
-    rows = {}
+    random_recipes = {}
     try:
         # Query recipes collection and return ordered by votes descending
-        rows = mongo.db.recipes.aggregate([{'$sample': {'size': 8}},{'$sort':{'votes': -1}}])
+        random_recipes = [random_recipe for random_recipe in mongo.db.recipes.aggregate([{'$sample': {'size': 8}},{'$sort':{'votes': -1}}])]
     except Exception as e:
         # print("error accessing DB %s" % str(e))
         return render_template("500.html")
 
-    if rows:
+    if random_recipes:
         print("all recipes found")
-    return rows
+    return random_recipes
 
 
 # FUNCTION :: GET RECENT RECIPES x4
@@ -133,7 +135,7 @@ def get_recent_recipes():
     recipes = {}
     try:
     # Query recipes collection and return ordered by votes descending
-       recipes = mongo.db.recipes.find().sort('_id',-1).limit(3)
+       recipes = [recipe for recipe in mongo.db.recipes.find().sort('_id',-1).limit(3)]
     except Exception as e:
         # print("error accessing DB %s" % str(e))
         return render_template("500.html")
@@ -368,7 +370,6 @@ def view_recipe(recipe_id):
     # get the recipe by using id passed in url
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     the_author = mongo.db.users.find_one({"_id":  ObjectId(the_recipe['author'])})
-    print(the_author)
     # get categories, cuisine, allergens, difficulty for form dropdown lists
     categories = get_categories()
     cuisine = get_cuisine()
@@ -441,15 +442,22 @@ def myrecipes():
         print(r['name'])
 
     if not user_recipes_starting_id:
-        return render_template("myrecipes.html", current_user=current_user, test=test, total_count=total_count)
+        return render_template("myrecipes.html", total_count=total_count)
 
-    
+
     # START PAGING - set offset and limit from url
     offset = int(request.args['offset'])
     limit  = int(request.args['limit'])
 
+
     # get last id displayed using _id as identifier
-    last_id = user_recipes_starting_id[offset]['_id']
+    try:
+        last_id = user_recipes_starting_id[offset]['_id']
+    except:
+        flash = ('You have' + str(total_count) + 'recipes')
+        newurl = 'myrecipes?limit=5&offset=0'
+        return redirect(newurl)
+
     # get updated data greater than the last doc _id displayed
     recipes = [recipe for recipe in mongo.db.recipes.find({'$and': [{'author': session['userid']}, {'_id': {'$gte': last_id}}]}).limit(limit)]
 
