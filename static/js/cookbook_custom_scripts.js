@@ -592,20 +592,29 @@ $(document).ready(function () {
   // #endregion
 
 
+  // #region SHOW HIDE PAGING BUTTONS ON MYRECIPES 
+
   var current_path = $(location).attr('pathname');
   if (current_path == "/myrecipes") {
-    var limit = url.searchParams.get("limit");
-    var offset = url.searchParams.get("offset");
-    var href = $(this).attr('href');
-    console.log(limit, offset)
-    if (offset < limit) {
+    var url_string = window.location.href;
+    var url = new URL(url_string);
+    var limit = parseInt(url.searchParams.get("limit"));
+    var offset = parseInt(url.searchParams.get("offset"));
+    var totalcount = parseInt($("#totalcount").text());
+    console.log(limit, offset, totalcount)
+    if (offset == 0) {
       $(".previous").hide();
+      $(".next").show();
+      $("#numberofpages").html("First page");
     }
-    if (offset >= limit) {
-      $(".previous").show();
+    if ((offset + limit) > totalcount) {
       $(".next").hide();
+      $("#numberofpages").html("Last page");
     }
   }
+
+ // #endregion
+
 }); // close document.ready
 // #endregion
 

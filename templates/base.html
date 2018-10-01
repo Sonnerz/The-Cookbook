@@ -283,40 +283,6 @@
     </div>
   </footer>
 
-  <!-- Debug panel for monitoring var values -->
-  {% if debug %}
-  <div class="container-fluid">
-    <button onclick="viewPanel()" style="border-color:pink">
-      Hide/Show Debug Panel (only available in Debug Mode)
-    </button>
-  </div>
-  <div class="container-fluid" style="display:none; background-color:pink" id="panel-debug">
-    <div class="row">
-      <div class="col">
-        <div class="container-fluid">
-          <div class="row">
-
-            <div class="col-md-6">
-              <h5>Connection</h5>
-              {% for t in test %}
-              <p>{{ t.test_description }}</p>
-              {% endfor %}
-              <h5>Session</h5>
-              <p>user id: {{ session['userid'] }}</p>
-              <p>username: {{ session['username'] }}</p>
-              <p>isLoggedin: {{ session['isLoggedin'] }}</p>
-            </div>
-            <div class="col-md-6">
-              {% block content_debug %}{% endblock %}
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  {% endif %}
-
   <!-- Bootstrap JS -->
   <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.min.js')}}"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>

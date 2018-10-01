@@ -22,6 +22,9 @@
 .thumbs-col{
     line-height: 3.6rem;
 }
+.print{
+    padding-right: 5px;
+}
 .voteup {
     font-size: 1.5rem;
 }
@@ -112,6 +115,13 @@
         div.col-12 {
             padding: 0;
         }
+        .loop {
+            padding-right: 15px;
+            display: inline-block;
+        }
+        .instruct {
+            display: inline-block;
+        }
     }
     @media(min-width:768px) {
         .recipe-heading {
@@ -136,7 +146,7 @@
         }
         .utilities {
             padding-top:15px;
-            .fa-print{
+            .print{
                 padding-right: 5px;
             }
         }

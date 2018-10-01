@@ -30,8 +30,11 @@
     font-style: italic;
 }
 .prev-span{
-    width:140px;
+    width:136px;
     display: inline-block;
+}
+.paging{
+    margin-top: 20px;
 }
 .previous {
     -webkit-appearance: button;
@@ -39,7 +42,6 @@
     appearance: button;
     width: 140px;
     padding: 5px 10px;
-
 }
 
 .next {
@@ -48,4 +50,19 @@
     appearance: button;
     width: 120px;
     padding: 5px 10px;
+}
+.table-header {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: $palesilver;
+}
+.table-content {
+    background-color: $offwhite;
+}
+@media (max-width: 576px) {
+    .btn {
+        padding: 0.2rem .2rem;
+        font-size: 0.7rem;
+        line-height: 1.1;
+    }
 }

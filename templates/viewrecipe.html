@@ -10,7 +10,8 @@
                 <div class="col-lg-12">
                     <h1>{{ recipe.name }}</h1>
                     <!-- CREATED BY AND DATE -->
-                    <p class="text-muted createdby">Created by: <span>{{recipeauthor.username.title()}}</span> on <span>{{ recipe['_id'].generation_time.date().strftime('%d-%m-%Y') }}</span></p>
+                    <p class="text-muted createdby">Created by: <span>{{recipeauthor.username.title()}}</span> on <span>{{
+                            recipe['_id'].generation_time.date().strftime('%d-%m-%Y') }}</span></p>
                     <h3 class="section-subheading text-muted">{{ recipe.description }}</h3>
                 </div>
             </div>
@@ -39,14 +40,16 @@
                         {% endif %}
                         <!-- UTILITIES PRINT/RATE-->
                         <div class="row text-center utilities">
-                                {% if (recipe.author != session['userid']) and  (session['isLoggedin'] == True)%}
+                            {% if (recipe.author != session['userid']) and (session['isLoggedin'] == True)%}
                             <div class="col-4">
                                 <a type="submit" action="{{ url_for('update_vote', recipe_id=recipe._id) }}" id="rateme"
                                     name="rateme" alt="Rate this recipe" title="Rate this recipe"><i class="far fa-heart"></i>Rate</a>
                             </div>
                             {% endif %}
                             <div class="col">
-                                <a href="#" onclick="window.print();return false;" alt="Print this recipe" title="Print this recipe"><i class="fas fa-print"></i>Print</a>
+                                <a href="#" onclick="window.print();return false;" alt="Print this recipe" title="Print this recipe"><img
+                                        src="{{ url_for('static', filename='img/global/printer-tool.png')}}" alt="Print"
+                                        class="print">Print</a>
                             </div>
                             <div class="col">
                                 <i class="far fa-heart"></i><span id="vote_result">{{ recipe.votes }}</span>
@@ -71,7 +74,7 @@
                                     </div>
                                     <div class="col-6 detail-value">
                                         <ul class="detail-item">
-                                            <li>{{ recipe.main_ingredient }}</li>
+                                            <li>{{ recipe.main_ingredient.title() }}</li>
                                             <li>{{ recipe.category }}</li>
                                             <li>{{ recipe.cuisine }}</li>
                                             <li>{{ recipe.calories }}</li>
@@ -133,9 +136,13 @@
                             <div class="col-12">
                                 <h4 class="recipe-heading"><img src="{{ url_for('static', filename='img/recipes/recipe.png')}}">
                                     Instructions</h4>
-                                {% for instruct in recipe.instructions %}
-                                <div class="instuctions-line">{{ instruct }}</div>
-                                {% endfor %}
+                                <ol>
+                                    {% for instruct in recipe.instructions %}
+                                    <div class="instuctions-line">
+                                        <li>{{ instruct }}</li>
+                                    </div>
+                                    {% endfor %}
+                                </ol>
                             </div>
                         </div>
                         <!-- BUTTONS -->
@@ -181,17 +188,4 @@
         <button onclick="topFunction()" id="backtotopIcon" title="Go to top"></button>
     </div>
 </div>
-{% endblock %}
-
-
-<!-- Debug area. Hidden if debug set to False -->
-{% block content_debug %}
-{% if session['isLoggedIn'] == True %}
-<h5>Current User</h5>
-<p>username: {{ current_user.username }}</p>
-<p>firstname: {{ current_user.firstname }}</p>
-<p>lastname: {{ current_user.lastname }}</p>
-<p>country: {{ current_user.country }}</p>
-<p>id: {{ current_user._id }}</p>
-{% endif %}
 {% endblock %}

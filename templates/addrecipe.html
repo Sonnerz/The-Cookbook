@@ -186,14 +186,3 @@
     {% endwith %}
 </div>
 {% endblock %}
-
-
-<!-- Debug area. Hidden if debug set to False -->
-{% block content_debug %}
-<h5>Current User</h5>
-<p>username: {{ current_user.username }}</p>
-<p>firstname: {{ current_user.firstname }}</p>
-<p>lastname: {{ current_user.lastname }}</p>
-<p>country: {{ current_user.country }}</p>
-<p>id: {{ current_user._id }}</p>
-{% endblock %}

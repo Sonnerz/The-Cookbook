@@ -90,15 +90,3 @@
 </div>
 
 {% endblock %}
-
-<!-- Debug area. Hidden if debug set to False -->
-{% block content_debug %}
-<h5>Connection Test</h5>
-{% for t in test %}
-<p>{{t.test_description}}</p>
-{% endfor %}
-<h5>Usernames</h5>
-{% with messages = get_flashed_messages() %} {% if messages %} {% for message in messages %}
-{{message}}
-{% endfor %} {% endif %} {% endwith %}
-{% endblock %}
