@@ -25,12 +25,9 @@ app.secret_key = 'The cat is on the roof'
 if app.debug:
     app.config["DBS_NAME"] = "cookbook"
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
-    # app.config["MONGO_URI"] = "mongodb://xris:eZc727sZ7XmixRHL@ds251332.mlab.com:51332/cookbook"
 else:
-    # app.config["DBS_NAME"] = DBS_NAME
-    # app.config["MONGO_URI"] = MONGO_URI
-    app.config["DBS_NAME"] = "cookbook"
-    app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
+    app.config["DBS_NAME"] = DBS_NAME
+    app.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo(app)
 
 
@@ -88,20 +85,6 @@ def get_user_recipes(current_user_id):
 
 
 # FUNCTION :: GET ALL RECIPES
-def get_allrecipes():
-    rows = {}
-    try:
-        rows = mongo.db.recipes.find()
-    except Exception as e:
-        # print("error accessing DB %s" % str(e))
-        return render_template("500.html")
-
-    if rows:
-        print("all recipes found")
-    return rows
-
-
-# FUNCTION :: GET NEW RECIPES
 def get_allrecipes():
     rows = {}
     try:
@@ -293,7 +276,8 @@ def insert_recipe():
         'ingredients': ingred_list_no_blanks,
         'instructions': instruct_list_no_blanks,
         'votes': int(0),
-        'dateAdded': datetime.now()
+        'dateCreated': datetime.now(),
+        'dateModified': datetime.now()
     }
     # insert new recipe
     recipes.insert_one(new_recipe)
@@ -367,7 +351,7 @@ def update_recipe(recipe_id):
         }
     })
     flash("recipe upated")
-    message = "success update"
+    message = "The recipe has been updated."
     return message
 
 

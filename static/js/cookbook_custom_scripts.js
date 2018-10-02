@@ -303,7 +303,7 @@ $(document).ready(function () {
   // #endregion
 
 
-  // #region CONFIRM WITH USER BEFORE DELETING A RECIPE
+  // #region DELETING A RECIPE - CONFIRM WITH USER 
 
   $(function () {
     $('.delete_recipe').click(function (e) {
@@ -330,7 +330,7 @@ $(document).ready(function () {
               success: function (response) {
                 console.log("RESPONSE FROM SERVER", response);
                 $("#myrecipesMessages").html(response);
-                window.location.href = "/myrecipes/?limit=5&offset=0";
+                window.location.href = "/myrecipes?limit=5&offset=0";
               },
               error: function (error) {
                 console.log(error);

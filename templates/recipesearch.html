@@ -22,11 +22,6 @@
             <div class="col-12 col-md-3 filter-col">
                 <div class="row">
                     <div class="col-12">
-                        <p>There have been x recipes added in the last 7 days.</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12">
                         <h3>Search all Recipes</h3>
                         <img src="{{ url_for('static', filename='img/recipes/search.png')}}">
                     </div>
@@ -164,8 +159,7 @@
                                         </p>
                                     </div>
                                     <div class="card-footer">
-                                        <div class="card-text"><small class="text-muted">Created: {{
-                                                recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></div>
+                                        <div class="card-text"><small class="text-muted">Created: {{recipe['dateCreated'].strftime('%d-%m-%Y')}}</small></div>
                                         <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
                                                 {{ recipe.votes }}</small></div>
                                     </div>
@@ -205,8 +199,7 @@
                                         </p>
                                     </div>
                                     <div class="card-footer">
-                                        <div class="card-text"><small class="text-muted">Created: {{
-                                                recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></div>
+                                        <div class="card-text"><small class="text-muted">Created: {{recipe['dateCreated'].strftime('%d-%m-%Y')}}</small></div>
                                         <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
                                                 {{ recipe.votes }}</small></div>
                                     </div>
@@ -247,8 +240,7 @@
                                         </p>
                                     </div>
                                     <div class="card-footer">
-                                        <div class="card-text"><small class="text-muted">Created: {{
-                                                recipe['_id'].generation_time.date().strftime('%d %m %Y') }}</small></div>
+                                        <div class="card-text"><small class="text-muted">Created: {{recipe['dateCreated'].strftime('%d-%m-%Y')}}</small></div>
                                         <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
                                                 {{recipe.votes }}</small></div>
                                     </div>
