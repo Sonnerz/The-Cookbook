@@ -128,8 +128,9 @@
                 <!-- INITIAL RANDOM SELECTION OF RECIPES BEFORE SEARCHING, HIDDEN AFTER USER FILTERS -->
                 <!-- MOST RECENT RECIPES-->
                 <div class="initialRecipes">
-                    <h2>Recent Recipes</h2>
-                    <div class="row recentRecipes" style="background-color:#fff">
+                    <h2>Recent Recipes </h2>
+                    <h3 class="section-subheading text-muted">The three most recent recipes</h3>
+                    <div class="row recentRecipes">
                         <div class="col-12">
                             <div class="card-deck">
                                 {% for recipe in recentrecipes|sort(attribute='votes', reverse = True)%}
@@ -170,7 +171,8 @@
                     </div>
                     <!-- MOST POPULAR-->
                     <h2>Most Popular Recipes</h2>
-                    <div class="row recentRecipes" style="background-color:#fff">
+                    <h3 class="section-subheading text-muted">The three recipes with the highest rating</h3>
+                    <div class="row recentRecipes">
                         <div class="col-12">
                             <div class="card-deck">
                                 {% for recipe in highestvotes %}
@@ -210,8 +212,9 @@
                     </div>
                     <!-- RANDOM RECIPES-->
                     <h2>Selection of Recipes</h2>
+                    <h3 class="section-subheading text-muted">A small selection of recipes available</h3>
                     {% for recipe_row in recipes | batch(3) %}
-                    <div class="row" style="background-color:#fff">
+                    <div class="row">
                         <div class="col-12">
                             <div class="card-deck">
                                 {% for recipe in recipe_row %}

@@ -197,6 +197,11 @@ def get_difficulty():
         return render_template("500.html")
     return difficulty
 
+# PAGE :: INDEX - HOME PAGE
+@app.route('/graphs')
+def graphs():
+    return render_template("graphs.html")
+
 
 # PAGE :: INDEX - HOME PAGE
 @app.route('/')
@@ -582,7 +587,7 @@ def filter_by_allergen(allergen):
         return message
 
 
-# FUNCTION :: GET RECIPES BY INGREDIENT
+# FUNCTION :: GET RECIPES BY MAIN INGREDIENT
 @app.route('/filter_by_ingredient', methods=['POST', 'GET'])
 def filter_by_ingredient():
     filteredRecipes = None
@@ -601,7 +606,7 @@ def filter_by_ingredient():
 
     if filteredRecipes:
         print("recipes by ingredient exist")
-        return render_template("resultTemplate.html", reciperesults=filteredRecipes)    
+        return render_template("resultTemplate.html", reciperesults=filteredRecipes)
     else:
         print("no recipes with that ingredient found")
         message = "fail"

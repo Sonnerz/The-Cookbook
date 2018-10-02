@@ -1,3 +1,4 @@
+<div><p>{{reciperesults|length}} recipes found</p></div>
 {% for recipe_row in reciperesults | sort(attribute='votes', reverse = True) | batch(3) %}
 <div class="card-deck">
     {% for recipe in recipe_row %}    
