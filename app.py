@@ -19,8 +19,8 @@ MONGO_URI = os.getenv("MONGODB_URI")
 
 
 app = Flask(__name__)
-app.secret_key = 'The cat is on the roof'
-# app.secret_key = os.urandom(24)
+# app.secret_key = 'The cat is on the roof'
+app.secret_key = os.urandom(24)
 
 if app.debug:
     app.config["DBS_NAME"] = "cookbook"
@@ -213,7 +213,6 @@ def index():
 def logout():
     # get value from get request and clear sessions values
     if request.method == 'GET':
-        print(session)
         session.pop('username', None)
         session.pop('userid', None)
         session['isLoggedin'] = False
@@ -442,9 +441,6 @@ def myrecipes():
     user_recipes_starting_id = [recipe for recipe in mongo.db.recipes.find({'author': session['userid']})]
     # get total count of recipes for this author
     total_count=len(user_recipes_starting_id)
-    print("total_count", total_count)    
-    for r in user_recipes_starting_id:
-        print(r['name'])
 
     if not user_recipes_starting_id:
         return render_template("myrecipes.html", total_count=total_count)
@@ -548,7 +544,6 @@ def filter_by_category(category):
 def filter_by_cuisine(cuisine):
     filteredRecipes = None
     cuisine_name = cuisine
-    print("cuisine 6>>> ", cuisine_name)
     try:
         # Query recipes collection and return ordered by votes descending
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'cuisine': cuisine_name}, '$orderby': { 'votes' : -1 } })]
@@ -570,7 +565,6 @@ def filter_by_cuisine(cuisine):
 def filter_by_allergen(allergen):
     filteredRecipes = None
     allergen_name = allergen
-    print("allergen 6>>> ", allergen_name)
     try:
         # Query recipes collection and return ordered by votes descending
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'allergens': allergen_name}, '$orderby': { 'votes' : -1 } })]
@@ -619,7 +613,6 @@ def filter_by_catcuis(category,cuisine):
     filteredRecipes = None
     category_name = category
     cuisine_name = cuisine
-    print(category, cuisine)
     try:
         # Query recipes collection and return ordered by votes descending
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find({'$query': {'category': category_name, 'cuisine': cuisine_name}, '$orderby': { 'votes' : -1 } })]

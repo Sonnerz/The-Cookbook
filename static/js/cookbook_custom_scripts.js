@@ -10,7 +10,6 @@ $(function () {
         data: $('#signupForm').serialize(),
         type: 'POST',
         success: function (response) {
-          console.log(response);
           if (response == "success") {
             var message = "Success. Log in now."
             $("#signupMessages").html(message);
@@ -45,7 +44,6 @@ $(function () {
       data: $('#loginForm').serialize(),
       type: 'POST',
       success: function (response) {
-        console.log(response);
         if (response == 1) {
           $("#loginMessages").html("The password was incorrect");
         }
@@ -85,7 +83,6 @@ $(function () {
     var categorypicked = $('#category').find(":selected").text();
     var cuisinepicked = $('#cuisine').find(":selected").text();
     var difficultypicked = $('#difficulty').find(":selected").text();
-    console.log(categorypicked)
     if (categorypicked == "Select a Category" || cuisinepicked == "Select a Cuisine" || difficultypicked == "Select a Difficulty level") {
       $("#newRecipeMessages").html("You must select a Category, Cuisine and Difficulty Level");
     }
@@ -95,7 +92,6 @@ $(function () {
         data: $('#add_recipe_form').serialize(),
         type: 'POST',
         success: function (response) {
-          console.log("RESPONSE FROM SERVER", response);
           $("#newRecipeMessages").html(response);
           $("h3.section-subheading").html("Your recipe has been added")
           // Delay before redirect to read message
@@ -126,7 +122,6 @@ $(function () {
       data: $('#update_recipe_form').serialize(),
       type: 'POST',
       success: function (response) {
-        console.log("RESPONSE FROM SERVER", response);
         $("#editRecipeMessages").html(response);
         window.location.href = "/myrecipes?limit=5&offset=0";
       },
@@ -200,7 +195,6 @@ function topFunction() {
     data: JSON.stringify(searchQuery),
     type: 'POST',
     success: function (response) {
-      console.log("RESPONSE FROM SERVER", response);
       $('.initialRecipes').hide();
       $("#searchResult").show();
       $("h3.section-subheading").html("Recipes searched by Ingredient: " + searchQuery)
@@ -328,7 +322,6 @@ $(document).ready(function () {
               data: { "recipe_id": recipe_id },
               type: 'POST',
               success: function (response) {
-                console.log("RESPONSE FROM SERVER", response);
                 $("#myrecipesMessages").html(response);
                 window.location.href = "/myrecipes?limit=5&offset=0";
               },
@@ -393,7 +386,6 @@ $(document).ready(function () {
     votes = 1;
     var url = window.location.href;
     recipe_id = url.split("/").pop();
-    console.log("got to here", votes)
     $.ajax({
       url: '/update_vote/' + recipe_id,
       contentType: 'application/json',
@@ -423,7 +415,6 @@ $(document).ready(function () {
       event.preventDefault();
       var categorypicked = $('#category-select').find(":selected").text();
       category = categorypicked.trim();
-      console.log("category selected:", category)
       $.ajax({
         url: '/filter_by_category/' + category,
         contentType: 'application/json',
@@ -465,7 +456,6 @@ $(document).ready(function () {
       var cuisinepicked = $('#cuisine-select').find(":selected").text();
       $("#sc").text(cuisinepicked);
       cuisine = cuisinepicked.trim();
-      console.log("cuisine selected:", cuisine)
       $.ajax({
         url: '/filter_by_cuisine/' + cuisine,
         contentType: 'application/json',
@@ -506,7 +496,6 @@ $(document).ready(function () {
       event.preventDefault();
       var allergenpicked = $('#allergen-select').find(":selected").text();
       allergen = allergenpicked.trim();
-      console.log("allergen selected:", allergen)
       $.ajax({
         url: '/filter_by_allergen/' + allergen,
         contentType: 'application/json',
@@ -546,13 +535,11 @@ $(document).ready(function () {
     $('#ingredientFilter').submit(function (event) {
       event.preventDefault();
       var ingredient = $('#searchmain').val()
-      console.log(ingredient)
       $.ajax({
         url: '/filter_by_ingredient',
         data: ingredient,
         type: 'POST',
         success: function (response) {
-          console.log("RESPONSE FROM SERVER", response);
           $('.initialRecipes').hide();
           $("#searchResult").show();
           $("h3.section-subheading").html("Recipes searched by Ingredient: " + ingredient)
@@ -596,7 +583,6 @@ $(document).ready(function () {
           data: JSON.stringify(cuisine),
           type: 'POST',
           success: function (response) {
-            console.log("RESPONSE FROM SERVER", response);
             $("#searchResult").show();
             $('.initialRecipes').hide();
             $("h3.section-subheading").html("Recipes searched by Category: " + categorypicked + " and Cuisine: " + cuisinepicked);
@@ -635,7 +621,6 @@ $(document).ready(function () {
     var limit = parseInt(url.searchParams.get("limit"));
     var offset = parseInt(url.searchParams.get("offset"));
     var totalcount = parseInt($("#totalcount").text());
-    console.log(limit, offset, totalcount)
     if (offset == 0) {
       $(".previous").hide();
       $(".next").show();
