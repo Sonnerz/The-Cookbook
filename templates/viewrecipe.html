@@ -12,6 +12,8 @@
                     <!-- CREATED BY AND DATE -->
                     <p class="text-muted createdby">Created by: <span>{{recipeauthor.username.title()}}</span> on <span>{{
                             recipe['_id'].generation_time.date().strftime('%d-%m-%Y') }}</span></p>
+                            <p>{{recipe['dateAdded'].strftime('%d-%m-%Y')}}</p>
+                            <p>{{recipe['dateModified'].strftime('%d-%m-%Y')}}</p>
                     <h3 class="section-subheading text-muted">{{ recipe.description }}</h3>
                 </div>
             </div>

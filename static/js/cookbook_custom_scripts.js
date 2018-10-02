@@ -80,13 +80,13 @@ $(function () {
     event.preventDefault();
     //scroll window to results
     $('html, body').animate({
-      scrollTop: $("#page=top").offset().top -300
+      scrollTop: $("#page-top").offset().top -300
     }, 'slow');    
     var categorypicked = $('#category').find(":selected").text();
     var cuisinepicked = $('#cuisine').find(":selected").text();
-    var dfficultypicked = $('#difficulty').find(":selected").text();
+    var difficultypicked = $('#difficulty').find(":selected").text();
     console.log(categorypicked)
-    if (categorypicked == "Select a Category" || cuisinepicked == "Select a Cuisine" || dfficultypicked == "Select a Difficulty level") {
+    if (categorypicked == "Select a Category" || cuisinepicked == "Select a Cuisine" || difficultypicked == "Select a Difficulty level") {
       $("#newRecipeMessages").html("You must select a Category, Cuisine and Difficulty Level");
     }
     else {

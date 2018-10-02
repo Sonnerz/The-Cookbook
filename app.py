@@ -58,7 +58,7 @@ def compare_password(hashedpw, formpw):
     return compare_pw
 
 
-# FUNCTION :: GET RECORD FROM USERS COLLECTION BY USERNAME
+# FUNCTION :: GET USER FROM USERS COLLECTION BY USERNAME
 def get_user(username):
     row = {}
     try:
@@ -101,7 +101,21 @@ def get_allrecipes():
     return rows
 
 
-# FUNCTION :: GET RECIPES WITH HIGHEST VOTES x4
+# FUNCTION :: GET NEW RECIPES
+def get_allrecipes():
+    rows = {}
+    try:
+        rows = mongo.db.recipes.find()
+    except Exception as e:
+        # print("error accessing DB %s" % str(e))
+        return render_template("500.html")
+
+    if rows:
+        print("all recipes found")
+    return rows
+
+
+# FUNCTION :: GET RECIPES WITH HIGHEST VOTES
 def get_votes_recipes():
     rows = {}
     try:
@@ -130,7 +144,7 @@ def get_random_recipes():
     return random_recipes
 
 
-# FUNCTION :: GET RECENT RECIPES x4
+# FUNCTION :: GET RECENT RECIPES
 def get_recent_recipes():
     recipes = {}
     try:
@@ -263,7 +277,7 @@ def insert_recipe():
     instruct_list_no_blanks = [i for i in instruct_list if i != ""]
     # create new recipe object
     new_recipe = {
-        'author': current_user_id,       
+        'author': current_user_id,
         'name': request.form.get('name'),
         'image_url': request.form.get('image_url'),
         'description': request.form.get('description'),
@@ -278,7 +292,8 @@ def insert_recipe():
         'allergens': request.form.getlist('allergen'),
         'ingredients': ingred_list_no_blanks,
         'instructions': instruct_list_no_blanks,
-        'votes': int(0)
+        'votes': int(0),
+        'dateAdded': datetime.now()
     }
     # insert new recipe
     recipes.insert_one(new_recipe)
@@ -347,7 +362,8 @@ def update_recipe(recipe_id):
             'allergens': request.form.getlist('allergen'),
             'ingredients': ingred_list_no_blanks,
             'instructions': instruct_list_no_blanks,
-            'votes': int(request.form.get('votes'))
+            'votes': int(request.form.get('votes')),
+            'dateModified': datetime.now()
         }
     })
     flash("recipe upated")
