@@ -1089,7 +1089,7 @@ img::-moz-selection {
 
 @media (min-width: 576px) {
   .card-deck .card {
-    max-width: 28%;
+    max-width: 30%;
     width: 33.33%;
   }
 }

@@ -9,7 +9,8 @@
             <div class="row">
                 <div class="col-12">
                     <h1>Recipe Search</h1>
-                    <h3 class="section-subheading text-muted">Search and filter recipes</h3>
+                    <h3 class="section-subheading text-muted">Search and filter recipes. Please note the recipe tags
+                        search fields including the recipe description</h3>
                 </div>
             </div>
         </div>
@@ -33,7 +34,8 @@
                             <label for="searchmain">Search by Main Ingredient</label>
                             <div class="input-group mb-3">
                                 <input type="input" class="form-control" id="searchmain" name="searchmain" placeholder="Enter an ingredient"
-                                    aria-label="Search for a main ingredient" aria-describedby="ingredientFilterButton" required>
+                                    aria-label="Search for a main ingredient" aria-describedby="ingredientFilterButton"
+                                    required>
                                 <div class="input-group-append">
                                     <button class="btn btn-primary" id="ingredientFilterButton" type="submit">Search</button>
                                 </div>
@@ -72,7 +74,7 @@
                 <!--ALLERGENS FILTER-->
                 <div class="row">
                     <div class="col-12">
-                        <label for="selectCuisine">Search by Allergens</label>
+                        <label for="selectCuisine">Search without an Allergen</label>
                         <form id="allergenFilter" name="allergenFilter" method="POST">
                             <select class="custom-select" id="allergen-select">
                                 <option>Select an Allergen</option>
@@ -122,7 +124,9 @@
                 <!--SEARCH RESULTS-->
                 <div class="row" id="searchResult">
                     <div class="col-12" id="thisisacol">
-                        <div><p id="recipeResult"></p></div>
+                        <div>
+                            <p id="recipeResult"></p>
+                        </div>
                     </div>
                 </div>
                 <!-- INITIAL RANDOM SELECTION OF RECIPES BEFORE SEARCHING, HIDDEN AFTER USER FILTERS -->
@@ -151,17 +155,18 @@
                                                 class="btn btn-primary" type="button" id="viewRecipeButton">View Recipe</a></p>
                                         </p>
                                         <p class="card-keyword">
-                                            <span><a onclick="searchdb(this);" class="keyword">#{{recipe.category}}</a></span>
+                                            <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{recipe.category}}">#{{recipe.category}}</a></span>
                                             {% if recipe.cuisine != "No-Cuisine" %}
-                                            <span><a onclick="searchdb(this);" class="keyword">#{{recipe.cuisine}}</a></span>
+                                            <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{recipe.cuisine}}">#{{recipe.cuisine}}</a></span>
                                             {% endif %}
                                             {% for a in recipe.allergens %}
-                                            <span><a onclick="searchdb(this);" class="keyword">#{{a}}</a></span>
+                                            <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{a}}">#{{a}}</a></span>
                                             {%endfor%}
                                         </p>
                                     </div>
                                     <div class="card-footer">
-                                        <div class="card-text"><small class="text-muted">Created: {{recipe['dateCreated'].strftime('%d-%m-%Y')}}</small></div>
+                                        <div class="card-text"><small class="text-muted">Created:
+                                                {{recipe['dateCreated'].strftime('%d-%m-%Y')}}</small></div>
                                         <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
                                                 {{ recipe.votes }}</small></div>
                                     </div>
@@ -193,17 +198,18 @@
                                         <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}"
                                                 class="btn btn-primary" type="button" id="viewRecipeButton">View Recipe</a></p>
                                         <p class="card-keyword">
-                                                <span><a onclick="searchdb(this);" class="keyword">#{{recipe.category}}</a></span>
-                                                {% if recipe.cuisine != "No-Cuisine" %}
-                                                <span><a onclick="searchdb(this);" class="keyword">#{{recipe.cuisine}}</a></span>
-                                                {%endif%}
-                                                {% for a in recipe.allergens %}
-                                                <span><a onclick="searchdb(this);" class="keyword">#{{a}}</a></span>
-                                                {%endfor%}
+                                            <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{recipe.category}}">#{{recipe.category}}</a></span>
+                                            {% if recipe.cuisine != "No-Cuisine" %}
+                                            <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{recipe.cuisine}}">#{{recipe.cuisine}}</a></span>
+                                            {%endif%}
+                                            {% for a in recipe.allergens %}
+                                            <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{a}}">#{{a}}</a></span>
+                                            {%endfor%}
                                         </p>
                                     </div>
                                     <div class="card-footer">
-                                        <div class="card-text"><small class="text-muted">Created: {{recipe['dateCreated'].strftime('%d-%m-%Y')}}</small></div>
+                                        <div class="card-text"><small class="text-muted">Created:
+                                                {{recipe['dateCreated'].strftime('%d-%m-%Y')}}</small></div>
                                         <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
                                                 {{ recipe.votes }}</small></div>
                                     </div>
@@ -236,17 +242,18 @@
                                         <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}"
                                                 class="btn btn-primary" type="button" id="viewRecipeButton">View Recipe</a></p>
                                         <p class="card-keyword">
-                                                <span><a onclick="searchdb(this);" class="keyword">#{{recipe.category}}</a></span>
-                                                {% if recipe.cuisine != "No-Cuisine" %}
-                                                <span><a onclick="searchdb(this);" class="keyword">#{{recipe.cuisine}}</a></span>
-                                                {%endif%}
-                                                {% for a in recipe.allergens %}
-                                                <span><a onclick="searchdb(this);" class="keyword">#{{a}}</a></span>
-                                                {%endfor%}
+                                            <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{recipe.category}}">#{{recipe.category}}</a></span>
+                                            {% if recipe.cuisine != "No-Cuisine" %}
+                                            <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{recipe.cuisine}}">#{{recipe.cuisine}}</a></span>
+                                            {%endif%}
+                                            {% for a in recipe.allergens %}
+                                            <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{a}}">#{{a}}</a></span>
+                                            {%endfor%}
                                         </p>
                                     </div>
                                     <div class="card-footer">
-                                        <div class="card-text"><small class="text-muted">Created: {{recipe['dateCreated'].strftime('%d-%m-%Y')}}</small></div>
+                                        <div class="card-text"><small class="text-muted">Created:
+                                                {{recipe['dateCreated'].strftime('%d-%m-%Y')}}</small></div>
                                         <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
                                                 {{recipe.votes }}</small></div>
                                     </div>
@@ -256,16 +263,16 @@
                         </div>
                     </div>
                     {% endfor %}
-                    <!-- BACK TO TOP -->
-                    <div class="row">
-                        <div class="col-12">
-                            <button onclick="topFunction()" id="backtotopIcon" title="Go to top"></button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-{% endblock %}
 
+<!-- BACK TO TOP -->
+<div class="row">
+    <div class="col-12">
+        <button onclick="topFunction()" id="backtotopIcon" title="Go to top"></button>
+    </div>
+</div>
+{% endblock %}

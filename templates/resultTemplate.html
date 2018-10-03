@@ -17,12 +17,12 @@
             <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}" class="btn btn-primary"
                     type="button" id="viewRecipeButton">View Recipe</a></p>
             <p class="card-keyword">
-                    <span><a onclick="searchdb(this);" class="keyword">#{{recipe.category}}</a></span>
+                    <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{recipe.category}}">#{{recipe.category}}</a></span>
                     {% if recipe.cuisine != "No-Cuisine" %}
-                    <span><a onclick="searchdb(this);" class="keyword">#{{recipe.cuisine}}</a></span>
+                    <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{recipe.cuisine}}">#{{recipe.cuisine}}</a></span>
                     {%endif%}
                     {% for a in recipe.allergens %}
-                    <span><a onclick="searchdb(this);" class="keyword">#{{a}}</a></span>
+                    <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{a}}">#{{a}}</a></span>
                     {%endfor%}
             </p>
         </div>
