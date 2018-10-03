@@ -23,7 +23,7 @@ h4,
 h5,
 h6 {
     font-weight: 700;
-    @include heading-font;
+    @include sans-serif-font;
 }
 
 section {
@@ -59,9 +59,10 @@ section {
 
 // Button Styles
 .btn {
-    @include heading-font;
+    @include sans-serif-font;
     font-weight: 700;
     padding: 0.3rem;
+    font-size: 0.9rem;
 }
 
 .btn-xl {

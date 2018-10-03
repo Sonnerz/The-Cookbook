@@ -26,10 +26,9 @@
 }
 
 #mainNav .navbar-nav .nav-item .nav-link {
-  font-size: 90%;
+  font-size: 100%;
   font-weight: 700;
   padding: 0.75em 0;
-  letter-spacing: 1px;
   color: #546a7b;
   text-transform: uppercase;
   font-family: 'Lato', sans-serif, cursive;
@@ -42,6 +41,10 @@
 #mainNav .navbar-nav .already {
   font-style: italic;
   font-weight: 700;
+  color: #546a7b;
+}
+
+.nav-link #mainNav .navbar-nav .already:hover {
   color: #546a7b;
 }
 
@@ -431,7 +434,7 @@ p.card-keyword span {
 
 @media (min-width: 768px) {
   .filter-col {
-    padding-top: 100px;
+    padding-top: 70px;
     border-right: 2px dashed #62929e;
   }
 }
@@ -587,6 +590,10 @@ p.card-keyword span {
 
 #recipe-info #instructions .instruct {
   display: inline-block;
+}
+
+#recipe-info #instructions li {
+  padding-left: 10px;
 }
 
 @media (min-width: 768px) {
@@ -789,7 +796,7 @@ h4,
 h5,
 h6 {
   font-weight: 700;
-  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: 'Lato', sans-serif, cursive;
 }
 
 section {
@@ -829,9 +836,10 @@ section h3.section-subheading {
 }
 
 .btn {
-  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  font-family: 'Lato', sans-serif, cursive;
   font-weight: 700;
   padding: 0.3rem;
+  font-size: 0.9rem;
 }
 
 .btn-xl {
@@ -1025,12 +1033,16 @@ img::-moz-selection {
   color: #fff;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .alert.error {
   background-color: red;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .alert.info {
@@ -1038,10 +1050,17 @@ img::-moz-selection {
   color: #fff;
   border-bottom-left-radius: 1rem;
   border-bottom-right-radius: 1rem;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
 
 .card-deck {
   margin-bottom: 2rem;
+}
+
+.card {
+  background-color: #e8e7dd !important;
+  border: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .card-image {
@@ -1079,6 +1098,10 @@ img::-moz-selection {
 
 .nav-tabs .nav-item {
   margin-bottom: -2px;
+}
+
+.modal-header {
+  background-color: #e8e7dd;
 }
 
 @media (min-width: 768px) {

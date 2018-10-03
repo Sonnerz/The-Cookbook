@@ -122,6 +122,9 @@
         .instruct {
             display: inline-block;
         }
+        li {
+            padding-left: 10px;
+        }
     }
     @media(min-width:768px) {
         .recipe-heading {

@@ -22,8 +22,7 @@ $(function () {
           }
         },
         error: function (error) {
-          console.log(error);
-          $("#signupMessages").html(response);
+          $("#signupMessages").html("There was an error creating your account. Please try again.");
         }
       });
     } else
@@ -61,8 +60,7 @@ $(function () {
         }
       },
       error: function (error) {
-        console.log(error);
-        $("#loginMessages").html(response);
+        $("#loginMessages").html("There was an error logging in.");
       }
     });
   });
@@ -99,8 +97,7 @@ $(function () {
           setTimeout(function () { window.location.href = "/myrecipes?limit=5&offset=0"; }, delay);
         },
         error: function (error) {
-          console.log(error);
-          $("#newRecipeMessages").html(response);
+          $("#newRecipeMessages").html("There was an error adding your recipe. Please try again.");
         }
       });
     }
@@ -126,26 +123,11 @@ $(function () {
         window.location.href = "/myrecipes?limit=5&offset=0";
       },
       error: function (error) {
-        console.log(error);
-        $("#editRecipeMessages").html(response);
+        $("#editRecipeMessages").html("There was an error updating your recipe. Please try again.");
       }
     });
   });
 });
-
-// #endregion
-
-
-// #region show/hide the DEBUG PANEL
-function viewPanel() {
-  var panel = document.getElementById("panel-debug");
-  if (panel.style.display === "none") {
-    panel.style.display = "block";
-  }
-  else {
-    panel.style.display = "none";
-  }
-}
 
 // #endregion
 
@@ -185,7 +167,7 @@ function topFunction() {
 // #endregion
 
 
-// #region SEARCH ANY FIELD
+// #region SEARCH ANY FIELD RECIPE HASHTAGS
 
   function searchdb(a){
   searchQuery = a.innerHTML;
@@ -210,8 +192,7 @@ function topFunction() {
       }, 'slow');
     },
     error: function (error) {
-      console.log(error);
-      $("#ratemeMessages").html(response);
+      $("#recipeResult").html("There was an error completing your search.");
     }
   });
 };
@@ -332,7 +313,7 @@ $(document).ready(function () {
   // #endregion
 
 
-  // #region DELETING A RECIPE - CONFIRM WITH USER 
+  // #region AJAX DELETING A RECIPE - CONFIRM WITH USER 
 
   $(function () {
     $('.delete_recipe').click(function (e) {
@@ -361,8 +342,7 @@ $(document).ready(function () {
                 window.location.href = "/myrecipes?limit=5&offset=0";
               },
               error: function (error) {
-                console.log(error);
-                $("#myrecipesMessages").html(response);
+                $("#myrecipesMessages").html("There was an error deleting your recipe. Please try again.");
               }
             });
           },
@@ -392,7 +372,7 @@ $(document).ready(function () {
   // #endregion
 
 
-  // #region RATE THIS RECIPE
+  // #region AJAX RATE THIS RECIPE
 
   $('#rateme').click(function (e) {
     e.preventDefault();
@@ -417,8 +397,7 @@ $(document).ready(function () {
         }
       },
       error: function (error) {
-        console.log(error);
-        $("#ratemeMessages").html(response);
+        $("#ratemeMessages").html("There was an error rating the recipe. Please try again.");
       }
     });
   };
@@ -447,7 +426,7 @@ $(document).ready(function () {
             $("#recipeResult").html(response);
           }
           else {
-            $("#recipeResult").html("There were no recipes found under the Category <span class='search-param'>" + categorypicked + "</span>. <br>Try searching again." );
+            $("#recipeResult").html("There were no recipes with the Category <span class='search-param'>" + categorypicked + "</span>. <br>Try searching again." );
           }         
           //scroll window to results
           $('html, body').animate({
@@ -455,8 +434,7 @@ $(document).ready(function () {
           }, 'slow');          
         },
         error: function (error) {
-          console.log(error);
-          $("#recipeResult").html(response);
+          $("#recipeResult").html("There was an error searching recipes. Please try again.");
         }
       });
     });
@@ -488,7 +466,7 @@ $(document).ready(function () {
             $("#recipeResult").html(response);
           }
           else {
-            $("#recipeResult").html("There were no recipes found under the Cuisine <span class='search-param'>" + cuisinepicked + "</span>. <br>Try searching again." );
+            $("#recipeResult").html("There were no recipes found with Cuisine <span class='search-param'>" + cuisinepicked + "</span>. <br>Try searching again." );
           }          
           //scroll window to results
           $('html, body').animate({
@@ -496,8 +474,7 @@ $(document).ready(function () {
           }, 'slow');          
         },
         error: function (error) {
-          console.log(error);
-          
+          $("#recipeResult").html("There was an error searching the recipes. Please try again.");
         }
       });
     });
@@ -536,8 +513,7 @@ $(document).ready(function () {
           }, 'slow');
         },
         error: function (error) {
-          console.log(error);
-          $("#recipeResult").html(response);
+          $("#recipeResult").html("There was an error searching the recipes. Please try again.");
         }
       });
     });
@@ -572,7 +548,7 @@ $(document).ready(function () {
           }, 'slow');
         },
         error: function (error) {
-          console.log(error);
+          $("#recipeResult").html("There was an error searching the recipes. Please try again.");
         }
       });
     });
@@ -617,8 +593,7 @@ $(document).ready(function () {
             }, 'slow');
           },
           error: function (error) {
-            console.log(error);
-            $("#recipeResult").html(response);
+            $("#recipeResult").html("There was an error searching the recipes. Please try again.");
           }
         });
       }
@@ -653,7 +628,6 @@ $(document).ready(function () {
 
 
 }); // close document.ready
-
 
 
 // #endregion

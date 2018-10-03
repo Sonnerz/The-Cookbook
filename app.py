@@ -112,7 +112,7 @@ def get_votes_recipes():
     return rows
 
 
-# FUNCTION :: GET 8 RANDOM RECIPES
+# FUNCTION :: GET RANDOM RECIPES
 def get_random_recipes():
     random_recipes = {}
     try:
@@ -127,7 +127,7 @@ def get_random_recipes():
     return random_recipes
 
 
-# FUNCTION :: GET RECENT RECIPES
+# FUNCTION :: GET MOST RECENT RECIPES
 def get_recent_recipes():
     recipes = {}
     try:
@@ -194,10 +194,16 @@ def get_difficulty():
         return render_template("500.html")
     return difficulty
 
+
 # PAGE :: INDEX - HOME PAGE
 @app.route('/graphs')
 def graphs():
     return render_template("graphs.html")
+
+@app.route('/graphs_sub')
+def graphs_sub():
+    return render_template("graphs_sub.html")
+
 
 
 # PAGE :: INDEX - HOME PAGE
@@ -669,7 +675,7 @@ def login_user():
             # set session isLoggedin to True: session is true
             session['isLoggedin'] = True
             # message to user
-            message = "Welcome back " + user['username'] + " You will be redirected to your MyRecipes page."
+            message = "Welcome back, " + user['username'] + ".\r\n You will be redirected to your MyRecipes page."
             id = str(user['_id'])
             response = {"username": user['username'], "_id": id, "message": message}
             return jsonify(response)
@@ -704,15 +710,3 @@ if __name__ == '__main__':
 
 
 # import pdb; pdb.set_trace()
-
-# PAGE :: MY RECIPES
-# @app.route('/myrecipes')
-# @login_required
-# def myrecipes():
-#     # get data: user, users recipes for myrecipes page
-#     current_user = dict(get_user(session['username']))
-#     current_user_str = str(current_user['_id'])
-#     user_recipes = get_user_recipes(session['userid'])
-#     test = mongo.db.test_collection.find()
-#     print(test)
-#     return render_template("myrecipes.html", current_user=current_user, recipes=user_recipes, test=test)
