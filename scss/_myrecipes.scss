@@ -43,7 +43,6 @@
     width: 140px;
     padding: 5px 10px;
 }
-
 .next {
     -webkit-appearance: button;
     -moz-appearance: button;
@@ -59,11 +58,4 @@
 .table-content {
     background-color: $offwhite;
     margin-bottom: 20px;
-}
-@media (max-width: 576px) {
-    .btn {
-        padding: 0.2rem .2rem;
-        font-size: 0.7rem;
-        line-height: 1.1;
-    }
 }

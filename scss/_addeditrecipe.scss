@@ -1,5 +1,6 @@
 // Styling for the add recipe page
-#add_recipe_form, #update_recipe_form {
+#add_recipe_form,
+#update_recipe_form {
     label {
         font-weight: 700;
         font-size: 1.1rem;
@@ -8,10 +9,10 @@
     .allergens-label {
         font-weight: normal;
         font-style: normal;
-        padding-right:3px;
+        padding-right: 3px;
     }
     .add-left-col {
-        border-right:none;
+        border-right: none;
         padding-bottom: 50px;
     }
     .add-form-buttons {
@@ -21,22 +22,26 @@
     #ingredients_input_list>input {
         margin-top: 0.3rem;
     }
-    #ingredients_input_list>label, #instruction_input_list>label {
+    #ingredients_input_list>label,
+    #instruction_input_list>label {
         display: block;
         font-weight: 700;
     }
-    #ingredients_input_list .form-control, #instruction_input_list .form-control {
+    #ingredients_input_list .form-control,
+    #instruction_input_list .form-control {
         display: inline;
         width: 75%;
     }
     .delete {
         margin-left: 3px;
     }
-    #instruction_input_list textarea  {
+    #instruction_input_list textarea {
         resize: none;
     }
-    .added-ingred, .added-instruction {
-        input, textarea {
+    .added-ingred,
+    .added-instruction {
+        input,
+        textarea {
             margin-top: 0.3rem;
         }
     }
@@ -48,7 +53,8 @@
         .add-left-col {
             border-right: 2px dashed $cyan;
         }
-        #ingredients_input_list .form-control, #instruction_input_list .form-control {
+        #ingredients_input_list .form-control,
+        #instruction_input_list .form-control {
             width: 80%;
         }
     }

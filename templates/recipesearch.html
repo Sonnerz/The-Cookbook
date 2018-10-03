@@ -152,7 +152,9 @@
                                         </p>
                                         <p class="card-keyword">
                                             <span><a onclick="searchdb(this);" class="keyword">#{{recipe.category}}</a></span>
+                                            {% if recipe.cuisine != "No-Cuisine" %}
                                             <span><a onclick="searchdb(this);" class="keyword">#{{recipe.cuisine}}</a></span>
+                                            {% endif %}
                                             {% for a in recipe.allergens %}
                                             <span><a onclick="searchdb(this);" class="keyword">#{{a}}</a></span>
                                             {%endfor%}

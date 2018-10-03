@@ -2,29 +2,22 @@
 #mainNav {
     background-color: $cream;
     border-bottom: 1px solid $paynesgrey;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15); // height:auto;
     .navbar-toggler {
         font-size: 12px;
         right: 0;
         padding: 13px;
         text-transform: uppercase;
-        color: $gray-700;
-        background-color: $white;
-        @include heading-font;
+        color: $paynesgrey;
+        border: 2px dashed $orange;
+        background-color: transparent;
+        @include sans-serif-font;
     }
-    .navbar-brand {
-        color: $primary;
-        @include script-font;
-        &.active,
-        &:active,
-        &:focus,
-        &:hover {
-            color: darken($primary, 10%);
-        }
-        img {
-            width: 226px;
-            height: auto;
-        }
+    .navbarbtntog {
+      margin-right: 0rem;
+    }
+    .navbar-brand img {
+        width: 230px;
     }
     .navbar-nav {
         .nav-item {
@@ -33,65 +26,57 @@
                 font-weight: 700;
                 padding: 0.75em 0;
                 letter-spacing: 1px;
-                color: white;
-                @include heading-font;
+                color: $paynesgrey;
+                text-transform: uppercase;
+                @include sans-serif-font;
                 &.active,
                 &:hover {
                     color: $orange;
                 }
             }
         }
-        .already span {
+        .already {
             font-style: italic;
-            font-weight: 600;
-            color:$primary;
+            font-weight: 700;
+            color: $primary;
         }
-    }
-    ul {
-        display: flex;
-        text-align: left;
-        list-style: none;
-        text-transform: uppercase;
-        padding-left: 0;
-        margin-top: 0;
-        margin-bottom: 0;
-        text-decoration: none;
-        line-height: 2.5rem;
-        text-align: center;
-        li {
-            margin-right: 25px;
-            padding-bottom: 0;
-            a {
-                color: $primary;
-                font-weight: 600;
-                &:hover{
-                    color:$orange;
-                }
-            }
-            .nav-logout {
-              color: #fff;
-            }
-            .active-link{
-              color: $orange;
-              text-decoration: underline;
-            }
+        .btnlink {
+            line-height: 2.9rem;
         }
     }
 }
 
+@media(min-width:768px) {
+    #mainNav {
+      padding-top: 25px;
+      padding-bottom: 25px;
+        .navbar-brand img {
+            width: 282px;
+        }
+    }
+}
+
+@media(min-width:576px) {
+  #mainNav {
+    padding-top: 25px;
+    padding-bottom: 25px;
+      .navbar-brand img {
+          width: 286px;
+      }
+  }
+}
+
 @media(min-width:992px) {
     #mainNav {
+        padding-top: 25px;
+        padding-bottom: 25px;
         -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
         -moz-transition: padding-top 0.3s, padding-bottom 0.3s;
         transition: padding-top 0.3s, padding-bottom 0.3s;
-        border: none;
-        background-color: $cream;
         border-bottom: 1px solid $paynesgrey;
-        .navbar-brand {
-            font-size: 1.75em;
-            -webkit-transition: all 0.3s;
-            -moz-transition: all 0.3s;
-            transition: all 0.3s;
+        background-color: $cream;
+        .navbar-brand img {
+            width: 282px;
         }
         .navbar-nav {
             .nav-item {
@@ -107,17 +92,6 @@
             .navbar-brand {
                 font-size: 1.25em;
                 padding: 12px 0;
-            }
-        }
-    }
-}
-
-@media(min-width: 576px) {
-    #mainNav {
-        .navbar-brand {
-            img {
-                width: 100%;
-                height: auto;
             }
         }
     }

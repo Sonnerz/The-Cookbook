@@ -488,7 +488,7 @@ def recipesearch():
     return render_template("recipesearch.html", test=mongo.db.test_collection.find(), 
                             recipes=recipes, categories=categories,
                             cuisine=cuisine, allergens=allergens,
-                            recentrecipes=recent_recipes, highestvotes=highest_voted_recipe)
+                            highestvotes=highest_voted_recipe, recentrecipes=recent_recipes)
 
 
 # FUNCTION :: GET RECIPES BY ANY VALUE - KEYWORDS HASHTAGS

@@ -4,20 +4,17 @@
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
 }
-
 .alert.error {
     background-color: red;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
 }
-
 .alert.info {
     background-color: rgb(192, 56, 2);
     color: $white;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
 }
-
 .card-deck {
     margin-bottom: 2rem;
 }
@@ -25,7 +22,6 @@
     height: 180px;
     overflow: hidden;
 }
-
 .form-control:focus {
     color: $orange!important;
     background-color: #fff;
@@ -33,19 +29,29 @@
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(242,101,34,.25);
 }
-
 .custom-select:focus {
     border-color: $orange;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(242,101,34,.5);
 }
-
+.nav-tabs {
+    padding-right: 15px;
+    padding-left: 15px;
+    border-bottom: 1px solid $primary;
+}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+    color: $primary;
+    background-color: #fff;
+    border-color: $primary $primary #fff;
+}
+.nav-tabs .nav-item {
+    margin-bottom: -2px;
+}
 @media (min-width: 768px) {
     .card-image-top {
         height: 160px;
     }
 }
-
 @media (min-width: 576px) {
     .card-deck .card {
         max-width: 28%;

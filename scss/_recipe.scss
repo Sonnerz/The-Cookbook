@@ -167,10 +167,8 @@
 @media(max-width: 767px) {
     #home {
         display: block;
-    }
-    #profile,
-    #messages {
-        display: none;
+        padding-right: 0;
+        padding-left: 0;
     }
 }
 

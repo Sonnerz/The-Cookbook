@@ -30,42 +30,10 @@ header.masthead {
             @include heading-font;
         }
     }
-}
-
-#signup-button-container {
-    button{
-        margin-right:1rem;
+    .mastheadbtn {
+        margin-bottom: 5px;
     }
 }
-
-/* StackOverflow solution to vertically and horizontally center the Modal */
-
-.vertical-align-modal {
-    display: table;
-    height: 100%;
-    width: 100%;
-    pointer-events: none;
-}
-
-.vertical-align-center {
-    display: table-cell;
-    vertical-align: middle;
-    pointer-events: none;
-}
-
-.modal-content {
-    width: inherit;
-    max-width: inherit;
-    height: inherit;
-    margin: 0 auto;
-    pointer-events: all;
-}
-
-#form-wrapper {
-    width: 80%;
-    background-color: #ff0000;
-}
-
 
 label.valid {
     width: 24px;
@@ -129,6 +97,13 @@ label.error {
     animation-name: slideInDown;
 }
 
+
+@media(min-width:576px) {
+    .alert-container-index {
+        padding-top: 0;
+    }
+}
+
 @media(min-width:768px) {
     .alert-wrapper {
         width: 50%;
@@ -169,11 +144,5 @@ label.error {
                 @include heading-font;
             }
         }
-    }
-}
-
-@media(min-width:576px) {
-    .alert-container-index {
-        padding-top: 0;
     }
 }

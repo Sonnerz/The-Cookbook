@@ -11,23 +11,18 @@
   right: 0;
   padding: 13px;
   text-transform: uppercase;
-  color: #495057;
-  background-color: #fff;
-  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-}
-
-#mainNav .navbar-brand {
   color: #546a7b;
-  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  border: 2px dashed #f26522;
+  background-color: transparent;
+  font-family: 'Lato', sans-serif, cursive;
 }
 
-#mainNav .navbar-brand.active, #mainNav .navbar-brand:active, #mainNav .navbar-brand:focus, #mainNav .navbar-brand:hover {
-  color: #3f505d;
+#mainNav .navbarbtntog {
+  margin-right: 0rem;
 }
 
 #mainNav .navbar-brand img {
-  width: 226px;
-  height: auto;
+  width: 230px;
 }
 
 #mainNav .navbar-nav .nav-item .nav-link {
@@ -35,70 +30,56 @@
   font-weight: 700;
   padding: 0.75em 0;
   letter-spacing: 1px;
-  color: white;
-  font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  color: #546a7b;
+  text-transform: uppercase;
+  font-family: 'Lato', sans-serif, cursive;
 }
 
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
   color: #f26522;
 }
 
-#mainNav .navbar-nav .already span {
+#mainNav .navbar-nav .already {
   font-style: italic;
-  font-weight: 600;
+  font-weight: 700;
   color: #546a7b;
 }
 
-#mainNav ul {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  text-align: left;
-  list-style: none;
-  text-transform: uppercase;
-  padding-left: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-  text-decoration: none;
-  line-height: 2.5rem;
-  text-align: center;
+#mainNav .navbar-nav .btnlink {
+  line-height: 2.9rem;
 }
 
-#mainNav ul li {
-  margin-right: 25px;
-  padding-bottom: 0;
+@media (min-width: 768px) {
+  #mainNav {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+  #mainNav .navbar-brand img {
+    width: 282px;
+  }
 }
 
-#mainNav ul li a {
-  color: #546a7b;
-  font-weight: 600;
-}
-
-#mainNav ul li a:hover {
-  color: #f26522;
-}
-
-#mainNav ul li .nav-logout {
-  color: #fff;
-}
-
-#mainNav ul li .active-link {
-  color: #f26522;
-  text-decoration: underline;
+@media (min-width: 576px) {
+  #mainNav {
+    padding-top: 25px;
+    padding-bottom: 25px;
+  }
+  #mainNav .navbar-brand img {
+    width: 286px;
+  }
 }
 
 @media (min-width: 992px) {
   #mainNav {
+    padding-top: 25px;
+    padding-bottom: 25px;
     -webkit-transition: padding-top 0.3s, padding-bottom 0.3s;
     transition: padding-top 0.3s, padding-bottom 0.3s;
-    border: none;
-    background-color: #e8e7dd;
     border-bottom: 1px solid #546a7b;
+    background-color: #e8e7dd;
   }
-  #mainNav .navbar-brand {
-    font-size: 1.75em;
-    -webkit-transition: all 0.3s;
-    transition: all 0.3s;
+  #mainNav .navbar-brand img {
+    width: 282px;
   }
   #mainNav .navbar-nav .nav-item .nav-link {
     padding: 1.1em 1em !important;
@@ -111,13 +92,6 @@
   #mainNav.navbar-shrink .navbar-brand {
     font-size: 1.25em;
     padding: 12px 0;
-  }
-}
-
-@media (min-width: 576px) {
-  #mainNav .navbar-brand img {
-    width: 100%;
-    height: auto;
   }
 }
 
@@ -164,35 +138,8 @@ header.masthead .intro-text .intro-heading {
   font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
-#signup-button-container button {
-  margin-right: 1rem;
-}
-
-/* StackOverflow solution to vertically and horizontally center the Modal */
-.vertical-align-modal {
-  display: table;
-  height: 100%;
-  width: 100%;
-  pointer-events: none;
-}
-
-.vertical-align-center {
-  display: table-cell;
-  vertical-align: middle;
-  pointer-events: none;
-}
-
-.modal-content {
-  width: inherit;
-  max-width: inherit;
-  height: inherit;
-  margin: 0 auto;
-  pointer-events: all;
-}
-
-#form-wrapper {
-  width: 80%;
-  background-color: #ff0000;
+header.masthead .mastheadbtn {
+  margin-bottom: 5px;
 }
 
 label.valid {
@@ -259,6 +206,12 @@ label.error {
   animation-name: slideInDown;
 }
 
+@media (min-width: 576px) {
+  .alert-container-index {
+    padding-top: 0;
+  }
+}
+
 @media (min-width: 768px) {
   .alert-wrapper {
     width: 50%;
@@ -300,70 +253,89 @@ label.error {
   }
 }
 
-@media (min-width: 576px) {
-  .alert-container-index {
-    padding-top: 0;
-  }
-}
-
-#add_recipe_form label, #update_recipe_form label {
+#add_recipe_form label,
+#update_recipe_form label {
   font-weight: 700;
   font-size: 1.1rem;
   font-style: italic;
 }
 
-#add_recipe_form .allergens-label, #update_recipe_form .allergens-label {
+#add_recipe_form .allergens-label,
+#update_recipe_form .allergens-label {
   font-weight: normal;
   font-style: normal;
   padding-right: 3px;
 }
 
-#add_recipe_form .add-left-col, #update_recipe_form .add-left-col {
+#add_recipe_form .add-left-col,
+#update_recipe_form .add-left-col {
   border-right: none;
   padding-bottom: 50px;
 }
 
-#add_recipe_form .add-form-buttons, #update_recipe_form .add-form-buttons {
+#add_recipe_form .add-form-buttons,
+#update_recipe_form .add-form-buttons {
   border-top: 2px dashed #62929e;
   padding-top: 20px;
 }
 
-#add_recipe_form #ingredients_input_list > input, #update_recipe_form #ingredients_input_list > input {
+#add_recipe_form #ingredients_input_list > input,
+#update_recipe_form #ingredients_input_list > input {
   margin-top: 0.3rem;
 }
 
-#add_recipe_form #ingredients_input_list > label, #add_recipe_form #instruction_input_list > label, #update_recipe_form #ingredients_input_list > label, #update_recipe_form #instruction_input_list > label {
+#add_recipe_form #ingredients_input_list > label,
+#add_recipe_form #instruction_input_list > label,
+#update_recipe_form #ingredients_input_list > label,
+#update_recipe_form #instruction_input_list > label {
   display: block;
   font-weight: 700;
 }
 
-#add_recipe_form #ingredients_input_list .form-control, #add_recipe_form #instruction_input_list .form-control, #update_recipe_form #ingredients_input_list .form-control, #update_recipe_form #instruction_input_list .form-control {
+#add_recipe_form #ingredients_input_list .form-control,
+#add_recipe_form #instruction_input_list .form-control,
+#update_recipe_form #ingredients_input_list .form-control,
+#update_recipe_form #instruction_input_list .form-control {
   display: inline;
   width: 75%;
 }
 
-#add_recipe_form .delete, #update_recipe_form .delete {
+#add_recipe_form .delete,
+#update_recipe_form .delete {
   margin-left: 3px;
 }
 
-#add_recipe_form #instruction_input_list textarea, #update_recipe_form #instruction_input_list textarea {
+#add_recipe_form #instruction_input_list textarea,
+#update_recipe_form #instruction_input_list textarea {
   resize: none;
 }
 
-#add_recipe_form .added-ingred input, #add_recipe_form .added-ingred textarea, #add_recipe_form .added-instruction input, #add_recipe_form .added-instruction textarea, #update_recipe_form .added-ingred input, #update_recipe_form .added-ingred textarea, #update_recipe_form .added-instruction input, #update_recipe_form .added-instruction textarea {
+#add_recipe_form .added-ingred input,
+#add_recipe_form .added-ingred textarea,
+#add_recipe_form .added-instruction input,
+#add_recipe_form .added-instruction textarea,
+#update_recipe_form .added-ingred input,
+#update_recipe_form .added-ingred textarea,
+#update_recipe_form .added-instruction input,
+#update_recipe_form .added-instruction textarea {
   margin-top: 0.3rem;
 }
 
-#add_recipe_form #newRecipeMessages, #update_recipe_form #newRecipeMessages {
+#add_recipe_form #newRecipeMessages,
+#update_recipe_form #newRecipeMessages {
   font-weight: 700;
   color: #f26522;
 }
 
 @media (min-width: 768px) {
-  #add_recipe_form .add-left-col, #update_recipe_form .add-left-col {
+  #add_recipe_form .add-left-col,
+  #update_recipe_form .add-left-col {
     border-right: 2px dashed #62929e;
   }
-  #add_recipe_form #ingredients_input_list .form-control, #add_recipe_form #instruction_input_list .form-control, #update_recipe_form #ingredients_input_list .form-control, #update_recipe_form #instruction_input_list .form-control {
+  #add_recipe_form #ingredients_input_list .form-control,
+  #add_recipe_form #instruction_input_list .form-control,
+  #update_recipe_form #ingredients_input_list .form-control,
+  #update_recipe_form #instruction_input_list .form-control {
     width: 80%;
   }
 }
@@ -659,10 +631,8 @@ p.card-keyword span {
 @media (max-width: 767px) {
   #home {
     display: block;
-  }
-  #profile,
-  #messages {
-    display: none;
+    padding-right: 0;
+    padding-left: 0;
   }
 }
 
@@ -749,14 +719,6 @@ p.card-keyword span {
 .table-content {
   background-color: #fafafa;
   margin-bottom: 20px;
-}
-
-@media (max-width: 576px) {
-  .btn {
-    padding: 0.2rem .2rem;
-    font-size: 0.7rem;
-    line-height: 1.1;
-  }
 }
 
 footer {
@@ -869,6 +831,7 @@ section h3.section-subheading {
 .btn {
   font-family: 'Lato', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   font-weight: 700;
+  padding: 0.3rem;
 }
 
 .btn-xl {
@@ -1052,10 +1015,9 @@ img::-moz-selection {
     background-color: rgba(245, 245, 245, 0.9);
     color: #393d3f;
   }
-}
-
-#panel-debug p {
-  margin: 0;
+  .btn {
+    padding: 0.3rem;
+  }
 }
 
 .alert.success {
@@ -1101,6 +1063,22 @@ img::-moz-selection {
   outline: 0;
   -webkit-box-shadow: 0 0 0 0.2rem rgba(242, 101, 34, 0.5);
           box-shadow: 0 0 0 0.2rem rgba(242, 101, 34, 0.5);
+}
+
+.nav-tabs {
+  padding-right: 15px;
+  padding-left: 15px;
+  border-bottom: 1px solid #546a7b;
+}
+
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
+  color: #546a7b;
+  background-color: #fff;
+  border-color: #546a7b #546a7b #fff;
+}
+
+.nav-tabs .nav-item {
+  margin-bottom: -2px;
 }
 
 @media (min-width: 768px) {

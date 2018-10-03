@@ -19,22 +19,20 @@
       <div class="intro-text-bkg">
         <div class="intro-lead-in">Welcome to: </div>
         <div class="intro-heading text-uppercase">The &#123;&#123;Cookbook&#125;&#125;</div>
-        <div id="signup-button-container">
-          <!-- Button trigger signup modal -->
-          {% if not session['isLoggedin']%}
-          <a href="#" onclick="$('#signupModal').modal({'backdrop': 'static'});">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signupModal">
-              REGISTER
-            </button>
-          </a>
-          {% endif %}
-          <!-- Button to recipe searching -->
-          <a href="recipesearch">
-            <button type="button" class="btn btn-primary">
-              OPEN THE COOKBOOK
-            </button>
-          </a>
-        </div>
+        <!-- Button trigger signup modal -->
+        {% if not session['isLoggedin']%}
+        <a href="#" onclick="$('#signupModal').modal({'backdrop': 'static'});">
+          <button type="button" class="btn btn-primary mastheadbtn" data-toggle="modal" data-target="#signupModal">
+            REGISTER
+          </button>
+        </a>
+        {% endif %}
+        <!-- Button to recipe searching -->
+        <a href="recipesearch">
+          <button type="button" class="btn btn-primary mastheadbtn">
+            OPEN THE COOKBOOK
+          </button>
+        </a>
       </div>
     </div>
   </div>
@@ -84,9 +82,9 @@
 </section>
 
 <div class="row">
-    <div class="col-12">
-        <button onclick="topFunction()" id="backtotopIcon" title="Go to top"></button>
-    </div>
+  <div class="col-12">
+    <button onclick="topFunction()" id="backtotopIcon" title="Go to top"></button>
+  </div>
 </div>
 
 {% endblock %}

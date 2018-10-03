@@ -22,58 +22,55 @@
 
 <body id="page-top">
   <!-- NAVIGATION -->
-  <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="/">
-        <img src="{{ url_for('static', filename='img/global/logo-nav.png')}}" alt="Cookbook" title="Cookbook" />
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive"
-        aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse text-center" id="navbarResponsive">
-        {% if session['isLoggedin'] %}
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="/recipesearch" title="Recipe search" id="search-nav-link">Recipes</a></li>
-          <li class="nav-item"><a href="/myrecipes?limit=5&offset=0" id="myrecipes-nav-link" title="My Recipes">My
-              Recipes</a></li>
-          <li class="nav-item"><a href="/add_recipe" id="add-nav-link" title="Add Recipe">Add Recipe</a></li>
-          <li class="nav-item">
-            <!-- Button trigger logout -->
-            <a class="btn btn-primary nav-logout" href="/logout" role="button" title="Logout">Logout >></a>
-          </li>
-        </ul>
-        {% else %}
-        <ul class="navbar-nav ml-auto">
-          <li class="nav-item"><a href="/recipesearch" title="Recipe search" id="search-nav-link">Recipes</a></li>
-          <li class="nav-item already"><span>Already registered?</span></li>
-          <!-- Button trigger login modal -->
-          <li class="nav-item">
-            <a class="btn btn-primary nav-logout" title="Login" href="/index.html" role="button" data-toggle="modal"
-              data-target="#loginModal">Login >></a>
-          </li>
-        </ul>
-        {% endif %}
+  <div class="container-fluid">
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+        <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='img/global/logo-nav.png')}}" alt="Cookbook" title="Cookbook" /></a>
+        <button class="navbar-toggler navbarbtntog" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            {% if session['isLoggedin'] %}
+            <ul class="navbar-nav ml-auto text-center">
+              <li class="nav-item"><a class="nav-link" href="/recipesearch" title="Recipe search" id="search-nav-link">Recipes</a></li>
+              <li class="nav-item"><a class="nav-link" href="/myrecipes?limit=5&offset=0" id="myrecipes-nav-link" title="My Recipes">My
+                  Recipes</a></li>
+              <li class="nav-item"><a class="nav-link" href="/add_recipe" id="add-nav-link" title="Add Recipe">Add Recipe</a></li>
+              <li class="nav-item btnlink">
+                <!-- Button trigger logout -->
+                <a class="btn btn-primary" href="/logout" role="button" title="Logout">Logout >></a>
+              </li>
+            </ul>
+            {% else %}
+            <ul class="navbar-nav ml-auto text-center">
+              <li class="nav-item"><a class="nav-link" href="/recipesearch" title="Recipe search" id="search-nav-link">Recipes</a></li>
+              <li class="nav-item already"><span class="nav-link">Already registered?</span></li>
+              <!-- Button trigger login modal -->
+              <li class="nav-item btnlink">
+                <a class="btn btn-primary" title="Login" href="/index.html" role="button" data-toggle="modal"
+                  data-target="#loginModal">LOGIN >></a>
+              </li>
+            </ul>
+            {% endif %}
+        </div>
+    </nav>
+  </div>
+
+
+  <!-- USER NAME-->
+  {% if session['isLoggedin'] and request.path != "/" %}
+  <div class="container-fluid" id="user_content">
+    <div class="row">
+      <div class="col-12">
+        <section id="user-name-wrapper">
+          <div class="userwelcome">
+            <span>&#123;&#123; Welcome back, {{ session['username'] }} &#125;&#125;</span>
+          </div>
+        </section>
       </div>
     </div>
-  </nav>
-
-
- <!-- USER NAME-->
- {% if session['isLoggedin'] and request.path != "/" %}
- <div class="container-fluid" id="user_content">
-   <div class="row">
-     <div class="col-12">
-       <section id="user-name-wrapper">
-         <div class="userwelcome">
-           <span>&#123;&#123; Welcome back, {{ session['username'] }} &#125;&#125;</span>
-         </div>
-       </section>
-     </div>
-   </div>
- </div>
- {% elif session['isLoggedin'] and request.path == "/" %}
- <div class="container-fluid" id="user_content">
+  </div>
+  {% elif session['isLoggedin'] and request.path == "/" %}
+  <div class="container-fluid" id="user_content">
     <div class="row">
       <div class="col-12">
         <section id="user-name-wrapper">
@@ -85,7 +82,7 @@
     </div>
   </div>
   {% else %}
- <div class="container-fluid" id="user_content">
+  <div class="container-fluid" id="user_content">
     <div class="row">
       <div class="col-12">
         <section id="user-name-wrapper-notloggedin">
@@ -93,12 +90,11 @@
       </div>
     </div>
   </div>
- {% endif %}
+  {% endif %}
 
   <!-- MODAL FOR LOGIN-->
   <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" id="loginModal">
-    <div class="vertical-align-modal">
-      <div class="modal-dialog vertical-align-center" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Sign in</h5>
@@ -143,14 +139,12 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
 
 
   <!-- MODAL FOR SIGN UP/REGISTRATION -->
   <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="signupModal" aria-hidden="true" id="signupModal">
-    <div class="vertical-align-modal">
-      <div class="modal-dialog vertical-align-center" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">Create an account</h5>
@@ -213,29 +207,26 @@
           </div>
         </div>
       </div>
-    </div>
   </div>
 
 
   <!-- MODAL FOR LICENCES-->
-  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="loginModal" aria-hidden="true" id="licenseModal">
-    <div class="vertical-align-modal">
-      <div class="modal-dialog vertical-align-center" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Licenses</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"
-              title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
-              title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-          </div>
+  <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="licenseModal" aria-hidden="true" id="licenseModal">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Licenses</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/"
+            title="Flaticon">www.flaticon.com</a> is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
+            title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
         </div>
       </div>
     </div>
@@ -292,8 +283,6 @@
   <script src="{{ url_for('static', filename='js/jquery.validate.js')}}"></script>
   <script src="{{ url_for('static', filename='js/validation_script.js')}}"></script>
   <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
-  <!-- Custom scripts for this template -->
-  <script src="{{ url_for('static', filename='js/agency.min.js')}}"></script>
   <!-- Custom scripts for this cookbook project -->
   <script src="{{ url_for('static', filename='js/cookbook_custom_scripts.js')}}"></script>
 

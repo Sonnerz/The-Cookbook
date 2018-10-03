@@ -43,16 +43,13 @@ section {
         @include sans-serif-font;
     }
 }
-
 .section-content {
     padding-top: 30px;
 }
-
 .generalMessages {
     font-weight: 700;
     color: $orange;
 }
-
 @media(min-width:768px) {
     section {
         padding: 30px 0;
@@ -64,6 +61,7 @@ section {
 .btn {
     @include heading-font;
     font-weight: 700;
+    padding: 0.3rem;
 }
 
 .btn-xl {
@@ -208,6 +206,7 @@ img::-moz-selection {
             white-space: nowrap;
         }
     }
+
 }
 
 @media(min-width:576px) {
@@ -230,9 +229,8 @@ img::-moz-selection {
         background-color: rgba(245, 245, 245, 0.9);
         color:$blackolive;
     }
+    .btn {
+        padding: 0.3rem;
+    }
 }
 
-//debug-panel
-#panel-debug p {
-    margin: 0;
-}

@@ -218,13 +218,48 @@ function topFunction() {
 // #endregion
 
 
+// #region MOBILE PANELS SHOW/HIDE CONTENT
+$(window).on('resize', function () {
+  var win = $(this); //this = window
+  if (win.width() >= 768) {
+    $("#home").css("display", "block");
+    $("#myrecipes").css("display", "block");
+  }
+  if (win.width() <= 767) {
+    if ($("#hometab>a").is(".active")) {
+      $("#home").css("display", "block");
+      $("#myrecipes").hide();
+    }
+  if ($("#ptab>a").is(".active")) {
+      $("#home").hide();
+      $("#myrecipes").css("display", "block");
+    }
+  }
+});
+// #endregion
+
+
 // #region DOCUMENT.READY START //
 
 $(document).ready(function () {
-  //hide search results div until populated with data
+  // #region hide search results div until populated with data
   $("#searchResult").hide();
 
+  // #endregion
 
+
+  // #region hide ingredients panel on mobile
+  var windowSize = $(window).width();
+  if (windowSize <= 767){
+    $("#myrecipes").hide();
+    if ($("#hometab>a").is(".active")) {
+      $("#home").css("display", "block");
+      $("#myrecipes").hide();
+    }
+  }
+  // #endregion
+
+  
   // #region Add class to NAVBAR LINK depending on the page displayed  
 
   var current_path = $(location).attr('pathname');
@@ -344,24 +379,6 @@ $(document).ready(function () {
 
 
   // #region VIEW RECIPE page change from FLAT CONTENT TO TABS in mobile view
-
-  $(window).on('resize', function () {
-    var win = $(this); //this = window
-    if (win.width() >= 768) {
-      $("#home").css("display", "block");
-      $("#myrecipes").css("display", "block");
-    }
-    else if (win.width() <= 767) {
-      if ($("#hometab>a").is(".active")) {
-        $("#home").css("display", "block");
-        $("#myrecipes").css("display", "none");
-      }
-      else if ($("#ptab>a").is(".active")) {
-        $("#home").css("display", "none");
-        $("#myrecipes").css("display", "block");
-      }
-    }
-  });
 
   $('#hometab').click(function () {
     $("#home").css("display", "block");
@@ -636,5 +653,8 @@ $(document).ready(function () {
 
 
 }); // close document.ready
+
+
+
 // #endregion
 

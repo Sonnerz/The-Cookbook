@@ -15,7 +15,6 @@
 @mixin sans-serif-font() {
   font-family: 'Lato', sans-serif, cursive;
 }
-
 @mixin text-background() {
   background-color: rgba(245, 245, 245, 0.8);
   border: 1px solid transparent;
