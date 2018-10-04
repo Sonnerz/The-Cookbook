@@ -35,39 +35,42 @@
                     <div class="row paging">
                         <div class="col-12">
                             <span class="prev-span">
-                                <a href="{{prev_url}}" class="previous">&lt;&lt; Previous page</a>
+                                <!-- <a href="{{prev_url}}" class="previous">&lt;&lt; Previous page</a> -->
+                                <button onclick="location.href='{{prev_url}}'" type="button" class="btn btn-primary previous">&lt;&lt; Previous</button>
                             </span>
                             <span>
-                                <a href="{{next_url}}" class="next">Next page &gt;&gt;</a>
+                                <!-- <a href="{{next_url}}" class="next">Next page &gt;&gt;</a> -->
+                                <button onclick="location.href='{{next_url}}'" type="button" class="btn btn-primary next">Next &gt;&gt;</button>
                             </span>
                         </div>
                     </div>
                     {%endif%}
                     <div class="row table-header">
-                        <div class="col-6 col-md-2 myrecipe-table-title">Name</div>
+                        <div class="col-6 col-md-6 col-lg-2 myrecipe-table-title">Name</div>
                         <div class="col-2 d-none d-lg-block myrecipe-table-title">Description</div>
                         <div class="col-2 d-none d-lg-block text-center myrecipe-table-title">Votes</div>
-                        <div class="col-2 d-none d-lg-block text-center myrecipe-table-title">Created</div>
-                        <div class="col-6 col-md-4 text-center myrecipe-table-title">Manage Recipes</div>
+                        <div class="col-2 d-none d-lg-block text-center myrecipe-table-title">Created & Modified last</div>
+                        <div class="col-6 col-md-6 col-lg-4 text-center myrecipe-table-title">Manage Recipes</div>
                     </div>
                     {% for recipe in recipes if recipes %}
                     <div class="row table-content">
-                        <div class="col-6 col-lg-2">
-                            <span><a href="/view_recipe/{{recipe._id}}" title="link to recipe">{{recipe.name }} <i class="fas fa-external-link-alt"></i></a></span>
+                        <div class="col-6 col-md-6 col-lg-2 pt-1 pb-1">
+                            <a href="/view_recipe/{{recipe._id}}" title="link to recipe">{{recipe.name }} <i class="fas fa-external-link-alt"></i></a>
                         </div>
-                        <div class="col-2 d-none d-lg-block">
+                        <div class="col-2 d-none d-lg-block pt-1 pb-1">
                             {{ recipe.description|truncate(50, False, '...', 0) }}
                         </div>
-                        <div class="col-2 d-none d-lg-block text-center">{{ recipe.votes }}</div>
-                        <div class="col-2 d-none d-lg-block text-center">{{recipe['_id'].generation_time.date().strftime('%d %m %Y')}}</div>
-                        <div class="col-6 col-lg-4 text-center">
+                        <div class="col-2 d-none d-lg-block text-center pt-4">{{ recipe.votes }}</div>
+                        <div class="col-2 d-none d-lg-block text-center pt-3">Created: {{recipe.dateCreated.strftime('%d-%b-%Y')}}<br>
+                            Modified: {{recipe.dateModified.strftime('%d-%b-%Y')}}</div>
+                        <div class="col-6 col-md-6 col-lg-4 text-center">
                             <div class="row">
-                                <div class="col-6">
-                                    <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-primary"
+                                <div class="col-6 t-align">
+                                    <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn btn-primary managebtn"
                                         type="button" id="editRecipeButton">Edit</a>
                                 </div>
-                                <div class="col-6">
-                                    <a href="#" type="button" class="btn btn-primary delete_recipe" id="{{recipe._id}}">Delete</a>
+                                <div class="col-6 t-align">
+                                    <a href="#" type="button" class="btn btn-primary delete_recipe managebtn" id="{{recipe._id}}">Delete</a>
                                 </div>
                             </div>
                         </div>

@@ -54,7 +54,7 @@
 }
 
 #mainNav .navbar-nav .btnlink {
-  line-height: 2.9rem;
+  line-height: 3.4rem;
 }
 
 @media (min-width: 768px) {
@@ -253,7 +253,7 @@ label.error {
             animation-duration: 1s;
   }
   header.masthead .intro-text {
-    padding-top: 300px;
+    padding-top: 250px;
     padding-bottom: 200px;
   }
   header.masthead .intro-text .intro-lead-in {
@@ -727,12 +727,11 @@ p.card-keyword span {
 }
 
 .next {
-  -webkit-appearance: button;
-  -moz-appearance: button;
-  appearance: button;
   width: 120px;
   padding: 5px 10px;
   border-radius: 0.25rem;
+  color: #fff;
+  background-color: #62929e;
 }
 
 .table-header {
@@ -742,8 +741,30 @@ p.card-keyword span {
 }
 
 .table-content {
-  background-color: #fafafa;
+  background-color: #e9ecef;
   margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.t-align {
+  line-height: 2.5rem;
+}
+
+@media (min-width: 768px) {
+  .t-align {
+    line-height: 4.5rem;
+  }
+}
+
+.managebtn {
+  width: 45px;
+  width: 70px;
+  border: 2px solid #393d3f;
+}
+
+.recipe-img {
+  display: inline-block;
+  width: 20px;
 }
 
 footer {
@@ -853,9 +874,16 @@ section h3.section-subheading {
   }
 }
 
+#signupForm label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding-left: 10px;
+}
+
 .btn {
   font-family: 'Lato', sans-serif, cursive;
   font-weight: 700;
+  text-transform: uppercase;
   padding: 0.3rem;
   font-size: 0.9rem;
   border-radius: 0.25rem;
@@ -872,10 +900,10 @@ html [type=button] {
 
 .btn-primary {
   background-color: #546a7b;
-  border-color: #546a7b;
+  border: 2px solid #393d3f !important;
 }
 
-.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
+.btn-primary:active, .btn-primary:focus, .btn-primary:focus-within, .btn-primary:hover {
   background-color: #537c87 !important;
   border-color: #537c87 !important;
   color: #f26522;

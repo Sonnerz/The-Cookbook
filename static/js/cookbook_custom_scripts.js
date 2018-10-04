@@ -11,13 +11,13 @@ $(function () {
         type: 'POST',
         success: function (response) {
           if (response == "success") {
-            var message = "Success. Log in now."
+            var message = "Your account was created. You can log in now."
             $("#signupMessages").html(message);
             var delay = 1000;
             setTimeout(function () { window.location.href = "/"; }, delay);
           }
           else if (response == "fail") {
-            var message = "Failure name take"
+            var message = "This username has already been registered."
             $("#signupMessages").html(message);
           }
         },

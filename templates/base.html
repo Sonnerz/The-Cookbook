@@ -22,7 +22,7 @@
 
 <body id="page-top">
   <!-- NAVIGATION -->
-  <div class="container-fluid">
+<div class="container-fluid">
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
         <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='img/global/logo-nav.png')}}" alt="Cookbook" title="Cookbook" /></a>
         <button class="navbar-toggler navbarbtntog justify-content-end" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -55,7 +55,7 @@
             {% endif %}
         </div>
     </nav>
-  </div>
+</div>
 
 
   <!-- USER NAME-->
@@ -99,7 +99,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">Sign in</h5>
+              <img src="{{ url_for('static', filename='img/global/cheese.png')}}" class="pr-2"><h5 class="modal-title">Sign in</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -149,6 +149,7 @@
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
+            <img src="{{ url_for('static', filename='img/global/salt-and-pepper.png')}}" class="pr-2">
             <h5 class="modal-title">Create an account</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
@@ -158,44 +159,41 @@
             <form method="POST" action="/signup_user" name="signupForm" id="signupForm">
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
-                  <input type="text" class="form-control" placeholder="Enter a user name with up to 10 letters or numbers."
-                    name="signupUsername" id="signupUsername" pattern="[A-Za-z0-9]{1,10}" oninvalid="this.setCustomValidity('Enter a user name with up to 10 letters or numbers')"
-                    oninput="setCustomValidity('')" required>
+                  <input type="text" class="form-control" placeholder="Enter a user name"
+                    name="signupUsername" id="signupUsername" pattern="[A-Za-z0-9]{5,10}" required>
+                    <label for="signupUsername">Minimum 5, up to 10 letters or numbers.</label>
                 </div>
               </div>
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
-                  <input type="text" class="form-control" placeholder="Enter your first name up to 10 letters" name="firstName"
-                    id="firstName" pattern="[A-Za-z0-9]{1,10}" oninvalid="this.setCustomValidity('Enter your first name up to 10 letters')"
-                    oninput="setCustomValidity('')" required>
+                  <input type="text" class="form-control" placeholder="Enter your first name" name="firstName"
+                    id="firstName" pattern="[A-Za-z0-9]{1,10}" required>
+                    <label for="firstName">Enter your first name up to 10 letters.</label>
                 </div>
               </div>
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
-                  <input type="text" class="form-control" placeholder="Enter your last name up to 15 letters" name="lastName"
-                    id="lastName" pattern="[A-Za-z0-9]{1,15}" oninvalid="this.setCustomValidity('Enter your last name with up to 15 letters.')"
-                    oninput="setCustomValidity('')" required>
+                  <input type="text" class="form-control" placeholder="Enter your last name" name="lastName"
+                    id="lastName" pattern="[A-Za-z0-9]{1,15}" required>
+                    <label for="firstName">Enter your last name up to 15 letters.</label>
                 </div>
               </div>
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
-                  <input type="password" class="form-control" placeholder="Enter password up to 8 letters or numbers"
-                    name="signupPassword" id="signupPassword" pattern="[A-Za-z0-9]{1,8}" oninvalid="this.setCustomValidity('Enter a password with up to 8 letters or numbers.')"
-                    oninput="setCustomValidity('')" required>
-                  <div class="invalid-feedback">
-                    Please enter a password (up to 8 letters or numbers)
-                  </div>
+                  <input type="password" class="form-control" placeholder="Enter password"
+                    name="signupPassword" id="signupPassword" pattern="[A-Za-z0-9]{8,8}" required>
+                    <label for="firstName">Password must be 8 characters long.</label>
                 </div>
               </div>
               <div class="control-group">
                 <div class="form-group floating-label-form-group controls">
                   <input type="password" class="form-control" placeholder="Confirm password..." name="confirmPassword"
-                    id="confirmPassword" pattern="[A-Za-z0-9]{1,8}" oninvalid="this.setCustomValidity('Please confirm your password.')"
-                    oninput="setCustomValidity('')" required>
+                    id="confirmPassword" pattern="[A-Za-z0-9]{8,8}" required>
+                    <label for="firstName">Confirm the password.</label>
                 </div>
               </div>
               <div class="form-group button-submit-margin">
-                <button type="submit" class="btn btn-primary" id="signupButton">
+                <button type="submit" class="btn btn-primary btn-block" id="signupButton">
                   Create an account
                 </button>
               </div>
@@ -283,7 +281,6 @@
   <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
   <!-- Plugin JavaScript -->
   <script src="{{ url_for('static', filename='js/jquery.validate.js')}}"></script>
-  <script src="{{ url_for('static', filename='js/validation_script.js')}}"></script>
   <script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js')}}"></script>
   <!-- Custom scripts for this cookbook project -->
   <script src="{{ url_for('static', filename='js/cookbook_custom_scripts.js')}}"></script>
