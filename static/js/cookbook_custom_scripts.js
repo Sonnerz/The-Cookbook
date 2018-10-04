@@ -60,7 +60,7 @@ $(function () {
         }
       },
       error: function (error) {
-        $("#loginMessages").html("There was an error logging in.");
+        $("#loginMessages").html("There was an error logging in. Please try again");
       }
     });
   });
