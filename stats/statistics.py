@@ -1,3 +1,5 @@
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import pandas
 import os
@@ -18,6 +20,7 @@ mongo = PyMongo(statistics)
 RECIPES_DATA_PATH = 'static/data/recipes.json'
 cuisine_list = mongo.db.cuisine.find()
 category_list = mongo.db.categories.find()
+allergen_list = mongo.db.allergens.find()
 
 
 # READ JSON FILE
@@ -83,10 +86,10 @@ def cuisine_pie():
     cols = ['c','m','r','b','indigo','tan','lime','y','teal']
 
     plt.pie(slices, colors=cols, labels=activities, 
-            startangle=90, shadow=True, explode=(0,0,0,0,0,0,0,0,0.3), autopct='%1.1f%%')
+            startangle=90, shadow=True, explode=(0.2,0,0.5,0,0.2,0,0.2,0,0.3), autopct='%1.1f%%')
 
-    plt.title('Recipe Incidence of cuisine')
     fig.savefig('static/img/graphs/piechart.svg')
+    # plt.show()
 
 
 # TOP CATEGORY PIE CHART
@@ -94,7 +97,6 @@ recipesDataFrameCat = pandas.DataFrame()
 recipesDataFrameCat['category'] = [recipe['category'] for recipe in results]
 for c in category_list:
     recipesDataFrameCat[c['category_name']] = recipesDataFrameCat['category'].apply(lambda recipe: is_text_in_field(c['category_name'], recipe))
-
 
 def category_pie():
     fig = plt.figure()
@@ -112,14 +114,39 @@ def category_pie():
     cols = ['c','m','r','b','indigo','tan','teal','k','y','g']
 
     plt.pie(slices, colors=cols, labels=activities, 
-            startangle=90, shadow=True, explode=(0.3,0,0,0,0,0,0,0,0,0), autopct='%1.1f%%')
+            startangle=90, shadow=True, explode=(0.3,0,0.2,0,0,0,0.3,0,0.4,0), autopct='%1.1f%%')
 
-    plt.title('Recipe Incidence of Category')
     fig.savefig('static/img/graphs/piechart-category.svg')
     # plt.show()
 
 
+# ALLERGEN PIE CHART
+recipesDataFrameAll = pandas.DataFrame()
+recipesDataFrameAll['allergen'] = [recipe['allergens'] for recipe in results]
+for a in allergen_list:
+    recipesDataFrameAll[a['allergen_name']] = recipesDataFrameAll['allergen'].apply(lambda recipe: is_text_in_field(a['allergen_name'], recipe))
+
+def allergen_pie():
+    fig = plt.figure()
+    slices = recipesDataFrameAll['Gluten'].value_counts()[True], recipesDataFrameAll['Eggs'].value_counts()[True],\
+    recipesDataFrameAll['Fish'].value_counts()[True],recipesDataFrameAll['Peanuts'].value_counts()[True],\
+    recipesDataFrameAll['Soybeans'].value_counts()[True],recipesDataFrameAll['Milk'].value_counts()[True],\
+    recipesDataFrameAll['Tree nuts'].value_counts()[True], recipesDataFrameAll['Celery'].value_counts()[True],\
+    recipesDataFrameAll['Sulphites'].value_counts()[True], recipesDataFrameAll['Molluscs'].value_counts()[True],\
+    recipesDataFrameAll['Crustaceans'].value_counts()[True], recipesDataFrameAll['Sesame seeds'].value_counts()[True]
+    activities = ["Gluten","Eggs","Fish","Peanuts","Soybeans","Milk","Tree nuts","Celery","Sulphites","Molluscs","Crustaceans","Sesame seeds"]
+    cols = ['c','m','y','g','b','r','teal','indigo','tan','teal','c','g']
+
+    plt.pie(slices, colors=cols, labels=activities, startangle=90, shadow=True, explode=(0.2,0,0,0.3,0,0,0.3,0,0,0.3,0,0), autopct='%1.1f%%')
+
+    fig.savefig('static/img/graphs/piechart-allergen.svg')
+    # plt.show()
+
+
+
+
 # region BAR CHARTS
+
 # BAR CHARTS - CATEGORY
 fig = plt.figure()
 fig.subplots_adjust()
@@ -130,19 +157,19 @@ ax1.tick_params(axis='x', labelsize=15)
 ax1.tick_params(axis='y', labelsize=15)
 ax1.set_xlabel('Category', fontsize=12)
 ax1.set_ylabel('Number of recipes', fontsize=12)
-ax1.xaxis.label.set_color('#666666')
-ax1.yaxis.label.set_color('#666666')
-ax1.tick_params(axis='x', colors='#666666')
-ax1.tick_params(axis='y', colors='#666666')
-ax1.set_title('Top 10 Category', fontsize=15, color='#666666')
+ax1.xaxis.label.set_color('#393d3f')
+ax1.yaxis.label.set_color('#393d3f')
+ax1.tick_params(axis='x', colors='#393d3f')
+ax1.tick_params(axis='y', colors='#393d3f')
+ax1.set_title('Top 10 Categories', fontsize=15, color='#393d3f')
 
 #plot the top 10 Category
 recipe_by_category = cat_dataframe()
-recipe_by_category[:10].plot(ax=ax1, kind='bar', color='#FF7A00')
+recipe_by_category[:10].plot(ax=ax1, kind='bar', color='#586a7a')
 
 #colour the spines(borders)
 for spine in ax1.spines.values():
-    spine.set_edgecolor('#666666')
+    spine.set_edgecolor('#393d3f')
 
 #render the graph
 # plt.show()
@@ -153,34 +180,34 @@ fig.savefig('static/img/graphs/barchart-category.svg')
 
 
 # BAR CHARTS - CUISINE
-fig = plt.figure()
-fig.subplots_adjust(hspace=.9)
+fig1 = plt.figure()
+fig1.subplots_adjust()
 
-ax1 = fig.add_subplot(2,1,1)
+ax2 = fig1.add_subplot(2,1,1)
 
-ax1.tick_params(axis='x', labelsize=15)
-ax1.tick_params(axis='y', labelsize=15)
-ax1.set_xlabel('Cuisine', fontsize=12)
-ax1.set_ylabel('Number of recipes', fontsize=12)
-ax1.xaxis.label.set_color('#666666')
-ax1.yaxis.label.set_color('#666666')
-ax1.tick_params(axis='x', colors='#666666')
-ax1.tick_params(axis='y', colors='#666666')
-ax1.set_title('Top 10 Cuisine', fontsize=15, color='#666666')
+ax2.tick_params(axis='x', labelsize=15)
+ax2.tick_params(axis='y', labelsize=15)
+ax2.set_xlabel('Cuisine', fontsize=12)
+ax2.set_ylabel('Number of recipes', fontsize=12)
+ax2.xaxis.label.set_color('#393d3f')
+ax2.yaxis.label.set_color('#393d3f')
+ax2.tick_params(axis='x', colors='#393d3f')
+ax2.tick_params(axis='y', colors='#393d3f')
+ax2.set_title('Top Cuisine', fontsize=15, color='#393d3f')
 
 #plot the top 10 Cuisine
 recipe_by_cuisine = cuis_dataframe()
-recipe_by_cuisine[:10].plot(ax=ax1, kind='bar', color='#FF7A00')
+recipe_by_cuisine[:10].plot(ax=ax2, kind='bar', color='#62929e')
 
 #colour the spines(borders)
-for spine in ax1.spines.values():
-    spine.set_edgecolor('#666666')
+for spine in ax2.spines.values():
+    spine.set_edgecolor('#393d3f')
 
 #render the two graphs at once
 # plt.show()
 
 # Save the figure
-fig.savefig('static/img/graphs/barchart-cuisine.svg')
+fig1.savefig('static/img/graphs/barchart-cuisine.svg')
 
 # endregion
 
@@ -192,5 +219,6 @@ cat_dataframe()
 cuis_dataframe()
 category_pie()
 cuisine_pie()
+allergen_pie()
 
 

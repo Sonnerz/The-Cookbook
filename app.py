@@ -694,12 +694,20 @@ def internal_error(error):
     return render_template('500.html') 
 
 
-# PAGE :: GRAPHS
+# # PAGE :: GRAPHS
 @app.route('/graphs')
 def graphs():
     cuis_data = cuis_dataframe()
     cat_data = cat_dataframe()
-    return render_template("graphs.html", cuis_data=cuis_data, cat_data=cat_data)
+
+    cat_data_dict = {}
+    for k, v  in cat_data.iteritems():
+        cat_data_dict.update({k: v})
+
+    cuis_data_dict = {}
+    for k, v  in cuis_data.iteritems():
+        cuis_data_dict.update({k: v})        
+    return render_template("graphs.html", cuis_data=cuis_data_dict, cat_data=cat_data_dict)
 
 
 if __name__ == '__main__':
