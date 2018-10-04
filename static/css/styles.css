@@ -505,6 +505,7 @@ p.card-keyword span {
   max-height: 350px;
   text-align: center;
   margin: 0 auto;
+  border-radius: 1rem;
 }
 
 #recipe-info .utilities {
@@ -715,6 +716,7 @@ p.card-keyword span {
   appearance: button;
   width: 120px;
   padding: 5px 10px;
+  border-radius: 0.25rem;
 }
 
 .table-header {
@@ -840,6 +842,11 @@ section h3.section-subheading {
   font-weight: 700;
   padding: 0.3rem;
   font-size: 0.9rem;
+  border-radius: 0.25rem;
+}
+
+html [type=button] {
+  -webkit-appearance: initial !important;
 }
 
 .btn-xl {

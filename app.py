@@ -12,6 +12,7 @@ from bson.json_util import dumps
 from bson import json_util
 from datetime import datetime
 from math import ceil
+from pie import cuis_dataframe, cat_dataframe
 
 
 DBS_NAME = os.getenv("DBS_NAME")
@@ -193,17 +194,6 @@ def get_difficulty():
     except:
         return render_template("500.html")
     return difficulty
-
-
-# PAGE :: INDEX - HOME PAGE
-@app.route('/graphs')
-def graphs():
-    return render_template("graphs.html")
-
-@app.route('/graphs_sub')
-def graphs_sub():
-    return render_template("graphs_sub.html")
-
 
 
 # PAGE :: INDEX - HOME PAGE
@@ -564,7 +554,7 @@ def filter_by_cuisine(cuisine):
         print("no recipes with that cuisine found")
         message = "fail"
         return message
- 
+
 
 # FUNCTION :: GET RECIPES WITHOUT THE SELECTED ALLERGEN
 @app.route('/filter_by_allergen/<allergen>', methods=['POST', 'GET'])
@@ -702,7 +692,14 @@ def internal_error(error):
     session.pop('_flashes', None)
     session.pop('username', None)
     return render_template('500.html') 
-    
+
+
+# PAGE :: GRAPHS
+@app.route('/graphs')
+def graphs():
+    cuis_data = cuis_dataframe()
+    cat_data = cat_dataframe()
+    return render_template("graphs.html", cuis_data=cuis_data, cat_data=cat_data)
 
 
 if __name__ == '__main__':

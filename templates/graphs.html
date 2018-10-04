@@ -2,26 +2,55 @@
 
 {% block template_content %}
 <section id="404errorpage">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 text-center mt-5">
-              <h2 class="section-heading">Statistical Analysis of &#123;&#123;The CookBook &#125;&#125;</h2>
-            </div>
-          </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mt-5">
+        <h2 class="section-heading">Statistical Analysis of &#123;&#123;The CookBook &#125;&#125;</h2>
+      </div>
+    </div>
+  </div>
 </section>
 <section>
-    <iframe src="/graphs_sub" width="1200" height="900"></iframe>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col">
+        <h3>table 1</h3>
+        <div>{{cuis_data}}</div>
+      </div>
+      <div class="col">
+        <h3>table 2</h3>
+        <div>{{cat_data}}</div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <h3>graph 1</h3>
+          <img src="static/img/graphs/piechart.svg">
+        </div>
+        <div class="col">
+          <h3>
+            <h3>graph 2</h3>
+            <img src="static/img/graphs/piechart-category.svg">
+          </h3>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+            <h3>barchart 1 cat</h3>
+            <img src="static/img/graphs/barchart-category.svg">
+        </div>
+        <div class="col">
+            <h3>barchart 2 cuis</h3>
+            <img src="static/img/graphs/barchart-cuisine.svg">
+        </div>        
+      </div>
+    </div>
 
-    <link rel="import" href="/graphs_sub">
-
-    <img src="static/img/graphs/piechart.svg">
 </section>
 
 <!-- BACK TO TOP -->
 <div class="row">
-    <div class="col-12">
-        <button onclick="topFunction()" id="backtotopIcon" title="Go to top"></button>
-    </div>
+  <div class="col-12">
+    <button onclick="topFunction()" id="backtotopIcon" title="Go to top"></button>
+  </div>
 </div>
 {% endblock %}

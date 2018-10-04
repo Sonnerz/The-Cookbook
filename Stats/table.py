@@ -34,9 +34,7 @@ recipe_by_category = recipesDataFrame['category'].value_counts()
 print(recipe_by_cuisine.head())
 print(recipe_by_category.head())
 
-recipesDataFrame.to_html('templates/graphs_sub.html')
-
-
+# recipesDataFrame.to_html('templates/graphs_sub.html')
 
 #create our drawing space (figure)
 fig = plt.figure()
