@@ -12,7 +12,7 @@ from bson.json_util import dumps
 from bson import json_util
 from datetime import datetime
 from math import ceil
-from pie import cuis_dataframe, cat_dataframe
+from stats.statistics import cuis_dataframe, cat_dataframe
 
 
 DBS_NAME = os.getenv("DBS_NAME")

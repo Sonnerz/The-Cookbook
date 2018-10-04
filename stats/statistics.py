@@ -10,10 +10,10 @@ from flask_pymongo import PyMongo
 DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
 
-app = Flask(__name__)
-app.config["DBS_NAME"] = "cookbook"
-app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
-mongo = PyMongo(app)
+statistics = Flask(__name__)
+statistics.config["DBS_NAME"] = "cookbook"
+statistics.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
+mongo = PyMongo(statistics)
 
 RECIPES_DATA_PATH = 'static/data/recipes.json'
 cuisine_list = mongo.db.cuisine.find()
