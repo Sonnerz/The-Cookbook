@@ -31,6 +31,7 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             {% if session['isLoggedin'] %}
             <ul class="navbar-nav ml-auto text-center">
+              <li class="nav-item"><a class="nav-link" href="/graphs" title="Site Statistics" id="search-nav-link">Site Stats</a></li>
               <li class="nav-item"><a class="nav-link" href="/recipesearch" title="Recipe search" id="search-nav-link">Recipes</a></li>
               <li class="nav-item"><a class="nav-link" href="/myrecipes?limit=5&offset=0" id="myrecipes-nav-link" title="My Recipes">My
                   Recipes</a></li>
@@ -42,6 +43,7 @@
             </ul>
             {% else %}
             <ul class="navbar-nav ml-auto text-center">
+              <li class="nav-item"><a class="nav-link" href="/graphs" title="Site Statistics" id="search-nav-link">Site Stats</a></li>
               <li class="nav-item"><a class="nav-link" href="/recipesearch" title="Recipe search" id="search-nav-link">Recipes</a></li>
               <li class="nav-item already"><span class="nav-link">Already registered?</span></li>
               <!-- Button trigger login modal -->

@@ -21,12 +21,16 @@
     }
     .navbar-nav {
         .nav-item {
+            &:last-child {
+                border-bottom: 1px solid $primary;
+            }
             .nav-link {
                 font-size: 100%;
                 font-weight: 700;
                 padding: 0.75em 0;
                 color: $paynesgrey;
                 text-transform: uppercase;
+                border-top: 1px solid $primary;
                 @include sans-serif-font;
                 &.active,
                 &:hover {
@@ -82,9 +86,18 @@
         }
         .navbar-nav {
             .nav-item {
+                &:last-child {
+                    border-bottom:0;
+                }
+                border-top:0;
                 .nav-link {
                     padding: 1.1em 1em !important;
+                    border-bottom:0;
+                    border-top:0;
                 }
+            }
+            .already{
+                border-bottom:0;
             }
         }
         &.navbar-shrink {

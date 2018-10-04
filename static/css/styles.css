@@ -25,12 +25,17 @@
   width: 230px;
 }
 
+#mainNav .navbar-nav .nav-item:last-child {
+  border-bottom: 1px solid #546a7b;
+}
+
 #mainNav .navbar-nav .nav-item .nav-link {
   font-size: 100%;
   font-weight: 700;
   padding: 0.75em 0;
   color: #546a7b;
   text-transform: uppercase;
+  border-top: 1px solid #546a7b;
   font-family: 'Lato', sans-serif, cursive;
 }
 
@@ -84,8 +89,19 @@
   #mainNav .navbar-brand img {
     width: 282px;
   }
+  #mainNav .navbar-nav .nav-item {
+    border-top: 0;
+  }
+  #mainNav .navbar-nav .nav-item:last-child {
+    border-bottom: 0;
+  }
   #mainNav .navbar-nav .nav-item .nav-link {
     padding: 1.1em 1em !important;
+    border-bottom: 0;
+    border-top: 0;
+  }
+  #mainNav .navbar-nav .already {
+    border-bottom: 0;
   }
   #mainNav.navbar-shrink {
     padding-top: 0;
@@ -1109,6 +1125,10 @@ img::-moz-selection {
 
 .modal-header {
   background-color: #e8e7dd;
+}
+
+button:focus {
+  outline: 0;
 }
 
 @media (min-width: 768px) {

@@ -60,6 +60,9 @@
 .modal-header {
     background-color: $cream;
 }
+button:focus {
+    outline: 0;
+}
 @media (min-width: 768px) {
     .card-image-top {
         height: 160px;
