@@ -11,7 +11,7 @@
                     <h1>{{ recipe.name }}</h1>
                     <!-- CREATED BY AND DATE -->
                     <p class="text-muted createdby">Created by: <span>{{recipeauthor.username.title()}}</span> on
-                        <span>{{recipe['dateCreated'].strftime('%d-%m-%Y')}}</span></p>
+                        <span>{{recipe['dateCreated'].strftime('%d-%b-%Y')}}</span></p>
                     <h3 class="section-subheading text-muted">{{ recipe.description }}</h3>
                 </div>
             </div>
@@ -50,16 +50,17 @@
                             {% if (recipe.author != session['userid']) and (session['isLoggedin'] == True)%}
                             <div class="col-4">
                                 <a type="submit" action="{{ url_for('update_vote', recipe_id=recipe._id) }}" id="rateme"
-                                    name="rateme" alt="Rate this recipe" title="Rate this recipe"><i class="far fa-heart"></i>Rate</a>
+                                    name="rateme" alt="Rate this recipe" title="Rate this recipe"><img
+                                    src="{{ url_for('static', filename='img/recipes/like.png')}}" alt="Rate me">Rate</a>
                             </div>
                             {% endif %}
                             <div class="col">
                                 <a href="#" onclick="window.print();return false;" alt="Print this recipe" title="Print this recipe"><img
-                                        src="{{ url_for('static', filename='img/global/printer-tool.png')}}" alt="Print"
+                                        src="{{ url_for('static', filename='img/recipes/print.png')}}" alt="Print"
                                         class="print">Print</a>
                             </div>
                             <div class="col">
-                                <i class="far fa-heart"></i><span id="vote_result">{{ recipe.votes }}</span>
+                                    <img src="{{ url_for('static', filename='img/recipes/like.png')}}" alt="Rate me"><span id="vote_result">{{ recipe.votes }}</span>
                             </div>
                         </div>
                         <!-- MESSAGES -->
@@ -155,7 +156,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <p class="section-subheading text-muted pl-4">Last modified:
-                                    {{recipe['dateModified'].strftime('%d-%m-%Y')}}</p>
+                                    {{recipe['dateModified'].strftime('%d-%b-%Y')}}</p>
                             </div>
                         </div>
                         <!-- BUTTONS -->

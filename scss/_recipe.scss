@@ -88,7 +88,6 @@
             list-style-type: none;
             padding-bottom: 0.8rem;
         }
-        
     }
     .detail-title {
         font-weight: 600;
@@ -98,10 +97,12 @@
         ul {
             font-size: 0.9rem;
             list-style-type: none;
-            padding-left: 0;            
+            padding-left: 0;
         }
         li {
             padding-bottom: 5px;
+            padding-left: 2em;
+            text-indent: -2.4em;
         }
         li img {
             padding-right:10px;
@@ -163,6 +164,10 @@
     .tab-content .tab-pane {
         display: block;
     }
+    #home.tab-pane {
+        background-color: rgba(114, 157, 168, 0.13);
+        border-radius: 1rem;
+    }
     .nav {
         display: none;
     }
@@ -173,21 +178,6 @@
         display: block;
         padding-right: 0;
         padding-left: 0;
+        
     }
-}
-
-.show {
-    display: block;
-}
-
-.red {
-    background-color: #ff0000;
-}
-
-.blue {
-    background-color: #5047d1;
-}
-
-.yellow {
-    background-color: #b0f05c;
 }
