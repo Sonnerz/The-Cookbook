@@ -88,11 +88,16 @@
                                             {% if recipe.calories != "" %}
                                             <li>{{ recipe.calories }}</li>
                                             {% else %}
-                                            <li>No calories specified</li>
+                                            <li>No calories listed</li>
                                             {% endif %}
-                                            {% for allergen in recipe.allergens %}
-                                            <li>{{ allergen }}</li>
-                                            {% endfor %}
+                                            {% if recipe.allergens|length > 0 %}
+                                                {% for allergen in recipe.allergens %}
+                                                <li>{{ allergen }}</li>
+                                                {% endfor %}
+                                            {% else %}
+                                                <li>No Allergens listed</li>
+                                            {% endif %}
+                                            
                                         </ul>
                                     </div>
                                 </div>
