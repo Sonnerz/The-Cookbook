@@ -697,6 +697,7 @@ Vscode terminal was used to examine and test python code. The print() and in par
 https://www.themealdb.com/ provides an api to access recipes on the internet.
 I created a html file to connect to the api and get random recipes for my recipe collection.
 The HTML file is in Database schema folder. (getrecipes.html)
+
 It outputs a json file of randomly selected recipes. I have hardcoded some db field values as they were missing from the source data.
 It was a quick and easy way to get some content into an empty database for development purposes.
 

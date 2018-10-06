@@ -930,7 +930,7 @@ img::-moz-selection {
 
 @media (min-width: 576px) {
   #user-name-wrapper, #user-name-wrapper-notloggedin {
-    padding-top: 124px;
+    padding-top: 123px;
   }
 }
 
