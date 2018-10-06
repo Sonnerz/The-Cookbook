@@ -85,10 +85,14 @@
                                             <li>{{ recipe.main_ingredient.title() }}</li>
                                             <li>{{ recipe.category }}</li>
                                             <li>{{ recipe.cuisine }}</li>
+                                            {% if recipe.calories != "" %}
                                             <li>{{ recipe.calories }}</li>
-                                            <li>{% for allergen in recipe.allergens %}
+                                            {% else %}
+                                            <li>No calories specified</li>
+                                            {% endif %}
+                                            {% for allergen in recipe.allergens %}
                                             <li>{{ allergen }}</li>
-                                            {% endfor %}</li>
+                                            {% endfor %}
                                         </ul>
                                     </div>
                                 </div>

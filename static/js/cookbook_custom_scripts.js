@@ -11,14 +11,14 @@ $(function () {
         type: 'POST',
         success: function (response) {
           if (response == "success") {
-            var message = "Your account was created. You can log in now."
+            var message = "Your account was created. You can log in now.";
             $("#signupMessages").html(message);
             var delay = 1000;
             setTimeout(function () { window.location.href = "/"; }, delay);
           }
           else if (response == "fail") {
-            var message = "This username has already been registered."
-            $("#signupMessages").html(message);
+            var messagefail = "This username has already been registered.";
+            $("#signupMessages").html(messagefail);
           }
         },
         error: function (error) {
@@ -51,7 +51,7 @@ $(function () {
         }
         else {
           $("#loginMessages").html(response.message);
-          //Add username and id to localstorage        
+          //Add username and id to localstorage
           localStorage.setItem("username", response.username);
           localStorage.setItem("user_id", response._id);
           // Delay before redirect to myrecipes page
@@ -91,7 +91,7 @@ $(function () {
         type: 'POST',
         success: function (response) {
           $("#newRecipeMessages").html(response);
-          $("h3.section-subheading").html("Your recipe has been added")
+          $("h3.section-subheading").html("Your recipe has been added");
           // Delay before redirect to read message
           var delay = 1200;
           setTimeout(function () { window.location.href = "/myrecipes?limit=5&offset=0"; }, delay);
@@ -113,7 +113,7 @@ $(function () {
   $('#update_recipe_form').submit(function (event) {
     event.preventDefault();
     var url = window.location.href;
-    recipe_id = url.split("/").pop();
+    var recipe_id = url.split("/").pop();
     $.ajax({
       url: '/update_recipe/' + recipe_id,
       data: $('#update_recipe_form').serialize(),
@@ -169,8 +169,8 @@ function topFunction() {
 
 // #region SEARCH ANY FIELD RECIPE HASHTAGS
 
-  function searchdb(a){
-  searchQuery = a.innerHTML;
+function searchdb(a){
+  var searchQuery = a.innerHTML;
   $.ajax({
     url: '/recipesearchquery',
     contentType: 'application/json',
@@ -179,7 +179,7 @@ function topFunction() {
     success: function (response) {
       $('.initialRecipes').hide();
       $("#searchResult").show();
-      $("h3.section-subheading").html("Recipes searched by Ingredient: " + searchQuery)
+      $("h3.section-subheading").html("Recipes searched by Ingredient: " + searchQuery);
       if (response != "fail") {
         $("#recipeResult").html(response);
       }
@@ -195,7 +195,7 @@ function topFunction() {
       $("#recipeResult").html("There was an error completing your search.");
     }
   });
-};
+}
 // #endregion
 
 
@@ -332,7 +332,7 @@ $(document).ready(function () {
         buttons: {
           "Delete the recipe": function () {
             $(this).dialog("close");
-            var recipe_id = thisrecipeid
+            var recipe_id = thisrecipeid;
             $.ajax({
               url: '/delete_recipe',
               data: { "recipe_id": recipe_id },
@@ -378,7 +378,7 @@ $(document).ready(function () {
     e.preventDefault();
     addVote();
     return false; //return false;  stops page jumping back to top
-  })
+  });
   function addVote() {
     votes = 1;
     var url = window.location.href;
@@ -400,7 +400,7 @@ $(document).ready(function () {
         $("#ratemeMessages").html("There was an error rating the recipe. Please try again.");
       }
     });
-  };
+  }
   // #endregion
 
 
@@ -410,7 +410,7 @@ $(document).ready(function () {
     $("#category-select").change(function (event) {
       event.preventDefault();
       var categorypicked = $('#category-select').find(":selected").text();
-      category = categorypicked.trim();
+      var category = categorypicked.trim();
       $.ajax({
         url: '/filter_by_category/' + category,
         contentType: 'application/json',
@@ -419,7 +419,7 @@ $(document).ready(function () {
         success: function (response) {
           $('.initialRecipes').hide();
           $("#searchResult").show();
-          $("h3.section-subheading").html("Recipes searched by Category: " + categorypicked)
+          $("h3.section-subheading").html("Recipes searched by Category: " + categorypicked);
           $('#cuisine-select').val("Select a Cuisine");
           $('#allergen-select').val("Select an Allergen");
           if (response != "fail") {
@@ -450,7 +450,7 @@ $(document).ready(function () {
       event.preventDefault();
       var cuisinepicked = $('#cuisine-select').find(":selected").text();
       $("#sc").text(cuisinepicked);
-      cuisine = cuisinepicked.trim();
+      var cuisine = cuisinepicked.trim();
       $.ajax({
         url: '/filter_by_cuisine/' + cuisine,
         contentType: 'application/json',
@@ -459,7 +459,7 @@ $(document).ready(function () {
         success: function (response) {
           $('.initialRecipes').hide();
           $("#searchResult").show();
-          $("h3.section-subheading").html("Recipes searched by Cuisine: " + cuisinepicked)
+          $("h3.section-subheading").html("Recipes searched by Cuisine: " + cuisinepicked);
           $('#category-select').val("Select a Category");
           $('#allergen-select').val("Select an Allergen");
           if (response != "fail") {
@@ -489,7 +489,7 @@ $(document).ready(function () {
     $("#allergen-select").change(function (event) {
       event.preventDefault();
       var allergenpicked = $('#allergen-select').find(":selected").text();
-      allergen = allergenpicked.trim();
+      var allergen = allergenpicked.trim();
       $.ajax({
         url: '/filter_by_allergen/' + allergen,
         contentType: 'application/json',
@@ -498,7 +498,7 @@ $(document).ready(function () {
         success: function (response) {
           $('.initialRecipes').hide();
           $("#searchResult").show();
-          $("h3.section-subheading").html("Recipes searched by Allergen: " + allergenpicked)
+          $("h3.section-subheading").html("Recipes searched by Allergen: " + allergenpicked);
           $('#category-select').val("Select a Category");
           $('#cuisine-select').val("Select a Cuisine");
           if (response != "fail") {
@@ -527,7 +527,7 @@ $(document).ready(function () {
   $(function () {
     $('#ingredientFilter').submit(function (event) {
       event.preventDefault();
-      var ingredient = $('#searchmain').val()
+      var ingredient = $('#searchmain').val();
       $.ajax({
         url: '/filter_by_ingredient',
         data: ingredient,
@@ -535,7 +535,7 @@ $(document).ready(function () {
         success: function (response) {
           $('.initialRecipes').hide();
           $("#searchResult").show();
-          $("h3.section-subheading").html("Recipes searched by Ingredient: " + ingredient)
+          $("h3.section-subheading").html("Recipes searched by Ingredient: " + ingredient);
           if (response != "fail") {
             $("#recipeResult").html(response);
           }
@@ -564,8 +564,8 @@ $(document).ready(function () {
       event.preventDefault();
       var cuisinepicked = $('#cuisine-select1').find(":selected").text();
       var categorypicked = $('#category-select1').find(":selected").text();
-      cuisine = cuisinepicked.trim();
-      category = categorypicked.trim();
+      var cuisine = cuisinepicked.trim();
+      var category = categorypicked.trim();
       if (category == "Select a Category" || cuisine == "Select a Cuisine") {
         $("#filterMessage").html("You must select a Category and Cuisine");
       }

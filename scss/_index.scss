@@ -3,7 +3,7 @@ header.masthead {
     text-align: center;
     color: $paynesgrey;
     z-index: -1;
-    background-image: url('../img/home_image.jpg');
+    background-image: url('../img/global/home_image.jpg');
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-position: center center;
@@ -35,20 +35,6 @@ header.masthead {
     }
 }
 
-label.valid {
-    width: 24px;
-    height: 24px;
-    background: url(/static/img/global/valid.png) right center no-repeat;
-    display: inline-block;
-    text-indent: -9999px;
-}
-
-label.error {
-    font-weight: bold;
-    color: red;
-    padding: 2px;
-    margin-top: 2px 5px;
-}
 
 .alert-wrapper {
     width: 100%;

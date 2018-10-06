@@ -83,7 +83,6 @@ html [type=button] {
     border: 2px solid $blackolive!important;
     &:active,
     &:focus,
-    &:focus-within,
     &:hover {
         background-color: darken($cyan, 7.5%) !important;
         border-color: darken($cyan, 7.5%) !important;

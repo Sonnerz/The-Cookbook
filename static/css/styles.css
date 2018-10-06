@@ -118,7 +118,7 @@ header.masthead {
   text-align: center;
   color: #546a7b;
   z-index: -1;
-  background-image: url("../img/home_image.jpg");
+  background-image: url("../img/global/home_image.jpg");
   background-repeat: no-repeat;
   background-attachment: scroll;
   background-position: center center;
@@ -159,21 +159,6 @@ header.masthead .intro-text .intro-heading {
 
 header.masthead .mastheadbtn {
   margin-bottom: 5px;
-}
-
-label.valid {
-  width: 24px;
-  height: 24px;
-  background: url(/static/img/global/valid.png) right center no-repeat;
-  display: inline-block;
-  text-indent: -9999px;
-}
-
-label.error {
-  font-weight: bold;
-  color: red;
-  padding: 2px;
-  margin-top: 2px 5px;
 }
 
 .alert-wrapper {
@@ -628,7 +613,7 @@ p.card-keyword span {
     padding-top: 1rem;
   }
   #recipe-info #recipe-description {
-    display: normal;
+    display: block;
   }
   #recipe-info .btn-row {
     text-align: right;
@@ -709,9 +694,9 @@ p.card-keyword span {
 }
 
 .previous {
-  -webkit-appearance: button;
-  -moz-appearance: button;
-  appearance: button;
+  border-radius: 0.25rem;
+  color: #fff;
+  background-color: #62929e;
   width: 140px;
   padding: 5px 10px;
 }
@@ -893,7 +878,7 @@ html [type=button] {
   border: 2px solid #393d3f !important;
 }
 
-.btn-primary:active, .btn-primary:focus, .btn-primary:focus-within, .btn-primary:hover {
+.btn-primary:active, .btn-primary:focus, .btn-primary:hover {
   background-color: #537c87 !important;
   border-color: #537c87 !important;
   color: #f26522;

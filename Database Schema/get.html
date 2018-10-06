@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>GET RANDOM</title>
+</head>
+<body>
+<button id="download">Download me</button>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+$(document).ready(function () {
+var allMeals = [];
+$('#download').on("click", function() {
+var url = "https://www.themealdb.com/api/json/v1/1/random.php";	  
+		$.ajax({
+			type: "GET",
+			dataType : 'json',
+			url: url,
+			success: function(response) {
+			var newMeal = {};			
+			for(meals in response) {
+					var meals = response[meals];
+					counter = 1				
+					for(meal in meals) {
+						var meal = meals[meal];					
+						ingred1 = meal.strMeasure1 + ' ' + meal.strIngredient1;
+						ingred2 = meal.strMeasure2 + ' ' + meal.strIngredient2;
+						ingred3 = meal.strMeasure3 + ' ' + meal.strIngredient3;
+						ingred4 = meal.strMeasure4 + ' ' + meal.strIngredient4;						
+						ingred5 = meal.strMeasure5 + ' ' + meal.strIngredient5;
+						ingred6 = meal.strMeasure6 + ' ' + meal.strIngredient6;
+						ingred7 = meal.strMeasure7 + ' ' + meal.strIngredient7;
+						ingred8 = meal.strMeasure8 + ' ' + meal.strIngredient8;
+						ingred9 = meal.strMeasure9 + ' ' + meal.strIngredient9;
+						ingred10 = meal.strMeasure10 + ' ' + meal.strIngredient10;
+						ingred11 = meal.strMeasure11 + ' ' + meal.strIngredient11;
+						ingred12 = meal.strMeasure12 + ' ' + meal.strIngredient12;
+						ingred13 = meal.strMeasure13 + ' ' + meal.strIngredient13;
+						ingred14 = meal.strMeasure14 + ' ' + meal.strIngredient14;
+						ingred15 = meal.strMeasure15 + ' ' + meal.strIngredient15;
+						ingred16 = meal.strMeasure16 + ' ' + meal.strIngredient16;
+						ingred17 = meal.strMeasure17 + ' ' + meal.strIngredient17;
+						ingred18 = meal.strMeasure18 + ' ' + meal.strIngredient18;
+						ingred19 = meal.strMeasure19 + ' ' + meal.strIngredient19;
+						var ingred = [];
+						ingred.push.apply(ingred, [ingred1,ingred2,ingred3,ingred4,ingred5,ingred6,ingred7,ingred8,ingred9,ingred10,ingred11,ingred12,ingred13,ingred14,ingred14,ingred15,ingred16,ingred17,ingred18,ingred19])
+										
+						newMeal = {
+						author: 123,
+						name: meal.strMeal,
+						image_url: meal.strMealThumb,
+						description: "www",
+						main_ingredient : "Chicken",
+						category: meal.strCategory,
+						cuisine: meal.strArea,
+						difficulty : "Easy",								
+						prep_time : "30 mins",
+						cook_time : "1 hour",
+						serves : 4,
+						calories : "350kcal",
+						allergens : ["Tree nuts", "Eggs", "Milk"],
+						ingredients: ingred,
+						instructions: [meal.strInstructions],
+						votes : 0
+						};
+						//console.log(newMeal);
+						allMeals.push(newMeal);
+						//download(newMeal);
+										
+					}
+					
+				}
+				download(allMeals);	
+			},
+			error: function(XMLHttpRequest, textStatus, errorThrown) { 		 
+			} 
+		});			
+	});
+});
+//FUNCTION TO CREATE JSON FILE
+function download(meal) {
+
+//console.log(meal);
+    var fileContents = JSON.stringify(meal, null, 2);
+    var fileName = "data.json";
+    var pp = document.createElement('a');
+    pp.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(fileContents));
+    pp.setAttribute('download', fileName);
+    pp.click();
+}
+</script>
+</body>
+</html>
