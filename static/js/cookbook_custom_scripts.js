@@ -199,7 +199,10 @@ function searchdb(a){
 // #endregion
 
 
-// #region MOBILE PANELS SHOW/HIDE CONTENT
+// #region MOBILE TABS SHOW/HIDE CONTENT
+// Inspired by code on StackOverflow:
+// https://stackoverflow.com/questions/23555978/bootstrap-responsive-layout-in-mobile-convert-to-tabs/31765611
+
 $(window).on('resize', function () {
   var win = $(this); //this = window
   if (win.width() >= 768) {

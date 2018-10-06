@@ -457,6 +457,8 @@ def update_vote(recipe_id):
 @app.route('/myrecipes')
 @login_required
 def myrecipes():
+    # Pagination code found: https://www.youtube.com/watch?v=Lnt6JqtzM7I
+
     # get data: user, users recipes for myrecipes page
     current_user = dict(get_user(session['username']))
     test = mongo.db.test_collection.find()
@@ -750,7 +752,7 @@ def login_user():
         return returnvar
     return
 
-
+# Error handling suggested by Sentdex on YouTube
 @app.errorhandler(404)
 def page_not_found(error):
     # 404 error is redirected to 404.html
@@ -787,6 +789,5 @@ if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),
             debug=False)
-
 
 # import pdb; pdb.set_trace()
