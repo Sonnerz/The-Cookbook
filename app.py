@@ -19,15 +19,16 @@ from stats.statistics import cuis_dataframe, cat_dataframe
 DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
 
-
 app = Flask(__name__)
-# app.secret_key = 'The cat is on the roof'
-app.secret_key = os.urandom(24)
+app.debug = True
 
 if app.debug:
+    from config import config
+    app.secret_key = config()
     app.config["DBS_NAME"] = "cookbook"
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
 else:
+    app.secret_key = os.environ.get('SECRET_KEY')
     app.config["DBS_NAME"] = DBS_NAME
     app.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo(app)

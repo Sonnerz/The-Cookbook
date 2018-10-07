@@ -5,9 +5,6 @@ Heroku git: https://git.heroku.com/data-centric-cookbook.git<br>
 GitHub: https://github.com/Sonnerz/project04-data-centric-cookbook<br>
 
 
-**Create a web application that allows users to store and easily access cooking recipes**
-
-
 ## Guidelines and Guideline fulfilment
 
 1.	**Logic must be written in Python. HTML, CSS, and JavaScript can be used to enhance the look and feel of the cookbook.**<br>

@@ -18,6 +18,7 @@ Return to main ReadMe file [ReadMe](README.md)
     *   [Test: Edit Recipe](#edit)
     *   [Test: My Recipes Voting](#vote)
     *   [Test: Statistics](#stat)
+    *   [Test: Creating Statistic charts](#statsc)
 *   [Ongoing Testing](#ongoing)
 *   [User Testing](#usability)
 *   [Final Testing](#final)
@@ -168,14 +169,14 @@ The python function was returning a message in the response to AJAX that was ove
 After much testing, I discovered that I needed to add: `event.preventDefault();` in my ajax POST to stop the form being submitted by the button click. I wanted Ajax to submit the data to the python function.
 
 **Browser testing**
-1.	Clicking button activated correct modal - PASS
-2.	Enter username, first name, last name, password, confirm password. Validate Form  - PASS
-3.	Create an account button activates ajax to send data to back end  - PASS
-4.	Clicking close button closes the modal - PASS
-5.	Clicking x button closes the modal - PASS
-7.	Entering unique username added document to users collection - PASS
-8.	Entering already taken username did not add to the users collection and the user is prompted to change username - PASS
-9.	User continues to enter username until one is accepted - PASS
+1.	Clicking button activated correct modal - <span style="color:green">PASS</span>
+2.	Enter username, first name, last name, password, confirm password. Validate Form  - <span style="color:green">PASS</span>
+3.	Create an account button activates ajax to send data to back end  - <span style="color:green">PASS</span>
+4.	Clicking close button closes the modal - <span style="color:green">PASS</span>
+5.	Clicking x button closes the modal - <span style="color:green">PASS</span>
+7.	Entering unique username added document to users collection - <span style="color:green">PASS</span>
+8.	Entering already taken username did not add to the users collection and the user is prompted to change username - <span style="color:green">PASS</span>
+9.	User continues to enter username until one is accepted - <span style="color:green">PASS</span>
 
 
 [Top of page](#topofpage)
@@ -188,20 +189,20 @@ Test_login_function.ipynb
 
 **Browser testing**
 
-1.	Clicking close button closes the modal - PASS
-2.	Clicking x button closes the modal - PASS
-3.	Clicking anywhere off modal closes the modal - PASS
-4.	Clicking login button activated correct modal - PASS
+1.	Clicking close button closes the modal - <span style="color:green">PASS</span>
+2.	Clicking x button closes the modal - <span style="color:green">PASS</span>
+3.	Clicking anywhere off modal closes the modal - <span style="color:green">PASS</span>
+4.	Clicking login button activated correct modal - <span style="color:green">PASS</span>
 5.	Test scenario:
     *   Enter unregistered username
     *   Enter password
     *   Expected result: "That username is not registered"
-    *   Actual result: "That username is not registered” - PASS
+    *   Actual result: "That username is not registered” - <span style="color:green">PASS</span>
 6.	Test scenario:
     *   Enter registered username
     *   Enter incorrect password
     *   Expected result: "The password was incorrect"
-    *   Actual result: "The password was incorrect" - PASS
+    *   Actual result: "The password was incorrect" - <span style="color:green">PASS</span>
 7.	Test scenario:
     *   Enter registered username
     *   Enter correct password
@@ -209,7 +210,7 @@ Test_login_function.ipynb
     *   Expected result: redirected to profile page
     *   Expected result: login button changed to logout
     *   Actual result: login button changed to logout
-    *   Actual result: MyRecipes page displays inside modal - FAIL
+    *   Actual result: MyRecipes page displays inside modal - <span style="color:red">PASS</span>
     *   Resolution: I moved redirect from the python function to the AJAX function
 
 
@@ -239,8 +240,8 @@ The function is exited and myrecipes page is rendered without any recipes and a 
 2.	Test scenario:
     *   Click logout button
     *   Expected result: Logout button becomes Login button
-    *   Actual result: Logout button becomes Login button - PASS
-    *   print(session) shows that session username is {} and session isLogged in is False - PASS
+    *   Actual result: Logout button becomes Login button - <span style="color:green">PASS</span>
+    *   print(session) shows that session username is {} and session isLogged in is False - <span style="color:green">PASS</span>
 
 [Top of page](#topofpage)
 <a id="my"></a>
@@ -254,9 +255,9 @@ Test try to visit Myrecipes page without being logged in.
 Test scenario:
 *   Type url: http://1270.0.0.1/myrecipes
 *   Expected result: User is redirected to home page and a flask message slides down from under navbar informing the user that to be logged in is a requirement
-*   Actual result: User is redirected to home page - PASS
-*   flash message appears on Mobile-S, Mobile M, Mobile L - PASS
-*   on screens > Tablet 768 px – no flash message appears - FAIL
+*   Actual result: User is redirected to home page - <span style="color:green">PASS</span>
+*   flash message appears on Mobile-S, Mobile M, Mobile L - <span style="color:green">PASS</span>
+*   on screens > Tablet 768 px – no flash message appears - <span style="color:red">PASS</span>
 
 **Resolution:**
 
@@ -348,6 +349,20 @@ recipesDataFrame['description'] = [recipe['description'] for recipe in results]
 recipesDataFrame['tarts'] = recipesDataFrame['description'].apply(lambda recipe: is_text_in_description('tarts', recipe))
 print(recipesDataFrame['tarts'].value_counts()[True])
 ```
+<a id="statsc"></a>
+
+##  Test :: Creating Statistic charts
+
+When I ran my app the first time after creating all my bar charts and pie charts, I got a 'thread' error.
+
+`RuntimeError: main thread is not in main loop with Matplotlib and Flask`
+
+Even though the charts successfuly rendered to the html page, my terminal was filled with a runtime error. Googling gave me a solution on StackOverflow:
+https://stackoverflow.com/questions/49921721/runtimeerror-main-thread-is-not-in-main-loop-with-matplotlib-and-flask
+
+I added `matplotlib.use('Agg')` to my statistics.py file and it solved the problem.
+I don't fully understand the issue, so this will require further reading.
+
 
 
 [Top of page](#topofpage)
