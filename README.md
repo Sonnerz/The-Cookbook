@@ -276,7 +276,7 @@ If unregistered users attempt to access; myrecipes, addrecipe or editrecipe they
 Unregistered users only have the option to go to recipesearch page. Registered users will be taken to myrecipes page after they log in. From there they can manage their recipes or add new ones.
 
 
-![Functional flow](static/img/readme/Funcflow.png)
+![Functional flow](static/img/readme/funcflow.png)
 
 <a id="future"></a>
 
@@ -410,15 +410,16 @@ The application directories and files will be organised in the following way;
 
 ###   Database design Version 1
 
+![Database design scheme Version 1](Database_Schema/Cookbook-ER-Diagram_v1.png)
+
 Version 1 had all the fields in one collection – user and recipe info.
 Based on the fact that I chose to use a noSQL database I thought the best approach was one object and no foreign key relationships.
 I would return the user info and recipe with every call to the database.
 
-![Database design scheme Version 1](Database_Schema/Cookbook-ER-Diagram_v1.png)
-
-
 
 ### Database design Version 2
+
+![Database design scheme Version 2](Database_Schema/Cookbook-ER-Diagram_v2.png)
 
 With database version 1 design implmented, I began coding with sign up and login forms.
 I was adding users to the recipes collection and not considering how to access the recipe data.
@@ -441,10 +442,10 @@ Votes and views were added to record the number of votes and views for that reci
 When the recipe document is created both votes and views are set to 0.
 
 
-![Database design scheme Version 1](Database_Schema/Cookbook-ER-Diagram_v2.png)
-
 
 ### Database design Version 3
+
+![Database design scheme Version 3](Database_Schema/CookBook-ER-Diagram_v3.png)
 
 As development continued further updates were made to the users and recipes collections.
 Either to add or remove functionality.
@@ -463,7 +464,7 @@ I added _hashed_password_ and _recipe_votes_ to the users collection.
 I created a text index to include: name, description, category, cuisine, main_ingredient, ingredients, & allergens. This index is used for when users click the #hashtag links on each recipe summary in the search results page.
 
 
-![Database design scheme Version 1](Database_Schema/Cookbook-ER-Diagram_v3.png)
+
 
 
 ### Database collections example
