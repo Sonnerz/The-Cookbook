@@ -30,7 +30,7 @@ Return to main ReadMe file [ReadMe](README.md)
 The app was tested on an ongoing basis. Chrome and Chrome Developer Tools were the primary browser and tool used for testing. However, the site was also tested using Firefox and Internet Explorer.
 
 *	CSS passed validation using the CSS Validation Service provided by The World Wide Web Consortium (W3C): https://jigsaw.w3.org/css-validator/
-*	Pep8 was used to apply a standard coding convention to the Python code
+*	There were no pep8 styling issues 
 *	PyLint was also installed and used
 *	All the functions in cookbook_custom_scripts.js were tested on http://jshint.com/
 This site is a tool that helps to detect errors and potential problems in your JavaScript code.

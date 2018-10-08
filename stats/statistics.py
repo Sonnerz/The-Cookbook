@@ -13,8 +13,14 @@ DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
 
 statistics = Flask(__name__)
-statistics.config["DBS_NAME"] = "cookbook"
-statistics.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
+statistics.debug = False
+
+if statistics.debug:
+    statistics.config["DBS_NAME"] = "cookbook"
+    statistics.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
+else:
+    statistics.config["DBS_NAME"] = DBS_NAME
+    statistics.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo(statistics)
 
 RECIPES_DATA_PATH = 'static/data/recipes.json'

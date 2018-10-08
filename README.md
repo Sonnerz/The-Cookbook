@@ -10,34 +10,34 @@ GitHub: https://github.com/Sonnerz/project04-data-centric-cookbook<br>
 1.	**Logic must be written in Python. HTML, CSS, and JavaScript can be used to enhance the look and feel of the cookbook.**<br>
 CSS, HTML, Python and JavaScript were all employed to deliver the project requirements.
 2.	**Whenever possible, strive to use semantic HTML5 elements to structure your HTML code better.**<br>
-Semantic HTML5 elements were used throughout.
+Semantic HTML5 elements were used in the template files.
 3.	**The website must be data-driven and can rely on structured data, unstructured data or a mix of structured and unstructured data.**<br>
-The website is data-driven and relies on unstructured data
+The website is data-driven and relies on unstructured data.
 4.	**CRUD operations can be carried out using either SQL (e.g. MySQL/SQLite/Postgres) or NoSQL (e.g. MongoDB).**<br>
 CRUD operations are carried out using MongoDB. <br>
 5.	**Use Flask, a micro-framework, to run your application. Provide instructions on how to run your project locally in your README.**<br>
 Flask is used to run the application.
 6.	**Make sure your site is as responsive as possible. You can test this by checking the site on different screen sizes and browsers.**<br>
-The site is as responsive as possible and has been user tested and tested using dev tools<br>
+The site has been designed to be responsive and has been user tested and tested primarliy using Chrome dev tools<br>
 7.	**Share details of how you created your database schema in your README. Consider sharing working drafts or finalised versions of your database schema in a 'Database Schema' folder in your repo. Provide a link to this folder in your README.**<br>
 A Database Schema folder can be found in my GitHub repo and further information can be found in the database section of this README – [Database Design](#dbdesign).<br>
 8.	**We advise that you write down user stories and create wireframes/mockups before embarking on full-blown development.**<br>
 [Scenarios](#Scenarios) and [Wireframes](#Wireframes) are included in this README <br>
 9.	**The site can also make use of CSS frameworks such as Bootstrap, just make sure you maintain a clear separation between the library code and your code.**<br>
-Bootstrap 4 was used and custom css was created using SASS
+Bootstrap 4 was used and custom css was created using SASS. Custom SCSS files can be in the SCSS folder.
 10.	**Write a README.md file for your project that explains what the project does and the need that it fulfils.**<br>
 A README.md has been provided
 11.	**It should also describe the functionality of the project, as well as the technologies used.**<br>
 The README has been divided up into Strategy, Scope, Structure, Skeleton and Surface
-Each section deals with the functionality and technologies being developed/used at the time.
+Each section deals with the project at different points in its lifecycle.
 12.	**If some of the work was based on other code, explain what was kept and how it was changed to fit your need.**<br>
-There are comments throughout explaining what inspired my code
+There are comments in my code explaining what inspired my code and if it was taken from another source.
 13.	**A project submitted without a README.md file will FAIL.**<br>
-A ReadME has been supplied.
+A README has been supplied.
 14.	**Use Git & GitHub for version control. Each new piece of functionality should be in a separate commit.**<br>
 Git was used for version control and used regularly throughout development.
 15.	**Deploy the final version of your code to a hosting platform such as Heroku.**<br>
-The app has been deployed to Heroku and GitHub
+The app has been deployed to Heroku and GitHub. The app is hosted on Heroku and the source code is available on GitHub.
 
 
 ##  Non-requirements for this project:
@@ -47,10 +47,10 @@ Users do have to enter a password to register and login in. Werkzeug security wa
 
 2.	**PLAGIARISM**
 **It is each student’s responsibility to ensure that when they include (directly or indirectly) the work of others that this contribution is fully and adequately acknowledged and documented.**<br>
-Any images used have been credited and any code is credited to it's source - StackOverflow, Pretty Printed, etc.
+Any images used have been credited and any code is credited to its source - StackOverflow, Pretty Printed, etc.
 
 3.	**You are encouraged to ask your mentor/tutor for advice about your project work, but note that your project code should not include any code written by others unless it is explicitly credited to them with a comment above. Any such code provided by your mentor/tutor would not contribute to your assessment. Failure to attribute credit to code that isn’t yours will be considered as plagiarism and will result in a failing grade.**
-My mentor was asked for his advice with regard to the project meeting its requirements. He did not however contribute any code.
+My mentor was asked for his advice with regard to the project meeting its requirements. He did not contribute any code.
 
 
 <hr><hr>
@@ -410,8 +410,8 @@ The application directories and files will be organised in the following way;
 
 ###   Database design Version 1
 
-Version 1 had everything in one collection – user and recipe info.
-Based on the fact I was using a noSQL database I thought the best approach was one object and no foreign key relationships.
+Version 1 had all the fields in one collection – user and recipe info.
+Based on the fact that I chose to use a noSQL database I thought the best approach was one object and no foreign key relationships.
 I would return the user info and recipe with every call to the database.
 
 ![Database design scheme Version 1](Database_Schema/Cookbook-ER-Diagram_v1.png)
@@ -420,10 +420,10 @@ I would return the user info and recipe with every call to the database.
 
 ### Database design Version 2
 
-Following database version 1, I began with sign up and login forms.
-I was adding users to the recipes collection and not considering the access to recipes.
+With database version 1 design implmented, I began coding with sign up and login forms.
+I was adding users to the recipes collection and not considering how to access the recipe data.
 When I began the recipe display part of the project I realised how difficult it was to search for recipes as they were part of a collection where the user was the main entity.
-It was proving difficult to access one recipe object inside a user/recipe object and it would prove difficult to search for specific recipes
+It was proving difficult to access a recipe object inside a user object and as a result it would prove difficult to search for specific recipes
 
 After a conversation with fellow students and reading;
 
@@ -431,12 +431,12 @@ https://docs.mongodb.com/manual/tutorial/model-referenced-one-to-many-relationsh
 https://docs.mongodb.com/manual/reference/database-references/
 
 I decided to redesign my mongo database.
-I opted to keep collections; categories, cuisine, difficulty, allergens to populate my dropdown lists.
+I opted to keep collections; categories, cuisine, difficulty, allergens to populate my form dropdown lists.
 I separated my users from the recipes to create two separate entities.
 As a recipe document is created in the recipes collection, the author of the recipe (the user who was logged in) is recorded against the recipe under the author field(STR).
-The author field becomes a Foreign Key in the recipe document to the primary key User _id in the user’s document in the Users collection.
+The author field becomes a Foreign Key in the recipe document to the primary key _id in the user’s document in the Users collection.
 
-The recipe document fields design was driven predominantly by the Add Recipe form.
+The recipe document field design was driven predominantly by the Add Recipe form.
 Votes and views were added to record the number of votes and views for that recipe
 When the recipe document is created both votes and views are set to 0.
 
@@ -448,17 +448,19 @@ When the recipe document is created both votes and views are set to 0.
 
 As development continued further updates were made to the users and recipes collections.
 Either to add or remove functionality.
-I added hashed_password and recipe_votes to the user’s collection.
--	hashed_password stores a STRING of encrypted password. I added password encryption to the sign_up function
--	recipe_votes is an array storing the recipes the user has voted for on the iew recipes page.
+_Allergens_, _Ingredients_ and _Instructions_ became field type ARRAY. It made more sense to make them a list so that I could iterate through them for displaying in a browser.
 
-I added dateCreated and dateModified to the recipes collection.
+I added _dateCreated_ and _dateModified_ to the recipes collection.
 -	dateCreated is a DATE field storing the date the recipe was added
 -	dateModifed is a DATE field storing the date the recipe was modified
 -	I updated the votes field to an integer type so that it can be easily updated as a user votes up a recipe
 -	I removed the views field. I decided not to implement this functionality
 
-I created a text index to include: name, description, category, cuisine, main_ingredient, ingredients ,& allergens. This index is used for when users click the #hashtag links on each recipe summary in the search results page.
+I added _hashed_password_ and _recipe_votes_ to the users collection.
+-	hashed_password stores a STRING of encrypted password. I added password encryption to the sign_up function
+-	recipe_votes is an field type ARRAY storing the recipe ids the user has voted for on the view recipes page. This array is checked before a user attempts to vote up a recipe.
+
+I created a text index to include: name, description, category, cuisine, main_ingredient, ingredients, & allergens. This index is used for when users click the #hashtag links on each recipe summary in the search results page.
 
 
 ![Database design scheme Version 1](Database_Schema/Cookbook-ER-Diagram_v3.png)
@@ -597,6 +599,7 @@ I created a text index to include: name, description, category, cuisine, main_in
 }
 ```
 10. For testing see [Testing documentation](Testing.md)
+
 
 
 ### IDE - SETUP - MongoDB
@@ -864,12 +867,15 @@ styles.scss</li>
 At the start of the project I was using config file to store my database user name and password.
 However, this was the wrong approach as the config file needs to be added to git and pushed to a server for access. It also meant the access details would end up on publicly accessible on GitHub.
 I then changed the app to use environmental variables.
-*   app.py file has been created for the app code
-*   stats/statistics.py contains functions to create site statistics
+
+I revisited the method of using a config.py file for the app secret_key. I wrote an if statement checking the app debug status. If the app was in dev/debug mode, the git ignored config file was imported and the secret key set. If the app was running in prod  mode on Heroku, the app pulled all values from Heroku environment variables.
+*   DBS_NAME
+*   MONGODB_URI
+*   SECRET_KEY
 
 <a id="bugs"></a>
 
-##  Current Unresolved Bugs
+##  Current Unresolved Issues/Bugs
 
 *   If a user is editing a recipe they can enter the id of a recipe they do not own into the url and edit that recipe. A check needs to be done to ensure ownership of the recipe before an update is committed.
 

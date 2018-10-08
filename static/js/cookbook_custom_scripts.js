@@ -226,6 +226,7 @@ $(window).on('resize', function () {
 // #region DOCUMENT.READY START //
 
 $(document).ready(function () {
+
   // #region hide search results div until populated with data
   $("#searchResult").hide();
 
