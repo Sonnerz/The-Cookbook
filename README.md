@@ -914,8 +914,9 @@ A heroku app url was provided: https://data-centric-cookbook.herokuapp.com<br>
 In Heroku under the app settings I added the following config vars:
 *   IP - 0.0.0.0
 *   PORT – 5000
-*   MONGODB_URI - mongodb://<username>:<password>@ds251332.mlab.com:51332/cookbook
+*   MONGODB_URI - mongodb://<"username">:<"password">@ds251332.mlab.com:51332/cookbook
 *   DBS_NAME - cookbook
+*   SECRET_KEY - <"passphrase">
 
 
 In a bash terminal, I ran the following commands:
@@ -928,6 +929,17 @@ In a bash terminal, I ran the following commands:
 7.  `$ git remote add heroku https://git.heroku.com/data-centric-cookbook.git`
 8.  `$ git push -u heroku master`
 9.  `$ heroku ps:scale web=1`
+
+**Issues and Resolution**
+
+After adding the Statistics.py to the app, I pushed the app to Heroku for testing.
+It failed several times, the app went from starting to crash.
+I tried running the app and monitored the Heroku Logs update in real time.
+I discovered that my cuisine_pie() function was failing in the statistics.py file.
+
+This file was reading from a json file that was created from my local mongodb.
+The data between my local and live databases was different, as a result the function was failing.
+I updated the live database and the json file to match the data statistics.py required.
 
 
 [Top of page](#top)
