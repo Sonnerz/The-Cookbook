@@ -27,7 +27,7 @@ if app.debug:
     app.config["DBS_NAME"] = "cookbook"
     app.config["MONGO_URI"] = "mongodb://localhost:27017/cookbook"
 else:
-    app.secret_key = os.environ.get('SECRET_KEY')
+    app.secret_key = os.getenv('SECRET_KEY')
     app.config["DBS_NAME"] = DBS_NAME
     app.config["MONGO_URI"] = MONGO_URI
 mongo = PyMongo(app)
