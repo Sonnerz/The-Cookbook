@@ -615,6 +615,7 @@ def filter_by_cuisine(cuisine):
 @app.route('/filter_by_allergen/<allergen>', methods=['POST', 'GET'])
 def filter_by_allergen(allergen):
     filteredRecipes = None
+    message = "fail"
     try:
         # Query recipes collection and return ordered by votes descending
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find(
@@ -622,7 +623,7 @@ def filter_by_allergen(allergen):
                             )]
     except Exception as e:
         # print("error accessing DB to find allergen %s" % str(e))
-        return render_template("500.html")
+        return message
 
     if filteredRecipes:
         print("recipes by allergen exist")
@@ -630,7 +631,6 @@ def filter_by_allergen(allergen):
                                reciperesults=filteredRecipes)
     else:
         print("no recipes with that allergen found")
-        message = "fail"
         return message
 
 
