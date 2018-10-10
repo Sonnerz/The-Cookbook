@@ -518,6 +518,7 @@ $(document).ready(function () {
         },
         error: function (error) {
           $("#recipeResult").html("There was an error searching the recipes. Please try again.");
+          console.log(error)
         }
       });
     });

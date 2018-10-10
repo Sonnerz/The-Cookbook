@@ -1,5 +1,3 @@
-import matplotlib
-import matplotlib.pyplot as plt
 import pandas
 import os
 import re
@@ -7,7 +5,10 @@ import pymongo
 import json
 from flask import Flask, jsonify, json
 from flask_pymongo import PyMongo
+import matplotlib.pyplot as plt
+import matplotlib
 matplotlib.use('Agg')
+
 
 DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")

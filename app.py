@@ -116,7 +116,7 @@ def get_votes_recipes():
         return render_template("500.html")
 
     if rows:
-        print("all recipes found")
+        print("all recipes found by highest votes")
     return rows
 
 
@@ -136,7 +136,7 @@ def get_random_recipes():
         return render_template("500.html")
 
     if random_recipes:
-        print("all recipes found")
+        print("all random recipes found")
     return random_recipes
 
 
@@ -365,7 +365,6 @@ def update_recipe(recipe_id):
                          }
                         }
                        )
-    flash("recipe upated")
     message = "The recipe has been updated."
     return message
 
@@ -564,7 +563,6 @@ def recipesearchquery():
 def filter_by_category(category):
     filteredRecipes = None
     category_name = category
-    print("category_name 6>>> ", category_name)
     try:
         # Query recipes collection and return ordered by votes descending
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find(
@@ -617,15 +615,14 @@ def filter_by_cuisine(cuisine):
 @app.route('/filter_by_allergen/<allergen>', methods=['POST', 'GET'])
 def filter_by_allergen(allergen):
     filteredRecipes = None
-    allergen_name = allergen
     try:
         # Query recipes collection and return ordered by votes descending
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find(
-                            {'allergens': {'$nin': [allergen_name]}}
+                            {'allergens': {'$nin': [allergen]}}
                             )]
     except Exception as e:
-        print("error accessing DB to find allergen %s" % str(e))
-        # return render_template("500.html")
+        # print("error accessing DB to find allergen %s" % str(e))
+        return render_template("500.html")
 
     if filteredRecipes:
         print("recipes by allergen exist")
