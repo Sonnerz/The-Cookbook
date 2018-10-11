@@ -618,15 +618,16 @@ def filter_by_allergen(allergen):
     message = "fail"
     try:
         # Query recipes collection and return ordered by votes descending
-        filteredRecipes = [recipe for recipe in mongo.db.recipes.find(
-                            {'allergens': {'$nin': [allergen]}}
-                            )]
+        # filteredRecipes = [recipe for recipe in mongo.db.recipes.find(
+        #                     {'allergens': {'$nin': [allergen]}}
+        #                     )]
+        filteredRecipes = [recipe for recipe in mongo.db.recipes.find({"allergens": {"$not": {"$in": [allergen]}}})]
     except Exception as e:
         # print("error accessing DB to find allergen %s" % str(e))
         return message
 
     if filteredRecipes:
-        print("recipes by allergen exist")
+        print("recipes without allergen exist")
         return render_template("resultTemplate.html",
                                reciperesults=filteredRecipes)
     else:
