@@ -1,0 +1,38 @@
+
+{% for recipe_row in reciperesults | sort(attribute='votes', reverse = True) | batch(3) %}
+<div class="card-deck">
+    {% for recipe in recipe_row %}
+    <div class="card">
+        <div class="card-image">
+            {% if recipe.image_url != "" %}
+            <img class="card-img-top" src="{{recipe.image_url}}" alt="{{recipe.name}}" title="{{recipe.name}}">
+            {% else %}
+            <img class="card-img-top" src="{{ url_for('static', filename='img/recipes/default_food.png')}}" alt="Default image of food"
+                title="Default image of food">
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ recipe.name }}</h5>
+            <p class="card-text">{{ recipe.description|truncate(100, False, '...', 0) }}</p>
+            <p class="card-btn"><a href="{{ url_for('view_recipe', recipe_id=recipe._id) }}" class="btn btn-primary"
+                    type="button" id="viewRecipeButton">View Recipe</a></p>
+            <p class="card-keyword">
+                    <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{recipe.category}}">#{{recipe.category}}</a></span>
+                    {% if recipe.cuisine != "No-Cuisine" %}
+                    <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{recipe.cuisine}}">#{{recipe.cuisine}}</a></span>
+                    {%endif%}
+                    {% for a in recipe.allergens %}
+                    <span><a onclick="searchdb(this);" class="keyword" title="Filter all recipes by {{a}}">#{{a}}</a></span>
+                    {%endfor%}
+            </p>
+        </div>
+        <div class="card-footer">
+            <div class="card-text"><small class="text-muted">Created: {{recipe['dateCreated'].strftime('%d-%b-%Y')}}</small></div>
+            <div class="card-text"><small class="text-muted"><i class="far fa-heart"></i>
+                    {{recipe.votes }}</small></div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endfor %}
+

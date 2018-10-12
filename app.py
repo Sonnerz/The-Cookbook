@@ -61,7 +61,7 @@ def get_user(username):
     row = {}
     try:
         row = mongo.db.users.find_one({'username': username.lower()})
-    except Exception as e:
+    except:
         # if there was an error access the db, then show friendly error page
         return render_template("500.html")
 
@@ -82,7 +82,7 @@ def get_user_recipes(current_user_id):
                     'author': current_user_id}, '$orderby': {'votes': -1}
                 }
             )]
-    except Exception as e:
+    except:
         # if there was an error access the db, then show friendly error page
         return render_template("500.html")
 
@@ -97,7 +97,7 @@ def get_allrecipes():
     rows = {}
     try:
         rows = mongo.db.recipes.find()
-    except Exception as e:
+    except:
         # if there was an error access the db, then show friendly error page
         return render_template("500.html")
 
@@ -112,7 +112,7 @@ def get_votes_recipes():
     rows = {}
     try:
         rows = mongo.db.recipes.find().sort('votes', -1).limit(3)
-    except Exception as e:
+    except:
         # if there was an error access the db, then show friendly error page
         return render_template("500.html")
 
@@ -133,7 +133,7 @@ def get_random_recipes():
                     {'$sample': {'size': 8}}, {'$sort': {'votes': -1}}
                 ]
             )]
-    except Exception as e:
+    except:
         # if there was an error accessing the db, then show friendly error page
         return render_template("500.html")
 
@@ -151,7 +151,7 @@ def get_recent_recipes():
         recipes = [
             recipe for recipe in mongo.db.recipes.find()
             .sort('_id', -1).limit(3)]
-    except Exception as e:
+    except:
         # if there was an error accessing the db, then show friendly error page
         return render_template("500.html")
 
@@ -520,9 +520,9 @@ def recipesearchquery():
     try:
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find(
                            {'$text': {'$search': query}})]
-    except Exception as e:
-        # redirect to friendly error page if db query fails
-        return render_template("500.html")
+    except:
+        # Ajax will return the error message
+        return
 
     if filteredRecipes:
         # return recipes by category exist
@@ -547,9 +547,9 @@ def filter_by_category(category):
                                     '$orderby': {'votes': -1}
                              }
                            )]
-    except Exception as e:
-        # redirect to friendly error page if db query fails
-        return render_template("500.html")
+    except:
+        # Ajax will return the error message
+        return
 
     if filteredRecipes:
         # return recipes by category
@@ -571,9 +571,9 @@ def filter_by_cuisine(cuisine):
                 {'$query': {'cuisine': cuisine_name},
                     '$orderby': {'votes': -1}}
             )]
-    except Exception as e:
-        # redirect to friendly error page if db query fails
-        return render_template("500.html")
+    except:
+        # Ajax will return the error message
+        return
 
     if filteredRecipes:
         # return recipes by cuisine
@@ -589,19 +589,17 @@ def filter_by_cuisine(cuisine):
 def filter_by_allergen(allergen):
     filteredRecipes = None
     try:
-        # Query recipes collection and return ordered by votes descending
-        # filteredRecipes = [recipe for recipe in mongo.db.recipes.find(
-        #                     {'allergens': {'$nin': [allergen]}}
-        #                     )]
-        allCursor = mongo.db.recipes.find({'allergens': {'$nin': [allergen]}})
-        filteredRecipes = list(allCursor)
-    except Exception as e:
-        # redirect to friendly error page if db query fails
-        return redirect("500.html")
+        # Query recipes collection and return GENERATOR
+        filteredRecipes = (recipe for recipe in mongo.db.recipes.find(
+                            {'allergens': {'$nin': [allergen]}}
+                            ))
+    except:
+        # Ajax will return the error message
+        return
 
     if filteredRecipes:
         # return recipes without allergen
-        return render_template("resultTemplate.html",
+        return render_template("allergenTemplate.html",
                                reciperesults=filteredRecipes)
     else:
         # no recipes with that allergen found
@@ -625,9 +623,9 @@ def filter_by_ingredient():
                 {'main_ingredient': ingredient_name},
                 '$orderby': {'votes': -1}}
             )]
-    except Exception as e:
-        # redirect to friendly error page if db query fails
-        return render_template("500.html")
+    except:
+        # Ajax will return the error message
+        return
 
     if filteredRecipes:
         # return recipes by ingredient
@@ -650,8 +648,8 @@ def filter_by_catcuis(category, cuisine):
             {'$query': {'category': category_name, 'cuisine': cuisine_name},
              '$orderby': {'votes': -1}})]
     except:
-        # redirect to friendly error page if db query fails
-        return render_template("500.html")
+        # Ajax will return the error message
+        return
 
     if filteredRecipes:
         # return recipes by allergen
