@@ -18,7 +18,7 @@ DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
 
 app = Flask(__name__)
-app.debug = True
+app.debug = False
 
 if app.debug:
     from config import config

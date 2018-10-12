@@ -11,7 +11,7 @@ DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
 
 statistics = Flask(__name__)
-statistics.debug = True
+statistics.debug = False
 
 if statistics.debug:
     statistics.config["DBS_NAME"] = "cookbook"
