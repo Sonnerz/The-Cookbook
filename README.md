@@ -882,6 +882,18 @@ I revisited the method of using a config.py file for the app secret_key. I wrote
 
 *   The pagination on the My Recipes page is not very robust and not suitable for large amounts of data. This functionality will have to be redesigned for future versions of the application.
 
+*   There is a bug that appeared after I pushed the app to Heroku.
+The bug did not happen on my dev machine even after replicating the same steps to try and envoke the error.
+The Search for recipes without an Allergen causes a 503 status error on Heroku.
+The issue is intermittent and performing a different search (e.g. cuisine) seems to 'reset' the server and the allergen search works again.
+I can perform the allergen search several times successfully and then the error code appears in the Heroku logs console.
+
+This is the only search where recipes are searched for a value that they are without.
+
+`recipes_without_allergen = [recipe for recipe in mongo.db.recipes.find(
+                            {'allergens': {'$nin': [allergen]}}
+                            )]`
+
 [Top of page](#top)
 
 

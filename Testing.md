@@ -361,7 +361,8 @@ Even though the charts successfuly rendered to the html page, my terminal was fi
 https://stackoverflow.com/questions/49921721/runtimeerror-main-thread-is-not-in-main-loop-with-matplotlib-and-flask
 
 I added `matplotlib.use('Agg')` to my statistics.py file and it solved the problem.
-I don't fully understand the issue, so this will require further reading.
+This did *not* solve the problem, the issue persisted until I removed the second import matplotlib from the top of the file.
+This finally resolved the issue.
 
 
 

@@ -6,15 +6,12 @@ import json
 from flask import Flask, jsonify, json
 from flask_pymongo import PyMongo
 import matplotlib.pyplot as plt
-import matplotlib
-matplotlib.use('Agg')
-
 
 DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
 
 statistics = Flask(__name__)
-statistics.debug = False
+statistics.debug = True
 
 if statistics.debug:
     statistics.config["DBS_NAME"] = "cookbook"

@@ -92,7 +92,7 @@ $(function () {
         success: function (response) {
           $("#newRecipeMessages").html(response);
           $("h3.section-subheading").html("Your recipe has been added");
-          // Delay before redirect to read message
+          // Delay before redirect to myrecipes
           var delay = 1200;
           setTimeout(function () { window.location.href = "/myrecipes?limit=5&offset=0"; }, delay);
         },

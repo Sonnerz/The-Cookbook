@@ -2,7 +2,6 @@ import os
 import pdb
 import pymongo
 import math
-import werkzeug.security
 from werkzeug.security import check_password_hash, generate_password_hash
 from functools import wraps
 from flask import Flask, render_template, request, flash, redirect,\
@@ -19,7 +18,7 @@ DBS_NAME = os.getenv("DBS_NAME")
 MONGO_URI = os.getenv("MONGODB_URI")
 
 app = Flask(__name__)
-app.debug = False
+app.debug = True
 
 if app.debug:
     from config import config
@@ -63,19 +62,19 @@ def get_user(username):
     try:
         row = mongo.db.users.find_one({'username': username.lower()})
     except Exception as e:
-        # print("error accessing DB %s" % str(e))
+        # if there was an error access the db, then show friendly error page
         return render_template("500.html")
 
     if row:
-        print("one row with username does exist")
-    return row
+        # return the users details
+        return row
+    return
 
 
 # FUNCTION :: GET RECIPES FROM RECIPE COLL FOR CURRENT USER AS RECIPE AUTHOR
 def get_user_recipes(current_user_id):
     rows = {}
     try:
-        # rows = mongo.db.recipes.find({"author": current_user_id})
         rows = [recipe for recipe in mongo.db.recipes.find(
             {
                 '$query':
@@ -84,12 +83,13 @@ def get_user_recipes(current_user_id):
                 }
             )]
     except Exception as e:
-        # print("error accessing DB %s" % str(e))
+        # if there was an error access the db, then show friendly error page
         return render_template("500.html")
 
     if rows:
-        print("recipes by author do exist")
-    return rows
+        # return users recipes
+        return rows
+    return
 
 
 # FUNCTION :: GET ALL RECIPES
@@ -98,29 +98,31 @@ def get_allrecipes():
     try:
         rows = mongo.db.recipes.find()
     except Exception as e:
-        # print("error accessing DB %s" % str(e))
+        # if there was an error access the db, then show friendly error page
         return render_template("500.html")
 
     if rows:
-        print("all recipes found")
-    return rows
+        # return all recipes
+        return rows
+    return
 
 
-# FUNCTION :: GET RECIPES WITH HIGHEST VOTES
+# FUNCTION :: GET RECIPES WITH HIGHEST VOTES ORDERED BY VOTES
 def get_votes_recipes():
     rows = {}
     try:
         rows = mongo.db.recipes.find().sort('votes', -1).limit(3)
     except Exception as e:
-        # print("error accessing DB %s" % str(e))
+        # if there was an error access the db, then show friendly error page
         return render_template("500.html")
 
     if rows:
-        print("all recipes found by highest votes")
-    return rows
+        # return all recipes found by highest votes
+        return rows
+    return
 
 
-# FUNCTION :: GET RANDOM RECIPES
+# FUNCTION :: GET RANDOM RECIPES ORDER BY VOTES
 def get_random_recipes():
     random_recipes = {}
     try:
@@ -132,47 +134,31 @@ def get_random_recipes():
                 ]
             )]
     except Exception as e:
-        # print("error accessing DB %s" % str(e))
+        # if there was an error accessing the db, then show friendly error page
         return render_template("500.html")
 
     if random_recipes:
-        print("all random recipes found")
-    return random_recipes
+        # return all random recipes found
+        return random_recipes
+    return
 
 
-# FUNCTION :: GET MOST RECENT RECIPES
+# FUNCTION :: GET MOST RECENT RECIPES by _id
 def get_recent_recipes():
     recipes = {}
     try:
-        # Query recipes collection and return ordered by votes descending
+        # Query recipes collection and return ordered by _id descending
         recipes = [
             recipe for recipe in mongo.db.recipes.find()
             .sort('_id', -1).limit(3)]
     except Exception as e:
-        # print("error accessing DB %s" % str(e))
+        # if there was an error accessing the db, then show friendly error page
         return render_template("500.html")
 
     if recipes:
-        print("latest 3 recipes found")
-    return recipes
-
-
-# FUNCTION :: GET RECIPE AUTHOR USERNAME
-def get_recipe_author_username(cursor):
-    author_id = []
-    # for recipe in mongo.db.recipes.find():
-    #     author_id.append((recipe['_id'], recipe['author']))
-    for recipe in cursor:
-        author_id.append((recipe['_id'], recipe['author']))
-
-    for id, item in author_id:
-        recipe = mongo.db.recipes.find_one({"_id": id})
-        authorname = mongo.db.users.find_one(
-            {"_id": ObjectId(item)}, {"username": 1})
-        username = {recipe: authorname}
-        for u in username:
-            print(u)
-    return username
+        # return latest 3 recipes found
+        return recipes
+    return
 
 
 # FUNCTION :: GET CATEGORIES
@@ -180,6 +166,7 @@ def get_categories():
     try:
         categories = [category for category in mongo.db.categories.find()]
     except:
+        # if there was an error accessing the db, then show friendly error page
         return render_template("500.html")
     return categories
 
@@ -189,6 +176,7 @@ def get_cuisine():
     try:
         cuisine = [cuisine for cuisine in mongo.db.cuisine.find()]
     except:
+        # if there was an error accessing the db, then show friendly error page
         return render_template("500.html")
     return cuisine
 
@@ -198,6 +186,7 @@ def get_allergens():
     try:
         allergens = [allergen for allergen in mongo.db.allergens.find()]
     except:
+        # if there was an error accessing the db, then show friendly error page
         return render_template("500.html")
     return allergens
 
@@ -207,6 +196,7 @@ def get_difficulty():
     try:
         difficulty = [difficulty for difficulty in mongo.db.difficulty.find()]
     except:
+        # if there was an error accessing the db, then show friendly error page
         return render_template("500.html")
     return difficulty
 
@@ -216,7 +206,7 @@ def get_difficulty():
 def index():
     # clear flash messages to reset
     session.pop('_flashes', None)
-    return render_template("index.html", test=mongo.db.test_collection.find())
+    return render_template("index.html")
 
 
 # FUNCTION :: LOGOUT FUNCTION TRIGGERED BY LOGOUT BUTTON
@@ -228,28 +218,25 @@ def logout():
         session.pop('userid', None)
         session['isLoggedin'] = False
         session.pop('_flashes', None)
-        # success error flash message to users
+        # success message to users
         flash("You are logged out", 'success')
-    return render_template("index.html", test=mongo.db.test_collection.find(),
-                           users=mongo.db.user_recipe.find())
+    return render_template("index.html")
 
 
 # PAGE :: ADD RECIPE FORM
 @app.route('/add_recipe')
 @login_required
 def add_recipe():
-    # debug stuff
-    current_user = dict(get_user(session['username']))
     # get categories, cuisine, allergens, difficulty from db for form dropdown
     categories = get_categories()
     cuisine = get_cuisine()
     allergens = get_allergens()
     difficulty = get_difficulty()
     return render_template("addrecipe.html",
-                           test=mongo.db.test_collection.find(),
-                           current_user=current_user,
-                           categories=categories, cuisine=cuisine,
-                           allergens=allergens, difficulty=difficulty)
+                           categories=categories,
+                           cuisine=cuisine,
+                           allergens=allergens,
+                           difficulty=difficulty)
 
 
 # FUNCTION :: INSERT RECIPE IN RECIPES COLLECTION IN DATABASE
@@ -291,16 +278,13 @@ def insert_recipe():
     }
     # insert new recipe
     recipes.insert_one(new_recipe)
-    message = "Your recipe has been added."
-    return message
+    return "Your recipe has been added."
 
 
 # PAGE :: EDIT RECIPE FORM
 @app.route('/edit_recipe/<recipe_id>')
 @login_required
 def edit_recipe(recipe_id):
-    # debug stuff
-    current_user = dict(get_user(session['username']))
     # get the relevant recipe form db by id passed in url
     the_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     # get categories, cuisine, allergens, difficulty from db for form dropdown
@@ -313,8 +297,6 @@ def edit_recipe(recipe_id):
                       for allergen_item in allergens_list_of_dict]
     difficulty = get_difficulty()
     return render_template("editrecipe.html",
-                           test=mongo.db.test_collection.find(),
-                           current_user=current_user,
                            categories=categories,
                            cuisine=cuisine,
                            allergens_list=allergens_list,
@@ -365,8 +347,7 @@ def update_recipe(recipe_id):
                          }
                         }
                        )
-    message = "The recipe has been updated."
-    return message
+    return "The recipe has been updated."
 
 
 # FUNCTION :: DELETE RECIPE TRIGGERED BY DELETE BUTTON ON PROFILE PAGE
@@ -379,8 +360,7 @@ def delete_recipe():
         mongo.db.recipes.remove({'_id': ObjectId(recipe_id)})
     except:
         return render_template("500.html")
-    message = "deleted"
-    return message
+    return "deleted"
 
 
 # PAGE :: VIEW RECIPE DETAILS PAGE
@@ -401,7 +381,6 @@ def view_recipe(recipe_id):
                       for allergen_item in allergens_list]
     difficulty = get_difficulty()
     return render_template("viewrecipe.html",
-                           test=mongo.db.test_collection.find(),
                            categories=categories, cuisine=cuisine,
                            allergens_list=allergens_list, recipe=the_recipe,
                            difficulty=difficulty, recipeauthor=the_author)
@@ -499,8 +478,6 @@ def myrecipes():
         '&offset=' + str(offset - limit)
 
     return render_template("myrecipes.html",
-                           current_user=current_user,
-                           test=test,
                            number_of_pages=number_of_pages,
                            total_count=total_count,
                            recipes=recipes,
@@ -522,7 +499,6 @@ def recipesearch():
     allergens = get_allergens()
     difficulty = get_difficulty()
     return render_template("recipesearch.html",
-                           test=mongo.db.test_collection.find(),
                            recipes=recipes,
                            categories=categories,
                            cuisine=cuisine,
@@ -545,17 +521,16 @@ def recipesearchquery():
         filteredRecipes = [recipe for recipe in mongo.db.recipes.find(
                            {'$text': {'$search': query}})]
     except Exception as e:
-        # print("error accessing DB to find category %s" % str(e))
+        # redirect to friendly error page if db query fails
         return render_template("500.html")
 
     if filteredRecipes:
-        print("recipes by category exist")
+        # return recipes by category exist
         return render_template("resultTemplate.html",
                                reciperesults=filteredRecipes)
     else:
-        print("no recipes with that category found")
-        message = "fail"
-        return message
+        # return "fail" if no recipes with that value found
+        return "fail"
 
 
 # FUNCTION :: GET RECIPES BY CATEGORY
@@ -573,17 +548,16 @@ def filter_by_category(category):
                              }
                            )]
     except Exception as e:
-        # print("error accessing DB to find category %s" % str(e))
+        # redirect to friendly error page if db query fails
         return render_template("500.html")
 
     if filteredRecipes:
-        print("recipes by category exist")
+        # return recipes by category
         return render_template("resultTemplate.html",
                                reciperesults=filteredRecipes)
     else:
-        print("no recipes with that category found")
-        message = "fail"
-        return message
+        # no recipes with that category found
+        return "fail"
 
 
 # FUNCTION :: GET RECIPES BY CUISINE
@@ -598,41 +572,40 @@ def filter_by_cuisine(cuisine):
                     '$orderby': {'votes': -1}}
             )]
     except Exception as e:
-        # print("error accessing DB to find cuisine %s" % str(e))
+        # redirect to friendly error page if db query fails
         return render_template("500.html")
 
     if filteredRecipes:
-        print("recipes by cuisine exist")
+        # return recipes by cuisine
         return render_template("resultTemplate.html",
                                reciperesults=filteredRecipes)
     else:
-        print("no recipes with that cuisine found")
-        message = "fail"
-        return message
+        # if no recipes with that cuisine found
+        return "fail"
 
 
 # FUNCTION :: GET RECIPES WITHOUT THE SELECTED ALLERGEN
 @app.route('/filter_by_allergen/<allergen>', methods=['POST', 'GET'])
 def filter_by_allergen(allergen):
     filteredRecipes = None
-    message = "fail"
     try:
         # Query recipes collection and return ordered by votes descending
         # filteredRecipes = [recipe for recipe in mongo.db.recipes.find(
         #                     {'allergens': {'$nin': [allergen]}}
         #                     )]
-        filteredRecipes = [recipe for recipe in mongo.db.recipes.find({"allergens": {"$not": {"$in": [allergen]}}})]
+        allCursor = mongo.db.recipes.find({'allergens': {'$nin': [allergen]}})
+        filteredRecipes = list(allCursor)
     except Exception as e:
-        # print("error accessing DB to find allergen %s" % str(e))
-        return message
+        # redirect to friendly error page if db query fails
+        return redirect("500.html")
 
     if filteredRecipes:
-        print("recipes without allergen exist")
+        # return recipes without allergen
         return render_template("resultTemplate.html",
                                reciperesults=filteredRecipes)
     else:
-        print("no recipes with that allergen found")
-        return message
+        # no recipes with that allergen found
+        return "fail"
 
 
 # FUNCTION :: GET RECIPES BY MAIN INGREDIENT
@@ -653,17 +626,16 @@ def filter_by_ingredient():
                 '$orderby': {'votes': -1}}
             )]
     except Exception as e:
-        # print("error accessing DB to find ingredient name %s" % str(e))
+        # redirect to friendly error page if db query fails
         return render_template("500.html")
 
     if filteredRecipes:
-        print("recipes by ingredient exist")
+        # return recipes by ingredient
         return render_template("resultTemplate.html",
                                reciperesults=filteredRecipes)
     else:
-        print("no recipes with that ingredient found")
-        message = "fail"
-        return message
+        # no recipes with that ingredient found
+        return "fail"
 
 
 # FUNCTION :: GET RECIPES BY CATEGORY & CUISINE
@@ -678,17 +650,16 @@ def filter_by_catcuis(category, cuisine):
             {'$query': {'category': category_name, 'cuisine': cuisine_name},
              '$orderby': {'votes': -1}})]
     except:
-        # print("error accessing DB to find allergen %s" % str(e))
+        # redirect to friendly error page if db query fails
         return render_template("500.html")
 
     if filteredRecipes:
-        print("recipes by allergen exist")
+        # return recipes by allergen
         return render_template("resultTemplate.html",
                                reciperesults=filteredRecipes)
     else:
-        print("no recipes with that allergen found")
-        message = "fail"
-        return message
+        # no recipes with that allergen found
+        return "fail"
 
 
 # FUNCTION :: SIGN UP NEW USER / REGISTER / CREATE RECORD IN USERS COLLECTION
@@ -710,11 +681,9 @@ def signup_user():
         }
         if new_user:
             users.insert_one(new_user)
-            message = "success"
-            return message
+            return "success"
     else:
-        message = "fail"
-        return message
+        return "fail"
     return
 
 
@@ -742,12 +711,10 @@ def login_user():
             return jsonify(response)
         elif not check_password:
             # wrong password
-            returnvar = "1"
-            return returnvar
+            return "1"
     else:
         # no user by that username
-        returnvar = "2"
-        return returnvar
+        return "2"
     return
 
 
