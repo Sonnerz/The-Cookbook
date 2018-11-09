@@ -35,6 +35,9 @@ The app was tested on an ongoing basis. Chrome and Chrome Developer Tools were t
 *	All the functions in cookbook_custom_scripts.js were tested on http://jshint.com/
 This site is a tool that helps to detect errors and potential problems in your JavaScript code.
 
+There is one ongoing issue/bug that has yet to be resolved.
+[Further details.](#bug)
+
 
 <a id="during"></a>
 ##  During development:
@@ -379,7 +382,9 @@ This finally resolved the issue.
 |recipesearch|if last row of recipes is <3 then the recipe is wider than 33% of row|if last row of recipes is <3 then the recipe is wider than 33% of row|if last row of recipes is <3 then the recipe is wider than 33% of row|if last row of recipes is <3 then the recipe is wider than 33% of row
 |Responsive Design|Styling issues|Styling issues|Styling issues|Styling issues|
 |Feedback messages appear|Passed|Passed|Passed|Passed|
+|recipesearch|allergen search works periodically|allergen search works periodically|allergen search works periodically|allergen search works periodically|
 
+<br><br>
 
 |Device/Test|Galaxy SIII|Galaxy 5|Laptop touch screen|iPhone 5/SE|iPhone 6/7/8|iPhone 6/7/8 Plus|iPhone X|iPad|
 |:---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -437,6 +442,20 @@ I had to adjust the jinja2 if statement to check for an empty calorie value
 {% endif %}
 ```
 
+<a id="bug"></a>
+**Issue found and resolution**
+
+The Allergen search works periodically.
+This search is the only search where the Database is searched for a word that is NOT present.
+If you search for different allergen it may 'reset' search and work. If you visit another page and revisit the search page the allergen search works again.
+This issue is ONLY present on Heroku and cannot be replicated on the development environment.
+Heroku gives a status 503 error. 
+The fact that it is the only search where `$nin` is used may be the cause.
+This issue will need much further investigation.
+```
+filteredRecipes = [recipe for recipe in mongo.db.recipes.find(
+                   {'allergens': {'$nin': [allergen_name]}})]
+```
 [Top of page](#topofpage)
 
 
@@ -447,7 +466,7 @@ I had to adjust the jinja2 if statement to check for an empty calorie value
 |Page/functionality|Issue|Chrome|Firefox|IE|Chrome Android-Remote Debugging|
 |:---|:---:|:---:|:---:|:---|:---:|
 |index|Passed|Passed|Passed|Passed|Passed|
-|recipesearch|Passed|Passed|Passed|Passed|Passed|
+|recipesearch|Allergen search works periodically|Allergen search works periodically|Allergen search works periodically|Allergen search works periodically|Allergen search works periodically|
 |myrecipes|Passed|Passed|Passed|Passed|Passed|
 |addrecipe|Passed|Passed|Passed|Passed|Passed
 |editrecipe|Passed|Passed|Passed|Passed|Passed|

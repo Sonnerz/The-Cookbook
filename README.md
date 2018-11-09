@@ -58,7 +58,7 @@ My mentor was asked for his advice with regard to the project meeting its requir
 
 # Table of Contents
 
-*   [Preface](#preface)
+*   [PREFACE](#preface)
 *   [Strategy Plane](#strategy)
     *   [Define roles and responsibilities](#randr)
     *   [Project Charter](#charter)
@@ -120,13 +120,13 @@ My mentor was asked for his advice with regard to the project meeting its requir
 
 <a id="preface"></a>
 
-# Preface
+# PREFACE
 I made three decisions on this project which affected how I created this application.
 The first was my decision to create the app on my local machine rather than cloud9.
 I spend a substantial amount of time at the beginning setting up my environment and it was a steep learning curve.
 I chose to use vscode and the setup process is documented in the Development part of this README.
 
-The second decision was the choice to use JavaScript as the data carrier between the front-end and the back-end. I hadn’t much experience using JavaScript and specifically ajax. So as a result, quite a large part of data manipulation and data transfer between front and back end is done with Ajax.
+The second decision was the choice to use JavaScript as the data carrier between the front-end and the back-end. I hadn’t much experience using JavaScript and specifically ajax. So as a result, quite a large part of data manipulation and data transfer between front and back end is done with AJAX.
 
 The third decision was my choice of database. While I think that SQL may have been a more appropriate database choice for this project, I opted for MongoDB.
 I had a small amount of exposure to SQL before this course, but absolutely no exposure or knowledge of noSQL databases. As a result, by choosing the noSQL option it gave me the opportunity to delve into the subject and learn more about the technology.
@@ -135,6 +135,8 @@ This meant I could configure my application for a local database and a productio
 There have been database username and passwords pushed to GitHub as a consequence of these early decisions, but this situation has been rectified since the use of Heroku environmental variables.
 
 The statistical analysis of the project was done with Matplotlib and Pandas. There is a link on the main navigation to the site stats. I chose to put it there rather than bury a link in the README.
+
+There is one outstanding issue - the Allergen search works periodically. If you search for a different allergen it may 'reset' search and work. If you visit another page and revisit the search page the allergen search works again. Further details about this issue can be found in the [Testing documentation](Testing.md)
 
 
 <a id="strategy"></a>
@@ -637,14 +639,14 @@ mongodb://localhost:27017/cookbook`
     *   a.	venv/*
     *   b.	.vscode/*
     *   c.	*.pyc
-    *   d.	__pycache__/
+    *   d.	__ pycache __/
     *   e.	instance/
     *   f.	.webassets-cache
     *   g.	profile_default/
     *   h.	ipython_config.py
     *   i.	*.ipynb
     *   j.	cookbook_workspace.code-workspace
-    *   k.	connection_details.py
+    *   k.	config.py
 3.	Git add.
 4.	Git commit – m “Initial Commit”
 

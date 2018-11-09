@@ -326,24 +326,24 @@ def update_recipe(recipe_id):
     recipes.update_one({'_id': ObjectId(recipe_id)},
                        {'$set':
                         {
-                                'author': current_user_id,
-                                'name': request.form.get('name'),
-                                'image_url': request.form.get('image_url'),
-                                'description': request.form.get('description'),
-                                'main_ingredient': request.form.get(
-                                    'main_ingredient').lower(),
-                                'category': request.form.get('category'),
-                                'cuisine': request.form.get('cuisine'),
-                                'difficulty': request.form.get('difficulty'),
-                                'prep_time': request.form.get('prep_time'),
-                                'cook_time': request.form.get('cook_time'),
-                                'serves': request.form.get('serves'),
-                                'calories': request.form.get('calories'),
-                                'allergens': request.form.getlist('allergen'),
-                                'ingredients': ingred_list_no_blanks,
-                                'instructions': instruct_list_no_blanks,
-                                'votes': int(request.form.get('votes')),
-                                'dateModified': datetime.now()
+                            'author': current_user_id,
+                            'name': request.form.get('name'),
+                            'image_url': request.form.get('image_url'),
+                            'description': request.form.get('description'),
+                            'main_ingredient': request.form.get(
+                                'main_ingredient').lower(),
+                            'category': request.form.get('category'),
+                            'cuisine': request.form.get('cuisine'),
+                            'difficulty': request.form.get('difficulty'),
+                            'prep_time': request.form.get('prep_time'),
+                            'cook_time': request.form.get('cook_time'),
+                            'serves': request.form.get('serves'),
+                            'calories': request.form.get('calories'),
+                            'allergens': request.form.getlist('allergen'),
+                            'ingredients': ingred_list_no_blanks,
+                            'instructions': instruct_list_no_blanks,
+                            'votes': int(request.form.get('votes')),
+                            'dateModified': datetime.now()
                          }
                         }
                        )
@@ -588,21 +588,22 @@ def filter_by_cuisine(cuisine):
 @app.route('/filter_by_allergen/<allergen>', methods=['POST', 'GET'])
 def filter_by_allergen(allergen):
     filteredRecipes = None
+    allergen_name = allergen
     try:
-        # Query recipes collection and return GENERATOR
-        filteredRecipes = (recipe for recipe in mongo.db.recipes.find(
-                            {'allergens': {'$nin': [allergen]}}
-                            ))
+        # Query recipes collection and return ordered by votes descending
+        filteredRecipes = [recipe for recipe in mongo.db.recipes.find(
+                            {'allergens': {'$nin': [allergen_name]}}
+                            )]
     except:
         # Ajax will return the error message
         return
 
     if filteredRecipes:
-        # return recipes without allergen
-        return render_template("allergenTemplate.html",
+        # return recipes by allergen
+        return render_template("resultTemplate.html",
                                reciperesults=filteredRecipes)
     else:
-        # no recipes with that allergen found
+        # if no recipes with that allergen found
         return "fail"
 
 
@@ -731,7 +732,7 @@ def internal_error(error):
     return render_template('500.html')
 
 
-# # PAGE :: GRAPHS
+# PAGE :: GRAPHS
 @app.route('/graphs')
 def graphs():
     cuis_data = cuis_dataframe()
@@ -751,7 +752,4 @@ def graphs():
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
-            port=int(os.environ.get('PORT')),
-            debug=False)
-
-# import pdb; pdb.set_trace()
+            port=int(os.environ.get('PORT')))

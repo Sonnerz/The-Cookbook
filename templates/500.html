@@ -1,15 +1,17 @@
 {% extends 'base.html' %}
 
 {% block template_content %}
+<!-- message displayed if user gets a 500 error -->
 <section id="500errorpage">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 text-center mt-5">
-              <h2 class="section-heading text-uppercase">500 Error</h2>
-              <h3 class="section-subheading text-muted mb-5">We apologise for the error. Put the kettle on while we rectify the issue.</h3>
-              <img src="{{ url_for('static', filename='img/global/kettle.png')}}" alt="image of a kettle" title="image of a kettle">
-            </div>
-          </div>
-        </div>
-      </section>
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center mt-5">
+        <h2 class="section-heading text-uppercase">500 Error</h2>
+        <h3 class="section-subheading text-muted mb-5">We apologise for the error. Put the kettle on while we rectify
+          the issue.</h3>
+        <img src="{{ url_for('static', filename='img/global/kettle.png')}}" alt="image of a kettle" title="image of a kettle">
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}

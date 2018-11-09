@@ -502,14 +502,14 @@ $(document).ready(function () {
         success: function (response) {
           $('.initialRecipes').hide();
           $("#searchResult").show();
-          $("h3.section-subheading").html("Recipes without the Allergen: " + allergenpicked);
+          $("h3.section-subheading").html("Recipes searched by Allergen: " + allergenpicked);
           $('#category-select').val("Select a Category");
           $('#cuisine-select').val("Select a Cuisine");
           if (response != "fail") {
             $("#recipeResult").html(response);
           }
           else {
-            $("#recipeResult").html("There were no recipes found without the Allergen <span class='search-param'>" + allergenpicked + "</span>. <br>Try searching again." );
+            $("#recipeResult").html("There were no recipes found with the Allergen <span class='search-param'>" + allergenpicked + "</span>. <br>Try searching again." );
           }
           //scroll window to results
           $('html, body').animate({
