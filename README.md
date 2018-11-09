@@ -121,6 +121,7 @@ My mentor was asked for his advice with regard to the project meeting its requir
 <a id="preface"></a>
 
 # PREFACE
+
 I made three decisions on this project which affected how I created this application.
 The first was my decision to create the app on my local machine rather than cloud9.
 I spend a substantial amount of time at the beginning setting up my environment and it was a steep learning curve.
@@ -138,6 +139,9 @@ The statistical analysis of the project was done with Matplotlib and Pandas. The
 
 There is one outstanding issue - the Allergen search works periodically. If you search for a different allergen it may 'reset' search and work. If you visit another page and revisit the search page the allergen search works again. Further details about this issue can be found in the [Testing documentation](Testing.md)
 
+Account for assessor to view MyRecipes page with mulitple entries:<br>
+username: chefcarol
+password: 123
 
 <a id="strategy"></a>
 
